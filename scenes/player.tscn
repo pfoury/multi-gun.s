@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://1pbxshbpwk1v"]
 
 [ext_resource type="Script" uid="uid://dybqxhbeg0rld" path="res://scenes/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://7t8uloac210m" path="res://scenes/FirstPersonCamera.gd" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eg0p3"]
 
@@ -20,3 +21,4 @@ mesh = SubResource("CapsuleMesh_hyap7")
 [node name="CameraPivot" type="Node3D" parent="." unique_id=874965000]
 
 [node name="FPCamera" type="Camera3D" parent="CameraPivot" unique_id=517064210]
+script = ExtResource("2_g2els")

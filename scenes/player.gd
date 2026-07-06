@@ -1,8 +1,10 @@
 extends CharacterBody3D
 
-const JUMP_VELOCITY = 4.5
+const JUMP_VELOCITY := 4.5
 const SPEED := 8.0
 const MOVE_LERP_WEIGHT := 15.0
+
+@onready var first_person_camera := $CameraPivot/FPCamera
 
 var player_speed: float = SPEED
 
@@ -31,4 +33,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
+	global_rotation.y = first_person_camera.global_rotation.y
+	first_person_camera.rotation.y = 0
+	
 	move_and_slide()

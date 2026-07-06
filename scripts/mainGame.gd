@@ -7,6 +7,6 @@ func _ready() -> void:
 	# For testing purposes
 	var player = player_scene.instantiate()
 	
-	player.global_position = Vector3(0, 10, 0)
+	player.position = Vector3(0, 0, 0)
 	
 	add_child(player)
