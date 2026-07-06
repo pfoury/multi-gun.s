@@ -3,17 +3,21 @@ extends Camera3D
 @export var mouse_sensitivity: Vector2 = Vector2(2.0, 2.0)
 
 @onready var camera_pivot = $".."
+@onready var player = $"../.."
 
 var rotation_velocity: Vector2 = Vector2()
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_multiplayer_authority(str(player.name).to_int())
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
+	
 	if !rotation_velocity.is_zero_approx():
 		var rotation_amount = rotation_velocity * minf(delta * 100, 1)
 
@@ -24,6 +28,8 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not is_multiplayer_authority(): return
+	
 	if event is InputEventMouseMotion:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			rotation_velocity += event.screen_relative / (Vector2)(get_viewport().size / 2) * mouse_sensitivity

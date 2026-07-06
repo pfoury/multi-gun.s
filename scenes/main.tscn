@@ -130,5 +130,9 @@ text = "Join"
 _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")
 spawn_path = NodePath("../Players")
 
+[node name="TestObjectsSpawner" type="MultiplayerSpawner" parent="." unique_id=286082762]
+_spawnable_scenes = PackedStringArray("uid://kr7f1bd47iji")
+spawn_path = NodePath("../Objects")
+
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
