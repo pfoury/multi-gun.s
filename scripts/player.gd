@@ -12,11 +12,19 @@ const MOVE_LERP_WEIGHT := 15.0
 var player_speed: float = SPEED
 
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(str(name).to_int())
+
+
 func _ready() -> void:
-	pass
+	if not is_multiplayer_authority(): return
+	
+	first_person_camera.current = true
 
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
+	
 	# Movement
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -38,6 +46,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
+	
 	global_rotation.y = first_person_camera.global_rotation.y
 	first_person_camera.rotation.y = 0
 	
@@ -45,6 +55,8 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not is_multiplayer_authority(): return
+	
 	if event.is_action_pressed("spawn"):
 		# Setting up raycast from the player's camera
 		var players_cam = first_person_camera.global_position
@@ -72,4 +84,4 @@ func _input(event: InputEvent) -> void:
 			
 			testobject.look_at_from_position(testobject.position, testobject.position - result["normal"], tangent)
 			
-			main_scene.add_child(testobject)
+			main_scene.objects_folder.add_child(testobject)

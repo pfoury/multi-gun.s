@@ -8,7 +8,22 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hyap7"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_ogq8d"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("CameraPivot/FPCamera:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="Player" type="CharacterBody3D" unique_id=698292562]
+collision_layer = 0
 script = ExtResource("1_3vyb7")
 testobject_scene = ExtResource("2_qhqgy")
 
@@ -24,3 +39,10 @@ mesh = SubResource("CapsuleMesh_hyap7")
 
 [node name="FPCamera" type="Camera3D" parent="CameraPivot" unique_id=517064210]
 script = ExtResource("2_g2els")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraPivot/FPCamera" unique_id=1667192173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.44674373)
+mesh = SubResource("BoxMesh_ogq8d")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1655868707]
+replication_config = SubResource("SceneReplicationConfig_qhqgy")

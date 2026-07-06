@@ -31,13 +31,18 @@ size = Vector3(50, 0.5, 50)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ogq8d"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_eg0p3"]
+material = SubResource("StandardMaterial3D_sugp2")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ogq8d"]
 radius = 1.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_eg0p3"]
+material = SubResource("StandardMaterial3D_sugp2")
 radius = 1.5
 height = 3.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ogq8d"]
+font_size = 48
 
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_0wfyh")
@@ -81,3 +86,47 @@ shape = SubResource("SphereShape3D_ogq8d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SolidObjects/Sphere" unique_id=295718741]
 mesh = SubResource("SphereMesh_eg0p3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=591277263]
+
+[node name="MainMenu" type="PanelContainer" parent="CanvasLayer" unique_id=1961143428]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -104.0
+offset_right = 198.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu" unique_id=2091614546]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer" unique_id=307474738]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1425391037]
+layout_mode = 2
+text = "multi gun.s"
+label_settings = SubResource("LabelSettings_ogq8d")
+horizontal_alignment = 1
+
+[node name="Host" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1232004280]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1064252805]
+layout_mode = 2
+text = "Join"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
+_spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")
+spawn_path = NodePath("../Players")
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
