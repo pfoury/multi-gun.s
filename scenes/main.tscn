@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://diek5vbp3i1xy" path="res://scripts/mainGame.gd" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://1pbxshbpwk1v" path="res://scenes/player.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://kr7f1bd47iji" path="res://scenes/testobject.tscn" id="3_jyhfs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -47,6 +48,7 @@ font_size = 48
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_0wfyh")
 player_scene = ExtResource("2_sugp2")
+testobject_scene = ExtResource("3_jyhfs")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=180801174]
 environment = SubResource("Environment_tbgi4")
@@ -124,7 +126,7 @@ text = "Host"
 layout_mode = 2
 text = "Join"
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
 _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")
 spawn_path = NodePath("../Players")
 

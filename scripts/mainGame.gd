@@ -3,6 +3,7 @@ extends Node
 const PORT = 9999
 
 @export var player_scene : PackedScene
+@export var testobject_scene : PackedScene
 
 # Folders
 @onready var players_folder := $Players
@@ -41,3 +42,27 @@ func add_player(peer_id):
 	player.name = str(peer_id)
 	
 	players_folder.add_child(player)
+
+
+func add_test_object(result) -> void:
+	rpc("receive_creation_of_test_object", result)
+
+
+@rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
+func receive_creation_of_test_object(data) -> void:
+	var testobject = testobject_scene.instantiate()
+		
+	if data != {}:
+		testobject.position = data["position"]
+			
+		var normal = data["normal"]
+		
+		var tangent = normal.cross(Vector3.UP)
+		if tangent.length_squared() < 0.0001:
+			tangent = normal.cross(Vector3.RIGHT)
+
+		tangent = tangent.normalized()
+			
+		testobject.look_at_from_position(testobject.position, testobject.position - data["normal"], tangent)
+			
+		objects_folder.add_child(testobject)

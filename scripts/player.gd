@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 			velocity.z = lerp(velocity.z, 0.0, delta * MOVE_LERP_WEIGHT)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
 	global_rotation.y = first_person_camera.global_rotation.y
@@ -69,19 +69,4 @@ func _input(event: InputEvent) -> void:
 		# Getting first intersect with raycast
 		var result = get_world_3d().direct_space_state.intersect_ray(query)
 		
-		var testobject = testobject_scene.instantiate()
-		
-		if result != {}:
-			testobject.position = result["position"]
-			
-			var normal = result["normal"]
-		
-			var tangent = normal.cross(Vector3.UP)
-			if tangent.length_squared() < 0.0001:
-				tangent = normal.cross(Vector3.RIGHT)
-
-			tangent = tangent.normalized()
-			
-			testobject.look_at_from_position(testobject.position, testobject.position - result["normal"], tangent)
-			
-			main_scene.objects_folder.add_child(testobject)
+		main_scene.add_test_object(result)
