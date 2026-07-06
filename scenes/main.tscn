@@ -1,3 +1,50 @@
 [gd_scene format=3 uid="uid://bdfegsh256irq"]
 
-[node name="Main" type="Node" unique_id=742275538]
+[ext_resource type="Script" uid="uid://diek5vbp3i1xy" path="res://scripts/mainGame.gd" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://1pbxshbpwk1v" path="res://scenes/player.tscn" id="2_sugp2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_jyhfs"]
+sky_material = SubResource("ProceduralSkyMaterial_sugp2")
+
+[sub_resource type="Environment" id="Environment_tbgi4"]
+background_mode = 2
+sky = SubResource("Sky_jyhfs")
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eg0p3"]
+size = Vector3(50, 0.5, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
+albedo_texture = ExtResource("1_o5qli")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ogq8d"]
+material = SubResource("StandardMaterial3D_sugp2")
+size = Vector3(50, 0.5, 50)
+
+[node name="MainGame" type="Node" unique_id=742275538]
+script = ExtResource("1_0wfyh")
+player_scene = ExtResource("2_sugp2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=180801174]
+environment = SubResource("Environment_tbgi4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1546634508]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=381869476]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=2123035191]
+shape = SubResource("BoxShape3D_eg0p3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=434441783]
+mesh = SubResource("BoxMesh_ogq8d")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=676607265]
+transform = Transform3D(1, 0, 0, 0, 0.8265167, 0.5629122, 0, -0.5629122, 0.8265167, 0, 3, 7)
