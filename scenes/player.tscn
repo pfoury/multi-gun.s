@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://1pbxshbpwk1v"]
 
-[ext_resource type="Script" uid="uid://dybqxhbeg0rld" path="res://scenes/player.gd" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://7t8uloac210m" path="res://scenes/FirstPersonCamera.gd" id="2_g2els"]
+[ext_resource type="Script" uid="uid://dybqxhbeg0rld" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://7t8uloac210m" path="res://scripts/FirstPersonCamera.gd" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://kr7f1bd47iji" path="res://scenes/testobject.tscn" id="2_qhqgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eg0p3"]
 
@@ -9,6 +10,7 @@
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562]
 script = ExtResource("1_3vyb7")
+testobject_scene = ExtResource("2_qhqgy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1828303792]
 shape = SubResource("CapsuleShape3D_eg0p3")

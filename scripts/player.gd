@@ -4,12 +4,17 @@ const JUMP_VELOCITY := 4.5
 const SPEED := 8.0
 const MOVE_LERP_WEIGHT := 15.0
 
+@export var testobject_scene : PackedScene
+
 @onready var first_person_camera := $CameraPivot/FPCamera
+@onready var main_scene := get_tree().current_scene
 
 var player_speed: float = SPEED
 
+
 func _ready() -> void:
 	pass
+
 
 func _physics_process(delta: float) -> void:
 	# Movement
@@ -37,3 +42,34 @@ func _process(delta: float) -> void:
 	first_person_camera.rotation.y = 0
 	
 	move_and_slide()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("spawn"):
+		# Setting up raycast from the player's camera
+		var players_cam = first_person_camera.global_position
+		var to = players_cam + -first_person_camera.global_transform.basis.z * 1000.0
+		
+		# Creating raycast
+		var query = PhysicsRayQueryParameters3D.create(players_cam, to)
+		query.exclude = [self]
+		
+		# Getting first intersect with raycast
+		var result = get_world_3d().direct_space_state.intersect_ray(query)
+		
+		var testobject = testobject_scene.instantiate()
+		
+		if result != {}:
+			testobject.position = result["position"]
+			
+			var normal = result["normal"]
+		
+			var tangent = normal.cross(Vector3.UP)
+			if tangent.length_squared() < 0.0001:
+				tangent = normal.cross(Vector3.RIGHT)
+
+			tangent = tangent.normalized()
+			
+			testobject.look_at_from_position(testobject.position, testobject.position - result["normal"], tangent)
+			
+			main_scene.add_child(testobject)

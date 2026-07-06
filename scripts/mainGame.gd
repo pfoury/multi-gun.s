@@ -2,6 +2,7 @@ extends Node
 
 @export var player_scene : PackedScene
 
+@onready var players_folder := $Players
 
 func _ready() -> void:
 	# For testing purposes
@@ -9,4 +10,4 @@ func _ready() -> void:
 	
 	player.position = Vector3(0, 0, 0)
 	
-	add_child(player)
+	players_folder.add_child(player)
