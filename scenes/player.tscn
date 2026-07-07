@@ -21,8 +21,14 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("CameraPivot/FPCamera:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("Pivot:scale")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("CameraPivot/FPCamera:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D" unique_id=698292562]
+[node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["Player"]]
 collision_layer = 0
 script = ExtResource("1_3vyb7")
 testobject_scene = ExtResource("2_qhqgy")
