@@ -24,9 +24,15 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("Pivot:scale")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("CameraPivot/FPCamera:position")
+properties/4/path = NodePath("CameraPivot:position")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath("Guns:position")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Guns:rotation")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["Player"]]
 collision_layer = 0
@@ -51,5 +57,11 @@ script = ExtResource("2_g2els")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.44674373)
 mesh = SubResource("BoxMesh_ogq8d")
 
+[node name="Guns" type="Node3D" parent="." unique_id=1911503761]
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1655868707]
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1042724857]
+_spawnable_scenes = PackedStringArray("uid://bxmrs4l4l1xbm")
+spawn_path = NodePath("../Guns")

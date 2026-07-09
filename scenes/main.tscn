@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://1pbxshbpwk1v" path="res://scenes/player.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://kr7f1bd47iji" path="res://scenes/testobject.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bxmrs4l4l1xbm" path="res://scenes/weapons/pistol.tscn" id="4_tbgi4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -49,6 +50,7 @@ font_size = 48
 script = ExtResource("1_0wfyh")
 player_scene = ExtResource("2_sugp2")
 testobject_scene = ExtResource("3_jyhfs")
+pistol_scene = ExtResource("4_tbgi4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=180801174]
 environment = SubResource("Environment_tbgi4")

@@ -3,14 +3,14 @@
 class_name Weapon extends StaticBody3D
 
 # Standard values for weapon
-@export var damage: float = 10.0
-@export var fire_speed: float = 0.2
-@export var fire_type: Array = ["semi", "burst", "auto"]
-@export var reload_speed: float = 1.0
-@export var player_speed_multiplier: float = 1.0
-@export var recoil_strength: float = 2.0
-@export var max_ammo: int = 12
-@export var is_scopable: bool = true
+@export var damage : float = 10.0
+@export var fire_speed : float = 0.2
+@export var fire_type : Array = ["semi", "burst", "auto"]
+@export var reload_speed : float = 1.0
+@export var player_speed_multiplier : float = 1.0
+@export var recoil_strength : float = 2.0
+@export var max_ammo : int = 12
+@export var is_scopable : bool = true
 
 @onready var animations = $AnimationPlayer
 @onready var weapon_pivot = $Pivot

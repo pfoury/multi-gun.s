@@ -4,6 +4,7 @@ const PORT = 9999
 
 @export var player_scene : PackedScene
 @export var testobject_scene : PackedScene
+@export var pistol_scene : PackedScene
 
 # Folders
 @onready var players_folder := $Players
@@ -42,6 +43,8 @@ func add_player(peer_id):
 	player.name = str(peer_id)
 	
 	players_folder.add_child(player)
+	print("меня звать ", peer_id, " и я был создан!")
+	rpc("create_weapon", peer_id)
 
 
 func add_test_object(result) -> void:
@@ -67,3 +70,13 @@ func receive_creation_of_test_object(data) -> void:
 		testobject.name = "testObject" + str(objects_folder.get_child_count())
 		
 		objects_folder.add_child(testobject)
+
+@rpc("call_local", "any_peer", "reliable")
+func create_weapon(data) -> void:
+	print("создается пушка..")
+	print(data)
+	var player = players_folder.get_node(str(data))
+	var pistol = pistol_scene.instantiate()
+	
+	print(players_folder.get_children())
+	player.guns_folder.add_child(pistol)

@@ -7,11 +7,15 @@ const GRAVITY := 15.0
 
 @export var testobject_scene : PackedScene
 
-@onready var first_person_camera := $CameraPivot/FPCamera
 @onready var main_scene := get_tree().current_scene
+# Player's camera
+@onready var camera_pivot := $CameraPivot
+@onready var first_person_camera := camera_pivot.find_child("FPCamera")
 # Player's model
 @onready var player_mesh := $Pivot
 @onready var player_collision := $CollisionShape3D
+# Weapons' folder
+@onready var guns_folder := $Guns
 
 var player_speed: float = SPEED
 var is_crouching: bool
@@ -57,10 +61,12 @@ func _process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
 	global_rotation.y = first_person_camera.global_rotation.y
+	guns_folder.rotation.y -= first_person_camera.rotation.y
 	first_person_camera.rotation.y = 0
 	
 	move_and_slide()
 	update_player_height(delta)
+	update_guns_transform(delta)
 
 
 func _input(event: InputEvent) -> void:
@@ -94,4 +100,9 @@ func update_player_height(delta) -> void:
 
 
 func update_player_camera(delta) -> void:
-	first_person_camera.position.y = lerp(first_person_camera.position.y, player_collision.shape.height / 4, delta * 20)
+	camera_pivot.position.y = lerp(camera_pivot.position.y, player_collision.shape.height / 4, delta * 20)
+
+
+func update_guns_transform(delta) -> void:
+	guns_folder.position = lerp(guns_folder.position, camera_pivot.position, delta * 5)
+	guns_folder.rotation = lerp(guns_folder.rotation, first_person_camera.rotation, delta * 25)

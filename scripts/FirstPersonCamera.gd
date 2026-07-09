@@ -1,6 +1,6 @@
 extends Camera3D
 
-@export var mouse_sensitivity: Vector2 = Vector2(2.0, 2.0)
+@export var mouse_sensitivity : Vector2 = Vector2(2.0, 2.0)
 
 @onready var camera_pivot = $".."
 @onready var player = $"../.."
