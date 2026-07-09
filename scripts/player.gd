@@ -108,6 +108,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"): # Pretty much the same code as the code for spawning
 		main_scene.register_shoot(multiplayer.get_unique_id())
 		
+		guns_folder.get_node("gun").play_shoot_animation()
+		
 		if len(guns_folder.get_children()) != 0:
 			# Setting up raycast from the player's camera
 			var players_cam = first_person_camera.global_position

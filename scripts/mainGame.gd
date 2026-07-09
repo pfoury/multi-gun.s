@@ -2,9 +2,10 @@ extends Node
 
 const PORT = 9999
 
-@export var player_scene : PackedScene
-@export var testobject_scene : PackedScene
-@export var pistol_scene : PackedScene
+@export var player_scene : PackedScene = load("res://scenes/player.tscn")
+@export var testobject_scene : PackedScene = load("res://scenes/temp/temp_enemy.tscn")
+@export var pistol_scene : PackedScene = load("res://scenes/weapons/pistol.tscn")
+@export var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
 
 # Folders
 @onready var players_folder := $Players
@@ -77,6 +78,23 @@ func get_shoot_on(data, peer_id) -> void:
 		result["damage"] = damage
 		
 		rpc("receive_damage_enemy", result)
+		
+		# Creating blood particles
+		
+		var blood_flash_particles = blood_flesh_particles_scene.instantiate()
+		
+		var normal = data["normal"]
+		
+		var tangent = normal.cross(Vector3.UP)
+		if tangent.length_squared() < 0.0001:
+			tangent = normal.cross(Vector3.RIGHT)
+		
+		tangent = tangent.normalized()
+		
+		blood_flash_particles.look_at_from_position(blood_flash_particles.position, blood_flash_particles.position - data["normal"], tangent)
+		blood_flash_particles.position = data["position"]
+		
+		particles_folder.add_child(blood_flash_particles)
 
 
 #region Rpcs
@@ -86,16 +104,7 @@ func receive_creation_of_test_object(data) -> void: # REWORK naming test object
 		
 	if data != {}:
 		testobject.position = data["position"] + Vector3(0, 1, 0)
-			
-		#var normal = data["normal"]
-		#
-		#var tangent = normal.cross(Vector3.UP)
-		#if tangent.length_squared() < 0.0001:
-			#tangent = normal.cross(Vector3.RIGHT)
 		
-		#tangent = tangent.normalized()
-		#
-		#testobject.look_at_from_position(testobject.position, testobject.position - data["normal"], tangent)
 		testobject.name = "testObject" + str(objects_folder.get_child_count())
 		
 		objects_folder.add_child(testobject)
@@ -111,6 +120,9 @@ func receive_damage_enemy(data) -> void:
 
 @rpc("call_local", "any_peer", "unreliable") # Creates object ON ALL clients, but package may be lost
 func receive_player_shoot_animation(data):
+	if data == multiplayer.get_unique_id():
+		return
+	
 	var player = players_folder.get_node(str(data))
 	
 	player.guns_folder.get_node("gun").play_shoot_animation()

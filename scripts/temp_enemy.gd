@@ -27,7 +27,6 @@ func get_damaged(dmg: float) -> void:
 
 
 func change_color() -> void:
-	print(health, MAX_HEALTH)
 	var color_difference = 1.0 - (health / MAX_HEALTH)
 	unique_mat.albedo_color = max_health_color.lerp(LOW_HEALTH_COLOR, color_difference)
 
