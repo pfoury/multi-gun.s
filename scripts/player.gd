@@ -81,7 +81,8 @@ func _input(event: InputEvent) -> void:
 		main_scene.add_test_object(result)
 
 
-func update_player_height(delta) -> void: # TODO: does not work properly. Should be reworked!
+func update_player_height(delta) -> void:
+	# Maybe make like in source games: in the air, "move player up", otherwise "move player down".
 	if is_crouching:
 		player_mesh.scale.y = lerp(player_mesh.scale.y, 0.5, delta * 20)
 		player_collision.shape.height = lerp(player_collision.shape.height, 1.0, delta * 20)

@@ -62,7 +62,8 @@ func receive_creation_of_test_object(data) -> void:
 			tangent = normal.cross(Vector3.RIGHT)
 
 		tangent = tangent.normalized()
-			
+		
 		testobject.look_at_from_position(testobject.position, testobject.position - data["normal"], tangent)
-			
+		testobject.name = "testObject" + str(objects_folder.get_child_count())
+		
 		objects_folder.add_child(testobject)
