@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dybqxhbeg0rld" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://7t8uloac210m" path="res://scripts/FirstPersonCamera.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://df573c87x54if" path="res://scenes/temp/temp_enemy.tscn" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://dbgaoqqj4mgmm" path="res://scenes/particles/dust_walk_particles.tscn" id="3_dqkch"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eg0p3"]
 
@@ -30,11 +31,18 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath("Guns:rotation")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath(".:velocity_length")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:is_walk_timer_stopped")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["Player"]]
 collision_layer = 0
 script = ExtResource("1_3vyb7")
 testobject_scene = ExtResource("2_qhqgy")
+dust_walk_particles_scene = ExtResource("3_dqkch")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1828303792]
 shape = SubResource("CapsuleShape3D_eg0p3")
@@ -58,3 +66,7 @@ replication_config = SubResource("SceneReplicationConfig_qhqgy")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1042724857]
 _spawnable_scenes = PackedStringArray("uid://bxmrs4l4l1xbm")
 spawn_path = NodePath("../Guns")
+
+[node name="WalkTimer" type="Timer" parent="." unique_id=155312434]
+wait_time = 0.2
+one_shot = true

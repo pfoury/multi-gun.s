@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dbgaoqqj4mgmm"]
+
+[ext_resource type="Script" uid="uid://b7e24ha302bvn" path="res://scenes/particles/small_particles.gd" id="1_t81np"]
+
+[sub_resource type="Gradient" id="Gradient_qkvjf"]
+colors = PackedColorArray(0.3403393, 0.34033933, 0.3403393, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hyap7"]
+gradient = SubResource("Gradient_qkvjf")
+
+[sub_resource type="Curve" id="Curve_qeem8"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.21818183, 1), 0.0, 0.0, 0, 0, Vector2(0.53333336, 0.84269667), 1.4261009, 5.8089867, 0, 0, Vector2(0.9818182, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_0a4cv"]
+curve = SubResource("Curve_qeem8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hyap7"]
+lifetime_randomness = 0.18
+particle_flag_align_y = true
+emission_shape_scale = Vector3(0.2, 0.2, 0.23)
+direction = Vector3(0, 0, 1)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 4, 0)
+scale_min = 0.19999999
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_0a4cv")
+color_initial_ramp = SubResource("GradientTexture1D_hyap7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nm4qu"]
+diffuse_mode = 3
+specular_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.8560673, 0.8560673, 0.856067, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_hyur1"]
+material = SubResource("StandardMaterial3D_nm4qu")
+radius = 0.2
+height = 0.4
+radial_segments = 4
+rings = 3
+
+[node name="DustWalkParticles" type="Node3D" unique_id=1879415085]
+script = ExtResource("1_t81np")
+
+[node name="Dust" type="GPUParticles3D" parent="." unique_id=1523525352]
+emitting = false
+amount = 5
+lifetime = 0.4
+explosiveness = 0.78
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_hyap7")
+draw_pass_1 = SubResource("SphereMesh_hyur1")

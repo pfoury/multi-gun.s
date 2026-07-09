@@ -63,6 +63,8 @@ shadow_enabled = true
 
 [node name="Objects" type="Node3D" parent="." unique_id=1876955687]
 
+[node name="Particles" type="Node3D" parent="." unique_id=2113965539]
+
 [node name="SolidObjects" type="Node3D" parent="." unique_id=190564419]
 
 [node name="Ground" type="StaticBody3D" parent="SolidObjects" unique_id=381869476]

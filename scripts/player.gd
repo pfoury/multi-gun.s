@@ -6,15 +6,20 @@ const MOVE_LERP_WEIGHT := 15.0
 const GRAVITY := 15.0
 
 @export var testobject_scene : PackedScene
+@export var dust_walk_particles_scene : PackedScene
+# For MultiplayerSynchronizer
+@export var velocity_length : float
+@export var is_walk_timer_stopped : bool
 
 @onready var main_scene := get_tree().current_scene
+@onready var walk_timer := $WalkTimer
 # Player's camera
 @onready var camera_pivot := $CameraPivot
 @onready var first_person_camera := camera_pivot.find_child("FPCamera")
 # Player's model
 @onready var player_mesh := $Pivot
 @onready var player_collision := $CollisionShape3D
-# Weapons' folder
+# Weapons'
 @onready var guns_folder := $Guns
 
 var player_speed: float = SPEED
@@ -32,6 +37,14 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if velocity_length > 6 and is_walk_timer_stopped:
+		walk_timer.start()
+		var dust_walk_particles = dust_walk_particles_scene.instantiate()
+		
+		dust_walk_particles.position = global_position - Vector3(0.0, 1.0, 0.0)
+		
+		main_scene.particles_folder.add_child(dust_walk_particles)
+	
 	if not is_multiplayer_authority(): return
 	
 	# Movement
@@ -55,6 +68,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = lerp(velocity.x, 0.0, delta * MOVE_LERP_WEIGHT)
 			velocity.z = lerp(velocity.z, 0.0, delta * MOVE_LERP_WEIGHT)
+	
+	# For MultiplayerSynchronizer
+	velocity_length = velocity.length()
+	is_walk_timer_stopped = walk_timer.is_stopped()
 
 
 func _process(delta: float) -> void:

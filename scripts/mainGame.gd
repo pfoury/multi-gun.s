@@ -9,6 +9,7 @@ const PORT = 9999
 # Folders
 @onready var players_folder := $Players
 @onready var objects_folder := $Objects
+@onready var particles_folder := $Particles
 # Menu
 @onready var main_menu_gui := $CanvasLayer/MainMenu
 
