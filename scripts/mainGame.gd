@@ -37,7 +37,7 @@ func _on_join_pressed() -> void:
 	multiplayer.multiplayer_peer = enet_peer
 
 
-func add_player(peer_id):
+func add_player(peer_id) -> void:
 	var player = player_scene.instantiate()
 	
 	player.name = str(peer_id)
@@ -51,9 +51,32 @@ func add_test_object(result) -> void:
 	rpc("receive_creation_of_test_object", result)
 
 
+func register_shoot(data, peer_id) -> void:
+	var result : Dictionary = {
+		"instance_id": data["collider_id"],
+		"instance_name": instance_from_id(data["collider_id"]).name,
+		"peer_id": peer_id,
+		"position": data["position"],
+		"normal": data["normal"],
+		"damage": 0.0
+	}
+	
+	# { "position": (0.111445, 0.25, -2.137829), "normal": (0.0, 1.0, 0.0), "face_index": -1, "collider_id": 38822479419, "collider": Ground:<StaticBody3D#38822479419>, "shape": 0, "rid": RID(4346506903552) }
+	
+	if instance_from_id(result["instance_id"]).is_in_group("enemy"):
+		var player = players_folder.get_node(str(peer_id))
+		
+		var stats = player.guns_folder.get_node("gun").get_stats()
+		var damage = stats["damage"]
+		
+		result["damage"] = damage
+		
+		rpc("receive_damage_enemy", result)
+
+
 #region Rpcs
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
-func receive_creation_of_test_object(data) -> void:
+func receive_creation_of_test_object(data) -> void: # REWORK naming test object
 	var testobject = testobject_scene.instantiate()
 		
 	if data != {}:
@@ -72,10 +95,21 @@ func receive_creation_of_test_object(data) -> void:
 		
 		objects_folder.add_child(testobject)
 
+
+@rpc("call_local", "any_peer", "reliable")
+func receive_damage_enemy(data) -> void:
+	var enemy = objects_folder.get_node(str(data["instance_name"]))
+	
+	if enemy != null:
+		enemy.get_damaged(data["damage"])
+
+
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func create_weapon(data) -> void:
 	var player = players_folder.get_node(str(data))
 	var pistol = pistol_scene.instantiate()
+	
+	pistol.name = "gun"
 	
 	player.guns_folder.add_child(pistol)
 #endregion

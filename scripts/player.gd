@@ -85,6 +85,21 @@ func _input(event: InputEvent) -> void:
 		var result = get_world_3d().direct_space_state.intersect_ray(query)
 		
 		main_scene.add_test_object(result)
+	
+	if event.is_action_pressed("shoot"): # Pretty much the same code as the code for spawning 
+		# Setting up raycast from the player's camera
+		var players_cam = first_person_camera.global_position
+		var to = players_cam + -first_person_camera.global_transform.basis.z * 1000.0
+		
+		# Creating raycast
+		var query = PhysicsRayQueryParameters3D.create(players_cam, to)
+		query.exclude = [self]
+		
+		# Getting first intersect with raycast
+		var result = get_world_3d().direct_space_state.intersect_ray(query)
+		
+		if result != {}:
+			main_scene.register_shoot(result, multiplayer.get_unique_id())
 
 
 func update_player_height(delta) -> void:

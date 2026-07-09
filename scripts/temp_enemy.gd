@@ -1,18 +1,21 @@
 extends StaticBody3D
 
-const END_COLOR : Color = "DIM_GRAY"
+const LOW_HEALTH_COLOR : Color = Color("676767")
 const MAX_HEALTH : float = 150.0
 
-@export var start_color : Color = "Red"
+@export var max_health_color : Color = Color.RED
+@export var health : float = MAX_HEALTH
 
-@onready var mesh := $Pivot/MeshInstance3D
+@onready var enemy_mesh := $Pivot/MeshInstance3D
 
+var unique_mat
 
-var health : float = MAX_HEALTH
-var mesh_color : Color
 
 func _ready() -> void:
-	mesh_color = mesh.mesh.material.albedo_color
+	unique_mat = enemy_mesh.get_active_material(0).duplicate()
+	enemy_mesh.set_surface_override_material(0, unique_mat)
+	
+	change_color()
 
 
 func get_damaged(dmg: float) -> void:
@@ -24,8 +27,9 @@ func get_damaged(dmg: float) -> void:
 
 
 func change_color() -> void:
+	print(health, MAX_HEALTH)
 	var color_difference = 1.0 - (health / MAX_HEALTH)
-	mesh_color = start_color.lerp(END_COLOR, color_difference)
+	unique_mat.albedo_color = max_health_color.lerp(LOW_HEALTH_COLOR, color_difference)
 
 
 func die() -> void:
