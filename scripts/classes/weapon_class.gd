@@ -8,7 +8,7 @@ class_name Weapon extends StaticBody3D
 @export var fire_type : Array = ["semi", "burst", "auto"]
 @export var reload_speed : float = 1.0
 @export var player_speed_multiplier : float = 1.0
-@export var recoil_strength : float = 2.0
+@export var recoil_strength : float = 3.0
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
 
@@ -52,11 +52,15 @@ func play_shoot_animation() -> void:
 	animations.stop()
 	animations.play("shoot")
 	
+	# Creating muzzle flash
 	var muzzle_flash_particles = muzzle_flash_particles_scene.instantiate()
 	
 	muzzle_flash_particles.rotation = muzzle_flash_position.rotation + Vector3(0, PI, 0)
 	
 	muzzle_flash_position.add_child(muzzle_flash_particles)
+	
+	# Adding recoil
+	player.camera_pivot.rotation.x += deg_to_rad(recoil_strength)
 
 
 func play_equip_animation() -> void:

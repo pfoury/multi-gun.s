@@ -25,6 +25,8 @@ func _process(delta: float) -> void:
 		rotation.x = clamp(rotation.x - rotation_amount.y, -PI/2, PI/2)
 
 		rotation_velocity -= rotation_amount
+	
+	update_camera_pivot(delta)
 
 
 func _input(event: InputEvent) -> void:
@@ -33,3 +35,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			rotation_velocity += event.screen_relative / (Vector2)(get_viewport().size / 2) * mouse_sensitivity
+
+
+func update_camera_pivot(delta) -> void: # I'm doing it here because I don't want to have a lot of fucking scripts in this project.
+	camera_pivot.rotation.x = lerp(camera_pivot.rotation.x, 0.0, delta * 5)
