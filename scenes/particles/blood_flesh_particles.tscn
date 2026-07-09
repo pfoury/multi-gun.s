@@ -19,9 +19,8 @@ curve = SubResource("Curve_6xyu4")
 lifetime_randomness = 0.48
 particle_flag_align_y = true
 direction = Vector3(0, 0, 1)
-initial_velocity_min = 3.0
-initial_velocity_max = 5.0
-gravity = Vector3(0, -18, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
 scale_min = 0.5
 scale_max = 0.79999995
 scale_curve = SubResource("CurveTexture_irt5y")
@@ -35,8 +34,8 @@ albedo_color = Color(0.8495599, 3.2969565e-06, 1.540184e-06, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_eg0p3"]
 material = SubResource("StandardMaterial3D_hyap7")
-radius = 0.125
-height = 0.35
+radius = 0.1
+height = 0.2
 radial_segments = 6
 rings = 2
 
@@ -70,7 +69,7 @@ color_initial_ramp = SubResource("GradientTexture1D_6ccdv")
 material = SubResource("StandardMaterial3D_hyap7")
 top_radius = 0.0
 bottom_radius = 0.02
-height = 0.133
+height = 0.1
 radial_segments = 4
 rings = 0
 
@@ -87,6 +86,7 @@ process_material = SubResource("ParticleProcessMaterial_ogq8d")
 draw_pass_1 = SubResource("SphereMesh_eg0p3")
 
 [node name="BLOODTRAILLYEEAAAA" type="GPUParticles3D" parent="." unique_id=1010403788]
+amount = 3
 lifetime = 0.2
 explosiveness = 0.88
 fixed_fps = 0

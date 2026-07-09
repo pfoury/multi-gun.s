@@ -6,6 +6,7 @@ const PORT = 9999
 @export var testobject_scene : PackedScene = load("res://scenes/temp/temp_enemy.tscn")
 @export var pistol_scene : PackedScene = load("res://scenes/weapons/pistol.tscn")
 @export var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
+@export var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
 
 # Folders
 @onready var players_folder := $Players
@@ -67,9 +68,12 @@ func get_shoot_on(data, peer_id) -> void:
 		"damage": 0.0
 	}
 	
-	# { "position": (0.111445, 0.25, -2.137829), "normal": (0.0, 1.0, 0.0), "face_index": -1, "collider_id": 38822479419, "collider": Ground:<StaticBody3D#38822479419>, "shape": 0, "rid": RID(4346506903552) }
+	var particles : Node
 	
+	# Deciding what particles to create
 	if instance_from_id(result["instance_id"]).is_in_group("enemy"):
+		particles = blood_flesh_particles_scene.instantiate()
+		
 		var player = players_folder.get_node(str(peer_id))
 		
 		var stats = player.guns_folder.get_node("gun").get_stats()
@@ -78,23 +82,23 @@ func get_shoot_on(data, peer_id) -> void:
 		result["damage"] = damage
 		
 		rpc("receive_damage_enemy", result)
-		
-		# Creating blood particles
-		
-		var blood_flash_particles = blood_flesh_particles_scene.instantiate()
-		
+	else:
+		particles = dust_hit_particles_scene.instantiate()
+	
+	if particles != null:
+		# Creating particles
 		var normal = data["normal"]
-		
+			
 		var tangent = normal.cross(Vector3.UP)
 		if tangent.length_squared() < 0.0001:
 			tangent = normal.cross(Vector3.RIGHT)
-		
+			
 		tangent = tangent.normalized()
-		
-		blood_flash_particles.look_at_from_position(blood_flash_particles.position, blood_flash_particles.position - data["normal"], tangent)
-		blood_flash_particles.position = data["position"]
-		
-		particles_folder.add_child(blood_flash_particles)
+			
+		particles.look_at_from_position(particles.position, particles.position - data["normal"], tangent)
+		particles.position = data["position"]
+			
+		particles_folder.add_child(particles)
 
 
 #region Rpcs
