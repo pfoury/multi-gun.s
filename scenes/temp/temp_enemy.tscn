@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://df573c87x54if"]
+
+[ext_resource type="Script" uid="uid://c88wdcwfyui5d" path="res://scripts/temp_enemy.gd" id="1_a3aba"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eg0p3"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ogq8d"]
+material = SubResource("StandardMaterial3D_eg0p3")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ogq8d"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_a3aba"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="TempEnemy" type="StaticBody3D" unique_id=1987642248]
+script = ExtResource("1_a3aba")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=955092010]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=583742176]
+mesh = SubResource("CapsuleMesh_ogq8d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1232385411]
+shape = SubResource("CapsuleShape3D_ogq8d")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1802735760]
+replication_config = SubResource("SceneReplicationConfig_a3aba")

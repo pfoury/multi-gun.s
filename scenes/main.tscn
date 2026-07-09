@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://diek5vbp3i1xy" path="res://scripts/mainGame.gd" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://1pbxshbpwk1v" path="res://scenes/player.tscn" id="2_sugp2"]
-[ext_resource type="PackedScene" uid="uid://kr7f1bd47iji" path="res://scenes/testobject.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://df573c87x54if" path="res://scenes/temp/temp_enemy.tscn" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bxmrs4l4l1xbm" path="res://scenes/weapons/pistol.tscn" id="4_tbgi4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
@@ -49,7 +49,7 @@ font_size = 48
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_0wfyh")
 player_scene = ExtResource("2_sugp2")
-testobject_scene = ExtResource("3_jyhfs")
+testobject_scene = ExtResource("2_tbgi4")
 pistol_scene = ExtResource("4_tbgi4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=180801174]
@@ -133,7 +133,7 @@ _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")
 spawn_path = NodePath("../Players")
 
 [node name="TestObjectsSpawner" type="MultiplayerSpawner" parent="." unique_id=286082762]
-_spawnable_scenes = PackedStringArray("uid://kr7f1bd47iji")
+_spawnable_scenes = PackedStringArray("uid://df573c87x54if")
 spawn_path = NodePath("../Objects")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]

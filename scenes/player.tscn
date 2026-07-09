@@ -2,14 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dybqxhbeg0rld" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://7t8uloac210m" path="res://scripts/FirstPersonCamera.gd" id="2_g2els"]
-[ext_resource type="PackedScene" uid="uid://kr7f1bd47iji" path="res://scenes/testobject.tscn" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://df573c87x54if" path="res://scenes/temp/temp_enemy.tscn" id="2_qhqgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eg0p3"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hyap7"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ogq8d"]
-size = Vector3(0.2, 0.2, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
@@ -52,10 +49,6 @@ mesh = SubResource("CapsuleMesh_hyap7")
 [node name="FPCamera" type="Camera3D" parent="CameraPivot" unique_id=517064210]
 fov = 80.0
 script = ExtResource("2_g2els")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraPivot/FPCamera" unique_id=1667192173]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.44674373)
-mesh = SubResource("BoxMesh_ogq8d")
 
 [node name="Guns" type="Node3D" parent="." unique_id=1911503761]
 
