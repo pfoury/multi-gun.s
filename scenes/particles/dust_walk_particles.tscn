@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dbgaoqqj4mgmm"]
 
-[ext_resource type="Script" uid="uid://b7e24ha302bvn" path="res://scenes/particles/small_particles.gd" id="1_t81np"]
+[ext_resource type="Script" uid="uid://b7e24ha302bvn" path="res://scripts/small_particles_class.gd" id="1_t81np"]
 
 [sub_resource type="Gradient" id="Gradient_qkvjf"]
 colors = PackedColorArray(0.3403393, 0.34033933, 0.3403393, 1, 1, 1, 1, 1)
@@ -9,8 +9,8 @@ colors = PackedColorArray(0.3403393, 0.34033933, 0.3403393, 1, 1, 1, 1, 1)
 gradient = SubResource("Gradient_qkvjf")
 
 [sub_resource type="Curve" id="Curve_qeem8"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.21818183, 1), 0.0, 0.0, 0, 0, Vector2(0.53333336, 0.84269667), 1.4261009, 5.8089867, 0, 0, Vector2(0.9818182, 0), 0.0, 0.0, 0, 0]
-point_count = 4
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.14545457, 0.94382024), 0.0, 0.0, 0, 0, Vector2(0.38787884, 0.61797756), 2.3836274, 2.3836274, 0, 0, Vector2(0.6242425, 1), 0.0, 0.0, 0, 0, Vector2(0.9818182, 0), -9.501415, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="CurveTexture" id="CurveTexture_0a4cv"]
 curve = SubResource("Curve_qeem8")
@@ -41,14 +41,14 @@ height = 0.4
 radial_segments = 4
 rings = 3
 
-[node name="DustWalkParticles" type="Node3D" unique_id=1879415085]
+[node name="DustWalkParticles" type="Node3D" unique_id=433115865]
 script = ExtResource("1_t81np")
+metadata/_custom_type_script = "uid://b7e24ha302bvn"
 
 [node name="Dust" type="GPUParticles3D" parent="." unique_id=1523525352]
-emitting = false
 amount = 5
 lifetime = 0.4
-explosiveness = 0.78
+explosiveness = 1.0
 fixed_fps = 0
 process_material = SubResource("ParticleProcessMaterial_hyap7")
 draw_pass_1 = SubResource("SphereMesh_hyur1")

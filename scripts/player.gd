@@ -10,6 +10,7 @@ const GRAVITY := 15.0
 # For MultiplayerSynchronizer
 @export var velocity_length : float
 @export var is_walk_timer_stopped : bool
+@export var is_player_on_floor : bool
 
 @onready var main_scene := get_tree().current_scene
 @onready var walk_timer := $WalkTimer
@@ -37,7 +38,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if velocity_length > 6 and is_walk_timer_stopped:
+	if velocity_length > 6 and is_walk_timer_stopped and is_player_on_floor:
 		walk_timer.start()
 		var dust_walk_particles = dust_walk_particles_scene.instantiate()
 		
@@ -72,6 +73,7 @@ func _physics_process(delta: float) -> void:
 	# For MultiplayerSynchronizer
 	velocity_length = velocity.length()
 	is_walk_timer_stopped = walk_timer.is_stopped()
+	is_player_on_floor = is_on_floor()
 
 
 func _process(delta: float) -> void:

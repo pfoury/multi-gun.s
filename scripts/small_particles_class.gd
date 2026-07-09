@@ -1,4 +1,6 @@
-extends Node3D
+@icon("res://common/icons/ParticlesIcon.svg")
+
+class_name SmallParticles extends Node3D
 
 # This script is made for small particles,
 # such as dust walk, dust hit, etc.
