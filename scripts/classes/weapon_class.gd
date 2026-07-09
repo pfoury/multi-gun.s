@@ -12,10 +12,14 @@ class_name Weapon extends StaticBody3D
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
 
+@export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
+
 @onready var animations = $AnimationPlayer
 @onready var weapon_pivot = $Pivot
 @onready var muzzle_flash_position = weapon_pivot.find_child("MuzzleFlash")
 @onready var fire_timer = $FireTimer
+@onready var guns_folder = $".."
+@onready var player = $"../.."
 
 var stats: Dictionary = {
 	"damage": damage,
@@ -47,6 +51,12 @@ func play_reload_animation() -> void:
 func play_shoot_animation() -> void:
 	animations.stop()
 	animations.play("shoot")
+	
+	var muzzle_flash_particles = muzzle_flash_particles_scene.instantiate()
+	
+	muzzle_flash_particles.rotation = muzzle_flash_position.rotation + Vector3(0, PI, 0)
+	
+	muzzle_flash_position.add_child(muzzle_flash_particles)
 
 
 func play_equip_animation() -> void:

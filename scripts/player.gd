@@ -69,11 +69,6 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = lerp(velocity.x, 0.0, delta * MOVE_LERP_WEIGHT)
 			velocity.z = lerp(velocity.z, 0.0, delta * MOVE_LERP_WEIGHT)
-	
-	# For MultiplayerSynchronizer
-	velocity_length = velocity.length()
-	is_walk_timer_stopped = walk_timer.is_stopped()
-	is_player_on_floor = is_on_floor()
 
 
 func _process(delta: float) -> void:
@@ -82,6 +77,11 @@ func _process(delta: float) -> void:
 	global_rotation.y = first_person_camera.global_rotation.y
 	guns_folder.rotation.y -= first_person_camera.rotation.y
 	first_person_camera.rotation.y = 0
+	
+	# For MultiplayerSynchronizer
+	velocity_length = velocity.length()
+	is_walk_timer_stopped = walk_timer.is_stopped()
+	is_player_on_floor = is_on_floor()
 	
 	move_and_slide()
 	update_player_height(delta)
@@ -105,20 +105,23 @@ func _input(event: InputEvent) -> void:
 		
 		main_scene.add_test_object(result)
 	
-	if event.is_action_pressed("shoot"): # Pretty much the same code as the code for spawning 
-		# Setting up raycast from the player's camera
-		var players_cam = first_person_camera.global_position
-		var to = players_cam + -first_person_camera.global_transform.basis.z * 1000.0
+	if event.is_action_pressed("shoot"): # Pretty much the same code as the code for spawning
+		main_scene.register_shoot(multiplayer.get_unique_id())
 		
-		# Creating raycast
-		var query = PhysicsRayQueryParameters3D.create(players_cam, to)
-		query.exclude = [self]
-		
-		# Getting first intersect with raycast
-		var result = get_world_3d().direct_space_state.intersect_ray(query)
-		
-		if result != {}:
-			main_scene.register_shoot(result, multiplayer.get_unique_id())
+		if len(guns_folder.get_children()) != 0:
+			# Setting up raycast from the player's camera
+			var players_cam = first_person_camera.global_position
+			var to = players_cam + -first_person_camera.global_transform.basis.z * 1000.0
+			
+			# Creating raycast
+			var query = PhysicsRayQueryParameters3D.create(players_cam, to)
+			query.exclude = [self]
+			
+			# Getting first intersect with raycast
+			var result = get_world_3d().direct_space_state.intersect_ray(query)
+			
+			if result != {}:
+				main_scene.get_shoot_on(result, multiplayer.get_unique_id())
 
 
 func update_player_height(delta) -> void:

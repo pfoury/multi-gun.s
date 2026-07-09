@@ -52,7 +52,11 @@ func add_test_object(result) -> void:
 	rpc("receive_creation_of_test_object", result)
 
 
-func register_shoot(data, peer_id) -> void:
+func register_shoot(peer_id) -> void:
+	rpc("receive_player_shoot_animation", peer_id)
+
+
+func get_shoot_on(data, peer_id) -> void:
 	var result : Dictionary = {
 		"instance_id": data["collider_id"],
 		"instance_name": instance_from_id(data["collider_id"]).name,
@@ -97,12 +101,19 @@ func receive_creation_of_test_object(data) -> void: # REWORK naming test object
 		objects_folder.add_child(testobject)
 
 
-@rpc("call_local", "any_peer", "reliable")
+@rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func receive_damage_enemy(data) -> void:
 	var enemy = objects_folder.get_node(str(data["instance_name"]))
 	
 	if enemy != null:
 		enemy.get_damaged(data["damage"])
+
+
+@rpc("call_local", "any_peer", "unreliable") # Creates object ON ALL clients, but package may be lost
+func receive_player_shoot_animation(data):
+	var player = players_folder.get_node(str(data))
+	
+	player.guns_folder.get_node("gun").play_shoot_animation()
 
 
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients

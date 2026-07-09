@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dbgaoqqj4mgmm"]
 
-[ext_resource type="Script" uid="uid://b7e24ha302bvn" path="res://scripts/small_particles_class.gd" id="1_t81np"]
+[ext_resource type="Script" uid="uid://b7e24ha302bvn" path="res://scripts/classes/small_particles_class.gd" id="1_t81np"]
 
 [sub_resource type="Gradient" id="Gradient_qkvjf"]
 colors = PackedColorArray(0.3403393, 0.34033933, 0.3403393, 1, 1, 1, 1, 1)
