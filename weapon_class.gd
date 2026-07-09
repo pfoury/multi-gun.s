@@ -12,8 +12,10 @@ class_name Weapon extends StaticBody3D
 @export var max_ammo: int = 12
 @export var is_scopable: bool = true
 
-# @onready var animations = 
-# @onready var particles_position = 
+@onready var animations = $AnimationPlayer
+@onready var weapon_pivot = $Pivot
+@onready var muzzle_flash_position = weapon_pivot.find_child("MuzzleFlash")
+@onready var fire_timer = $FireTimer
 
 var stats: Dictionary = {
 	"damage": damage,
@@ -26,9 +28,27 @@ var stats: Dictionary = {
 	"is_scopable": is_scopable
 }
 
+
 func _ready() -> void:
-	pass
+	fire_timer.wait_time = fire_speed
+	animations.play("RESET")
+	play_equip_animation()
 
 
 func get_stats() ->  Dictionary:
 	return stats
+
+
+#region Animations
+func play_reload_animation() -> void:
+	animations.play("reload")
+
+
+func play_shoot_animation() -> void:
+	animations.stop()
+	animations.play("shoot")
+
+
+func play_equip_animation() -> void:
+	animations.play("equip")
+#endregion
