@@ -136,9 +136,11 @@ func receive_player_shoot_animation(data):
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func create_weapon() -> void:
 	var player = players_folder.get_node(str(multiplayer.get_unique_id()))
-	var pistol = pistol_scene.instantiate()
 	
-	pistol.name = "gun"
-	
-	player.guns_folder.add_child(pistol, true)
+	if not player.guns_folder.get_child_count():
+		var pistol = pistol_scene.instantiate()
+		
+		pistol.name = "gun"
+		
+		player.guns_folder.add_child(pistol, true)
 #endregion

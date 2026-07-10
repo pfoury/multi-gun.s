@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://hg2swyl4hiuu"
-path="res://.godot/imported/TEMP_awp_02.wav-04d5efa1ec67a88e2205a53fecacaea0.sample"
+path="res://.godot/imported/TEMP_2.wav-cbdde5fbab9d81c1bfc30c2b5c5da2da.sample"
 
 [deps]
 
-source_file="res://common/sounds/sniper_rifle/TEMP_awp_02.wav"
-dest_files=["res://.godot/imported/TEMP_awp_02.wav-04d5efa1ec67a88e2205a53fecacaea0.sample"]
+source_file="res://common/sounds/sniper_rifle/TEMP_2.wav"
+dest_files=["res://.godot/imported/TEMP_2.wav-cbdde5fbab9d81c1bfc30c2b5c5da2da.sample"]
 
 [params]
 

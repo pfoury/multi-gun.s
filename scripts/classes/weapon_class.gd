@@ -11,8 +11,9 @@ class_name Weapon extends StaticBody3D
 @export var recoil_strength : float = 1.35
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
-
+# Scenes
 @export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
+@export var shooting_sound_scene : PackedScene = load("res://scenes/sounds/pistol_sounds.tscn")
 
 @onready var animations = $AnimationPlayer
 @onready var weapon_pivot = $Pivot
@@ -107,6 +108,11 @@ func play_shoot_animation() -> void:
 	
 	# Adding recoil
 	player.camera_pivot.rotation.x += deg_to_rad(recoil_strength)
+	
+	# Playing shoot sound
+	var shooting_sound = shooting_sound_scene.instantiate()
+	
+	add_child(shooting_sound)
 
 
 func play_equip_animation() -> void:
