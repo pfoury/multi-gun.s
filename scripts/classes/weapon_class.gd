@@ -17,7 +17,7 @@ class_name Weapon extends StaticBody3D
 
 @onready var animations = $AnimationPlayer
 @onready var weapon_pivot = $Pivot
-@onready var muzzle_flash_position = weapon_pivot.find_child("MuzzleFlash")
+@onready var muzzle_flash_pivot = weapon_pivot.find_child("MuzzleFlashPivot")
 @onready var fire_timer = $FireTimer
 @onready var guns_folder = $".."
 @onready var player = $"../.."
@@ -96,15 +96,15 @@ func play_reload_animation() -> void:
 
 
 func play_shoot_animation() -> void:
-	animations.stop()
 	animations.play("shoot")
 	
 	# Creating muzzle flash
 	var muzzle_flash_particles = muzzle_flash_particles_scene.instantiate()
 	
-	muzzle_flash_particles.rotation = muzzle_flash_position.rotation + Vector3(0, PI, 0)
+	muzzle_flash_particles.rotation = muzzle_flash_pivot.rotation + Vector3(0, PI, 0)
+	muzzle_flash_particles.position = muzzle_flash_pivot.global_position
 	
-	muzzle_flash_position.add_child(muzzle_flash_particles)
+	player.main_scene.particles_folder.add_child(muzzle_flash_particles)
 	
 	# Adding recoil
 	player.camera_pivot.rotation.x += deg_to_rad(recoil_strength)

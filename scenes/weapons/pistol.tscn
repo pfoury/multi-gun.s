@@ -125,7 +125,7 @@ mesh = SubResource("BoxMesh_ogq8d")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.10137302, -0.26023543)
 mesh = SubResource("BoxMesh_ogq8d")
 
-[node name="MuzzleFlash" type="Node3D" parent="Pivot" unique_id=991664061]
+[node name="MuzzleFlashPivot" type="Node3D" parent="Pivot" unique_id=991664061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15012154, -0.45462745)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=620906404]
