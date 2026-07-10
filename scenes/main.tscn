@@ -46,6 +46,9 @@ height = 3.0
 [sub_resource type="LabelSettings" id="LabelSettings_ogq8d"]
 font_size = 48
 
+[sub_resource type="LabelSettings" id="LabelSettings_eg0p3"]
+font_size = 48
+
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_0wfyh")
 player_scene = ExtResource("2_sugp2")
@@ -93,9 +96,9 @@ shape = SubResource("SphereShape3D_ogq8d")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SolidObjects/Sphere" unique_id=295718741]
 mesh = SubResource("SphereMesh_eg0p3")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=591277263]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=591277263]
 
-[node name="MainMenu" type="PanelContainer" parent="CanvasLayer" unique_id=1961143428]
+[node name="MainMenu" type="PanelContainer" parent="HUD" unique_id=1961143428]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -108,27 +111,65 @@ offset_bottom = 104.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu" unique_id=2091614546]
+[node name="MarginContainer" type="MarginContainer" parent="HUD/MainMenu" unique_id=2091614546]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer" unique_id=307474738]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MainMenu/MarginContainer" unique_id=307474738]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1425391037]
+[node name="Label" type="Label" parent="HUD/MainMenu/MarginContainer/VBoxContainer" unique_id=1425391037]
 layout_mode = 2
 text = "multi gun.s"
 label_settings = SubResource("LabelSettings_ogq8d")
 horizontal_alignment = 1
 
-[node name="Host" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1232004280]
+[node name="Host" type="Button" parent="HUD/MainMenu/MarginContainer/VBoxContainer" unique_id=1232004280]
 layout_mode = 2
 text = "Host"
 
-[node name="Join" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1064252805]
+[node name="Join" type="Button" parent="HUD/MainMenu/MarginContainer/VBoxContainer" unique_id=1064252805]
 layout_mode = 2
 text = "Join"
+
+[node name="PlayerHUD" type="Control" parent="HUD" unique_id=1236664917]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AmmoCounter" type="Label" parent="HUD/PlayerHUD" unique_id=1443145556]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -116.0
+offset_right = 324.0
+grow_vertical = 0
+text = "Huina / Huina"
+label_settings = SubResource("LabelSettings_eg0p3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FireType" type="Label" parent="HUD/PlayerHUD" unique_id=514329022]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -307.0
+offset_top = -109.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Zalupa"
+label_settings = SubResource("LabelSettings_eg0p3")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
 _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")
@@ -138,5 +179,5 @@ spawn_path = NodePath("../Players")
 _spawnable_scenes = PackedStringArray("uid://df573c87x54if")
 spawn_path = NodePath("../Objects")
 
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="HUD/MainMenu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="HUD/MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]

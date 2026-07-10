@@ -4,11 +4,11 @@ class_name Weapon extends StaticBody3D
 
 # Standard values for weapon
 @export var damage : float = 10.0
-@export var fire_speed : float = 0.2
+@export var fire_speed : float = 0.1
 @export var fire_type : Array = ["semi", "burst", "auto"]
 @export var reload_speed : float = 1.0
 @export var player_speed_multiplier : float = 1.0
-@export var recoil_strength : float = 3.0
+@export var recoil_strength : float = 1.35
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
 
@@ -21,7 +21,7 @@ class_name Weapon extends StaticBody3D
 @onready var guns_folder = $".."
 @onready var player = $"../.."
 
-var stats: Dictionary = {
+var stats : Dictionary = {
 	"damage": damage,
 	"fire_speed": fire_speed,
 	"fire_type": fire_type,
@@ -31,16 +31,62 @@ var stats: Dictionary = {
 	"max_ammo": max_ammo,
 	"is_scopable": is_scopable
 }
-
+var ammo : int = max_ammo
+var player_hud : Node
 
 func _ready() -> void:
 	fire_timer.wait_time = fire_speed
-	animations.play("RESET")
 	play_equip_animation()
+	
+	# Working with player's HUD
+	player_hud = player.main_scene.player_hud
+	change_ammo_counter()
+	change_fire_type()
+	player_hud.show()
 
 
-func get_stats() ->  Dictionary:
+func get_stats() -> Dictionary:
 	return stats
+
+
+func get_fire_type() -> Array:
+	return fire_type
+
+
+func is_gun_ready() -> bool:
+	return (fire_timer.is_stopped() and ammo > 0)
+
+
+func change_ammo_counter() -> void:
+	player_hud.get_node("AmmoCounter").text = str(ammo) + " / " + str(max_ammo)
+
+
+func change_fire_type() -> void:
+	player_hud.get_node("FireType").text = str(fire_type[0])
+
+
+func fire() -> void:
+	if ammo < 1: return
+	ammo -= 1
+	
+	fire_timer.start()
+	
+	player.main_scene.register_shoot(multiplayer.get_unique_id())
+	
+	play_shoot_animation()
+	# Setting up raycast from the player's camera
+	var players_cam = player.first_person_camera.global_position
+	var to = players_cam + -player.first_person_camera.global_transform.basis.z * 1000.0
+	
+	# Creating raycast
+	var query = PhysicsRayQueryParameters3D.create(players_cam, to)
+	query.exclude = [self]
+	
+	# Getting first intersect with raycast
+	var result = get_world_3d().direct_space_state.intersect_ray(query)
+	
+	if result != {}:
+		player.main_scene.get_shoot_on(result, multiplayer.get_unique_id())
 
 
 #region Animations

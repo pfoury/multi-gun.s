@@ -12,8 +12,9 @@ const PORT = 9999
 @onready var players_folder := $Players
 @onready var objects_folder := $Objects
 @onready var particles_folder := $Particles
-# Menu
-@onready var main_menu_gui := $CanvasLayer/MainMenu
+# HUD
+@onready var main_menu_gui := $HUD/MainMenu
+@onready var player_hud := $HUD/PlayerHUD
 
 var enet_peer = ENetMultiplayerPeer.new()
 
@@ -47,7 +48,7 @@ func add_player(peer_id) -> void:
 	
 	players_folder.add_child(player)
 	print("меня звать ", peer_id, " и я был создан!")
-	rpc("create_weapon", peer_id)
+	rpc("create_weapon")
 
 
 func add_test_object(result) -> void:
@@ -104,14 +105,14 @@ func get_shoot_on(data, peer_id) -> void:
 #region Rpcs
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func receive_creation_of_test_object(data) -> void: # REWORK naming test object
-	var testobject = testobject_scene.instantiate()
-		
 	if data != {}:
-		testobject.position = data["position"] + Vector3(0, 1, 0)
+		var testobject = testobject_scene.instantiate()
 		
-		testobject.name = "testObject" + str(objects_folder.get_child_count())
+		testobject.position = data["position"] + Vector3(0.0, 1.0, 0.0)
 		
-		objects_folder.add_child(testobject)
+		testobject.name = "testObject" + str(objects_folder.get_child_count() + 1)
+		
+		objects_folder.add_child(testobject, true)
 
 
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
@@ -133,11 +134,11 @@ func receive_player_shoot_animation(data):
 
 
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
-func create_weapon(data) -> void:
-	var player = players_folder.get_node(str(data))
+func create_weapon() -> void:
+	var player = players_folder.get_node(str(multiplayer.get_unique_id()))
 	var pistol = pistol_scene.instantiate()
 	
 	pistol.name = "gun"
 	
-	player.guns_folder.add_child(pistol)
+	player.guns_folder.add_child(pistol, true)
 #endregion
