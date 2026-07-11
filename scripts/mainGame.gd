@@ -7,6 +7,7 @@ const PORT = 9999
 @export var pistol_scene : PackedScene = load("res://scenes/weapons/pistol.tscn")
 @export var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
 @export var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
+@export var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
 
 # Folders
 @onready var players_folder := $Players
@@ -88,6 +89,17 @@ func get_shoot_on(data, peer_id) -> void:
 			result["damage"] = damage
 			
 			rpc("receive_damage_enemy", result)
+			
+			var hit_indicator_particles = hit_indicator_particles_scene.instantiate()
+			
+			hit_indicator_particles.position = result["position"]
+			
+			particles_folder.add_child(hit_indicator_particles)
+			
+			# Getting numbers node to change text on it
+			var hit_indicator_numbers = hit_indicator_particles.get_node("Numbers")
+			
+			hit_indicator_numbers.draw_pass_1.text = str(int(damage))
 		else:
 			rpc("receive_corpse_push", result)
 	else:

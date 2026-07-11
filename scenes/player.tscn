@@ -44,7 +44,7 @@ properties/10/spawn = true
 properties/10/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["Player"]]
-collision_layer = 0
+collision_layer = 2
 script = ExtResource("1_3vyb7")
 dust_walk_particles_scene = ExtResource("3_dqkch")
 

@@ -31,6 +31,7 @@ func _process(_delta: float) -> void:
 
 func get_damaged(data) -> void: # Getting called with rpc (everyone sees it)
 	health -= data["damage"]
+	regen_timer.start()
 	if health <= 0:
 		die(data)
 	else:
@@ -74,9 +75,14 @@ func die(data):
 func _on_regen_timer_timeout() -> void:
 	is_regen_timer_ready = true
 	
+	health += MAX_HEALTH / 10.0
+	
+	change_color()
+	
 	# Creating health regeneration particles
-	var health_regeneration_particles = health_regeneration_particles_scene.instantiate()
-	
-	health_regeneration_particles.position = global_position
-	
-	main_scene.particles_folder.add_child(health_regeneration_particles)
+	if randi_range(1, 2) == 2: # Creating with 50% chance
+		var health_regeneration_particles = health_regeneration_particles_scene.instantiate()
+		
+		health_regeneration_particles.position = global_position
+		
+		main_scene.particles_folder.add_child(health_regeneration_particles)
