@@ -22,9 +22,8 @@ scale_min = 0.5
 scale_curve = SubResource("CurveTexture_irt5y")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
+no_depth_test = true
 shading_mode = 0
-disable_ambient_light = true
-disable_fog = true
 
 [sub_resource type="TextMesh" id="TextMesh_eg0p3"]
 material = SubResource("StandardMaterial3D_hyap7")
