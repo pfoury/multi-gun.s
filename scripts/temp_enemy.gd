@@ -1,7 +1,7 @@
-extends StaticBody3D
+extends RigidBody3D
 
 const LOW_HEALTH_COLOR : Color = Color("676767")
-const MAX_HEALTH : float = 150.0
+const MAX_HEALTH : float = 100.0
 
 @export var max_health_color : Color = Color.RED
 @export var health : float = MAX_HEALTH

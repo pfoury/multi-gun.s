@@ -19,10 +19,6 @@ const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
 
 
-func _ready() -> void:
-	pass
-
-
 func _on_host_pressed() -> void:
 	main_menu_gui.hide()
 	
@@ -83,13 +79,17 @@ func get_shoot_on(data, peer_id) -> void:
 		var player = players_folder.get_node(str(peer_id))
 		
 		var stats = player.guns_folder.get_node("gun").get_stats()
-		var damage = stats["damage"]
 		var push_force = stats["push_force"]
 		
-		result["damage"] = damage
 		result["push_force"] = push_force
 		
-		rpc("receive_damage_enemy", result)
+		if not instance_from_id(result["instance_id"]).is_in_group("corpse"):
+			var damage = stats["damage"]
+			result["damage"] = damage
+			
+			rpc("receive_damage_enemy", result)
+		else:
+			rpc("receive_corpse_push", result)
 	else:
 		particles = dust_hit_particles_scene.instantiate()
 	
@@ -128,6 +128,25 @@ func receive_damage_enemy(data) -> void:
 	
 	if enemy != null:
 		enemy.get_damaged(data)
+
+
+@rpc("call_local", "any_peer", "reliable")
+func receive_corpse_push(data):
+	var corpse = objects_folder.get_node(str(data["instance_name"]))
+	
+	if corpse != null:
+		var push_dir = -data["normal"]
+	
+		var push_force = data["push_force"]
+		
+		corpse.apply_impulse(Vector3(0, 5, 0) + push_dir * push_force * 2)
+		corpse.apply_torque_impulse(
+			Vector3(
+				randi_range(-2, 2),
+				randi_range(-2, 2),
+				randi_range(-2, 2)
+			)
+		)
 
 
 @rpc("call_local", "any_peer", "unreliable") # Creates object ON ALL clients, but package may be lost

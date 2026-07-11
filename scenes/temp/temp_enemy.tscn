@@ -18,7 +18,7 @@ properties/1/path = NodePath(".:health")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="TempEnemy" type="StaticBody3D" unique_id=1987642248 groups=["enemy"]]
+[node name="TempEnemy" type="RigidBody3D" unique_id=735377237 groups=["enemy"]]
 script = ExtResource("1_a3aba")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=955092010]
