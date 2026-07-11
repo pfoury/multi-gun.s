@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cnwsgu5s70up1"]
+
+[ext_resource type="Script" uid="uid://du27wxqw35ae1" path="res://scripts/corpse.gd" id="1_liquy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ogq8d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
+albedo_color = Color(0.40392157, 0.40392157, 0.40392157, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eg0p3"]
+material = SubResource("StandardMaterial3D_hyap7")
+
+[node name="Corpse" type="RigidBody3D" unique_id=716167798 groups=["corpse"]]
+script = ExtResource("1_liquy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=233889179]
+shape = SubResource("CapsuleShape3D_ogq8d")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=694560730]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1110501738]
+mesh = SubResource("CapsuleMesh_eg0p3")
+
+[node name="DieTimer" type="Timer" parent="." unique_id=1293493183]
+wait_time = 2.5
+one_shot = true
+
+[connection signal="timeout" from="DieTimer" to="." method="_on_die_timer_timeout"]

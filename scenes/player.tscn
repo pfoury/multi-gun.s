@@ -40,6 +40,9 @@ properties/8/replication_mode = 1
 properties/9/path = NodePath(".:is_player_on_floor")
 properties/9/spawn = true
 properties/9/replication_mode = 1
+properties/10/path = NodePath("CameraPivot:rotation")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["Player"]]
 collision_layer = 0

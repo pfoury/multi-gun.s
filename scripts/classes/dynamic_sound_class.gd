@@ -6,6 +6,7 @@ class_name DynamicSound extends AudioStreamPlayer3D
 
 
 func _ready() -> void:
+	@warning_ignore("integer_division")
 	var file_count = DirAccess.get_files_at(folder_path).size() / 2
 	
 	# Choosing which audio to play

@@ -23,10 +23,10 @@ const GRAVITY := 15.0
 # Weapons'
 @onready var guns_folder := $Guns
 
-var player_speed: float = SPEED
-var is_crouching: bool
+var player_speed : float = SPEED
+var is_crouching : bool
 var gun_node : Node
-
+var gun_fire_type : String = ""
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
@@ -88,10 +88,10 @@ func _process(delta: float) -> void:
 	# Shoot
 	# Checking if player does have a gun
 	if gun_node != null and gun_node.is_gun_ready():
-		var gun_fire_type = gun_node.get_fire_type()[0]
-		
 		# Fire type for each gun fire type (duh)
-		if Input.is_action_just_pressed("shoot"):
+		if Input.is_action_pressed("shoot") and gun_fire_type == "auto":
+			gun_node.fire()
+		elif Input.is_action_just_pressed("shoot"):
 			match gun_fire_type:
 				"semi":
 					gun_node.fire()
@@ -99,16 +99,17 @@ func _process(delta: float) -> void:
 					for amount_of_fires in range(3):
 						gun_node.fire()
 						await get_tree().create_timer(0.05).timeout
-		elif Input.is_action_pressed("shoot") and gun_fire_type == "auto":
-			gun_node.fire()
+				var unknown_fire_type:
+					print("what the fuck is ", unknown_fire_type)
 	
 	move_and_slide()
 	update_player_height(delta)
 	update_guns_transform(delta)
 
 
-func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun node when created
+func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
 	gun_node = node
+	gun_fire_type = gun_node.get_fire_type()[0]
 
 
 func _input(event: InputEvent) -> void:

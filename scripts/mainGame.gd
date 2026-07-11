@@ -70,7 +70,8 @@ func get_shoot_on(data, peer_id) -> void:
 		"peer_id": peer_id,
 		"position": data["position"],
 		"normal": data["normal"],
-		"damage": 0.0
+		"damage": 0.0,
+		"push_force": 0.0
 	}
 	
 	var particles : Node
@@ -83,8 +84,10 @@ func get_shoot_on(data, peer_id) -> void:
 		
 		var stats = player.guns_folder.get_node("gun").get_stats()
 		var damage = stats["damage"]
+		var push_force = stats["push_force"]
 		
 		result["damage"] = damage
+		result["push_force"] = push_force
 		
 		rpc("receive_damage_enemy", result)
 	else:
@@ -124,7 +127,7 @@ func receive_damage_enemy(data) -> void:
 	var enemy = objects_folder.get_node(str(data["instance_name"]))
 	
 	if enemy != null:
-		enemy.get_damaged(data["damage"])
+		enemy.get_damaged(data)
 
 
 @rpc("call_local", "any_peer", "unreliable") # Creates object ON ALL clients, but package may be lost

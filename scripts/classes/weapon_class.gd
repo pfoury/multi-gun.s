@@ -8,6 +8,7 @@ class_name Weapon extends StaticBody3D
 @export var fire_type : Array = ["semi", "burst", "auto"]
 @export var reload_speed : float = 1.0
 @export var player_speed_multiplier : float = 1.0
+@export var push_force : float = 2.0
 @export var recoil_strength : float = 1.35
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
@@ -29,6 +30,7 @@ var stats : Dictionary = {
 	"reload_speed": reload_speed,
 	"player_speed_multiplier": player_speed_multiplier,
 	"recoil_strength": recoil_strength,
+	"push_force": push_force,
 	"max_ammo": max_ammo,
 	"is_scopable": is_scopable
 }
@@ -96,6 +98,7 @@ func fire() -> void:
 	change_ammo_counter()
 	
 	fire_timer.start()
+	is_reloading = false
 	
 	player.main_scene.play_shoot_animation()
 	
