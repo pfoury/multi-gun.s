@@ -73,3 +73,5 @@ spawn_path = NodePath("../Guns")
 [node name="WalkTimer" type="Timer" parent="." unique_id=155312434]
 wait_time = 0.2
 one_shot = true
+
+[connection signal="child_entered_tree" from="Guns" to="." method="_on_guns_child_entered_tree"]

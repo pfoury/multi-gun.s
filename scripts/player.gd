@@ -25,6 +25,7 @@ const GRAVITY := 15.0
 
 var player_speed: float = SPEED
 var is_crouching: bool
+var gun_node : Node
 
 
 func _enter_tree() -> void:
@@ -86,25 +87,28 @@ func _process(delta: float) -> void:
 	# Input
 	# Shoot
 	# Checking if player does have a gun
-	var gun = guns_folder.get_node("gun")
-	if gun != null and gun.is_gun_ready():
-		var gun_fire_type = gun.get_fire_type()[0]
+	if gun_node != null and gun_node.is_gun_ready():
+		var gun_fire_type = gun_node.get_fire_type()[0]
 		
 		# Fire type for each gun fire type (duh)
 		if Input.is_action_just_pressed("shoot"):
 			match gun_fire_type:
 				"semi":
-					gun.fire()
+					gun_node.fire()
 				"burst":
 					for amount_of_fires in range(3):
-						gun.fire()
+						gun_node.fire()
 						await get_tree().create_timer(0.05).timeout
 		elif Input.is_action_pressed("shoot") and gun_fire_type == "auto":
-			gun.fire()
+			gun_node.fire()
 	
 	move_and_slide()
 	update_player_height(delta)
 	update_guns_transform(delta)
+
+
+func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun node when created
+	gun_node = node
 
 
 func _input(event: InputEvent) -> void:
@@ -123,6 +127,9 @@ func _input(event: InputEvent) -> void:
 		var result = get_world_3d().direct_space_state.intersect_ray(query)
 		
 		main_scene.add_test_object(result)
+	
+	if event.is_action_pressed("reload") and gun_node != null and not gun_node.is_gun_reloading():
+		gun_node.reload()
 
 
 func update_player_height(delta) -> void:

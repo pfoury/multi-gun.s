@@ -15,7 +15,7 @@ class_name Weapon extends StaticBody3D
 @export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
 @export var shooting_sound_scene : PackedScene = load("res://scenes/sounds/pistol_sounds.tscn")
 
-@onready var animations = $AnimationPlayer
+@onready var animations := $AnimationPlayer
 @onready var weapon_pivot = $Pivot
 @onready var muzzle_flash_pivot = weapon_pivot.find_child("MuzzleFlashPivot")
 @onready var fire_timer = $FireTimer
@@ -34,6 +34,7 @@ var stats : Dictionary = {
 }
 var ammo : int = max_ammo
 var player_hud : Node
+var is_reloading : bool = false
 
 func _ready() -> void:
 	fire_timer.wait_time = fire_speed
@@ -58,6 +59,10 @@ func is_gun_ready() -> bool:
 	return (fire_timer.is_stopped() and ammo > 0)
 
 
+func is_gun_reloading() -> bool:
+	return is_reloading
+
+
 func change_ammo_counter() -> void:
 	player_hud.get_node("AmmoCounter").text = str(ammo) + " / " + str(max_ammo)
 
@@ -66,15 +71,36 @@ func change_fire_type() -> void:
 	player_hud.get_node("FireType").text = str(fire_type[0])
 
 
+func reload() -> void:
+	if ammo == max_ammo: return
+	
+	player.main_scene.play_reload_animation()
+	
+	is_reloading = true
+	play_reload_animation()
+	
+	await get_tree().create_timer(reload_speed / 2).timeout
+	
+	# Checking if current animation is still reloading
+	if animations.get_current_animation() == "reload":
+		ammo = max_ammo
+		change_ammo_counter()
+	
+	is_reloading = false
+
+
 func fire() -> void:
 	if ammo < 1: return
 	ammo -= 1
 	
+	change_ammo_counter()
+	
 	fire_timer.start()
 	
-	player.main_scene.register_shoot(multiplayer.get_unique_id())
+	player.main_scene.play_shoot_animation()
 	
 	play_shoot_animation()
+	
 	# Setting up raycast from the player's camera
 	var players_cam = player.first_person_camera.global_position
 	var to = players_cam + -player.first_person_camera.global_transform.basis.z * 1000.0
@@ -92,16 +118,18 @@ func fire() -> void:
 
 #region Animations
 func play_reload_animation() -> void:
+	animations.play("RESET")
 	animations.play("reload")
 
 
 func play_shoot_animation() -> void:
+	animations.play("RESET")
 	animations.play("shoot")
 	
 	# Creating muzzle flash
 	var muzzle_flash_particles = muzzle_flash_particles_scene.instantiate()
 	
-	muzzle_flash_particles.rotation = muzzle_flash_pivot.rotation + Vector3(0, PI, 0)
+	muzzle_flash_particles.rotation = muzzle_flash_pivot.global_rotation
 	muzzle_flash_particles.position = muzzle_flash_pivot.global_position
 	
 	player.main_scene.particles_folder.add_child(muzzle_flash_particles)

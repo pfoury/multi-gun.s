@@ -12,11 +12,11 @@ curve = SubResource("Curve_3r16n")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ogq8d"]
 lifetime_randomness = 0.4
 particle_flag_align_y = true
-emission_shape_offset = Vector3(0, 0, 0.17)
+emission_shape_offset = Vector3(0, 0, -0.17)
 emission_shape_scale = Vector3(0.015, 0.02, 0.15)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
-direction = Vector3(0, 0, 1)
+direction = Vector3(0, 0, -1)
 spread = 20.0
 initial_velocity_min = 6.0
 initial_velocity_max = 10.0
@@ -47,7 +47,7 @@ curve = SubResource("Curve_ppsfj")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eg0p3"]
 lifetime_randomness = 0.5
 particle_flag_align_y = true
-direction = Vector3(0, 0, 1)
+direction = Vector3(0, 0, -1)
 spread = 90.0
 initial_velocity_min = 5.0
 initial_velocity_max = 10.0
@@ -76,7 +76,7 @@ metadata/_custom_type_script = "uid://b7e24ha302bvn"
 [node name="Clouds" type="GPUParticles3D" parent="." unique_id=1616857875]
 transform = Transform3D(1, 0, 0, 0, 0.9999992, 0.001262594, 0, -0.001262594, 0.9999992, 0, 0, 0)
 amount = 10
-lifetime = 0.09999999999999999
+lifetime = 0.1
 explosiveness = 1.0
 fixed_fps = 0
 process_material = SubResource("ParticleProcessMaterial_ogq8d")

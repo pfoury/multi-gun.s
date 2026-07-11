@@ -55,8 +55,12 @@ func add_test_object(result) -> void:
 	rpc("receive_creation_of_test_object", result)
 
 
-func register_shoot(peer_id) -> void:
-	rpc("receive_player_shoot_animation", peer_id)
+func play_shoot_animation() -> void:
+	rpc("receive_player_shoot_animation", multiplayer.get_unique_id())
+
+
+func play_reload_animation() -> void:
+	rpc("receive_player_reload_animation", multiplayer.get_unique_id())
 
 
 func get_shoot_on(data, peer_id) -> void:
@@ -131,6 +135,16 @@ func receive_player_shoot_animation(data):
 	var player = players_folder.get_node(str(data))
 	
 	player.guns_folder.get_node("gun").play_shoot_animation()
+
+
+@rpc("call_local", "any_peer", "unreliable")
+func receive_player_reload_animation(data):
+	if data == multiplayer.get_unique_id(): # Creates object ON ALL clients, but package may be lost
+		return
+	
+	var player = players_folder.get_node(str(data))
+	
+	player.guns_folder.get_node("gun").play_reload_animation()
 
 
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
