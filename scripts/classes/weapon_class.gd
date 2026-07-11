@@ -15,6 +15,7 @@ class_name Weapon extends StaticBody3D
 # Scenes
 @export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
 @export var shooting_sound_scene : PackedScene = load("res://scenes/sounds/pistol_sound_effect.tscn")
+@export var reloading_sound_scene : PackedScene = load("res://scenes/sounds/reloading_sound_effect.tscn")
 
 @onready var animations := $AnimationPlayer
 @onready var weapon_pivot = $Pivot
@@ -123,6 +124,10 @@ func fire() -> void:
 func play_reload_animation() -> void:
 	animations.play("RESET")
 	animations.play("reload")
+	
+	var reloading_sound = reloading_sound_scene.instantiate()
+	
+	player.sounds_folder.add_child(reloading_sound)
 
 
 func play_shoot_animation() -> void:
