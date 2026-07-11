@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cclf8lx4v2d5g"]
+
+[ext_resource type="Script" uid="uid://dft327uthc38" path="res://scripts/classes/dynamic_sound_class.gd" id="1_vuq2t"]
+
+[node name="KillSoundEffect" type="AudioStreamPlayer3D" unique_id=947679752]
+script = ExtResource("1_vuq2t")
+folder_path = "res://common/sounds/kill_sound/"
+metadata/_custom_type_script = "uid://dft327uthc38"

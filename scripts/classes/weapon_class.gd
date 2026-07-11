@@ -14,7 +14,7 @@ class_name Weapon extends StaticBody3D
 @export var is_scopable : bool = true
 # Scenes
 @export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
-@export var shooting_sound_scene : PackedScene = load("res://scenes/sounds/pistol_sounds.tscn")
+@export var shooting_sound_scene : PackedScene = load("res://scenes/sounds/pistol_sound_effect.tscn")
 
 @onready var animations := $AnimationPlayer
 @onready var weapon_pivot = $Pivot

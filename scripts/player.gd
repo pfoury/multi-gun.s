@@ -5,8 +5,8 @@ const SPEED := 8.0
 const MOVE_LERP_WEIGHT := 15.0
 const GRAVITY := 15.0
 
-@export var testobject_scene : PackedScene
-@export var dust_walk_particles_scene : PackedScene
+@export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
+@export var kill_sound_scene : PackedScene = load("res://scenes/sounds/kill_sound_effect.tscn")
 # For MultiplayerSynchronizer
 @export var velocity_length : float
 @export var is_walk_timer_stopped : bool
@@ -20,8 +20,9 @@ const GRAVITY := 15.0
 # Player's model
 @onready var player_mesh := $Pivot
 @onready var player_collision := $CollisionShape3D
-# Weapons'
-@onready var guns_folder := $Guns
+# Folders
+@onready var guns_folder : Node = $Guns
+@onready var sounds_folder : Node = $Sounds
 
 var player_speed : float = SPEED
 var is_crouching : bool
@@ -131,6 +132,12 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("reload") and gun_node != null and not gun_node.is_gun_reloading():
 		gun_node.reload()
+
+
+func play_kill_sound() -> void:
+	var kill_sound = kill_sound_scene.instantiate()
+	
+	sounds_folder.add_child(kill_sound)
 
 
 func update_player_height(delta) -> void:

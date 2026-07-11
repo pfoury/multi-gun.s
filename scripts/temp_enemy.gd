@@ -52,4 +52,11 @@ func die(data):
 		)
 	)
 	
+	var peer_id = data["peer_id"]
+	
+	if multiplayer.get_unique_id() == peer_id:
+		var player = main_scene.players_folder.get_node(str(peer_id))
+		
+		player.play_kill_sound()
+	
 	queue_free()
