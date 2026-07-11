@@ -6,11 +6,14 @@ const MAX_HEALTH : float = 100.0
 @export var max_health_color : Color = Color.RED
 @export var health : float = MAX_HEALTH
 @export var corpse_scene : PackedScene = load("res://scenes/corpse.tscn")
+@export var health_regeneration_particles_scene : PackedScene = load("res://scenes/particles/health_regeneration_particles.tscn")
+@export var is_regen_timer_ready : bool = true
 
-@onready var enemy_mesh := $Pivot/MeshInstance3D
-@onready var main_scene := get_tree().current_scene
+@onready var enemy_mesh : Node = $Pivot/MeshInstance3D
+@onready var main_scene : Node = get_tree().current_scene
+@onready var regen_timer : Node = $RegenTimer
 
-var unique_mat
+var unique_mat : Material
 
 
 func _ready() -> void:
@@ -18,6 +21,12 @@ func _ready() -> void:
 	enemy_mesh.set_surface_override_material(0, unique_mat)
 	
 	change_color()
+
+
+func _process(_delta: float) -> void:
+	if health < MAX_HEALTH and is_regen_timer_ready:
+		is_regen_timer_ready = false
+		regen_timer.start()
 
 
 func get_damaged(data) -> void: # Getting called with rpc (everyone sees it)
@@ -60,3 +69,14 @@ func die(data):
 		player.play_kill_sound()
 	
 	queue_free()
+
+
+func _on_regen_timer_timeout() -> void:
+	is_regen_timer_ready = true
+	
+	# Creating health regeneration particles
+	var health_regeneration_particles = health_regeneration_particles_scene.instantiate()
+	
+	health_regeneration_particles.position = global_position
+	
+	main_scene.particles_folder.add_child(health_regeneration_particles)

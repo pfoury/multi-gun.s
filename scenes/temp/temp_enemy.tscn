@@ -17,6 +17,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:health")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath(".:is_regen_timer_ready")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="TempEnemy" type="RigidBody3D" unique_id=735377237 groups=["enemy"]]
 script = ExtResource("1_a3aba")
@@ -29,5 +32,11 @@ mesh = SubResource("CapsuleMesh_ogq8d")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1232385411]
 shape = SubResource("CapsuleShape3D_ogq8d")
 
+[node name="RegenTimer" type="Timer" parent="." unique_id=1033582051]
+wait_time = 1.5
+one_shot = true
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1802735760]
 replication_config = SubResource("SceneReplicationConfig_a3aba")
+
+[connection signal="timeout" from="RegenTimer" to="." method="_on_regen_timer_timeout"]

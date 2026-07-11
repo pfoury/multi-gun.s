@@ -1,9 +1,9 @@
-@icon("res://common/icons/SmallParticlesIcon.svg")
+@icon("res://common/icons/MediumParticlesIcon.svg")
 
-class_name SmallParticles extends Node3D
+class_name MediumParticles extends Node3D
 
-# This script is made for small particles,
-# such as dust walk, dust hit, etc.
+# This script is made for medium particles,
+# such as health regeneration, spawn shield, etc.
 # For other particles please use other classes.
 
 func _ready() -> void:
@@ -14,6 +14,6 @@ func _ready() -> void:
 		particle.one_shot = true
 		particle.emitting = true
 	
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(5).timeout
 	
 	queue_free()
