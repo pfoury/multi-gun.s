@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://1pbxshbpwk1v" path="res://scenes/player.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://df573c87x54if" path="res://scenes/temp/temp_enemy.tscn" id="2_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://ce2c57trcya56" path="res://scenes/weapons/sniper_rifle.tscn" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bc4tr7wp2lfem" path="res://scenes/weapons/assault_rifle.tscn" id="4_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="7_o6xl0"]
 
@@ -55,7 +55,7 @@ font_size = 48
 script = ExtResource("1_0wfyh")
 player_scene = ExtResource("2_sugp2")
 testobject_scene = ExtResource("2_tbgi4")
-gun_scene = ExtResource("4_tbgi4")
+gun_scene = ExtResource("4_o6xl0")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=180801174]
 environment = SubResource("Environment_tbgi4")
