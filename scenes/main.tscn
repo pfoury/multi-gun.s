@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://df573c87x54if" path="res://scenes/temp/temp_enemy.tscn" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://ce2c57trcya56" path="res://scenes/weapons/sniper_rifle.tscn" id="4_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="6_tefeu"]
-[ext_resource type="Texture2D" uid="uid://chft1ngdi322g" path="res://common/textures/ScopeShadow.png" id="7_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="7_o6xl0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -101,6 +101,7 @@ mesh = SubResource("SphereMesh_eg0p3")
 [node name="HUD" type="CanvasLayer" parent="." unique_id=591277263]
 
 [node name="MainMenu" type="PanelContainer" parent="HUD" unique_id=1961143428]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -136,7 +137,6 @@ layout_mode = 2
 text = "Join"
 
 [node name="PlayerHUD" type="Control" parent="HUD" unique_id=1236664917]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

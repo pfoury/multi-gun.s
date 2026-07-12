@@ -179,7 +179,7 @@ func update_player_fov(delta) -> void:
 		true:
 			camera_fov = lerp(camera_fov, 30.0, delta * 10)
 			
-			scope_shadow_texture.self_modulate = lerp(scope_shadow_texture.self_modulate, Color(1, 1, 1, 0.35), delta * 10)
+			scope_shadow_texture.self_modulate = lerp(scope_shadow_texture.self_modulate, Color(1, 1, 1, 0.7), delta * 10)
 			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(1.5, 1.5), delta * 10)
 		false:
 			camera_fov = lerp(camera_fov, player_fov, delta * 10)

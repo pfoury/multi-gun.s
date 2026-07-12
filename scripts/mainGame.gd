@@ -20,6 +20,11 @@ const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
 
 
+func _ready() -> void:
+	player_hud.hide()
+	main_menu_gui.show()
+
+
 func _on_host_pressed() -> void:
 	main_menu_gui.hide()
 	
@@ -142,7 +147,7 @@ func receive_damage_enemy(data) -> void:
 		enemy.get_damaged(data)
 
 
-@rpc("call_local", "any_peer", "reliable")
+@rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func receive_corpse_push(data):
 	var corpse = objects_folder.get_node(str(data["instance_name"]))
 	
@@ -171,9 +176,9 @@ func receive_player_shoot_animation(data):
 	player.guns_folder.get_node("gun").play_shoot_animation()
 
 
-@rpc("call_local", "any_peer", "unreliable")
+@rpc("call_local", "any_peer", "unreliable") # Creates object ON ALL clients, but package may be lost
 func receive_player_reload_animation(data):
-	if data == multiplayer.get_unique_id(): # Creates object ON ALL clients, but package may be lost
+	if data == multiplayer.get_unique_id():
 		return
 	
 	var player = players_folder.get_node(str(data))
