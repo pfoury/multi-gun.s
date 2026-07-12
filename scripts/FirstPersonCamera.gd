@@ -37,5 +37,9 @@ func _input(event: InputEvent) -> void:
 			rotation_velocity += event.screen_relative / (Vector2)(get_viewport().size / 2) * mouse_sensitivity
 
 
+func update_mouse_sensitivity(new_mouse_sensitivity) -> void:
+	mouse_sensitivity = new_mouse_sensitivity
+
+
 func update_camera_pivot(delta) -> void: # I'm doing it here because I don't want to have a lot of fucking scripts in this project.
 	camera_pivot.rotation.x = lerp(camera_pivot.rotation.x, 0.0, delta * 5)

@@ -174,20 +174,28 @@ func update_player_camera(delta) -> void:
 func update_player_fov(delta) -> void:
 	var camera_fov = first_person_camera.fov
 	
-	# Lerping fov and scope shadow
+	var mouse_sensitivity = first_person_camera.mouse_sensitivity
+	
+	# Lerping fov, scope shadow and mouse sensitivity 
 	match is_scoping:
 		true:
 			camera_fov = lerp(camera_fov, 30.0, delta * 10)
 			
-			scope_shadow_texture.self_modulate = lerp(scope_shadow_texture.self_modulate, Color(1, 1, 1, 0.7), delta * 10)
+			scope_shadow_texture.self_modulate = lerp(scope_shadow_texture.self_modulate, Color(1, 1, 1, 0.45), delta * 10)
 			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(1.5, 1.5), delta * 10)
+			
+			mouse_sensitivity = lerp(mouse_sensitivity, Vector2(1.0, 1.0), delta * 10)
 		false:
 			camera_fov = lerp(camera_fov, player_fov, delta * 10)
 			
 			scope_shadow_texture.self_modulate = lerp(scope_shadow_texture.self_modulate, Color(1, 1, 1, 0), delta * 10)
 			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(2, 2), delta * 10)
+			
+			mouse_sensitivity = lerp(mouse_sensitivity, Vector2(2.0, 2.0), delta * 10)
 	
 	first_person_camera.fov = camera_fov
+	
+	first_person_camera.update_mouse_sensitivity(mouse_sensitivity)
 
 
 func update_guns_transform(delta) -> void:
