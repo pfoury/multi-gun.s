@@ -4,7 +4,7 @@ const PORT = 9999
 
 @export var player_scene : PackedScene = load("res://scenes/player.tscn")
 @export var testobject_scene : PackedScene = load("res://scenes/temp/temp_enemy.tscn")
-@export var pistol_scene : PackedScene = load("res://scenes/weapons/pistol.tscn")
+@export var gun_scene : PackedScene
 @export var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
 @export var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
 @export var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
@@ -186,9 +186,9 @@ func create_weapon() -> void:
 	var player = players_folder.get_node(str(multiplayer.get_unique_id()))
 	
 	if not player.guns_folder.get_child_count():
-		var pistol = pistol_scene.instantiate()
+		var gun = gun_scene.instantiate()
 		
-		pistol.name = "gun"
+		gun.name = "gun"
 		
-		player.guns_folder.add_child(pistol, true)
+		player.guns_folder.add_child(gun, true)
 #endregion

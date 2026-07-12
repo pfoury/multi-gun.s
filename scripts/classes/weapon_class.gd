@@ -2,6 +2,8 @@
 
 class_name Weapon extends StaticBody3D
 
+# DO NOT FORGET TO PUT WEAPON INTO PLAYER'S MULTIPLAYER SPAWNER
+
 # Standard values for weapon
 @export var damage : float = 10.0
 @export var fire_speed : float = 0.1
@@ -12,10 +14,9 @@ class_name Weapon extends StaticBody3D
 @export var recoil_strength : float = 1.35
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
+@export var gun_sound_path : String = "res://common/sounds/pistol/"
 # Scenes
 @export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
-@export var shooting_sound_scene : PackedScene = load("res://scenes/sounds/pistol_sound_effect.tscn")
-@export var reloading_sound_scene : PackedScene = load("res://scenes/sounds/reloading_sound_effect.tscn")
 
 @onready var animations := $AnimationPlayer
 @onready var weapon_pivot = $Pivot
@@ -24,23 +25,28 @@ class_name Weapon extends StaticBody3D
 @onready var guns_folder = $".."
 @onready var player = $"../.."
 
-var stats : Dictionary = {
-	"damage": damage,
-	"fire_speed": fire_speed,
-	"fire_type": fire_type,
-	"reload_speed": reload_speed,
-	"player_speed_multiplier": player_speed_multiplier,
-	"recoil_strength": recoil_strength,
-	"push_force": push_force,
-	"max_ammo": max_ammo,
-	"is_scopable": is_scopable
-}
-var ammo : int = max_ammo
+var stats : Dictionary
+var ammo : int
 var player_hud : Node
 var is_reloading : bool = false
+var gun_sound_scene : PackedScene = load("res://scenes/sounds/gun_sound_effect.tscn")
+var reloading_sound_scene : PackedScene = load("res://scenes/sounds/reloading_sound_effect.tscn")
 
 func _ready() -> void:
+	stats = {
+		"damage": damage,
+		"fire_speed": fire_speed,
+		"fire_type": fire_type,
+		"reload_speed": reload_speed,
+		"player_speed_multiplier": player_speed_multiplier,
+		"recoil_strength": recoil_strength,
+		"push_force": push_force,
+		"max_ammo": max_ammo,
+		"is_scopable": is_scopable
+	}
+	ammo = max_ammo
 	fire_timer.wait_time = fire_speed
+	fire_timer.one_shot = true
 	play_equip_animation()
 	
 	# Working with player's HUD
@@ -146,9 +152,11 @@ func play_shoot_animation() -> void:
 	player.camera_pivot.rotation.x += deg_to_rad(recoil_strength)
 	
 	# Playing shoot sound
-	var shooting_sound = shooting_sound_scene.instantiate()
+	var gun_sound = gun_sound_scene.instantiate()
 	
-	add_child(shooting_sound)
+	gun_sound.folder_path = gun_sound_path
+	
+	add_child(gun_sound)
 
 
 func play_equip_animation() -> void:
