@@ -1,6 +1,11 @@
 extends Node
 
 const PORT = 9999
+const WEAPON_SCENES = [
+	"res://scenes/weapons/pistol.tscn", # Pistol scene
+	"res://scenes/weapons/sniper_rifle.tscn", # Sniper rifle scene
+	"res://scenes/weapons/assault_rifle.tscn" # Assault rifle scene
+]
 
 @export var player_scene : PackedScene = load("res://scenes/player.tscn")
 @export var testobject_scene : PackedScene = load("res://scenes/temp/temp_enemy.tscn")
@@ -8,7 +13,11 @@ const PORT = 9999
 @export var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
 @export var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
 @export var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
+# For Multiplayer Synchronizer
+@export var amount_of_weapons : int = 30
+@export var weapon_pool : Array = []
 
+@onready var test_object_spawner : MultiplayerSpawner = $TestObjectsSpawner
 # Folders
 @onready var players_folder := $Players
 @onready var objects_folder := $Objects
@@ -33,6 +42,7 @@ func _on_host_pressed() -> void:
 	
 	multiplayer.peer_connected.connect(add_player)
 	
+	create_weapon_pool()
 	add_player(multiplayer.get_unique_id())
 
 
@@ -50,11 +60,20 @@ func add_player(peer_id) -> void:
 	
 	players_folder.add_child(player)
 	print("меня звать ", peer_id, " и я был создан!")
-	rpc("create_weapon")
+	
+	while weapon_pool == []:
+		await get_tree().process_frame
+	
+	if peer_id == 1:
+		create_weapon()
+	else:
+		rpc_id(peer_id, "load_player", weapon_pool)
 
 
 func add_test_object(result) -> void:
-	rpc("receive_creation_of_test_object", result)
+	rpc_id(1, "receive_creation_of_test_object", result)
+	
+	receive_creation_of_test_object(result)
 
 
 func play_shoot_animation() -> void:
@@ -126,15 +145,25 @@ func get_shoot_on(data, peer_id) -> void:
 		particles_folder.add_child(particles)
 
 
+func create_weapon_pool() -> void:
+	# Creating weapon pool via randi_range
+	for count in range(amount_of_weapons):
+		var random_pick = randi_range(1, WEAPON_SCENES.size())
+		
+		weapon_pool.append(random_pick - 1)
+
+
 #region Rpcs
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func receive_creation_of_test_object(data) -> void: # REWORK naming test object
 	if data != {}:
+		#print("Я был создан игроком ", multiplayer.get_remote_sender_id(), " и был вызван у ", multiplayer.get_unique_id())
 		var testobject = testobject_scene.instantiate()
+		var new_name = str(objects_folder.get_child_count() + 1)
 		
 		testobject.position = data["position"] + Vector3(0.0, 1.0, 0.0)
 		
-		testobject.name = "testObject" + str(objects_folder.get_child_count() + 1)
+		testobject.name = "testObject" + new_name
 		
 		objects_folder.add_child(testobject, true)
 
@@ -148,7 +177,7 @@ func receive_damage_enemy(data) -> void:
 
 
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
-func receive_corpse_push(data):
+func receive_corpse_push(data) -> void:
 	var corpse = objects_folder.get_node(str(data["instance_name"]))
 	
 	if corpse != null:
@@ -167,7 +196,7 @@ func receive_corpse_push(data):
 
 
 @rpc("call_local", "any_peer", "unreliable") # Creates object ON ALL clients, but package may be lost
-func receive_player_shoot_animation(data):
+func receive_player_shoot_animation(data) -> void:
 	if data == multiplayer.get_unique_id():
 		return
 	
@@ -177,7 +206,7 @@ func receive_player_shoot_animation(data):
 
 
 @rpc("call_local", "any_peer", "unreliable") # Creates object ON ALL clients, but package may be lost
-func receive_player_reload_animation(data):
+func receive_player_reload_animation(data) -> void:
 	if data == multiplayer.get_unique_id():
 		return
 	
@@ -186,12 +215,18 @@ func receive_player_reload_animation(data):
 	player.guns_folder.get_node("gun").play_reload_animation()
 
 
+@rpc("authority", "call_remote", "reliable") # Getting data for new player
+func load_player(data) -> void:
+	weapon_pool = data
+	rpc("create_weapon")
+
+
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func create_weapon() -> void:
 	var player = players_folder.get_node(str(multiplayer.get_unique_id()))
 	
-	if not player.guns_folder.get_child_count():
-		var gun = gun_scene.instantiate()
+	if not player.guns_folder.get_child_count(): # TODO: fix weapon_pool not synchronizing with clients
+		var gun = load(WEAPON_SCENES[weapon_pool[0]]).instantiate()
 		
 		gun.name = "gun"
 		

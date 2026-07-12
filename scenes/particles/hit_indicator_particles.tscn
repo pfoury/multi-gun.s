@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cqtsfx4cecuh2"]
 
-[ext_resource type="Script" uid="uid://sw7k8d3uk5uo" path="res://medium_particles_class.gd" id="1_pplwb"]
+[ext_resource type="Script" uid="uid://sw7k8d3uk5uo" path="res://scripts/classes/medium_particles_class.gd" id="1_pplwb"]
 
 [sub_resource type="Curve" id="Curve_cyyic"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.22619048, 1), 0.0, 0.0, 0, 0, Vector2(0.41071424, 0.79775274), 0.0, 0.0, 0, 0, Vector2(0.6547619, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), -4.5624394, 0.0, 0, 0]

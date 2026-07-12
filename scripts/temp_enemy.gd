@@ -76,6 +76,7 @@ func _on_regen_timer_timeout() -> void:
 	is_regen_timer_ready = true
 	
 	health += MAX_HEALTH / 10.0
+	if health > MAX_HEALTH: health = MAX_HEALTH
 	
 	change_color()
 	
