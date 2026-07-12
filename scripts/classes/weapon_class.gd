@@ -41,8 +41,7 @@ func _ready() -> void:
 		"player_speed_multiplier": player_speed_multiplier,
 		"recoil_strength": recoil_strength,
 		"push_force": push_force,
-		"max_ammo": max_ammo,
-		"is_scopable": is_scopable
+		"max_ammo": max_ammo
 	}
 	ammo = max_ammo
 	fire_timer.wait_time = fire_speed
@@ -109,8 +108,6 @@ func fire() -> void:
 	
 	player.main_scene.play_shoot_animation()
 	
-	play_shoot_animation()
-	
 	# Setting up raycast from the player's camera
 	var players_cam = player.first_person_camera.global_position
 	var to = players_cam + -player.first_person_camera.global_transform.basis.z * 1000.0
@@ -124,6 +121,8 @@ func fire() -> void:
 	
 	if result != {}:
 		player.main_scene.get_shoot_on(result, multiplayer.get_unique_id())
+	
+	play_shoot_animation()
 
 
 #region Animations

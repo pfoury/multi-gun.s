@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://1pbxshbpwk1v" path="res://scenes/player.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://df573c87x54if" path="res://scenes/temp/temp_enemy.tscn" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://ce2c57trcya56" path="res://scenes/weapons/sniper_rifle.tscn" id="4_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="6_tefeu"]
+[ext_resource type="Texture2D" uid="uid://chft1ngdi322g" path="res://common/textures/ScopeShadow.png" id="7_o6xl0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -170,6 +172,34 @@ text = "Zalupa"
 label_settings = SubResource("LabelSettings_eg0p3")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Crosshair" type="TextureRect" parent="HUD/PlayerHUD" unique_id=535808799]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -7.5
+offset_right = 7.5
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_tefeu")
+
+[node name="ScopeShadow" type="TextureRect" parent="HUD/PlayerHUD" unique_id=766839285]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(2, 2)
+texture = ExtResource("7_o6xl0")
+stretch_mode = 6
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
 _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")

@@ -7,6 +7,7 @@ const GRAVITY := 15.0
 
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var kill_sound_scene : PackedScene = load("res://scenes/sounds/kill_sound_effect.tscn")
+@export var player_fov : float = 80
 # For MultiplayerSynchronizer
 @export var velocity_length : float
 @export var is_walk_timer_stopped : bool
@@ -26,8 +27,11 @@ const GRAVITY := 15.0
 
 var player_speed : float = SPEED
 var is_crouching : bool
+var is_scoping : bool = false
 var gun_node : Node
 var gun_fire_type : String = ""
+var scope_shadow_texture : TextureRect
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
@@ -37,6 +41,10 @@ func _ready() -> void:
 	if not is_multiplayer_authority(): return
 	
 	first_person_camera.current = true
+	
+	first_person_camera.fov = player_fov
+	
+	scope_shadow_texture = main_scene.player_hud.get_node("ScopeShadow")
 
 
 func _physics_process(delta: float) -> void:
@@ -86,7 +94,7 @@ func _process(delta: float) -> void:
 	is_player_on_floor = is_on_floor()
 	
 	# Input
-	# Shoot
+	# Shooting
 	# Checking if player does have a gun
 	if gun_node != null and gun_node.is_gun_ready():
 		# Fire type for each gun fire type (duh)
@@ -103,9 +111,16 @@ func _process(delta: float) -> void:
 				var unknown_fire_type:
 					print("what the fuck is ", unknown_fire_type)
 	
+	# Scoping
+	if Input.is_action_pressed("scope") and gun_node.is_scopable:
+		is_scoping = true
+	else:
+		is_scoping = false
+	
 	move_and_slide()
 	update_player_height(delta)
 	update_guns_transform(delta)
+	update_player_fov(delta)
 
 
 func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
@@ -154,6 +169,25 @@ func update_player_height(delta) -> void:
 
 func update_player_camera(delta) -> void:
 	camera_pivot.position.y = lerp(camera_pivot.position.y, player_collision.shape.height / 4, delta * 20)
+
+
+func update_player_fov(delta) -> void:
+	var camera_fov = first_person_camera.fov
+	
+	# Lerping fov and scope shadow
+	match is_scoping:
+		true:
+			camera_fov = lerp(camera_fov, 30.0, delta * 10)
+			
+			scope_shadow_texture.self_modulate = lerp(scope_shadow_texture.self_modulate, Color(1, 1, 1, 0.35), delta * 10)
+			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(1.5, 1.5), delta * 10)
+		false:
+			camera_fov = lerp(camera_fov, player_fov, delta * 10)
+			
+			scope_shadow_texture.self_modulate = lerp(scope_shadow_texture.self_modulate, Color(1, 1, 1, 0), delta * 10)
+			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(2, 2), delta * 10)
+	
+	first_person_camera.fov = camera_fov
 
 
 func update_guns_transform(delta) -> void:
