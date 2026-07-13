@@ -83,10 +83,10 @@ func add_player(peer_id) -> void:
 
 
 func add_test_object(result) -> void: # TODO: spawns second test object on other clients because of multiplayer synchronizer
-	if multiplayer.get_unique_id() == 1:
-		rpc_id(1, "receive_creation_of_test_object", result)
-	else:
-		rpc("receive_creation_of_test_object", result)
+	rpc_id(1, "receive_creation_of_test_object", result)
+	
+	if multiplayer.get_unique_id() != 1:
+		receive_creation_of_test_object(result)
 
 
 func add_point(peer_id) -> void:
