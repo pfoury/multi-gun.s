@@ -125,7 +125,11 @@ func _process(delta: float) -> void:
 
 func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
 	gun_node = node
-	gun_fire_type = gun_node.get_fire_type()[0]
+
+
+func update_gun_fire_type() -> void:
+	gun_fire_type = gun_node.get_fire_type()
+	print(gun_fire_type)
 
 
 func _input(event: InputEvent) -> void:

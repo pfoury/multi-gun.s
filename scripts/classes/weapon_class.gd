@@ -7,7 +7,7 @@ class_name Weapon extends StaticBody3D
 # Standard values for weapon
 @export var damage : float = 10.0
 @export var fire_speed : float = 0.1
-@export var fire_type : Array = ["semi", "burst", "auto"]
+@export var fire_type = ["semi", "burst", "auto"]
 @export var reload_speed : float = 1.0
 @export var player_speed_multiplier : float = 1.0
 @export var push_force : float = 2.0
@@ -25,7 +25,7 @@ class_name Weapon extends StaticBody3D
 @onready var guns_folder = $".."
 @onready var player = $"../.."
 
-var stats : Dictionary
+var stats : Dictionary = {}
 var ammo : int
 var player_hud : Node
 var is_ready : bool = false
@@ -34,6 +34,13 @@ var gun_sound_scene : PackedScene = load("res://scenes/sounds/gun_sound_effect.t
 var reloading_sound_scene : PackedScene = load("res://scenes/sounds/reloading_sound_effect.tscn")
 
 func _ready() -> void:
+	ammo = max_ammo
+	fire_timer.wait_time = fire_speed
+	fire_timer.one_shot = true
+	play_equip_animation()
+
+
+func get_stats() -> Dictionary:
 	stats = {
 		"damage": damage,
 		"fire_speed": fire_speed,
@@ -44,23 +51,34 @@ func _ready() -> void:
 		"push_force": push_force,
 		"max_ammo": max_ammo
 	}
+	
+	return stats
+
+
+func set_stats(new_stats) -> void:
+	stats = new_stats
+	
+	var list_of_stats = [
+		"damage", "fire_speed", "fire_type", "reload_speed", "player_speed_multiplier", "push_force", "recoil_strength", "max_ammo"
+	]
+	
+	for stat_string in list_of_stats:
+		var new_stat = new_stats[stat_string]
+		
+		set(stat_string, new_stat)
+	
 	ammo = max_ammo
 	fire_timer.wait_time = fire_speed
-	fire_timer.one_shot = true
-	play_equip_animation()
 	
 	# Working with player's HUD
 	player_hud = player.main_scene.player_hud
 	change_ammo_counter()
 	change_fire_type()
+	player.update_gun_fire_type()
 	player_hud.show()
 
 
-func get_stats() -> Dictionary:
-	return stats
-
-
-func get_fire_type() -> Array:
+func get_fire_type() -> String:
 	return fire_type
 
 
@@ -79,7 +97,7 @@ func change_ammo_counter() -> void:
 
 
 func change_fire_type() -> void:
-	player_hud.get_node("FireType").text = str(fire_type[0])
+	player_hud.get_node("FireType").text = str(fire_type)
 
 
 func reload() -> void:

@@ -52,7 +52,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_6mwtq"]
 resource_name = "equip"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -136,7 +136,7 @@ collision_mask = 0
 script = ExtResource("1_u7wkp")
 damage = 7.5
 fire_speed = 0.08
-fire_type = ["auto"]
+fire_type = ["auto", "burst"]
 reload_speed = 1.2
 player_speed_multiplier = 0.9
 push_force = 0.5

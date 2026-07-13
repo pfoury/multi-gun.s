@@ -61,7 +61,7 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:player_list")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:player_score_list")
+properties/3/path = NodePath(".:scoreboard")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 

@@ -15,7 +15,7 @@ func _ready() -> void:
 	# Setting and playing this specific audio
 	stream = load(folder_path + "TEMP_" + choose_audio + ".wav")
 	play()
-
-
-func _on_finished() -> void:
+	
+	await finished
+	
 	queue_free()
