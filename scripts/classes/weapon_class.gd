@@ -155,7 +155,7 @@ func play_shoot_animation() -> void:
 	
 	gun_sound.folder_path = gun_sound_path
 	
-	add_child(gun_sound)
+	player.sounds_folder.add_child(gun_sound)
 
 
 func play_equip_animation() -> void:

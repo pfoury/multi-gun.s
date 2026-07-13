@@ -16,6 +16,8 @@ const WEAPON_SCENES = [
 # For Multiplayer Synchronizer
 @export var amount_of_weapons : int = 30
 @export var weapon_pool : Array = []
+@export var player_list : Dictionary = {}
+@export var player_score_list : Dictionary = {}
 
 @onready var test_object_spawner : MultiplayerSpawner = $TestObjectsSpawner
 # Folders
@@ -59,6 +61,11 @@ func add_player(peer_id) -> void:
 	player.name = str(peer_id)
 	
 	players_folder.add_child(player)
+	
+	# Adding to dictionaries
+	player_list[peer_id] = "nickname" # Player's nickname
+	player_score_list[peer_id] = 0 # Player's initial score
+	
 	print("меня звать ", peer_id, " и я был создан!")
 	
 	while weapon_pool == []:
@@ -67,13 +74,23 @@ func add_player(peer_id) -> void:
 	if peer_id == 1:
 		create_weapon()
 	else:
-		rpc_id(peer_id, "load_player", weapon_pool)
+		var result : Dictionary = {
+			"weapon_pool": weapon_pool,
+			"player_list": player_list,
+			"player_score_list": player_score_list
+		}
+		rpc_id(peer_id, "load_player", result)
 
 
-func add_test_object(result) -> void:
-	rpc_id(1, "receive_creation_of_test_object", result)
-	
-	receive_creation_of_test_object(result)
+func add_test_object(result) -> void: # TODO: spawns second test object on other clients because of multiplayer synchronizer
+	if multiplayer.get_unique_id() == 1:
+		rpc_id(1, "receive_creation_of_test_object", result)
+	else:
+		rpc("receive_creation_of_test_object", result)
+
+
+func add_point(peer_id) -> void:
+	rpc("receive_add_point", peer_id)
 
 
 func play_shoot_animation() -> void:
@@ -103,7 +120,7 @@ func get_shoot_on(data, peer_id) -> void:
 		
 		var player = players_folder.get_node(str(peer_id))
 		
-		var stats = player.guns_folder.get_node("gun").get_stats()
+		var stats = player.guns_folder.get_node("Gun").get_stats()
 		var push_force = stats["push_force"]
 		
 		result["push_force"] = push_force
@@ -202,7 +219,7 @@ func receive_player_shoot_animation(data) -> void:
 	
 	var player = players_folder.get_node(str(data))
 	
-	player.guns_folder.get_node("gun").play_shoot_animation()
+	player.guns_folder.get_node("Gun").play_shoot_animation()
 
 
 @rpc("call_local", "any_peer", "unreliable") # Creates object ON ALL clients, but package may be lost
@@ -212,23 +229,48 @@ func receive_player_reload_animation(data) -> void:
 	
 	var player = players_folder.get_node(str(data))
 	
-	player.guns_folder.get_node("gun").play_reload_animation()
+	player.guns_folder.get_node("Gun").play_reload_animation()
+
+
+@rpc("call_local", "any_peer", "reliable")
+func receive_add_point(data) -> void:
+	player_score_list[data] += 1
+	
+	if data == multiplayer.get_unique_id():
+		print(player_score_list)
+		
+		var player : Node = players_folder.get_node(str(multiplayer.get_unique_id()))
+		var gun = player.guns_folder.get_node("Gun")
+		
+		gun.queue_free()
+		
+		while player.guns_folder.has_node("Gun"):
+			await get_tree().process_frame
+		
+		rpc("create_weapon")
 
 
 @rpc("authority", "call_remote", "reliable") # Getting data for new player
 func load_player(data) -> void:
-	weapon_pool = data
+	weapon_pool = data["weapon_pool"]
+	player_list = data["player_list"]
+	player_score_list = data["player_score_list"]
+	
 	rpc("create_weapon")
 
 
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func create_weapon() -> void:
-	var player = players_folder.get_node(str(multiplayer.get_unique_id()))
+	var peer_id = multiplayer.get_unique_id()
 	
-	if not player.guns_folder.get_child_count(): # TODO: fix weapon_pool not synchronizing with clients
-		var gun = load(WEAPON_SCENES[weapon_pool[0]]).instantiate()
+	var player = players_folder.get_node(str(peer_id))
+	
+	if not player.guns_folder.get_child_count():
+		var weapon_number = player_score_list[peer_id]
 		
-		gun.name = "gun"
+		var gun = load(WEAPON_SCENES[weapon_pool[weapon_number]]).instantiate()
+		
+		gun.name = "Gun"
 		
 		player.guns_folder.add_child(gun, true)
 #endregion
