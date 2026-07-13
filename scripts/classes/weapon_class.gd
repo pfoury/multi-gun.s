@@ -18,7 +18,7 @@ class_name Weapon extends StaticBody3D
 # Scenes
 @export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
 
-@onready var animations := $AnimationPlayer
+@onready var animations : AnimationPlayer = $AnimationPlayer
 @onready var weapon_pivot = $Pivot
 @onready var muzzle_flash_pivot = weapon_pivot.find_child("MuzzleFlashPivot")
 @onready var fire_timer = $FireTimer
@@ -28,6 +28,7 @@ class_name Weapon extends StaticBody3D
 var stats : Dictionary
 var ammo : int
 var player_hud : Node
+var is_ready : bool = false
 var is_reloading : bool = false
 var gun_sound_scene : PackedScene = load("res://scenes/sounds/gun_sound_effect.tscn")
 var reloading_sound_scene : PackedScene = load("res://scenes/sounds/reloading_sound_effect.tscn")
@@ -64,7 +65,9 @@ func get_fire_type() -> Array:
 
 
 func is_gun_ready() -> bool:
-	return (fire_timer.is_stopped() and ammo > 0)
+	var gun_ready = is_ready and (fire_timer.is_stopped() and ammo > 0)
+	
+	return gun_ready
 
 
 func is_gun_reloading() -> bool:
@@ -160,4 +163,7 @@ func play_shoot_animation() -> void:
 
 func play_equip_animation() -> void:
 	animations.play("equip")
+	await animations.animation_finished
+	
+	is_ready = true
 #endregion

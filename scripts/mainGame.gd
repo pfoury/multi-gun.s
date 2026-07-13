@@ -14,7 +14,7 @@ const WEAPON_SCENES = [
 @export var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
 @export var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
 # For Multiplayer Synchronizer
-@export var amount_of_weapons : int = 30
+@export var amount_of_weapons : int = 16
 @export var weapon_pool : Array = []
 @export var player_list : Dictionary = {}
 @export var player_score_list : Dictionary = {}
@@ -89,7 +89,7 @@ func add_test_object(result) -> void: # TODO: spawns second test object on other
 		receive_creation_of_test_object(result)
 
 
-func add_point(peer_id) -> void:
+func add_point(peer_id) -> void:	
 	rpc("receive_add_point", peer_id)
 
 
@@ -232,9 +232,13 @@ func receive_player_reload_animation(data) -> void:
 	player.guns_folder.get_node("Gun").play_reload_animation()
 
 
-@rpc("call_local", "any_peer", "reliable")
+@rpc("call_local", "any_peer", "reliable") # Gets called ON ALL CLIENTS
 func receive_add_point(data) -> void:
 	player_score_list[data] += 1
+	
+	if player_score_list[data] >= amount_of_weapons:
+		print("ИГРОК ", data, " ПОБЕДИЛ!!!")
+		return
 	
 	if data == multiplayer.get_unique_id():
 		print(player_score_list)
