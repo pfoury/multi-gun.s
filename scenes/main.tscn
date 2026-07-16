@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bc4tr7wp2lfem" path="res://scenes/weapons/assault_rifle.tscn" id="4_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="7_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://b1yjeoac5ljwd" path="res://common/icons/WeaponIcon.svg" id="8_tipki"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -51,7 +52,7 @@ font_size = 48
 [sub_resource type="LabelSettings" id="LabelSettings_eg0p3"]
 font_size = 48
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o6xl0"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tipki"]
 properties/0/path = NodePath(".:amount_of_weapons")
 properties/0/spawn = true
 properties/0/replication_mode = 1
@@ -61,9 +62,12 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:player_list")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:scoreboard")
+properties/3/path = NodePath(".:player_color_list")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:scoreboard")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_0wfyh")
@@ -178,7 +182,7 @@ anchor_bottom = 1.0
 offset_top = -116.0
 offset_right = 324.0
 grow_vertical = 0
-text = "Huina / Huina"
+text = "Ammo"
 label_settings = SubResource("LabelSettings_eg0p3")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -190,11 +194,11 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -307.0
-offset_top = -109.0
+offset_left = -364.0
+offset_top = -119.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "Zalupa"
+text = "WeaponType"
 label_settings = SubResource("LabelSettings_eg0p3")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -214,6 +218,70 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_tefeu")
 
+[node name="KillFeed" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=908877790]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -438.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = 191.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/PlayerHUD/KillFeed" unique_id=543771146]
+layout_mode = 2
+alignment = 2
+
+[node name="KillerLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer2" unique_id=354227216]
+layout_mode = 2
+text = "OnlyTwentyCharacters"
+
+[node name="WeaponIcon" type="TextureRect" parent="HUD/PlayerHUD/KillFeed/HBoxContainer2" unique_id=26453327]
+layout_mode = 2
+texture = ExtResource("8_tipki")
+expand_mode = 2
+
+[node name="VictimLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer2" unique_id=1216618215]
+layout_mode = 2
+text = "OnlyTwentyCharacters"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PlayerHUD/KillFeed" unique_id=486636587]
+layout_mode = 2
+alignment = 2
+
+[node name="KillerLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer" unique_id=2058721323]
+layout_mode = 2
+text = "p4"
+
+[node name="WeaponIcon" type="TextureRect" parent="HUD/PlayerHUD/KillFeed/HBoxContainer" unique_id=1305942811]
+layout_mode = 2
+texture = ExtResource("8_tipki")
+expand_mode = 2
+
+[node name="VictimLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer" unique_id=809131277]
+layout_mode = 2
+text = "xonae"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HUD/PlayerHUD/KillFeed" unique_id=737047862]
+layout_mode = 2
+alignment = 2
+
+[node name="KillerLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer3" unique_id=487724339]
+layout_mode = 2
+text = "SegionPex"
+
+[node name="WeaponIcon" type="TextureRect" parent="HUD/PlayerHUD/KillFeed/HBoxContainer3" unique_id=1380452748]
+layout_mode = 2
+texture = ExtResource("8_tipki")
+expand_mode = 2
+
+[node name="VictimLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer3" unique_id=1974371973]
+layout_mode = 2
+text = "BrrBrrPatapim"
+
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
 _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")
 spawn_path = NodePath("../Players")
@@ -222,8 +290,12 @@ spawn_path = NodePath("../Players")
 _spawnable_scenes = PackedStringArray("uid://df573c87x54if")
 spawn_path = NodePath("../Objects")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1127971829]
-replication_config = SubResource("SceneReplicationConfig_o6xl0")
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2000071768]
+replication_config = SubResource("SceneReplicationConfig_tipki")
+
+[node name="UpdateTimer" type="Timer" parent="." unique_id=1217523922]
+one_shot = true
 
 [connection signal="pressed" from="HUD/MainMenu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="HUD/MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

@@ -17,9 +17,11 @@ const WEAPON_SCENES = [
 @export var amount_of_weapons : int = 16
 @export var weapon_pool : Array = []
 @export var player_list : Dictionary = {}
+@export var player_color_list : Dictionary = {}
 @export var scoreboard : Dictionary = {}
 
 @onready var test_object_spawner : MultiplayerSpawner = $TestObjectsSpawner
+@onready var update_timer : Timer = $UpdateTimer
 # Folders
 @onready var players_folder := $Players
 @onready var objects_folder := $Objects
@@ -47,6 +49,8 @@ func _on_host_pressed() -> void:
 	
 	create_weapon_pool()
 	add_player(multiplayer.get_unique_id())
+	
+	update_timer.start()
 
 
 func _on_join_pressed() -> void:
@@ -56,31 +60,40 @@ func _on_join_pressed() -> void:
 	multiplayer.multiplayer_peer = enet_peer
 
 
+#func _on_update_timer_timeout() -> void:
+	#if multiplayer.is_server:
+		#rpc("receive_global_update")
+		#update_timer.start()
+
+
 func add_player(peer_id) -> void:
+	var random_color : Color = Color(randf(), randf(), randf())
+	
+	# Adding to dictionaries
+	player_list[peer_id] = "nickname" # Player's nickname
+	player_color_list[peer_id] = random_color
+	scoreboard[peer_id] = 0 # Player's initial score
+	
 	var player = player_scene.instantiate()
 	
 	player.name = str(peer_id)
 	
 	players_folder.add_child(player)
 	
-	# Adding to dictionaries
-	player_list[peer_id] = "nickname" # Player's nickname
-	scoreboard[peer_id] = 0 # Player's initial score
-	
 	print("меня звать ", peer_id, " и я был создан!")
 	
-	while weapon_pool == []:
-		await get_tree().process_frame
-	
 	if peer_id == 1:
+		print(player_color_list[peer_id])
 		create_weapon()
 	else:
 		var result : Dictionary = {
 			"weapon_pool": weapon_pool,
 			"player_list": player_list,
-			"scoreboard": scoreboard
+			"scoreboard": scoreboard,
+			"amount_of_weapons": amount_of_weapons,
+			"player_color_list": player_color_list
 		}
-		rpc_id(peer_id, "load_player", result)
+		rpc_id(peer_id, "load_client", result)
 
 
 func add_test_object(result) -> void:
@@ -133,7 +146,10 @@ func get_shoot_on(data, peer_id) -> void:
 			var damage = stats["damage"]
 			result["damage"] = damage
 			
-			rpc("receive_damage_enemy", result)
+			if instance_from_id(result["instance_id"]).is_in_group("player"):
+				rpc("receive_damage_player", result)
+			else:
+				rpc("receive_damage_test_enemy", result)
 			
 			var hit_indicator_particles = hit_indicator_particles_scene.instantiate()
 			
@@ -174,6 +190,14 @@ func create_weapon_pool() -> void:
 		weapon_pool.append(random_pick - 1)
 
 
+#func update_players_color() -> void:
+	#var players = players_folder.get_children()
+	#
+	#for player in players:
+		#var peer_id = int(player.name)
+		#player.set_new_color(player_color_list[peer_id])
+
+
 #region Rpcs
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func receive_creation_of_test_object(data) -> void: # REWORK naming test object
@@ -190,11 +214,19 @@ func receive_creation_of_test_object(data) -> void: # REWORK naming test object
 
 
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
-func receive_damage_enemy(data) -> void:
+func receive_damage_test_enemy(data) -> void:
 	var enemy = objects_folder.get_node(str(data["instance_name"]))
 	
 	if enemy != null:
 		enemy.get_damaged(data)
+
+
+@rpc("call_local", "any_peer", "reliable")
+func receive_damage_player(data) -> void:
+	var player = players_folder.get_node(str(data["instance_name"]))
+	
+	if player != null:
+		player.get_damaged(data)
 
 
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
@@ -262,7 +294,6 @@ func receive_add_point(data) -> void:
 
 @rpc("authority", "call_remote", "reliable")
 func receive_new_weapon_stats(data) -> void:
-	print(data)
 	var peer_id = multiplayer.get_unique_id()
 	
 	var player : Node = players_folder.get_node(str(peer_id))
@@ -273,10 +304,12 @@ func receive_new_weapon_stats(data) -> void:
 
 
 @rpc("authority", "call_remote", "reliable") # Getting data for new player
-func load_player(data) -> void:
+func load_client(data) -> void:
 	weapon_pool = data["weapon_pool"]
 	player_list = data["player_list"]
 	scoreboard = data["scoreboard"]
+	amount_of_weapons = data["amount_of_weapons"]
+	player_color_list = data["player_color_list"]
 	
 	rpc("create_weapon")
 
@@ -305,7 +338,7 @@ func generate_new_weapon_stats(data) -> void:
 		var randomness = randf_range(rand_min, rand_max)
 		
 		if stat is float:
-			stat *= randomness
+			stat = roundf(stat * randomness * 100) / 100
 		elif stat is int:
 			stat = round(stat * randomness)
 		elif stat is Array:

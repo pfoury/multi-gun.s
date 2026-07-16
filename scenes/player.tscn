@@ -6,7 +6,11 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eg0p3"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhqgy"]
+albedo_color = Color(1, 0.20392157, 1, 1)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hyap7"]
+material = SubResource("StandardMaterial3D_qhqgy")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:position")
@@ -30,20 +34,20 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath("Guns:rotation")
 properties/6/spawn = true
 properties/6/replication_mode = 1
-properties/7/path = NodePath(".:velocity_length")
+properties/7/path = NodePath("CameraPivot:rotation")
 properties/7/spawn = true
 properties/7/replication_mode = 1
-properties/8/path = NodePath(".:is_walk_timer_stopped")
+properties/8/path = NodePath(".:player_health")
 properties/8/spawn = true
 properties/8/replication_mode = 1
-properties/9/path = NodePath(".:is_player_on_floor")
+properties/9/path = NodePath(".:player_color")
 properties/9/spawn = true
 properties/9/replication_mode = 1
-properties/10/path = NodePath("CameraPivot:rotation")
+properties/10/path = NodePath(".:is_regen_timer_ready")
 properties/10/spawn = true
 properties/10/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["Player"]]
+[node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["enemy", "player"]]
 collision_layer = 2
 script = ExtResource("1_3vyb7")
 dust_walk_particles_scene = ExtResource("3_dqkch")
@@ -53,7 +57,7 @@ shape = SubResource("CapsuleShape3D_eg0p3")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=1341281828]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1603259560]
+[node name="CapsuleMesh" type="MeshInstance3D" parent="Pivot" unique_id=1603259560]
 mesh = SubResource("CapsuleMesh_hyap7")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=874965000]
@@ -77,4 +81,7 @@ spawn_path = NodePath("../Guns")
 wait_time = 0.2
 one_shot = true
 
+[node name="RegenTimer" type="Timer" parent="." unique_id=515894033]
+
 [connection signal="child_entered_tree" from="Guns" to="." method="_on_guns_child_entered_tree"]
+[connection signal="timeout" from="RegenTimer" to="." method="_on_regen_timer_timeout"]

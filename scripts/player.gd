@@ -4,23 +4,31 @@ const JUMP_VELOCITY := 4.5
 const SPEED := 8.0
 const MOVE_LERP_WEIGHT := 15.0
 const GRAVITY := 15.0
+const MAX_HEALTH : float = 150.0
+const LOW_HEALTH_COLOR : Color = Color("676767")
 
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var kill_sound_scene : PackedScene = load("res://scenes/sounds/kill_sound_effect.tscn")
+@export var health_regeneration_particles_scene : PackedScene = load("res://scenes/particles/health_regeneration_particles.tscn")
 @export var player_fov : float = 80
 # For MultiplayerSynchronizer
 @export var velocity_length : float
 @export var is_walk_timer_stopped : bool
 @export var is_player_on_floor : bool
+@export var player_color : Color = Color.DEEP_PINK
+@export var player_health : float
+@export var is_regen_timer_ready : bool = true
 
-@onready var main_scene := get_tree().current_scene
-@onready var walk_timer := $WalkTimer
+@onready var main_scene : Node = get_tree().current_scene
+@onready var walk_timer : Timer = $WalkTimer
+@onready var regen_timer : Timer = $RegenTimer
 # Player's camera
 @onready var camera_pivot := $CameraPivot
 @onready var first_person_camera := camera_pivot.find_child("FPCamera")
 # Player's model
-@onready var player_mesh := $Pivot
+@onready var player_pivot := $Pivot
 @onready var player_collision := $CollisionShape3D
+@onready var player_capsule_mesh : MeshInstance3D = $Pivot/CapsuleMesh
 # Folders
 @onready var guns_folder : Node = $Guns
 @onready var sounds_folder : Node = $Sounds
@@ -31,6 +39,7 @@ var is_scoping : bool = false
 var gun_node : Node
 var gun_fire_type : String = ""
 var scope_shadow_texture : TextureRect
+var unique_mat : Material
 
 
 func _enter_tree() -> void:
@@ -38,23 +47,36 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	scope_shadow_texture = main_scene.player_hud.get_node("ScopeShadow")
+	
+	# Setting up for player's color
+	player_health = MAX_HEALTH
+	
+	unique_mat = player_capsule_mesh.get_active_material(0).duplicate()
+	player_capsule_mesh.set_surface_override_material(0, unique_mat)
+	
 	if not is_multiplayer_authority(): return
 	
+	# Setting up camera and HUD
 	first_person_camera.current = true
 	
 	first_person_camera.fov = player_fov
-	
-	scope_shadow_texture = main_scene.player_hud.get_node("ScopeShadow")
 
 
 func _physics_process(delta: float) -> void:
-	if velocity_length > 6 and is_walk_timer_stopped and is_player_on_floor:
+	# Creating dust particles
+	if velocity.length() > 6 and walk_timer.is_stopped() and is_on_floor():
 		walk_timer.start()
 		var dust_walk_particles = dust_walk_particles_scene.instantiate()
 		
 		dust_walk_particles.position = global_position - Vector3(0.0, 1.0, 0.0)
 		
 		main_scene.particles_folder.add_child(dust_walk_particles)
+	
+	# Health regenerating
+	if player_health < MAX_HEALTH and is_regen_timer_ready:
+		is_regen_timer_ready = false
+		regen_timer.start()
 	
 	if not is_multiplayer_authority(): return
 	
@@ -87,11 +109,6 @@ func _process(delta: float) -> void:
 	global_rotation.y = first_person_camera.global_rotation.y
 	guns_folder.rotation.y -= first_person_camera.rotation.y
 	first_person_camera.rotation.y = 0
-	
-	# For MultiplayerSynchronizer
-	velocity_length = velocity.length()
-	is_walk_timer_stopped = walk_timer.is_stopped()
-	is_player_on_floor = is_on_floor()
 	
 	# Input
 	# Shooting
@@ -129,7 +146,6 @@ func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when 
 
 func update_gun_fire_type() -> void:
 	gun_fire_type = gun_node.get_fire_type()
-	print(gun_fire_type)
 
 
 func _input(event: InputEvent) -> void:
@@ -159,16 +175,17 @@ func play_kill_sound() -> void:
 	sounds_folder.add_child(kill_sound)
 
 
+#region About updating player
 func update_player_height(delta) -> void:
 	# Maybe make like in source games: in the air, "move player up", otherwise "move player down".
 	if is_crouching:
-		player_mesh.scale.y = lerp(player_mesh.scale.y, 0.5, delta * 20)
+		player_pivot.scale.y = lerp(player_pivot.scale.y, 0.5, delta * 20)
 		player_collision.shape.height = lerp(player_collision.shape.height, 1.0, delta * 20)
 	else:
-		player_mesh.scale.y = lerp(player_mesh.scale.y, 1.0, delta * 20)
+		player_pivot.scale.y = lerp(player_pivot.scale.y, 1.0, delta * 20)
 		player_collision.shape.height = lerp(player_collision.shape.height, 2.0, delta * 20)
 	update_player_camera(delta)
-	player_speed = SPEED * player_mesh.scale.y # Making player slower because of crouching
+	player_speed = SPEED * player_pivot.scale.y # Making player slower because of crouching
 
 
 func update_player_camera(delta) -> void:
@@ -180,7 +197,7 @@ func update_player_fov(delta) -> void:
 	
 	var mouse_sensitivity = first_person_camera.mouse_sensitivity
 	
-	# Lerping fov, scope shadow and mouse sensitivity 
+	# Lerping fov, scope shadow and mouse sensitivity
 	match is_scoping:
 		true:
 			camera_fov = lerp(camera_fov, 30.0, delta * 10)
@@ -204,4 +221,46 @@ func update_player_fov(delta) -> void:
 
 func update_guns_transform(delta) -> void:
 	guns_folder.position = lerp(guns_folder.position, camera_pivot.position, delta * 5)
-	guns_folder.rotation = lerp(guns_folder.rotation, first_person_camera.rotation, delta * 25)
+	guns_folder.rotation = lerp(guns_folder.rotation, first_person_camera.rotation + camera_pivot.rotation, delta * 25)
+#endregion
+
+
+#region About colors and shit
+func get_damaged(data) -> void:
+	player_health -= data["damage"]
+	regen_timer.start()
+	if player_health <= 0:
+		die(data)
+	else:
+		change_color()
+
+
+func die(data) -> void:
+	pass
+
+
+func change_color() -> void:
+	player_color = main_scene.player_color_list[int(name)]
+	
+	var color_difference = 1.0 - (player_health / MAX_HEALTH)
+	print(color_difference)
+	print(player_health, " - ", MAX_HEALTH)
+	unique_mat.albedo_color = player_color.lerp(LOW_HEALTH_COLOR, color_difference)
+
+
+func _on_regen_timer_timeout() -> void:
+	is_regen_timer_ready = true
+	
+	player_health += MAX_HEALTH / 10.0
+	if player_health > MAX_HEALTH: player_health = MAX_HEALTH
+	
+	change_color()
+	
+	# Creating health regeneration particles
+	if randi_range(1, 2) == 2: # Creating with 50% chance
+		var health_regeneration_particles = health_regeneration_particles_scene.instantiate()
+		
+		health_regeneration_particles.position = global_position
+		
+		main_scene.particles_folder.add_child(health_regeneration_particles)
+#endregion
