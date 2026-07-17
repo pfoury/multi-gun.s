@@ -8,7 +8,7 @@ const MAX_HEALTH : float = 150.0
 const LOW_HEALTH_COLOR : Color = Color("676767")
 
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
-@export var kill_sound_scene : PackedScene = load("res://scenes/sounds/kill_sound_effect.tscn")
+@export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
 @export var health_regeneration_particles_scene : PackedScene = load("res://scenes/particles/health_regeneration_particles.tscn")
 @export var corpse_scene : PackedScene = load("res://scenes/corpse.tscn")
 @export var player_fov : float = 80
@@ -112,14 +112,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-	if not is_multiplayer_authority(): return
-	
 	# If players is dead, then do not calculate anything
 	if is_player_dead:
 		if dead_timer.time_left > 1.5:
 			look_at_killer(delta)
 		elif dead_timer.time_left == 0:
-			global_position = Vector3.ZERO # !!! Replace it with spawn point !!!
+			global_position = Vector3(0, 2, 0) # !!! Replace it with spawn point !!!
 			
 			respawn()
 			is_player_dead = false
@@ -127,8 +125,10 @@ func _process(delta: float) -> void:
 			look_at_killer_closely()
 		return
 	
+	if not is_multiplayer_authority(): return
+	
 	if global_position.y < -100:
-		global_position = Vector3.ZERO
+		global_position = Vector3(0, 2, 0)
 		
 		respawn()
 	
@@ -198,7 +198,9 @@ func _input(event: InputEvent) -> void:
 
 
 func play_kill_sound() -> void:
-	var kill_sound = kill_sound_scene.instantiate()
+	var kill_sound = sound_scene.instantiate()
+	
+	kill_sound.folder_path = "res://common/sounds/kill_sound/"
 	
 	sounds_folder.add_child(kill_sound)
 
@@ -350,10 +352,6 @@ func die(data) -> void:
 	
 	global_position = Vector3(0, -6767, 0)
 	
-	player_health = MAX_HEALTH
-	
-	change_color()
-	
 	# Player is DEAD
 	is_player_dead = true
 
@@ -361,6 +359,13 @@ func die(data) -> void:
 func respawn() -> void:
 	# Setting up for player's color
 	player_health = MAX_HEALTH
+	
+	# Creating spawn sound
+	var sound = sound_scene.instantiate()
+	
+	sound.folder_path = "res://common/sounds/spawn/"
+	
+	sounds_folder.add_child(sound)
 	
 	change_color()
 	
@@ -381,6 +386,8 @@ func respawn() -> void:
 
 
 func look_at_killer(delta) -> void:
+	if not is_multiplayer_authority(): return
+	
 	var killer = main_scene.players_folder.get_node(str(killer_id))
 	
 	look_at_killer_pivot.position = look_at_killer_pivot.position.lerp(killer.first_person_camera.global_position, delta * 3)
@@ -392,6 +399,8 @@ func look_at_killer(delta) -> void:
 
 
 func look_at_killer_closely() -> void:
+	if not is_multiplayer_authority(): return
+	
 	var killer = main_scene.players_folder.get_node(str(killer_id))
 	var killers_camera = killer.first_person_camera
 	

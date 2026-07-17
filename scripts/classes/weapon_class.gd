@@ -30,8 +30,7 @@ var ammo : int
 var player_hud : Node
 var is_ready : bool = false
 var is_reloading : bool = false
-var gun_sound_scene : PackedScene = load("res://scenes/sounds/gun_sound_effect.tscn")
-var reloading_sound_scene : PackedScene = load("res://scenes/sounds/reloading_sound_effect.tscn")
+var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
 
 func _ready() -> void:
 	ammo = max_ammo
@@ -151,7 +150,9 @@ func play_reload_animation() -> void:
 	animations.play("RESET")
 	animations.play("reload")
 	
-	var reloading_sound = reloading_sound_scene.instantiate()
+	var reloading_sound = sound_scene.instantiate()
+	
+	reloading_sound.folder_path = "res://common/sounds/reloading/"
 	
 	player.sounds_folder.add_child(reloading_sound)
 
@@ -172,7 +173,7 @@ func play_shoot_animation() -> void:
 	player.camera_pivot.rotation.x += deg_to_rad(recoil_strength)
 	
 	# Playing shoot sound
-	var gun_sound = gun_sound_scene.instantiate()
+	var gun_sound = sound_scene.instantiate()
 	
 	gun_sound.folder_path = gun_sound_path
 	

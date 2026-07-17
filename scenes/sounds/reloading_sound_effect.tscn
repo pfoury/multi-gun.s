@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://b8k5a7mhrki6p"]
-
-[ext_resource type="Script" uid="uid://dft327uthc38" path="res://scripts/classes/dynamic_sound_class.gd" id="1_fbwpm"]
-
-[node name="ReloadingSoundEffect" type="AudioStreamPlayer3D" unique_id=518393221]
-script = ExtResource("1_fbwpm")
-folder_path = "res://common/sounds/reloading/"
-metadata/_custom_type_script = "uid://dft327uthc38"

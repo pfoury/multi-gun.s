@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dlfl1anoio8cm"]
+
+[ext_resource type="Script" uid="uid://dft327uthc38" path="res://scripts/classes/dynamic_sound_class.gd" id="1_pmnym"]
+
+[node name="Sound" type="AudioStreamPlayer3D" unique_id=848755987]
+script = ExtResource("1_pmnym")
+metadata/_custom_type_script = "uid://dft327uthc38"

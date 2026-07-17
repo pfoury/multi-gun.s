@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://c6gohphjimm7b"]
-
-[ext_resource type="Script" uid="uid://dft327uthc38" path="res://scripts/classes/dynamic_sound_class.gd" id="1_w0245"]
-
-[node name="GunSounds" type="AudioStreamPlayer3D" unique_id=1386026497]
-script = ExtResource("1_w0245")
-metadata/_custom_type_script = "uid://dft327uthc38"
