@@ -20,6 +20,7 @@ const LOW_HEALTH_COLOR : Color = Color("676767")
 @export var player_health : float
 @export var is_regen_timer_ready : bool = true
 @export var is_player_dead : bool = false
+@export var color_difference : float = 1.0
 
 @onready var main_scene : Node = get_tree().current_scene
 @onready var walk_timer : Timer = $WalkTimer
@@ -42,10 +43,12 @@ var is_scoping : bool = false
 var gun_node : Node
 var gun_fire_type : String = ""
 var scope_shadow_texture : TextureRect
+var low_hp_shadow_texture : TextureRect
+var white_screen_texture : ColorRect
 var unique_mat : Material
 var killer_id : int
 var look_at_killer_pivot : Node3D
-var dead_cam_pivot : Camera3D
+var kill_cam_pivot : Camera3D
 
 
 func _enter_tree() -> void:
@@ -54,26 +57,20 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	scope_shadow_texture = main_scene.player_hud.get_node("ScopeShadow")
-	
-	# Setting up for player's color
-	player_health = MAX_HEALTH
+	low_hp_shadow_texture = main_scene.player_hud.get_node("LowHPShadow")
+	white_screen_texture = main_scene.player_hud.get_node("WhiteScreen")
 	
 	unique_mat = player_capsule_mesh.get_active_material(0).duplicate()
 	player_capsule_mesh.set_surface_override_material(0, unique_mat)
 	
+	respawn()
+	
 	main_scene.rpc("receive_update_players")
-	
-	if not is_multiplayer_authority(): return
-	
-	# Setting up camera and HUD
-	first_person_camera.current = true
-	
-	first_person_camera.fov = player_fov
 
 
 func _physics_process(delta: float) -> void:
 	# Creating dust particles
-	if velocity.length() > 6 and walk_timer.is_stopped() and is_on_floor():
+	if velocity_length > 6 and is_walk_timer_stopped and is_player_on_floor:
 		walk_timer.start()
 		var dust_walk_particles = dust_walk_particles_scene.instantiate()
 		
@@ -119,11 +116,21 @@ func _process(delta: float) -> void:
 	
 	# If players is dead, then do not calculate anything
 	if is_player_dead:
-		if dead_timer.time_left < 2:
+		if dead_timer.time_left > 1.5:
 			look_at_killer(delta)
+		elif dead_timer.time_left == 0:
+			global_position = Vector3.ZERO # !!! Replace it with spawn point !!!
+			
+			respawn()
+			is_player_dead = false
 		else:
 			look_at_killer_closely()
 		return
+	
+	if global_position.y < -100:
+		global_position = Vector3.ZERO
+		
+		respawn()
 	
 	global_rotation.y = first_person_camera.global_rotation.y
 	guns_folder.rotation.y -= first_person_camera.rotation.y
@@ -153,10 +160,16 @@ func _process(delta: float) -> void:
 	else:
 		is_scoping = false
 	
+	# For multiplayerSynchronizer
+	is_walk_timer_stopped = walk_timer.is_stopped()
+	is_player_on_floor = is_on_floor()
+	velocity_length = velocity.length()
+	
 	move_and_slide()
 	update_player_height(delta)
 	update_guns_transform(delta)
 	update_player_fov(delta)
+	update_player_hud(delta)
 
 
 func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
@@ -242,15 +255,26 @@ func update_guns_transform(delta) -> void:
 func update_gun_fire_type() -> void:
 	gun_fire_type = gun_node.get_fire_type()
 
+
+func update_player_hud(delta) -> void:
+	if not is_multiplayer_authority() or low_hp_shadow_texture == null: return
+	
+	white_screen_texture.self_modulate.a = lerp(white_screen_texture.self_modulate.a, 0.0, delta * 5)
+	
+	match is_player_dead:
+		false:
+			low_hp_shadow_texture.self_modulate.a = lerp(low_hp_shadow_texture.self_modulate.a, 0.2 * color_difference, delta * 5)
+			low_hp_shadow_texture.offset_transform_scale = lerp(low_hp_shadow_texture.offset_transform_scale, Vector2(2, 2) / (1 + color_difference), delta * 5)
+		true:
+			low_hp_shadow_texture.self_modulate.a = lerp(low_hp_shadow_texture.self_modulate.a, 0.0, delta * 5)
+			low_hp_shadow_texture.offset_transform_scale = lerp(low_hp_shadow_texture.offset_transform_scale, Vector2(2, 2), delta * 5)
+	
+	pass
 #endregion
 
 
 #region About colors and shit
 func get_damaged(data) -> void:
-	# Checking if the killer is dead
-	var killer : CharacterBody3D = main_scene.players_folder.get_node(str(data["peer_id"]))
-	if killer.is_player_dead: return
-	
 	player_health -= data["damage"]
 	regen_timer.start()
 	if player_health <= 0:
@@ -259,35 +283,9 @@ func get_damaged(data) -> void:
 		change_color()
 
 
-func die(data) -> void: # TODO move creations into "multiplayer authority" check to make game less laggy
-	#dead_timer.start()
-	killer_id = data["peer_id"]
-	var killer : CharacterBody3D = main_scene.players_folder.get_node(str(killer_id))
-	
-	# Calculating the distance between the player and the killer
-	var distance := (first_person_camera.global_position - killer.global_position).length()
-	
-	# Creating look at node
-	look_at_killer_pivot = Node3D.new()
-	
-	# Calculating pivot's pisition
-	look_at_killer_pivot.position = first_person_camera.global_position
-	look_at_killer_pivot.position.x += sin(global_rotation.y) * distance
-	look_at_killer_pivot.position.y += sin(first_person_camera.rotation.x) * distance
-	look_at_killer_pivot.position.z -= cos(global_rotation.y) * distance
-	
-	look_at_killer_pivot.name = name + "'s look at killer"
-	
-	main_scene.objects_folder.add_child(look_at_killer_pivot)
-	
-	# Creating new camera
-	dead_cam_pivot = Camera3D.new()
-	
-	dead_cam_pivot.position = first_person_camera.global_position
-	dead_cam_pivot.name = name + "'s dead cam"
-	dead_cam_pivot.fov = player_fov
-	
-	main_scene.objects_folder.add_child(dead_cam_pivot)
+func die(data) -> void:
+	dead_timer.start()
+	regen_timer.stop()
 	
 	# Creating corpse
 	var corpse = corpse_scene.instantiate()
@@ -318,36 +316,103 @@ func die(data) -> void: # TODO move creations into "multiplayer authority" check
 		
 		player.play_kill_sound()
 	
-	global_position = Vector3(0, 6767, 0)
-	hide()
-	
 	if is_multiplayer_authority():
+		killer_id = data["peer_id"]
+		var killer : CharacterBody3D = main_scene.players_folder.get_node(str(killer_id))
+		
+		# Calculating the distance between the player and the killer
+		var distance := (first_person_camera.global_position - killer.global_position).length()
+		
+		# Creating look at node
+		look_at_killer_pivot = Node3D.new()
+		
+		# Calculating pivot's pisition
+		look_at_killer_pivot.position = first_person_camera.global_position
+		look_at_killer_pivot.position.x -= sin(global_rotation.y) * distance
+		look_at_killer_pivot.position.y += sin(first_person_camera.rotation.x) * distance
+		look_at_killer_pivot.position.z -= cos(global_rotation.y) * distance
+		
+		look_at_killer_pivot.name = name + "'s look at killer"
+		
+		main_scene.objects_folder.add_child(look_at_killer_pivot)
+		
+		# Creating new camera
+		kill_cam_pivot = Camera3D.new()
+		
+		kill_cam_pivot.position = first_person_camera.global_position
+		kill_cam_pivot.name = name + "'s dead cam"
+		kill_cam_pivot.fov = player_fov
+		
+		main_scene.objects_folder.add_child(kill_cam_pivot)
+		
 		first_person_camera.current = false
-		dead_cam_pivot.current = true
+		kill_cam_pivot.current = true
+	
+	global_position = Vector3(0, -6767, 0)
+	
+	player_health = MAX_HEALTH
+	
+	change_color()
 	
 	# Player is DEAD
 	is_player_dead = true
+
+
+func respawn() -> void:
+	# Setting up for player's color
+	player_health = MAX_HEALTH
+	
+	change_color()
+	
+	if not is_multiplayer_authority(): return
+	
+	white_screen_texture.self_modulate.a = 1.0
+	
+	# Setting up camera and HUD
+	if is_player_dead:
+		kill_cam_pivot.current = false
+		
+		kill_cam_pivot.queue_free()
+		look_at_killer_pivot.queue_free()
+	
+	first_person_camera.current = true
+	
+	first_person_camera.fov = player_fov
 
 
 func look_at_killer(delta) -> void:
 	var killer = main_scene.players_folder.get_node(str(killer_id))
 	
 	look_at_killer_pivot.position = look_at_killer_pivot.position.lerp(killer.first_person_camera.global_position, delta * 3)
-	dead_cam_pivot.fov = lerp(dead_cam_pivot.fov, 35.0, delta * 5)
+	kill_cam_pivot.fov = lerp(kill_cam_pivot.fov, 35.0, delta * 5)
 	
-	dead_cam_pivot.look_at(look_at_killer_pivot.position, Vector3.UP)
+	kill_cam_pivot.look_at(look_at_killer_pivot.position, Vector3.UP)
+	
+	update_player_hud(delta)
 
 
 func look_at_killer_closely() -> void:
-	pass
+	var killer = main_scene.players_folder.get_node(str(killer_id))
+	var killers_camera = killer.first_person_camera
+	
+	kill_cam_pivot.global_transform = killers_camera.global_transform
+	kill_cam_pivot.fov = player_fov
+	
+	# Calculating kill cam position
+	kill_cam_pivot.global_position.x -= sin(killer.global_rotation.y) * 2
+	kill_cam_pivot.global_position.y += sin(killers_camera.rotation.x) * 0.75
+	kill_cam_pivot.global_position.z -= cos(killer.global_rotation.y) * 2
+	
+	kill_cam_pivot.look_at(killers_camera.global_position)
 
 
 func change_color() -> void:
 	if int(name) not in main_scene.player_color_list: return
 	
+	color_difference = 1.0 - (player_health / MAX_HEALTH)
+	
 	player_color = main_scene.player_color_list[int(name)]
 	
-	var color_difference = 1.0 - (player_health / MAX_HEALTH)
 	unique_mat.albedo_color = player_color.lerp(LOW_HEALTH_COLOR, color_difference)
 
 

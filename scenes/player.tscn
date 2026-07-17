@@ -49,6 +49,18 @@ properties/10/replication_mode = 1
 properties/11/path = NodePath(".:is_player_dead")
 properties/11/spawn = true
 properties/11/replication_mode = 1
+properties/12/path = NodePath(".:velocity_length")
+properties/12/spawn = true
+properties/12/replication_mode = 1
+properties/13/path = NodePath(".:is_walk_timer_stopped")
+properties/13/spawn = true
+properties/13/replication_mode = 1
+properties/14/path = NodePath(".:is_player_on_floor")
+properties/14/spawn = true
+properties/14/replication_mode = 1
+properties/15/path = NodePath(".:color_difference")
+properties/15/spawn = true
+properties/15/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["enemy", "player"]]
 collision_layer = 2
@@ -90,7 +102,7 @@ one_shot = true
 one_shot = true
 
 [node name="DeadTimer" type="Timer" parent="." unique_id=865736347]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
 [connection signal="child_entered_tree" from="Guns" to="." method="_on_guns_child_entered_tree"]
