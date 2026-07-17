@@ -81,6 +81,7 @@ environment = SubResource("Environment_tbgi4")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1546634508]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+layers = 524289
 shadow_enabled = true
 
 [node name="Players" type="Node3D" parent="." unique_id=234238514]
@@ -171,6 +172,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="LowHPShadow" type="TextureRect" parent="HUD/PlayerHUD" unique_id=1069349063]
 self_modulate = Color(1, 1, 1, 0)
@@ -183,6 +185,7 @@ grow_vertical = 2
 offset_transform_enabled = true
 offset_transform_scale = Vector2(2, 2)
 texture = ExtResource("6_85g3d")
+metadata/_edit_lock_ = true
 
 [node name="ScopeShadow" type="TextureRect" parent="HUD/PlayerHUD" unique_id=766839285]
 self_modulate = Color(1, 1, 1, 0)
@@ -195,6 +198,7 @@ grow_vertical = 2
 offset_transform_enabled = true
 offset_transform_scale = Vector2(2, 2)
 texture = ExtResource("7_o6xl0")
+metadata/_edit_lock_ = true
 
 [node name="AmmoCounter" type="Label" parent="HUD/PlayerHUD" unique_id=1443145556]
 layout_mode = 1

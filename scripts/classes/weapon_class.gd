@@ -18,7 +18,7 @@ class_name Weapon extends StaticBody3D
 # Scenes
 @export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
 
-@onready var animations : AnimationPlayer = $AnimationPlayer
+@onready var animations : AnimationPlayer = $Pivot/AnimationPlayer
 @onready var weapon_pivot = $Pivot
 @onready var muzzle_flash_pivot = weapon_pivot.find_child("MuzzleFlashPivot")
 @onready var fire_timer = $FireTimer
@@ -74,11 +74,16 @@ func set_stats(new_stats) -> void:
 	change_ammo_counter()
 	change_fire_type()
 	player.update_gun_fire_type()
+	player.update_weapon_speed_multiplier()
 	player_hud.show()
 
 
 func get_fire_type() -> String:
 	return fire_type
+
+
+func get_weapon_speed_multiplier() -> float:
+	return player_speed_multiplier
 
 
 func is_gun_ready() -> bool:
@@ -164,8 +169,7 @@ func play_shoot_animation() -> void:
 	# Creating muzzle flash
 	var muzzle_flash_particles = muzzle_flash_particles_scene.instantiate()
 	
-	muzzle_flash_particles.rotation = muzzle_flash_pivot.global_rotation
-	muzzle_flash_particles.position = muzzle_flash_pivot.global_position
+	muzzle_flash_particles.transform = muzzle_flash_pivot.global_transform
 	
 	player.main_scene.particles_folder.add_child(muzzle_flash_particles)
 	

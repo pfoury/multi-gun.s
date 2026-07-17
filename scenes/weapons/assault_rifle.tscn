@@ -5,24 +5,6 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ogq8d"]
 size = Vector3(0.2, 0.2, 0.2)
 
-[sub_resource type="BoxMesh" id="BoxMesh_ogq8d"]
-size = Vector3(0.099365234, 0.12646484, 0.41357422)
-
-[sub_resource type="BoxMesh" id="BoxMesh_6mwtq"]
-size = Vector3(0.044921875, 0.06011963, 0.27923584)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ogixt"]
-size = Vector3(0.036132813, 0.19238281, 0.111816406)
-
-[sub_resource type="BoxMesh" id="BoxMesh_6ychj"]
-size = Vector3(0.060546875, 0.1352539, 0.111816406)
-
-[sub_resource type="BoxMesh" id="BoxMesh_el8vo"]
-size = Vector3(0.068603516, 0.06365967, 0.2368164)
-
-[sub_resource type="BoxMesh" id="BoxMesh_14wsr"]
-size = Vector3(0.083740234, 0.11328125, 0.060424805)
-
 [sub_resource type="Animation" id="Animation_u7wkp"]
 length = 0.001
 tracks/0/type = "value"
@@ -130,6 +112,24 @@ _data = {
 &"shoot": SubResource("Animation_6ychj")
 }
 
+[sub_resource type="BoxMesh" id="BoxMesh_ogq8d"]
+size = Vector3(0.099365234, 0.12646484, 0.41357422)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6mwtq"]
+size = Vector3(0.044921875, 0.06011963, 0.27923584)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ogixt"]
+size = Vector3(0.036132813, 0.19238281, 0.111816406)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ychj"]
+size = Vector3(0.060546875, 0.1352539, 0.111816406)
+
+[sub_resource type="BoxMesh" id="BoxMesh_el8vo"]
+size = Vector3(0.068603516, 0.06365967, 0.2368164)
+
+[sub_resource type="BoxMesh" id="BoxMesh_14wsr"]
+size = Vector3(0.083740234, 0.11328125, 0.060424805)
+
 [node name="AssaultRifle" type="StaticBody3D" unique_id=537867411]
 collision_layer = 0
 collision_mask = 0
@@ -153,6 +153,10 @@ shape = SubResource("BoxShape3D_ogq8d")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=550191547]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0.56231534, -0.29895756, -0.75996196)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot" unique_id=190362494]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_el8vo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1612859827]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026123047, 0.028564453)
@@ -182,6 +186,3 @@ mesh = SubResource("BoxMesh_14wsr")
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0.035533816, -0.55898917)
 
 [node name="FireTimer" type="Timer" parent="." unique_id=1509606815]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=190362494]
-libraries/ = SubResource("AnimationLibrary_el8vo")

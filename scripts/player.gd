@@ -49,6 +49,7 @@ var unique_mat : Material
 var killer_id : int
 var look_at_killer_pivot : Node3D
 var kill_cam_pivot : Camera3D
+var weapon_speed_multiplier : float
 
 
 func _enter_tree() -> void:
@@ -215,7 +216,7 @@ func update_player_height(delta) -> void:
 		player_pivot.scale.y = lerp(player_pivot.scale.y, 1.0, delta * 20)
 		player_collision.shape.height = lerp(player_collision.shape.height, 2.0, delta * 20)
 	update_player_camera(delta)
-	player_speed = SPEED * player_pivot.scale.y # Making player slower because of crouching
+	player_speed = SPEED * player_pivot.scale.y * weapon_speed_multiplier # Making player slower because of crouching
 
 
 func update_player_camera(delta) -> void:
@@ -258,6 +259,10 @@ func update_gun_fire_type() -> void:
 	gun_fire_type = gun_node.get_fire_type()
 
 
+func update_weapon_speed_multiplier() -> void:
+	weapon_speed_multiplier = gun_node.get_weapon_speed_multiplier()
+
+
 func update_player_hud(delta) -> void:
 	if not is_multiplayer_authority() or low_hp_shadow_texture == null: return
 	
@@ -270,8 +275,6 @@ func update_player_hud(delta) -> void:
 		true:
 			low_hp_shadow_texture.self_modulate.a = lerp(low_hp_shadow_texture.self_modulate.a, 0.0, delta * 5)
 			low_hp_shadow_texture.offset_transform_scale = lerp(low_hp_shadow_texture.offset_transform_scale, Vector2(2, 2), delta * 5)
-	
-	pass
 #endregion
 
 
@@ -352,6 +355,10 @@ func die(data) -> void:
 	
 	global_position = Vector3(0, -6767, 0)
 	
+	player_health = MAX_HEALTH
+	
+	change_color()
+	
 	# Player is DEAD
 	is_player_dead = true
 
@@ -360,14 +367,14 @@ func respawn() -> void:
 	# Setting up for player's color
 	player_health = MAX_HEALTH
 	
+	change_color()
+	
 	# Creating spawn sound
 	var sound = sound_scene.instantiate()
 	
 	sound.folder_path = "res://common/sounds/spawn/"
 	
 	sounds_folder.add_child(sound)
-	
-	change_color()
 	
 	if not is_multiplayer_authority(): return
 	

@@ -189,8 +189,8 @@ mesh = SubResource("BoxMesh_ryvo4")
 [node name="MuzzleFlashPivot" type="Node3D" parent="Pivot" unique_id=1527651227]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15012151, -0.5772168)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=576080488]
-root_node = NodePath("../Camera3D")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot" unique_id=576080488]
+root_node = NodePath("../../Camera3D")
 libraries/ = SubResource("AnimationLibrary_o4qhe")
 
 [node name="FireTimer" type="Timer" parent="." unique_id=105603656]
