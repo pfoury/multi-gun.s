@@ -16,7 +16,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority() or player.is_player_dead: return
 	
 	if !rotation_velocity.is_zero_approx():
 		var rotation_amount = rotation_velocity * minf(delta * 100, 1)

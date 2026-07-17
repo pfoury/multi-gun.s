@@ -10,6 +10,7 @@ const LOW_HEALTH_COLOR : Color = Color("676767")
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var kill_sound_scene : PackedScene = load("res://scenes/sounds/kill_sound_effect.tscn")
 @export var health_regeneration_particles_scene : PackedScene = load("res://scenes/particles/health_regeneration_particles.tscn")
+@export var corpse_scene : PackedScene = load("res://scenes/corpse.tscn")
 @export var player_fov : float = 80
 # For MultiplayerSynchronizer
 @export var velocity_length : float
@@ -18,13 +19,15 @@ const LOW_HEALTH_COLOR : Color = Color("676767")
 @export var player_color : Color = Color.DEEP_PINK
 @export var player_health : float
 @export var is_regen_timer_ready : bool = true
+@export var is_player_dead : bool = false
 
 @onready var main_scene : Node = get_tree().current_scene
 @onready var walk_timer : Timer = $WalkTimer
 @onready var regen_timer : Timer = $RegenTimer
+@onready var dead_timer : Timer = $DeadTimer
 # Player's camera
-@onready var camera_pivot := $CameraPivot
-@onready var first_person_camera := camera_pivot.find_child("FPCamera")
+@onready var camera_pivot : Node3D = $CameraPivot
+@onready var first_person_camera : Camera3D = camera_pivot.find_child("FPCamera")
 # Player's model
 @onready var player_pivot := $Pivot
 @onready var player_collision := $CollisionShape3D
@@ -40,6 +43,9 @@ var gun_node : Node
 var gun_fire_type : String = ""
 var scope_shadow_texture : TextureRect
 var unique_mat : Material
+var killer_id : int
+var look_at_killer_pivot : Node3D
+var dead_cam_pivot : Camera3D
 
 
 func _enter_tree() -> void:
@@ -54,6 +60,8 @@ func _ready() -> void:
 	
 	unique_mat = player_capsule_mesh.get_active_material(0).duplicate()
 	player_capsule_mesh.set_surface_override_material(0, unique_mat)
+	
+	main_scene.rpc("receive_update_players")
 	
 	if not is_multiplayer_authority(): return
 	
@@ -80,6 +88,9 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_multiplayer_authority(): return
 	
+	# If players is dead, then do not calculate anything
+	if is_player_dead: return
+	
 	# Movement
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -105,6 +116,14 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
+	
+	# If players is dead, then do not calculate anything
+	if is_player_dead:
+		if dead_timer.time_left < 2:
+			look_at_killer(delta)
+		else:
+			look_at_killer_closely()
+		return
 	
 	global_rotation.y = first_person_camera.global_rotation.y
 	guns_folder.rotation.y -= first_person_camera.rotation.y
@@ -142,10 +161,6 @@ func _process(delta: float) -> void:
 
 func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
 	gun_node = node
-
-
-func update_gun_fire_type() -> void:
-	gun_fire_type = gun_node.get_fire_type()
 
 
 func _input(event: InputEvent) -> void:
@@ -222,11 +237,20 @@ func update_player_fov(delta) -> void:
 func update_guns_transform(delta) -> void:
 	guns_folder.position = lerp(guns_folder.position, camera_pivot.position, delta * 5)
 	guns_folder.rotation = lerp(guns_folder.rotation, first_person_camera.rotation + camera_pivot.rotation, delta * 25)
+
+
+func update_gun_fire_type() -> void:
+	gun_fire_type = gun_node.get_fire_type()
+
 #endregion
 
 
 #region About colors and shit
 func get_damaged(data) -> void:
+	# Checking if the killer is dead
+	var killer : CharacterBody3D = main_scene.players_folder.get_node(str(data["peer_id"]))
+	if killer.is_player_dead: return
+	
 	player_health -= data["damage"]
 	regen_timer.start()
 	if player_health <= 0:
@@ -235,16 +259,95 @@ func get_damaged(data) -> void:
 		change_color()
 
 
-func die(data) -> void:
+func die(data) -> void: # TODO move creations into "multiplayer authority" check to make game less laggy
+	#dead_timer.start()
+	killer_id = data["peer_id"]
+	var killer : CharacterBody3D = main_scene.players_folder.get_node(str(killer_id))
+	
+	# Calculating the distance between the player and the killer
+	var distance := (first_person_camera.global_position - killer.global_position).length()
+	
+	# Creating look at node
+	look_at_killer_pivot = Node3D.new()
+	
+	# Calculating pivot's pisition
+	look_at_killer_pivot.position = first_person_camera.global_position
+	look_at_killer_pivot.position.x += sin(global_rotation.y) * distance
+	look_at_killer_pivot.position.y += sin(first_person_camera.rotation.x) * distance
+	look_at_killer_pivot.position.z -= cos(global_rotation.y) * distance
+	
+	look_at_killer_pivot.name = name + "'s look at killer"
+	
+	main_scene.objects_folder.add_child(look_at_killer_pivot)
+	
+	# Creating new camera
+	dead_cam_pivot = Camera3D.new()
+	
+	dead_cam_pivot.position = first_person_camera.global_position
+	dead_cam_pivot.name = name + "'s dead cam"
+	dead_cam_pivot.fov = player_fov
+	
+	main_scene.objects_folder.add_child(dead_cam_pivot)
+	
+	# Creating corpse
+	var corpse = corpse_scene.instantiate()
+	
+	corpse.global_transform = global_transform
+	main_scene.objects_folder.add_child(corpse)
+	
+	var push_dir = -data["normal"]
+	
+	var push_force = data["push_force"]
+	
+	corpse.apply_impulse(Vector3(0, 5, 0) + push_dir * push_force * 6)
+	corpse.apply_torque_impulse(
+		Vector3(
+			randi_range(-2, 2),
+			randi_range(-2, 2),
+			randi_range(-2, 2)
+		)
+	)
+	
+	var peer_id = data["peer_id"]
+	
+	if multiplayer.is_server():
+		main_scene.add_point(peer_id)
+	
+	if multiplayer.get_unique_id() == peer_id:
+		var player = main_scene.players_folder.get_node(str(peer_id))
+		
+		player.play_kill_sound()
+	
+	global_position = Vector3(0, 6767, 0)
+	hide()
+	
+	if is_multiplayer_authority():
+		first_person_camera.current = false
+		dead_cam_pivot.current = true
+	
+	# Player is DEAD
+	is_player_dead = true
+
+
+func look_at_killer(delta) -> void:
+	var killer = main_scene.players_folder.get_node(str(killer_id))
+	
+	look_at_killer_pivot.position = look_at_killer_pivot.position.lerp(killer.first_person_camera.global_position, delta * 3)
+	dead_cam_pivot.fov = lerp(dead_cam_pivot.fov, 35.0, delta * 5)
+	
+	dead_cam_pivot.look_at(look_at_killer_pivot.position, Vector3.UP)
+
+
+func look_at_killer_closely() -> void:
 	pass
 
 
 func change_color() -> void:
+	if int(name) not in main_scene.player_color_list: return
+	
 	player_color = main_scene.player_color_list[int(name)]
 	
 	var color_difference = 1.0 - (player_health / MAX_HEALTH)
-	print(color_difference)
-	print(player_health, " - ", MAX_HEALTH)
 	unique_mat.albedo_color = player_color.lerp(LOW_HEALTH_COLOR, color_difference)
 
 

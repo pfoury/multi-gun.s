@@ -23,9 +23,9 @@ const WEAPON_SCENES = [
 @onready var test_object_spawner : MultiplayerSpawner = $TestObjectsSpawner
 @onready var update_timer : Timer = $UpdateTimer
 # Folders
-@onready var players_folder := $Players
-@onready var objects_folder := $Objects
-@onready var particles_folder := $Particles
+@onready var players_folder : Node = $Players
+@onready var objects_folder : Node = $Objects
+@onready var particles_folder : Node = $Particles
 # HUD
 @onready var main_menu_gui := $HUD/MainMenu
 @onready var player_hud := $HUD/PlayerHUD
@@ -79,6 +79,8 @@ func add_player(peer_id) -> void:
 	player.name = str(peer_id)
 	
 	players_folder.add_child(player)
+	
+	player.change_color()
 	
 	print("меня звать ", peer_id, " и я был создан!")
 	
@@ -198,6 +200,14 @@ func create_weapon_pool() -> void:
 		#player.set_new_color(player_color_list[peer_id])
 
 
+func update_players() -> void:
+	var players = players_folder.get_children()
+	
+	for player in players:
+		print(player.name)
+		player.change_color()
+
+
 #region Rpcs
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func receive_creation_of_test_object(data) -> void: # REWORK naming test object
@@ -303,6 +313,11 @@ func receive_new_weapon_stats(data) -> void:
 	gun.set_stats(data)
 
 
+@rpc("any_peer", "call_local", "reliable")
+func receive_update_players() -> void:
+	update_players()
+
+
 @rpc("authority", "call_remote", "reliable") # Getting data for new player
 func load_client(data) -> void:
 	weapon_pool = data["weapon_pool"]
@@ -310,6 +325,8 @@ func load_client(data) -> void:
 	scoreboard = data["scoreboard"]
 	amount_of_weapons = data["amount_of_weapons"]
 	player_color_list = data["player_color_list"]
+	
+	update_players()
 	
 	rpc("create_weapon")
 

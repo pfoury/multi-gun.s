@@ -24,6 +24,14 @@ buses/default_bus_layout="uid://cc4l7yicnijlf"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[file_customization]
+
+folder_colors={
+"res://common/": "green",
+"res://scenes/": "orange",
+"res://scripts/": "blue"
+}
+
 [input]
 
 move_forward={
