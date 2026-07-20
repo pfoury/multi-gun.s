@@ -315,6 +315,10 @@ func die(data) -> void:
 	
 	if multiplayer.is_server():
 		main_scene.add_point(peer_id)
+		
+		var victim_id = int(name)
+		
+		main_scene.rpc("create_kill_log", peer_id, victim_id)
 	
 	if multiplayer.get_unique_id() == peer_id:
 		var player = main_scene.players_folder.get_node(str(peer_id))
@@ -323,6 +327,7 @@ func die(data) -> void:
 	
 	if is_multiplayer_authority():
 		killer_id = data["peer_id"]
+		
 		var killer : CharacterBody3D = main_scene.players_folder.get_node(str(killer_id))
 		
 		# Calculating the distance between the player and the killer

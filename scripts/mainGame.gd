@@ -7,12 +7,6 @@ const WEAPON_SCENES = [
 	"res://scenes/weapons/assault_rifle.tscn" # Assault rifle scene
 ]
 
-@export var player_scene : PackedScene = load("res://scenes/player.tscn")
-@export var testobject_scene : PackedScene = load("res://scenes/temp/temp_enemy.tscn")
-@export var gun_scene : PackedScene
-@export var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
-@export var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
-@export var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
 # For Multiplayer Synchronizer
 @export var amount_of_weapons : int = 16
 @export var weapon_pool : Array = []
@@ -29,10 +23,17 @@ const WEAPON_SCENES = [
 # HUD
 @onready var main_menu_gui := $HUD/MainMenu
 @onready var player_hud := $HUD/PlayerHUD
+@onready var kill_feed := $HUD/PlayerHUD/KillFeed
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
-
+var gun_scene : PackedScene
+var player_scene : PackedScene = load("res://scenes/player.tscn")
+var testobject_scene : PackedScene = load("res://scenes/temp/temp_enemy.tscn")
+var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
+var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
+var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
+var kill_log_scene : PackedScene = load("res://scenes/HUD/kill_log.tscn")
 
 func _ready() -> void:
 	player_hud.hide()
@@ -70,7 +71,7 @@ func add_player(peer_id) -> void:
 	var random_color : Color = Color(randf(), randf(), randf())
 	
 	# Adding to dictionaries
-	player_list[peer_id] = "nickname" # Player's nickname
+	player_list[peer_id] = "nickname" + str(peer_id) # Player's nickname
 	player_color_list[peer_id] = random_color
 	scoreboard[peer_id] = 0 # Player's initial score
 	
@@ -390,4 +391,25 @@ func create_weapon() -> void:
 				rpc_id(1, "generate_new_weapon_stats", peer_id)
 			else:
 				generate_new_weapon_stats(peer_id)
+
+
+@rpc("call_local", "authority", "reliable")
+func create_kill_log(killer_id, victim_id) -> void:
+	# Does player has player list?
+	if player_list == {}: return
+	
+	# Creating kill log
+	var kill_log = kill_log_scene.instantiate()
+	
+	kill_feed.add_child(kill_log)
+	
+	# Getting children :smirk:
+	var killer_label = kill_log.get_node("KillerLabel")
+	var victim_label = kill_log.get_node("VictimLabel")
+	
+	# Changing their text to usernames
+	killer_label.text = player_list[killer_id]
+	victim_label.text = player_list[victim_id]
+	
+	# That's all, my folks!
 #endregion

@@ -2,13 +2,9 @@
 
 [ext_resource type="Script" uid="uid://diek5vbp3i1xy" path="res://scripts/mainGame.gd" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://1pbxshbpwk1v" path="res://scenes/player.tscn" id="2_sugp2"]
-[ext_resource type="PackedScene" uid="uid://df573c87x54if" path="res://scenes/temp/temp_enemy.tscn" id="2_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://bc4tr7wp2lfem" path="res://scenes/weapons/assault_rifle.tscn" id="4_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://c50pgbqpe5muc" path="res://common/textures/LowHPShadow.png" id="6_85g3d"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="7_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://b1yjeoac5ljwd" path="res://common/icons/WeaponIcon.svg" id="8_tipki"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -72,9 +68,6 @@ properties/4/replication_mode = 1
 
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_0wfyh")
-player_scene = ExtResource("2_sugp2")
-testobject_scene = ExtResource("2_tbgi4")
-gun_scene = ExtResource("4_o6xl0")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=180801174]
 environment = SubResource("Environment_tbgi4")
@@ -245,7 +238,6 @@ grow_vertical = 2
 texture = ExtResource("6_tefeu")
 
 [node name="KillFeed" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=908877790]
-visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -256,57 +248,6 @@ offset_right = -12.0
 offset_bottom = 191.0
 grow_horizontal = 0
 alignment = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/PlayerHUD/KillFeed" unique_id=543771146]
-layout_mode = 2
-alignment = 2
-
-[node name="KillerLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer2" unique_id=354227216]
-layout_mode = 2
-text = "OnlyTwentyCharacters"
-
-[node name="WeaponIcon" type="TextureRect" parent="HUD/PlayerHUD/KillFeed/HBoxContainer2" unique_id=26453327]
-layout_mode = 2
-texture = ExtResource("8_tipki")
-expand_mode = 2
-
-[node name="VictimLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer2" unique_id=1216618215]
-layout_mode = 2
-text = "OnlyTwentyCharacters"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PlayerHUD/KillFeed" unique_id=486636587]
-layout_mode = 2
-alignment = 2
-
-[node name="KillerLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer" unique_id=2058721323]
-layout_mode = 2
-text = "p4"
-
-[node name="WeaponIcon" type="TextureRect" parent="HUD/PlayerHUD/KillFeed/HBoxContainer" unique_id=1305942811]
-layout_mode = 2
-texture = ExtResource("8_tipki")
-expand_mode = 2
-
-[node name="VictimLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer" unique_id=809131277]
-layout_mode = 2
-text = "xonae"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="HUD/PlayerHUD/KillFeed" unique_id=737047862]
-layout_mode = 2
-alignment = 2
-
-[node name="KillerLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer3" unique_id=487724339]
-layout_mode = 2
-text = "SegionPex"
-
-[node name="WeaponIcon" type="TextureRect" parent="HUD/PlayerHUD/KillFeed/HBoxContainer3" unique_id=1380452748]
-layout_mode = 2
-texture = ExtResource("8_tipki")
-expand_mode = 2
-
-[node name="VictimLabel" type="Label" parent="HUD/PlayerHUD/KillFeed/HBoxContainer3" unique_id=1974371973]
-layout_mode = 2
-text = "BrrBrrPatapim"
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
 _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")
