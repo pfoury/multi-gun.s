@@ -118,8 +118,6 @@ func _process(delta: float) -> void:
 		if dead_timer.time_left > 1.5:
 			look_at_killer(delta)
 		elif dead_timer.time_left == 0:
-			global_position = Vector3(0, 2, 0) # !!! Replace it with spawn point !!!
-			
 			respawn()
 			is_player_dead = false
 		else:
@@ -129,8 +127,6 @@ func _process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
 	if global_position.y < -100:
-		global_position = Vector3(0, 2, 0)
-		
 		respawn()
 	
 	global_rotation.y = first_person_camera.global_rotation.y
@@ -364,6 +360,8 @@ func die(data) -> void:
 	
 	change_color()
 	
+	hide()
+	
 	# Player is DEAD
 	is_player_dead = true
 
@@ -374,6 +372,23 @@ func respawn() -> void:
 	
 	change_color()
 	
+	# Choosing position to spawn
+	var spawn_area : Area3D = main_scene.spawn_points_folder.get_children().pick_random()
+	if spawn_area != null:
+		var collision_shape = spawn_area.get_node("Collision")
+		
+		# Sizes
+		var spawn_size_x = collision_shape.shape.size.x
+		var spawn_size_z = collision_shape.shape.size.z
+		
+		# Setting new global position
+		global_position = spawn_area.global_position
+		global_position.x += randf_range(-spawn_size_x / 2, spawn_size_x / 2)
+		global_position.z -= randf_range(-spawn_size_z / 2, spawn_size_z / 2)
+	else:
+		# Setting to default one
+		global_position = Vector3(0, 2, 0)
+	
 	# Creating spawn sound
 	var sound = sound_scene.instantiate()
 	
@@ -381,7 +396,11 @@ func respawn() -> void:
 	
 	sounds_folder.add_child(sound)
 	
+	show()
+	
 	if not is_multiplayer_authority(): return
+	
+	# --==--
 	
 	white_screen_texture.self_modulate.a = 1.0
 	

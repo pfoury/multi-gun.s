@@ -17,9 +17,10 @@ const WEAPON_SCENES = [
 @onready var test_object_spawner : MultiplayerSpawner = $TestObjectsSpawner
 @onready var update_timer : Timer = $UpdateTimer
 # Folders
-@onready var players_folder : Node = $Players
-@onready var objects_folder : Node = $Objects
-@onready var particles_folder : Node = $Particles
+@onready var players_folder : Node3D = $Players
+@onready var objects_folder : Node3D = $Objects
+@onready var particles_folder : Node3D = $Particles
+@onready var spawn_points_folder : Node3D = $SpawnPoints
 # HUD
 @onready var main_menu_gui := $HUD/MainMenu
 @onready var player_hud := $HUD/PlayerHUD
@@ -34,6 +35,7 @@ var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blo
 var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
 var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
 var kill_log_scene : PackedScene = load("res://scenes/HUD/kill_log.tscn")
+
 
 func _ready() -> void:
 	player_hud.hide()
@@ -86,7 +88,6 @@ func add_player(peer_id) -> void:
 	print("меня звать ", peer_id, " и я был создан!")
 	
 	if peer_id == 1:
-		print(player_color_list[peer_id])
 		create_weapon()
 	else:
 		var result : Dictionary = {
@@ -205,7 +206,6 @@ func update_players() -> void:
 	var players = players_folder.get_children()
 	
 	for player in players:
-		print(player.name)
 		player.change_color()
 
 
@@ -213,7 +213,6 @@ func update_players() -> void:
 @rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
 func receive_creation_of_test_object(data) -> void: # REWORK naming test object
 	if data != {}:
-		#print("Я был создан игроком ", multiplayer.get_remote_sender_id(), " и был вызван у ", multiplayer.get_unique_id())
 		var testobject = testobject_scene.instantiate()
 		var new_name = str(objects_folder.get_child_count() + 1)
 		
@@ -395,8 +394,10 @@ func create_weapon() -> void:
 
 @rpc("call_local", "authority", "reliable")
 func create_kill_log(killer_id, victim_id) -> void:
-	# Does player has player list?
+	# Does player have player list?
 	if player_list == {}: return
+	# Are IDs in the players' list?
+	if killer_id not in player_list or victim_id not in player_list: return 
 	
 	# Creating kill log
 	var kill_log = kill_log_scene.instantiate()

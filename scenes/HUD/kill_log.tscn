@@ -6,6 +6,7 @@
 [node name="KillLog" type="HBoxContainer" unique_id=328123135]
 offset_right = 40.0
 offset_bottom = 40.0
+alignment = 2
 script = ExtResource("1_uus72")
 
 [node name="KillerLabel" type="Label" parent="." unique_id=1411231802]
