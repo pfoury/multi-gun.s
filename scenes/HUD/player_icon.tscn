@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dc4a0ow1vshd5"]
+
+[ext_resource type="Texture2D" uid="uid://bc378olj1wq7c" path="res://common/icons/Player/PlayersColor.png" id="1_bxwqt"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4ftbt"]
+resource_local_to_scene = true
+load_path = "res://.godot/imported/DifferentPlayer.png-e7b79b34a597570bdd2c7f8599b5e392.ctex"
+
+[sub_resource type="LabelSettings" id="LabelSettings_ogq8d"]
+font_size = 24
+
+[node name="PlayerIcon" type="PanelContainer" unique_id=1665533258]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 64.0
+offset_bottom = 64.0
+offset_transform_enabled = true
+
+[node name="PlayerColor" type="TextureRect" parent="." unique_id=758684078]
+self_modulate = Color(1, 0, 1, 1)
+layout_mode = 2
+texture = ExtResource("1_bxwqt")
+expand_mode = 2
+
+[node name="PlayerOutline" type="TextureRect" parent="." unique_id=411109987]
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_4ftbt")
+expand_mode = 2
+
+[node name="Score" type="Label" parent="." unique_id=1102002824]
+layout_mode = 2
+size_flags_vertical = 8
+text = "0"
+label_settings = SubResource("LabelSettings_ogq8d")
+horizontal_alignment = 2
+vertical_alignment = 2

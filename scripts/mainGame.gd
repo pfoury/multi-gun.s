@@ -25,6 +25,8 @@ const WEAPON_SCENES = [
 @onready var main_menu_gui := $HUD/MainMenu
 @onready var player_hud := $HUD/PlayerHUD
 @onready var kill_feed := $HUD/PlayerHUD/KillFeed
+@onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopPlayers
+
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
@@ -35,6 +37,7 @@ var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blo
 var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
 var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
 var kill_log_scene : PackedScene = load("res://scenes/HUD/kill_log.tscn")
+var player_icon_scene : PackedScene = load("res://scenes/HUD/player_icon.tscn")
 
 
 func _ready() -> void:
@@ -63,10 +66,10 @@ func _on_join_pressed() -> void:
 	multiplayer.multiplayer_peer = enet_peer
 
 
-#func _on_update_timer_timeout() -> void:
-	#if multiplayer.is_server:
-		#rpc("receive_global_update")
-		#update_timer.start()
+func _on_update_timer_timeout() -> void:
+	if multiplayer.is_server:
+		rpc("receive_global_update")
+		update_timer.start()
 
 
 func add_player(peer_id) -> void:
@@ -194,12 +197,9 @@ func create_weapon_pool() -> void:
 		weapon_pool.append(random_pick - 1)
 
 
-#func update_players_color() -> void:
-	#var players = players_folder.get_children()
-	#
-	#for player in players:
-		#var peer_id = int(player.name)
-		#player.set_new_color(player_color_list[peer_id])
+func list_of_updates() -> void: # Call this function to update everything player needs
+	update_players()
+	update_top_players()
 
 
 func update_players() -> void:
@@ -207,6 +207,66 @@ func update_players() -> void:
 	
 	for player in players:
 		player.change_color()
+
+
+func update_top_players() -> void:
+	if player_list == {}: return
+	
+	var player_count = len(player_list)
+	
+	# If necessary, adding new player icons
+	if top_players.get_child_count() == 0 or (top_players.get_child_count() < 6 and player_count > top_players.get_child_count()):
+		while top_players.get_child_count() < 6 and len(player_list) > top_players.get_child_count():
+			var player_icon = player_icon_scene.instantiate()
+			
+			top_players.add_child(player_icon)
+	
+	# If necessary, removing old player icons
+	while player_count < top_players.get_child_count():
+		var random_player_icon = top_players.get_children().pick_random()
+		
+		top_players.remove_child(random_player_icon)
+		random_player_icon.queue_free()
+		
+		await get_tree().process_frame
+	
+	var sorted_players = scoreboard.keys()
+	
+	sorted_players.sort_custom(func(a, b):
+		return scoreboard[a] > scoreboard[b]
+	)
+	
+	
+	var player_icons = top_players.get_children()
+	var index : int = 0
+	
+	# Changing icons
+	for player in sorted_players:
+		if index == 6: break
+		
+		var player_icon = player_icons[index]
+		
+		if index == 0:
+			player_icon.offset_transform_scale = Vector2(1.3, 1.3)
+		
+		var icon_color : TextureRect = player_icon.get_node("PlayerColor")
+		var icon_outline : TextureRect = player_icon.get_node("PlayerOutline")
+		var score : Label = player_icon.get_node("Score")
+		
+		var player_color = player_color_list[player]
+		
+		icon_color.self_modulate.r = player_color.r
+		icon_color.self_modulate.g = player_color.g
+		icon_color.self_modulate.b = player_color.b
+		
+		if multiplayer.get_unique_id() == player:
+			icon_outline.texture.load_path = "res://.godot/imported/CurrentPlayer.png-e86da933f90855c9e91ed4a290d223bb.ctex"
+		else:
+			icon_outline.texture.load_path = "res://.godot/imported/DifferentPlayer.png-e7b79b34a597570bdd2c7f8599b5e392.ctex"
+		
+		score.text = str(scoreboard[player])
+		
+		index += 1
 
 
 #region Rpcs
@@ -313,9 +373,9 @@ func receive_new_weapon_stats(data) -> void:
 	gun.set_stats(data)
 
 
-@rpc("any_peer", "call_local", "reliable")
-func receive_update_players() -> void:
-	update_players()
+@rpc("authority", "call_local", "reliable")
+func receive_global_update() -> void:
+	list_of_updates()
 
 
 @rpc("authority", "call_remote", "reliable") # Getting data for new player
