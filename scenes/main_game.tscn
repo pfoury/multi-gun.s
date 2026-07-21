@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bdfegsh256irq"]
 
-[ext_resource type="Script" uid="uid://diek5vbp3i1xy" path="res://scripts/mainGame.gd" id="1_0wfyh"]
-[ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://c50pgbqpe5muc" path="res://common/textures/LowHPShadow.png" id="6_85g3d"]
-[ext_resource type="PackedScene" uid="uid://d2xnrkoati08x" path="res://scenes/HUD/escape_menu.tscn" id="6_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="6_tefeu"]
-[ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://diek5vbp3i1xy" path="res://scripts/mainGame.gd" id="1_ygxny"]
+[ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="2_wi4c7"]
+[ext_resource type="Texture2D" uid="uid://c50pgbqpe5muc" path="res://common/textures/LowHPShadow.png" id="3_70vka"]
+[ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="4_2l77h"]
+[ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="5_nqdth"]
+[ext_resource type="PackedScene" uid="uid://d2xnrkoati08x" path="res://scenes/HUD/escape_menu.tscn" id="6_5cypo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -23,7 +23,7 @@ glow_enabled = true
 size = Vector3(50, 0.5, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
-albedo_texture = ExtResource("1_o5qli")
+albedo_texture = ExtResource("2_wi4c7")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 
@@ -54,9 +54,6 @@ size = Vector3(5, 5, 5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ogq8d"]
 size = Vector3(3, 0, 3)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ogq8d"]
-font_size = 48
-
 [sub_resource type="LabelSettings" id="LabelSettings_eg0p3"]
 font_size = 48
 
@@ -78,7 +75,7 @@ properties/4/spawn = true
 properties/4/replication_mode = 1
 
 [node name="MainGame" type="Node" unique_id=742275538]
-script = ExtResource("1_0wfyh")
+script = ExtResource("1_ygxny")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=180801174]
 environment = SubResource("Environment_tbgi4")
@@ -159,43 +156,8 @@ shape = SubResource("BoxShape3D_ogq8d")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=591277263]
 
-[node name="MainMenu" type="PanelContainer" parent="HUD" unique_id=1961143428]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -198.0
-offset_top = -104.0
-offset_right = 198.0
-offset_bottom = 104.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD/MainMenu" unique_id=2091614546]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MainMenu/MarginContainer" unique_id=307474738]
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Label" type="Label" parent="HUD/MainMenu/MarginContainer/VBoxContainer" unique_id=1425391037]
-layout_mode = 2
-text = "multi gun.s"
-label_settings = SubResource("LabelSettings_ogq8d")
-horizontal_alignment = 1
-
-[node name="Host" type="Button" parent="HUD/MainMenu/MarginContainer/VBoxContainer" unique_id=1232004280]
-layout_mode = 2
-text = "Host"
-
-[node name="Join" type="Button" parent="HUD/MainMenu/MarginContainer/VBoxContainer" unique_id=1064252805]
-layout_mode = 2
-text = "Join"
-
 [node name="PlayerHUD" type="Control" parent="HUD" unique_id=1236664917]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -223,7 +185,7 @@ grow_horizontal = 2
 grow_vertical = 2
 offset_transform_enabled = true
 offset_transform_scale = Vector2(2, 2)
-texture = ExtResource("6_85g3d")
+texture = ExtResource("3_70vka")
 metadata/_edit_lock_ = true
 
 [node name="ScopeShadow" type="TextureRect" parent="HUD/PlayerHUD" unique_id=766839285]
@@ -236,7 +198,7 @@ grow_horizontal = 2
 grow_vertical = 2
 offset_transform_enabled = true
 offset_transform_scale = Vector2(2, 2)
-texture = ExtResource("7_o6xl0")
+texture = ExtResource("4_2l77h")
 metadata/_edit_lock_ = true
 
 [node name="AmmoCounter" type="Label" parent="HUD/PlayerHUD" unique_id=1443145556]
@@ -281,7 +243,7 @@ offset_right = 7.5
 offset_bottom = 7.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_tefeu")
+texture = ExtResource("5_nqdth")
 
 [node name="KillFeed" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=908877790]
 layout_mode = 1
@@ -308,7 +270,7 @@ offset_transform_enabled = true
 offset_transform_position = Vector2(0, 25)
 alignment = 1
 
-[node name="EscapeMenu" parent="HUD/PlayerHUD" unique_id=1665525603 instance=ExtResource("6_o6xl0")]
+[node name="EscapeMenu" parent="HUD/PlayerHUD" unique_id=1665525603 instance=ExtResource("6_5cypo")]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0.47843137)
 layout_mode = 1
@@ -330,6 +292,4 @@ replication_config = SubResource("SceneReplicationConfig_tipki")
 [node name="UpdateTimer" type="Timer" parent="." unique_id=1217523922]
 one_shot = true
 
-[connection signal="pressed" from="HUD/MainMenu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="HUD/MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="multi-gun.s"
-run/main_scene="uid://bdfegsh256irq"
+run/main_scene="uid://c3ygviyqhll3n"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://common/icons/icon.svg"
 
 [audio]
 
 buses/default_bus_layout="uid://cc4l7yicnijlf"
+
+[autoload]
+
+Global="*uid://3p2ehkusdxh4"
 
 [display]
 

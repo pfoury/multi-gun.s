@@ -12,6 +12,9 @@ var is_in_menu : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_multiplayer_authority(str(player.name).to_int())
+	
+	if not is_multiplayer_authority() or player.is_player_dead: return
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
@@ -28,6 +31,13 @@ func _process(delta: float) -> void:
 		rotation_velocity -= rotation_amount
 	
 	is_in_menu = player.is_in_menu
+	match is_in_menu:
+		true:
+			@warning_ignore("int_as_enum_without_cast", "int_as_enum_without_match")
+			Input.set_mouse_mode(0)
+		false:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	update_camera_pivot(delta)
 
 
@@ -37,12 +47,6 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			rotation_velocity += event.screen_relative / (Vector2)(get_viewport().size / 2) * mouse_sensitivity
-	
-	match is_in_menu:
-		true:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-		false:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func update_mouse_sensitivity(new_mouse_sensitivity) -> void:

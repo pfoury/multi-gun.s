@@ -1,6 +1,5 @@
 extends Node
 
-const PORT = 9999
 const WEAPON_SCENES = [
 	"res://scenes/weapons/pistol.tscn", # Pistol scene
 	"res://scenes/weapons/sniper_rifle.tscn", # Sniper rifle scene
@@ -22,7 +21,6 @@ const WEAPON_SCENES = [
 @onready var particles_folder : Node3D = $Particles
 @onready var spawn_points_folder : Node3D = $SpawnPoints
 # HUD
-@onready var main_menu_gui := $HUD/MainMenu
 @onready var player_hud := $HUD/PlayerHUD
 @onready var kill_feed := $HUD/PlayerHUD/KillFeed
 @onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopPlayers
@@ -42,32 +40,42 @@ var player_icon_scene : PackedScene = load("res://scenes/HUD/player_icon.tscn")
 
 
 func _ready() -> void:
-	player_hud.hide()
-	main_menu_gui.show()
-
-
-func _on_host_pressed() -> void:
-	main_menu_gui.hide()
+	var args : Dictionary = {
+		"username": Global.arguments["username"],
+		"color": Global.arguments["color"]
+	}
 	
-	enet_peer.create_server(PORT)
-	multiplayer.multiplayer_peer = enet_peer
+	if Global.arguments.has("ip"):
+		args["ip"] = Global.arguments["ip"]
+	else:
+		args["ip"] = "localhost"
 	
-	multiplayer.peer_connected.connect(add_player)
-	multiplayer.peer_disconnected.connect(remove_player)
+	if Global.arguments.has("peer"):
+		match Global.arguments["peer"]:
+			"host":
+				enet_peer.create_server(Global.PORT)
+				multiplayer.multiplayer_peer = enet_peer
+				
+				multiplayer.peer_disconnected.connect(remove_player)
+				
+				create_weapon_pool()
+				
+				args["peer_id"] = multiplayer.get_unique_id()
+				add_player(args)
+				
+				update_timer.start()
+			"client":
+				enet_peer.create_client(args["ip"], Global.PORT)
+				multiplayer.multiplayer_peer = enet_peer
+				
+				args["peer_id"] = multiplayer.get_unique_id()
+				
+				while multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+					await get_tree().process_frame
+				
+				rpc_id(1, "receive_new_player", args)
 	
-	create_weapon_pool()
-	add_player(multiplayer.get_unique_id())
-	
-	update_timer.start()
-
-
-func _on_join_pressed() -> void:
-	main_menu_gui.hide()
-	
-	enet_peer.create_client("localhost", PORT)
-	multiplayer.multiplayer_peer = enet_peer
-	
-	multiplayer.server_disconnected.connect(quit_to_main_menu)
+	Global.arguments.clear()
 
 
 func _on_update_timer_timeout() -> void:
@@ -76,12 +84,12 @@ func _on_update_timer_timeout() -> void:
 		update_timer.start()
 
 
-func add_player(peer_id) -> void:
-	var random_color : Color = Color(randf(), randf(), randf())
+func add_player(data) -> void:
+	var peer_id = data["peer_id"]
 	
 	# Adding to dictionaries
-	player_list[peer_id] = "nickname" + str(peer_id) # Player's nickname
-	player_color_list[peer_id] = random_color
+	player_list[peer_id] = data["username"] # Player's nickname
+	player_color_list[peer_id] = data["color"] # Player's color
 	scoreboard[peer_id] = 0 # Player's initial score
 	
 	var player = player_scene.instantiate()
@@ -123,8 +131,7 @@ func remove_player(peer_id) -> void:
 
 
 func quit_to_main_menu() -> void:
-	multiplayer.multiplayer_peer.close()
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 
 func add_test_object(result) -> void:
@@ -411,6 +418,11 @@ func load_client(data) -> void:
 	update_players()
 	
 	rpc("create_weapon")
+
+
+@rpc("any_peer", "call_local", "reliable")
+func receive_new_player(data) -> void:
+	add_player(data)
 
 
 @rpc("call_local", "any_peer", "reliable") # Generating new stats for the player
