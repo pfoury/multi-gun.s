@@ -66,6 +66,8 @@ func _on_join_pressed() -> void:
 	
 	enet_peer.create_client("localhost", PORT)
 	multiplayer.multiplayer_peer = enet_peer
+	
+	multiplayer.server_disconnected.connect(quit_to_main_menu)
 
 
 func _on_update_timer_timeout() -> void:
@@ -118,6 +120,11 @@ func remove_player(peer_id) -> void:
 		player.queue_free()
 	
 	rpc("receive_global_update")
+
+
+func quit_to_main_menu() -> void:
+	multiplayer.multiplayer_peer.close()
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
 func add_test_object(result) -> void:
