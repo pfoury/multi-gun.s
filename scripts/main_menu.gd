@@ -5,7 +5,7 @@ extends Node
 @onready var host_debug: Button = $MainMenu/MainTab/VBoxContainer/HBoxContainer/HostDebug
 @onready var join: Button = $MainMenu/MainTab/VBoxContainer/HBoxContainer2/Join
 @onready var join_debug: Button = $MainMenu/MainTab/VBoxContainer/HBoxContainer2/JoinDebug
-@onready var ip_grabber: LineEdit = $MainMenu/MainTab/VBoxContainer/LineEdit
+@onready var ip_grabber: LineEdit = $MainMenu/MainTab/VBoxContainer/IPGrabber
 
 # Player Customization
 @onready var display_nickname: LineEdit = $MainMenu/PlayerCustomization/VBoxContainer/DisplayNickname

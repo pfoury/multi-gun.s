@@ -70,8 +70,16 @@ func _ready() -> void:
 				
 				args["peer_id"] = multiplayer.get_unique_id()
 				
+				var count : int = 0
+				
 				while multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
 					await get_tree().process_frame
+					
+					count += 1
+					if count == 100:
+						print("Huh.. Seems weird.. Maybe game is not hosted?")
+						get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+						return
 				
 				rpc_id(1, "receive_new_player", args)
 	
