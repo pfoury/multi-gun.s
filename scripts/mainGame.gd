@@ -26,6 +26,7 @@ const WEAPON_SCENES = [
 @onready var player_hud := $HUD/PlayerHUD
 @onready var kill_feed := $HUD/PlayerHUD/KillFeed
 @onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopPlayers
+@onready var escape_menu: PanelContainer = $HUD/PlayerHUD/EscapeMenu
 
 
 var enet_peer = ENetMultiplayerPeer.new()
@@ -52,6 +53,7 @@ func _on_host_pressed() -> void:
 	multiplayer.multiplayer_peer = enet_peer
 	
 	multiplayer.peer_connected.connect(add_player)
+	multiplayer.peer_disconnected.connect(remove_player)
 	
 	create_weapon_pool()
 	add_player(multiplayer.get_unique_id())
@@ -101,6 +103,21 @@ func add_player(peer_id) -> void:
 			"player_color_list": player_color_list
 		}
 		rpc_id(peer_id, "load_client", result)
+	
+	rpc("receive_global_update")
+
+
+func remove_player(peer_id) -> void:
+	# Erasing player
+	player_list.erase(peer_id)
+	scoreboard.erase(peer_id)
+	player_color_list.erase(peer_id)
+	
+	var player = players_folder.get_node_or_null(str(peer_id))
+	if player:
+		player.queue_free()
+	
+	rpc("receive_global_update")
 
 
 func add_test_object(result) -> void:
@@ -347,8 +364,6 @@ func receive_add_point(data) -> void:
 		return
 	
 	if data == multiplayer.get_unique_id():
-		print(scoreboard)
-		
 		var player : Node = players_folder.get_node(str(multiplayer.get_unique_id()))
 		var guns : Node = player.guns_folder
 		var gun : Node = guns.get_node("Gun")

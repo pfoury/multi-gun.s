@@ -6,6 +6,7 @@ extends Camera3D
 @onready var player = $"../.."
 
 var rotation_velocity: Vector2 = Vector2()
+var is_in_menu : bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,6 +27,7 @@ func _process(delta: float) -> void:
 
 		rotation_velocity -= rotation_amount
 	
+	is_in_menu = player.is_in_menu
 	update_camera_pivot(delta)
 
 
@@ -36,10 +38,10 @@ func _input(event: InputEvent) -> void:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			rotation_velocity += event.screen_relative / (Vector2)(get_viewport().size / 2) * mouse_sensitivity
 	
-	if event.is_action_pressed("escape"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	match is_in_menu:
+		true:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-		else:
+		false:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 

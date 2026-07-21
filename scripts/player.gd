@@ -40,11 +40,13 @@ const LOW_HEALTH_COLOR : Color = Color("676767")
 var player_speed : float = SPEED
 var is_crouching : bool
 var is_scoping : bool = false
+var is_in_menu : bool = false
 var gun_node : Node
 var gun_fire_type : String = ""
 var scope_shadow_texture : TextureRect
 var low_hp_shadow_texture : TextureRect
 var white_screen_texture : ColorRect
+var escape_menu_panel : PanelContainer
 var unique_mat : Material
 var killer_id : int
 var look_at_killer_pivot : Node3D
@@ -60,13 +62,12 @@ func _ready() -> void:
 	scope_shadow_texture = main_scene.player_hud.get_node("ScopeShadow")
 	low_hp_shadow_texture = main_scene.player_hud.get_node("LowHPShadow")
 	white_screen_texture = main_scene.player_hud.get_node("WhiteScreen")
+	escape_menu_panel = main_scene.escape_menu
 	
 	unique_mat = player_capsule_mesh.get_active_material(0).duplicate()
 	player_capsule_mesh.set_surface_override_material(0, unique_mat)
 	
 	respawn()
-	
-	main_scene.rpc("receive_update_players")
 
 
 func _physics_process(delta: float) -> void:
@@ -135,8 +136,8 @@ func _process(delta: float) -> void:
 	
 	# Input
 	# Shooting
-	# Checking if player does have a gun
-	if gun_node != null and gun_node.is_gun_ready():
+	# Checking if player does have a gun and player is not in menu
+	if gun_node != null and gun_node.is_gun_ready() and !is_in_menu:
 		# Fire type for each gun fire type (duh)
 		if Input.is_action_pressed("shoot") and gun_fire_type == "auto":
 			gun_node.fire()
@@ -167,6 +168,8 @@ func _process(delta: float) -> void:
 	update_guns_transform(delta)
 	update_player_fov(delta)
 	update_player_hud(delta)
+	
+	is_in_menu = escape_menu_panel.is_in_menu
 
 
 func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
@@ -264,6 +267,7 @@ func update_player_hud(delta) -> void:
 	
 	white_screen_texture.self_modulate.a = lerp(white_screen_texture.self_modulate.a, 0.0, delta * 5)
 	
+	# Red glow
 	match is_player_dead:
 		false:
 			low_hp_shadow_texture.self_modulate.a = lerp(low_hp_shadow_texture.self_modulate.a, 0.2 * color_difference, delta * 5)
@@ -271,13 +275,25 @@ func update_player_hud(delta) -> void:
 		true:
 			low_hp_shadow_texture.self_modulate.a = lerp(low_hp_shadow_texture.self_modulate.a, 0.0, delta * 5)
 			low_hp_shadow_texture.offset_transform_scale = lerp(low_hp_shadow_texture.offset_transform_scale, Vector2(2, 2), delta * 5)
+	
+	# Escape menu
+	match is_in_menu:
+		false:
+			escape_menu_panel.modulate.a = lerp(escape_menu_panel.modulate.a, 0.0, delta * 5)
+			escape_menu_panel.offset_transform_position_ratio.x = lerp(escape_menu_panel.offset_transform_position_ratio.x, -1.0, delta * 10)
+		true:
+			escape_menu_panel.modulate.a = lerp(escape_menu_panel.modulate.a, 1.0, delta * 5)
+			escape_menu_panel.offset_transform_position_ratio.x = lerp(escape_menu_panel.offset_transform_position_ratio.x, 0.0, delta * 10)
 #endregion
 
 
 #region About colors and shit
 func get_damaged(data) -> void:
+	if is_player_dead: return
+	
 	player_health -= data["damage"]
 	regen_timer.start()
+	
 	if player_health <= 0:
 		die(data)
 	else:
@@ -360,8 +376,6 @@ func die(data) -> void:
 	
 	change_color()
 	
-	hide()
-	
 	# Player is DEAD
 	is_player_dead = true
 
@@ -395,8 +409,6 @@ func respawn() -> void:
 	sound.folder_path = "res://common/sounds/spawn/"
 	
 	sounds_folder.add_child(sound)
-	
-	show()
 	
 	if not is_multiplayer_authority(): return
 	
