@@ -5,7 +5,8 @@ const SPEED := 8.0
 const MOVE_LERP_WEIGHT := 15.0
 const GRAVITY := 15.0
 const MAX_HEALTH : float = 150.0
-const LOW_HEALTH_COLOR : Color = Color("676767")
+const LOW_HEALTH_COLOR : Color = Color(676767)
+const BUNNY_HOP_ACCELERATION : float = 1.2
 
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
@@ -39,7 +40,7 @@ const LOW_HEALTH_COLOR : Color = Color("676767")
 
 var player_speed : float = SPEED
 var is_crouching : bool
-var is_scoping : bool = false
+var is_scoping : int = false
 var is_in_menu : bool = false
 var gun_node : Node
 var gun_fire_type : String = ""
@@ -59,6 +60,8 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	player_health = MAX_HEALTH
+	
 	scope_shadow_texture = main_scene.player_hud.get_node("ScopeShadow")
 	low_hp_shadow_texture = main_scene.player_hud.get_node("LowHPShadow")
 	white_screen_texture = main_scene.player_hud.get_node("WhiteScreen")
@@ -104,6 +107,9 @@ func _physics_process(delta: float) -> void:
 	# Applying gravity
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
+		if direction:
+			velocity.x += direction.x * BUNNY_HOP_ACCELERATION * delta * 15.0
+			velocity.z += direction.z * BUNNY_HOP_ACCELERATION * delta * 15.0
 	else:
 		if direction:
 			velocity.x = lerp(velocity.x, direction.x * player_speed, delta * MOVE_LERP_WEIGHT)
@@ -154,9 +160,9 @@ func _process(delta: float) -> void:
 	
 	# Scoping
 	if Input.is_action_pressed("scope") and gun_node.is_scopable:
-		is_scoping = true
+		is_scoping = 1
 	else:
-		is_scoping = false
+		is_scoping = 0
 	
 	# For multiplayerSynchronizer
 	is_walk_timer_stopped = walk_timer.is_stopped()
@@ -215,7 +221,8 @@ func update_player_height(delta) -> void:
 		player_pivot.scale.y = lerp(player_pivot.scale.y, 1.0, delta * 20)
 		player_collision.shape.height = lerp(player_collision.shape.height, 2.0, delta * 20)
 	update_player_camera(delta)
-	player_speed = SPEED * player_pivot.scale.y * weapon_speed_multiplier # Making player slower because of crouching
+	player_speed = SPEED * player_pivot.scale.y * weapon_speed_multiplier \
+	* (0.8 ** (is_scoping + 1)) # Making player slower because of crouching
 
 
 func update_player_camera(delta) -> void:
@@ -229,14 +236,14 @@ func update_player_fov(delta) -> void:
 	
 	# Lerping fov, scope shadow and mouse sensitivity
 	match is_scoping:
-		true:
+		1:
 			camera_fov = lerp(camera_fov, 30.0, delta * 10)
 			
 			scope_shadow_texture.self_modulate.a = lerp(scope_shadow_texture.self_modulate.a, 0.45, delta * 10)
 			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(1.5, 1.5), delta * 10)
 			
 			mouse_sensitivity = lerp(mouse_sensitivity, Vector2(1.0, 1.0), delta * 10)
-		false:
+		0:
 			camera_fov = lerp(camera_fov, player_fov, delta * 10)
 			
 			scope_shadow_texture.self_modulate.a = lerp(scope_shadow_texture.self_modulate.a, 0.0, delta * 10)
