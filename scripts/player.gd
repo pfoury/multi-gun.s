@@ -326,7 +326,9 @@ func die(data) -> void:
 		
 		killer_id = peer_id
 		
-		var killer : CharacterBody3D = main_scene.players_folder.get_node(str(killer_id))
+		var killer : CharacterBody3D = main_scene.players_folder.get_node_or_null(str(killer_id))
+		
+		if killer == null: return
 		
 		# Calculating the distance between the player and the killer
 		var distance := (first_person_camera.global_position - killer.global_position).length()

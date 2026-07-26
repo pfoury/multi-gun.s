@@ -111,7 +111,7 @@ func push_corpse(data) -> void:
 		)
 
 
-@rpc("call_local", "any_peer", "reliable") # Creates object ON ALL clients
+@rpc("call_local", "any_peer", "reliable")
 func receive_creation_of_test_object(data) -> void: # REWORK naming test object
 	if data != {}:
 		var testobject = main.testobject_scene.instantiate()

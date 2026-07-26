@@ -2,11 +2,11 @@ extends Node
 
 
 @rpc("any_peer", "reliable") # Generating new stats for the player
-func generate_new_weapon_stats(data) -> void:
+func generate_new_weapon_stats(peer_id) -> void:
 	var main = Server.main
 	var weapon_craziness = main.weapon_craziness
 	
-	var player : Node = main.players_folder.get_node(str(data))
+	var player : Node = main.players_folder.get_node(str(peer_id))
 	var guns : Node = player.guns_folder
 	var gun : Node = guns.get_node("Gun")
 	
@@ -37,7 +37,7 @@ func generate_new_weapon_stats(data) -> void:
 		weapon_stats[stat_string] = stat
 	
 	# Giving back new stats
-	if data != 1:
-		Client.rpc("receive_new_weapon_stats", weapon_stats)
+	if peer_id != 1:
+		Client.rpc_id(peer_id, "receive_new_weapon_stats", weapon_stats)
 	else:
 		Client.receive_new_weapon_stats(weapon_stats)
