@@ -6,7 +6,7 @@ const MOVE_LERP_WEIGHT := 15.0
 const GRAVITY := 15.0
 const MAX_HEALTH : float = 150.0
 const LOW_HEALTH_COLOR : Color = Color(676767)
-const BUNNY_HOP_ACCELERATION : float = 1.2
+const BUNNY_HOP_ACCELERATION : float = 0.2
 
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
@@ -53,6 +53,8 @@ var killer_id : int
 var look_at_killer_pivot : Node3D
 var kill_cam_pivot : Camera3D
 var weapon_speed_multiplier : float
+var test_object_scene : PackedScene = load("res://scenes/temp/testobject.tscn")
+var test_object : MeshInstance3D
 
 
 func _enter_tree() -> void:
@@ -98,7 +100,7 @@ func _physics_process(delta: float) -> void:
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	# Jump
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
 	# Crouch
@@ -259,6 +261,8 @@ func update_player_fov(delta) -> void:
 func update_guns_transform(delta) -> void:
 	guns_folder.position = lerp(guns_folder.position, camera_pivot.position, delta * 5)
 	guns_folder.rotation = lerp(guns_folder.rotation, first_person_camera.rotation + camera_pivot.rotation, delta * 25)
+	
+	guns_folder.position.y -= velocity.y * 0.0002
 
 
 func update_gun_fire_type() -> void:

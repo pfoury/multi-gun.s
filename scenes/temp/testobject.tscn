@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://kr7f1bd47iji"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ogq8d"]
-size = Vector3(1, 1, 2.5444336)
+size = Vector3(0.2, 0.2, 1.5)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lpbel"]
 properties/0/path = NodePath(".:position")
