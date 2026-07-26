@@ -22,11 +22,18 @@ buses/default_bus_layout="uid://cc4l7yicnijlf"
 [autoload]
 
 Global="*uid://3p2ehkusdxh4"
+Server="*uid://bjojxs8eqtu6c"
+Client="*uid://k2ct6tp2iwcj"
+GunGame="*uid://bpajbcphyjs3j"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [file_customization]
 

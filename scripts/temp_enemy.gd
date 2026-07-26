@@ -29,7 +29,8 @@ func _process(_delta: float) -> void:
 		regen_timer.start()
 
 
-func get_damaged(data) -> void: # Getting called with rpc (everyone sees it)
+@rpc("reliable", "any_peer", "call_local")
+func damage(data) -> void: # Getting called with rpc (everyone sees it)
 	health -= data["damage"]
 	regen_timer.start()
 	if health <= 0:
@@ -65,7 +66,7 @@ func die(data):
 	var peer_id = data["peer_id"]
 	
 	if multiplayer.is_server():
-		main_scene.add_point(peer_id)
+		Client.add_point.rpc(peer_id)
 	
 	if multiplayer.get_unique_id() == peer_id:
 		var player = main_scene.players_folder.get_node(str(peer_id))

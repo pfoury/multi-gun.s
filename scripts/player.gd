@@ -67,7 +67,7 @@ func _ready() -> void:
 	unique_mat = player_capsule_mesh.get_active_material(0).duplicate()
 	player_capsule_mesh.set_surface_override_material(0, unique_mat)
 	
-	respawn()
+	request_to_respawn()
 
 
 func _physics_process(delta: float) -> void:
@@ -119,7 +119,7 @@ func _process(delta: float) -> void:
 		if dead_timer.time_left > 1.5:
 			look_at_killer(delta)
 		elif dead_timer.time_left == 0:
-			respawn()
+			request_to_respawn()
 			is_player_dead = false
 		else:
 			look_at_killer_closely()
@@ -128,7 +128,7 @@ func _process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
 	if global_position.y < -100:
-		respawn()
+		request_to_respawn()
 	
 	global_rotation.y = first_person_camera.global_rotation.y
 	guns_folder.rotation.y -= first_person_camera.rotation.y
@@ -191,7 +191,7 @@ func _input(event: InputEvent) -> void:
 		# Getting first intersect with raycast
 		var result = get_world_3d().direct_space_state.intersect_ray(query)
 		
-		main_scene.add_test_object(result)
+		Client.add_test_object(result)
 	
 	if event.is_action_pressed("reload") and gun_node != null and not gun_node.is_gun_reloading():
 		gun_node.reload()
@@ -288,57 +288,43 @@ func update_player_hud(delta) -> void:
 
 
 #region About colors and shit
-func get_damaged(data) -> void:
+@rpc("reliable", "any_peer", "call_local")
+func damage(data) -> void:
 	if is_player_dead: return
 	
 	player_health -= data["damage"]
 	regen_timer.start()
 	
-	if player_health <= 0:
-		die(data)
+	if player_health <= 0 and is_multiplayer_authority():
+		var result : Dictionary = {
+			"killer_id": data["peer_id"],
+			"victim_id": name,
+			"normal": data["normal"],
+			"push_force": data["push_force"]
+		}
+		if name == "1":
+			Server.kill(result)
+		else:
+			Server.kill.rpc_id(1, result)
 	else:
 		change_color()
 
 
+@rpc("reliable", "any_peer", "call_local")
 func die(data) -> void:
 	dead_timer.start()
 	regen_timer.stop()
 	
-	# Creating corpse
-	var corpse = corpse_scene.instantiate()
-	
-	corpse.global_transform = global_transform
-	main_scene.objects_folder.add_child(corpse)
-	
-	var push_dir = -data["normal"]
-	
-	var push_force = data["push_force"]
-	
-	corpse.apply_impulse(Vector3(0, 5, 0) + push_dir * push_force * 6)
-	corpse.apply_torque_impulse(
-		Vector3(
-			randi_range(-2, 2),
-			randi_range(-2, 2),
-			randi_range(-2, 2)
-		)
-	)
-	
-	var peer_id = data["peer_id"]
-	
-	if multiplayer.is_server():
-		main_scene.add_point(peer_id)
-		
-		var victim_id = int(name)
-		
-		main_scene.rpc("create_kill_log", peer_id, victim_id)
+	var peer_id = data["killer_id"]
 	
 	if multiplayer.get_unique_id() == peer_id:
 		var player = main_scene.players_folder.get_node(str(peer_id))
 		
 		player.play_kill_sound()
-	
-	if is_multiplayer_authority():
-		killer_id = data["peer_id"]
+	elif is_multiplayer_authority():
+		player_health = MAX_HEALTH
+		
+		killer_id = peer_id
 		
 		var killer : CharacterBody3D = main_scene.players_folder.get_node(str(killer_id))
 		
@@ -369,39 +355,33 @@ func die(data) -> void:
 		
 		first_person_camera.current = false
 		kill_cam_pivot.current = true
-	
-	global_position = Vector3(0, -6767, 0)
-	
-	player_health = MAX_HEALTH
+		
+		# Player is DEAD
+		is_player_dead = true
+		
+		global_position = Vector3(0, -6767, 0)
 	
 	change_color()
-	
-	# Player is DEAD
-	is_player_dead = true
 
 
-func respawn() -> void:
+func request_to_respawn() -> void:
+	if name == "1":
+		Server.respawn_player(1)
+	elif is_multiplayer_authority():
+		Server.respawn_player.rpc_id(1, int(name))
+
+
+@rpc("reliable", "any_peer", "call_local")
+func respawn(new_position) -> void:
 	# Setting up for player's color
 	player_health = MAX_HEALTH
 	
+	await get_tree().process_frame
+	
 	change_color()
 	
-	# Choosing position to spawn
-	var spawn_area : Area3D = main_scene.spawn_points_folder.get_children().pick_random()
-	if spawn_area != null:
-		var collision_shape = spawn_area.get_node("Collision")
-		
-		# Sizes
-		var spawn_size_x = collision_shape.shape.size.x
-		var spawn_size_z = collision_shape.shape.size.z
-		
-		# Setting new global position
-		global_position = spawn_area.global_position
-		global_position.x += randf_range(-spawn_size_x / 2, spawn_size_x / 2)
-		global_position.z -= randf_range(-spawn_size_z / 2, spawn_size_z / 2)
-	else:
-		# Setting to default one
-		global_position = Vector3(0, 2, 0)
+	# Setting new position
+	global_position = new_position
 	
 	# Creating spawn sound
 	var sound = sound_scene.instantiate()
@@ -431,7 +411,9 @@ func respawn() -> void:
 func look_at_killer(delta) -> void:
 	if not is_multiplayer_authority(): return
 	
-	var killer = main_scene.players_folder.get_node(str(killer_id))
+	var killer = main_scene.players_folder.get_node_or_null(str(killer_id))
+	
+	if killer == null: return
 	
 	look_at_killer_pivot.position = look_at_killer_pivot.position.lerp(killer.first_person_camera.global_position, delta * 3)
 	kill_cam_pivot.fov = lerp(kill_cam_pivot.fov, 35.0, delta * 5)
@@ -444,7 +426,10 @@ func look_at_killer(delta) -> void:
 func look_at_killer_closely() -> void:
 	if not is_multiplayer_authority(): return
 	
-	var killer = main_scene.players_folder.get_node(str(killer_id))
+	var killer = main_scene.players_folder.get_node_or_null(str(killer_id))
+	
+	if killer == null: return
+	
 	var killers_camera = killer.first_person_camera
 	
 	kill_cam_pivot.global_transform = killers_camera.global_transform

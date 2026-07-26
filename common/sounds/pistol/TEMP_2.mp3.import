@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dcn4ycptprhmg"
-path="res://.godot/imported/TEMP_1.wav-b13b921b672695543eb7ad5ec27bb571.sample"
+uid="uid://c1kt0nlgs4fs7"
+path="res://.godot/imported/TEMP_2.mp3-df518c8d9bffc6e1cbbc4f6b7ba75ab4.sample"
 
 [deps]
 
-source_file="res://common/sounds/pistol/TEMP_1.wav"
-dest_files=["res://.godot/imported/TEMP_1.wav-b13b921b672695543eb7ad5ec27bb571.sample"]
+source_file="res://common/sounds/pistol/TEMP_2.mp3"
+dest_files=["res://.godot/imported/TEMP_2.mp3-df518c8d9bffc6e1cbbc4f6b7ba75ab4.sample"]
 
 [params]
 

@@ -31,6 +31,9 @@ var player_hud : Node
 var is_ready : bool = false
 var is_reloading : bool = false
 var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
+var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
+var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
+var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
 
 func _ready() -> void:
 	ammo = max_ammo
@@ -131,8 +134,6 @@ func fire() -> void:
 	fire_timer.start()
 	is_reloading = false
 	
-	player.main_scene.play_shoot_animation()
-	
 	# Setting up raycast from the player's camera
 	var players_cam = player.first_person_camera.global_position
 	var to = players_cam + -player.first_person_camera.global_transform.basis.z * 1000.0
@@ -142,12 +143,69 @@ func fire() -> void:
 	query.exclude = [self]
 	
 	# Getting first intersect with raycast
-	var result = get_world_3d().direct_space_state.intersect_ray(query)
+	var data = get_world_3d().direct_space_state.intersect_ray(query)
 	
-	if result != {}:
-		player.main_scene.get_shoot_on(result, multiplayer.get_unique_id())
-	
+	# Sending rpc to play animation
+	player.main_scene.play_shoot_animation()
 	play_shoot_animation()
+	
+	if data == {}: return
+	
+	var result : Dictionary = {
+		"instance_id": data["collider_id"],
+		"instance_name": instance_from_id(data["collider_id"]).name,
+		"peer_id": multiplayer.get_unique_id(),
+		"position": data["position"],
+		"normal": data["normal"],
+		"damage": damage,
+		"push_force": push_force
+	}
+	
+	var particles : Node
+	var particles_folder = player.main_scene.particles_folder
+	
+	# Deciding what particles to create
+	if instance_from_id(result["instance_id"]).is_in_group("enemy"):
+		particles = blood_flesh_particles_scene.instantiate()
+		
+		if stats == {}: return # Checking if stats are generated at all
+		
+		if not instance_from_id(result["instance_id"]).is_in_group("corpse"):
+			
+			if instance_from_id(result["instance_id"]).is_in_group("player"):
+				player.main_scene.damage_player(result)
+			else:
+				player.main_scene.damage_test_enemy(result)
+			
+			var hit_indicator_particles = hit_indicator_particles_scene.instantiate()
+			
+			hit_indicator_particles.position = result["position"]
+			
+			particles_folder.add_child(hit_indicator_particles)
+			
+			# Getting numbers node to change text on it
+			var hit_indicator_numbers = hit_indicator_particles.get_node("Numbers")
+			
+			hit_indicator_numbers.draw_pass_1.text = str(int(damage))
+		else:
+			player.main_scene.push_corpse(result)
+	else:
+		particles = dust_hit_particles_scene.instantiate()
+	
+	if particles != null:
+		# Creating particles
+		var normal = data["normal"]
+		
+		var tangent = normal.cross(Vector3.UP)
+		if tangent.length_squared() < 0.0001:
+			tangent = normal.cross(Vector3.RIGHT)
+		
+		tangent = tangent.normalized()
+		
+		particles.look_at_from_position(particles.position, particles.position - data["normal"], tangent)
+		particles.position = data["position"]
+		
+		particles_folder.add_child(particles)
 
 
 #region Animations

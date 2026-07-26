@@ -22,6 +22,9 @@ func _on_settings_button_pressed() -> void:
 
 func _on_main_menu_button_pressed() -> void:
 	multiplayer.multiplayer_peer.close()
+	
+	await get_tree().process_frame
+	
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 

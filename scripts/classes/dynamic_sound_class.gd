@@ -6,16 +6,15 @@ class_name DynamicSound extends AudioStreamPlayer3D
 
 
 func _ready() -> void:
-	@warning_ignore("integer_division")
-	var file_count = DirAccess.get_files_at(folder_path).size() / 2
-	
-	# Choosing which audio to play
-	var choose_audio = str(randi_range(1, file_count))
-	
-	# Setting and playing this specific audio
-	stream = load(folder_path + "TEMP_" + choose_audio + ".wav")
-	play()
-	
-	await finished
-	
 	queue_free()
+	return
+	
+	#var file_names : Array = DirAccess.get_files_at(folder_path)
+	#
+	## Setting and playing random audio
+	#stream = load(folder_path + file_names.pick_random())
+	#play()
+	#
+	#await finished
+	#
+	#queue_free()
