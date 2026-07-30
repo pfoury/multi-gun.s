@@ -48,7 +48,7 @@ func die(data):
 	var corpse = corpse_scene.instantiate()
 	
 	corpse.global_transform = global_transform
-	main_scene.objects_folder.add_child(corpse)
+	main_scene.objects_folder.add_child(corpse, true)
 	
 	var push_dir = -data["normal"]
 	

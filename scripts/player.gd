@@ -99,6 +99,9 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
+	if is_on_floor():
+		direction = direction.slide(get_floor_normal()).normalized()
+	
 	# Jump
 	if Input.is_action_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -119,6 +122,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = lerp(velocity.x, 0.0, delta * MOVE_LERP_WEIGHT)
 			velocity.z = lerp(velocity.z, 0.0, delta * MOVE_LERP_WEIGHT)
+	
+	print(velocity_length)
 
 
 func _process(delta: float) -> void:
@@ -155,6 +160,8 @@ func _process(delta: float) -> void:
 					gun_node.fire()
 				"burst":
 					for amount_of_fires in range(3):
+						if gun_node == null or gun_fire_type != "burst": break
+						
 						gun_node.fire()
 						await get_tree().create_timer(0.05).timeout
 				var unknown_fire_type:
@@ -224,7 +231,7 @@ func update_player_height(delta) -> void:
 		player_collision.shape.height = lerp(player_collision.shape.height, 2.0, delta * 20)
 	update_player_camera(delta)
 	player_speed = SPEED * player_pivot.scale.y * weapon_speed_multiplier \
-	* (0.8 ** (is_scoping + 1)) # Making player slower because of crouching
+	* (0.5 ** (is_scoping + 1)) / 0.5
 
 
 func update_player_camera(delta) -> void:

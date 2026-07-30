@@ -232,7 +232,8 @@ func play_shoot_animation() -> void:
 	player.main_scene.particles_folder.add_child(muzzle_flash_particles)
 	
 	# Adding recoil
-	player.camera_pivot.rotation.x += deg_to_rad(recoil_strength)
+	if rad_to_deg(player.camera_pivot.rotation.x + player.first_person_camera.rotation.x) < 90:
+		player.camera_pivot.rotation.x += deg_to_rad(recoil_strength)
 	
 	# Playing shoot sound
 	var gun_sound = sound_scene.instantiate()
