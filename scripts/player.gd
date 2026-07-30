@@ -6,7 +6,7 @@ const MOVE_LERP_WEIGHT := 15.0
 const GRAVITY := 15.0
 const MAX_HEALTH : float = 150.0
 const LOW_HEALTH_COLOR : Color = Color(676767)
-const BUNNY_HOP_ACCELERATION : float = 0.2
+const BUNNY_HOP_ACCELERATION : float = 0.7
 
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")

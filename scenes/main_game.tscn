@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bdfegsh256irq"]
 
 [ext_resource type="Script" uid="uid://diek5vbp3i1xy" path="res://scripts/mainGame.gd" id="1_ygxny"]
-[ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="2_wi4c7"]
 [ext_resource type="Texture2D" uid="uid://c50pgbqpe5muc" path="res://common/textures/LowHPShadow.png" id="3_70vka"]
 [ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="4_2l77h"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="5_nqdth"]
 [ext_resource type="PackedScene" uid="uid://d2xnrkoati08x" path="res://scenes/HUD/escape_menu.tscn" id="6_5cypo"]
+[ext_resource type="PackedScene" uid="uid://e3slls5q0v0o" path="res://common/maps/cp_orange.blend" id="7_wi4c7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -18,38 +18,6 @@ sky_material = SubResource("ProceduralSkyMaterial_sugp2")
 background_mode = 2
 sky = SubResource("Sky_jyhfs")
 glow_enabled = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_eg0p3"]
-size = Vector3(50, 0.5, 50)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
-albedo_texture = ExtResource("2_wi4c7")
-uv1_scale = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_ogq8d"]
-material = SubResource("StandardMaterial3D_sugp2")
-size = Vector3(50, 0.5, 50)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_ogq8d"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_eg0p3"]
-material = SubResource("StandardMaterial3D_sugp2")
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_ogq8d"]
-radius = 1.5
-
-[sub_resource type="SphereMesh" id="SphereMesh_eg0p3"]
-material = SubResource("StandardMaterial3D_sugp2")
-radius = 1.5
-height = 3.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_eg0p3"]
-material = SubResource("StandardMaterial3D_sugp2")
-size = Vector3(5, 5, 5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hyap7"]
-size = Vector3(5, 5, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ogq8d"]
 size = Vector3(3, 0, 3)
@@ -91,67 +59,71 @@ shadow_enabled = true
 
 [node name="Particles" type="Node3D" parent="." unique_id=2113965539]
 
-[node name="SolidObjects" type="Node3D" parent="." unique_id=190564419]
+[node name="Map" type="Node3D" parent="." unique_id=190564419]
 
-[node name="Ground" type="StaticBody3D" parent="SolidObjects" unique_id=381869476]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SolidObjects/Ground" unique_id=2123035191]
-shape = SubResource("BoxShape3D_eg0p3")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SolidObjects/Ground" unique_id=434441783]
-mesh = SubResource("BoxMesh_ogq8d")
-
-[node name="Cylinder" type="StaticBody3D" parent="SolidObjects" unique_id=343936536]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.889285, 1.1699102, -2.6721983)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SolidObjects/Cylinder" unique_id=477094009]
-shape = SubResource("CylinderShape3D_ogq8d")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SolidObjects/Cylinder" unique_id=377476375]
-mesh = SubResource("CylinderMesh_eg0p3")
-
-[node name="Sphere" type="StaticBody3D" parent="SolidObjects" unique_id=1671336547]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9466367, 1.6999152, 1.1710892)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SolidObjects/Sphere" unique_id=1675282349]
-shape = SubResource("SphereShape3D_ogq8d")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SolidObjects/Sphere" unique_id=295718741]
-mesh = SubResource("SphereMesh_eg0p3")
-
-[node name="Cube" type="StaticBody3D" parent="SolidObjects" unique_id=2044285362]
-transform = Transform3D(0.8284715, 0, -0.56003124, 0, 1, 0, 0.56003124, 0, 0.8284715, -6.563884, 2.6577644, 3.8621526)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SolidObjects/Cube" unique_id=1803663573]
-mesh = SubResource("BoxMesh_eg0p3")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SolidObjects/Cube" unique_id=1932319365]
-shape = SubResource("BoxShape3D_hyap7")
+[node name="cp_orange" parent="Map" unique_id=43478337 instance=ExtResource("7_wi4c7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2364254, 0.1735611, 0.40246964)
 
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=902091957]
 
 [node name="Spawn1" type="Area3D" parent="SpawnPoints" unique_id=2142043711]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1689847, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.357765, 1.1689847, -32.969677)
 
 [node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn1" unique_id=379608232]
 shape = SubResource("BoxShape3D_ogq8d")
 
 [node name="Spawn2" type="Area3D" parent="SpawnPoints" unique_id=40245523]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.947831, 1.1689847, -0.9077203)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.613464, 1.1689847, 41.076454)
 
 [node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn2" unique_id=1692443325]
 shape = SubResource("BoxShape3D_ogq8d")
 
 [node name="Spawn3" type="Area3D" parent="SpawnPoints" unique_id=2006861303]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6415873, 1.1689847, 5.9244976)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.218354, 20.898933, 6.7482595)
 
 [node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn3" unique_id=1979018975]
 shape = SubResource("BoxShape3D_ogq8d")
 
 [node name="Spawn4" type="Area3D" parent="SpawnPoints" unique_id=1445592172]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.465891, 1.1689847, -4.6838655)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.449272, 1.1689847, -3.1568918)
 
 [node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn4" unique_id=1411877146]
+shape = SubResource("BoxShape3D_ogq8d")
+
+[node name="Spawn5" type="Area3D" parent="SpawnPoints" unique_id=1069211001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.112396, 1.1689847, 51.83142)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn5" unique_id=1884266339]
+shape = SubResource("BoxShape3D_ogq8d")
+
+[node name="Spawn6" type="Area3D" parent="SpawnPoints" unique_id=49662687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.09848, 3.4988549, -25.83259)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn6" unique_id=649499740]
+shape = SubResource("BoxShape3D_ogq8d")
+
+[node name="Spawn7" type="Area3D" parent="SpawnPoints" unique_id=68248679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.921295, 1.1689847, 16.650236)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn7" unique_id=628006668]
+shape = SubResource("BoxShape3D_ogq8d")
+
+[node name="Spawn8" type="Area3D" parent="SpawnPoints" unique_id=1646658907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3609581, 1.1689847, -2.1225586)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn8" unique_id=239751635]
+shape = SubResource("BoxShape3D_ogq8d")
+
+[node name="Spawn9" type="Area3D" parent="SpawnPoints" unique_id=440603889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.218354, 12.192676, 6.7482595)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn9" unique_id=1829208642]
+shape = SubResource("BoxShape3D_ogq8d")
+
+[node name="Spawn10" type="Area3D" parent="SpawnPoints" unique_id=1312590578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.218354, 3.1510363, 7.239358)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn10" unique_id=2012994555]
 shape = SubResource("BoxShape3D_ogq8d")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=591277263]
