@@ -108,8 +108,11 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		direction = direction.slide(get_floor_normal()).normalized()
 		
-		velocity.x = move_toward(velocity.x, direction.x * player_speed, delta * GROUND_FRICTION)
-		velocity.z = move_toward(velocity.z, direction.z * player_speed, delta * GROUND_FRICTION)
+		var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
+		horizontal_velocity = horizontal_velocity.move_toward(direction * player_speed, GROUND_FRICTION * delta)
+		
+		velocity.x = horizontal_velocity.x
+		velocity.z = horizontal_velocity.z
 	else:
 		if direction == Vector3.ZERO:
 			velocity.x = move_toward(velocity.x, 0.0, GROUND_FRICTION * delta)
