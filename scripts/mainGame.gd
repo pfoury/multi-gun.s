@@ -16,6 +16,7 @@ extends Node
 # HUD
 @onready var player_hud := $HUD/PlayerHUD
 @onready var kill_feed := $HUD/PlayerHUD/KillFeed
+@onready var statistics := $HUD/PlayerHUD/Statistics
 @onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopPlayers
 @onready var escape_menu: PanelContainer = $HUD/PlayerHUD/EscapeMenu
 
@@ -78,6 +79,13 @@ func _ready() -> void:
 		Global.arguments.clear()
 	else:
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+func _process(_delta: float) -> void:
+	# FPS counter
+	var fps_label = statistics.get_node_or_null("FPSLabel")
+	
+	fps_label.text = "FPS: " + str(Engine.get_frames_per_second())
 
 
 func remove_player(peer_id) -> void:

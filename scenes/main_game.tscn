@@ -133,7 +133,6 @@ shape = SubResource("BoxShape3D_ogq8d")
 [node name="HUD" type="CanvasLayer" parent="." unique_id=591277263]
 
 [node name="PlayerHUD" type="Control" parent="HUD" unique_id=1236664917]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -253,6 +252,26 @@ layout_mode = 1
 offset_right = 429.0
 offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(-1, 0)
+
+[node name="Statistics" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=1822386790]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -87.0
+offset_bottom = 40.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="FPSLabel" type="Label" parent="HUD/PlayerHUD/Statistics" unique_id=1990779912]
+layout_mode = 2
+text = "FPS: 67"
+horizontal_alignment = 2
+
+[node name="VelocityLabel" type="Label" parent="HUD/PlayerHUD/Statistics" unique_id=118658561]
+layout_mode = 2
+text = "Velocity: 67"
+horizontal_alignment = 2
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
 _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")

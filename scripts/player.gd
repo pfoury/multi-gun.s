@@ -2,11 +2,12 @@ extends CharacterBody3D
 
 const JUMP_VELOCITY := 4.5
 const SPEED := 8.0
-const MOVE_LERP_WEIGHT := 15.0
 const GRAVITY := 15.0
 const MAX_HEALTH : float = 150.0
-const LOW_HEALTH_COLOR : Color = Color(676767)
+const LOW_HEALTH_COLOR : Color = Color("676767")
 const BUNNY_HOP_ACCELERATION : float = 0.7
+const GROUND_ACCELERATION := 60.0
+const GROUND_FRICTION := 60.0
 
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
@@ -62,6 +63,8 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	set_floor_snap_length(0)
+	
 	player_health = MAX_HEALTH
 	
 	scope_shadow_texture = main_scene.player_hud.get_node("ScopeShadow")
@@ -73,6 +76,9 @@ func _ready() -> void:
 	player_capsule_mesh.set_surface_override_material(0, unique_mat)
 	
 	request_to_respawn()
+	
+	#test_object = test_object_scene.instantiate()
+	#main_scene.add_child(test_object)
 
 
 func _physics_process(delta: float) -> void:
@@ -92,7 +98,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_multiplayer_authority(): return
 	
-	# If players is dead, then do not calculate anything
+	# If player is dead, then do not calculate anything
 	if is_player_dead: return
 	
 	# Movement
@@ -101,29 +107,36 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
 		direction = direction.slide(get_floor_normal()).normalized()
+		
+		velocity.x = move_toward(velocity.x, direction.x * player_speed, delta * GROUND_FRICTION)
+		velocity.z = move_toward(velocity.z, direction.z * player_speed, delta * GROUND_FRICTION)
+	else:
+		if direction == Vector3.ZERO:
+			velocity.x = move_toward(velocity.x, 0.0, GROUND_FRICTION * delta)
+			velocity.z = move_toward(velocity.z, 0.0, GROUND_FRICTION * delta)
+		else:
+			if direction:
+				velocity.x += direction.x * BUNNY_HOP_ACCELERATION * delta * 15.0
+				velocity.z += direction.z * BUNNY_HOP_ACCELERATION * delta * 15.0
+	
+	velocity.y -= GRAVITY * delta
 	
 	# Jump
 	if Input.is_action_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y += JUMP_VELOCITY
 	
 	# Crouch
 	is_crouching = Input.is_action_pressed("crouch")
 	
-	# Applying gravity
-	if not is_on_floor():
-		velocity.y -= GRAVITY * delta
-		if direction:
-			velocity.x += direction.x * BUNNY_HOP_ACCELERATION * delta * 15.0
-			velocity.z += direction.z * BUNNY_HOP_ACCELERATION * delta * 15.0
-	else:
-		if direction:
-			velocity.x = lerp(velocity.x, direction.x * player_speed, delta * MOVE_LERP_WEIGHT)
-			velocity.z = lerp(velocity.z, direction.z * player_speed, delta * MOVE_LERP_WEIGHT)
-		else:
-			velocity.x = lerp(velocity.x, 0.0, delta * MOVE_LERP_WEIGHT)
-			velocity.z = lerp(velocity.z, 0.0, delta * MOVE_LERP_WEIGHT)
+	move_and_slide()
 	
-	print(velocity_length)
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var normal = collision.get_normal()
+		
+		if normal.y > 0.1 and normal.y < 0.95:
+			velocity = velocity.slide(normal)
+			print(1)
 
 
 func _process(delta: float) -> void:
@@ -178,13 +191,19 @@ func _process(delta: float) -> void:
 	is_player_on_floor = is_on_floor()
 	velocity_length = velocity.length()
 	
-	move_and_slide()
 	update_player_height(delta)
 	update_guns_transform(delta)
 	update_player_fov(delta)
 	update_player_hud(delta)
 	
 	is_in_menu = escape_menu_panel.is_in_menu
+	
+	#if test_object != null:
+		#var velocity_vector = global_position + velocity # Velocity vector
+		#
+		#test_object.look_at(velocity_vector, Vector3(0, 1, 0.1))
+		#
+		#test_object.position = global_position
 
 
 func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
@@ -302,6 +321,11 @@ func update_player_hud(delta) -> void:
 		true:
 			escape_menu_panel.modulate.a = lerp(escape_menu_panel.modulate.a, 1.0, delta * 5)
 			escape_menu_panel.offset_transform_position_ratio.x = lerp(escape_menu_panel.offset_transform_position_ratio.x, 0.0, delta * 10)
+	
+	# Changing velocity
+	var velocity_label = main_scene.statistics.get_node_or_null("VelocityLabel")
+	
+	velocity_label.text = "Velocity: " + str(int(round(velocity_length * 100)))
 #endregion
 
 

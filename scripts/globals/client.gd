@@ -194,7 +194,7 @@ func create_weapon(peer_id) -> void:
 	var guns : Node3D = player.guns_folder
 	var gun = guns.get_node_or_null("Gun")
 	
-	if gun == null:
+	if gun == null and peer_id in main.scoreboard:
 		var weapon_number = main.scoreboard[peer_id]
 		var new_gun = load(Global.WEAPON_SCENES[main.weapon_pool[weapon_number]]).instantiate()
 		
