@@ -114,13 +114,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = horizontal_velocity.x
 		velocity.z = horizontal_velocity.z
 	else:
-		if direction == Vector3.ZERO:
-			velocity.x = move_toward(velocity.x, 0.0, GROUND_FRICTION * delta)
-			velocity.z = move_toward(velocity.z, 0.0, GROUND_FRICTION * delta)
-		else:
-			if direction:
-				velocity.x += direction.x * BUNNY_HOP_ACCELERATION * delta * 15.0
-				velocity.z += direction.z * BUNNY_HOP_ACCELERATION * delta * 15.0
+		if direction:
+			velocity.x += direction.x * BUNNY_HOP_ACCELERATION * delta * 15.0
+			velocity.z += direction.z * BUNNY_HOP_ACCELERATION * delta * 15.0
 	
 	velocity.y -= GRAVITY * delta
 	
