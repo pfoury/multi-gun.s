@@ -129,13 +129,13 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
+	# rotates velocity for ramps
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var normal = collision.get_normal()
 		
 		if normal.y > 0.1 and normal.y < 0.95:
 			velocity = velocity.slide(normal)
-			print(1)
 
 
 func _process(delta: float) -> void:
@@ -341,7 +341,7 @@ func damage(data) -> void:
 			"killer_id": data["peer_id"],
 			"victim_id": name,
 			"normal": data["normal"],
-			"push_force": data["push_force"]
+			"push_corpse_force": data["push_corpse_force"]
 		}
 		if name == "1":
 			Server.kill(result)

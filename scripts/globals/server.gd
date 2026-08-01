@@ -99,9 +99,9 @@ func push_corpse(data) -> void:
 	if corpse != null:
 		var push_dir = -data["normal"]
 	
-		var push_force = data["push_force"]
+		var push_corpse_force = data["push_corpse_force"]
 		
-		corpse.apply_impulse(Vector3(0, 5, 0) + push_dir * push_force * 2)
+		corpse.apply_impulse(Vector3(0, 5, 0) + push_dir * push_corpse_force * 2)
 		corpse.apply_torque_impulse(
 			Vector3(
 				randi_range(-2, 2),
@@ -174,9 +174,9 @@ func kill(data) -> void:
 	
 	var push_dir = -data["normal"]
 	
-	var push_force = data["push_force"]
+	var push_corpse_force = data["push_corpse_force"]
 	
-	corpse.apply_impulse(Vector3(0, 5, 0) + push_dir * push_force * 6)
+	corpse.apply_impulse(Vector3(0, 5, 0) + push_dir * push_corpse_force * 6)
 	corpse.apply_torque_impulse(
 		Vector3(
 			randi_range(-2, 2),
@@ -189,7 +189,7 @@ func kill(data) -> void:
 	
 	var victim_id = data["victim_id"]
 	
-	Client.rpc("create_kill_log", data["killer_id"], victim_id)
+	Client.rpc("create_kill_log", int(data["killer_id"]), int(victim_id))
 	
 	victim.die.rpc(data)
 

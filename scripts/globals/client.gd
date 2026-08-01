@@ -144,7 +144,7 @@ func load_client(data) -> void:
 	rpc("create_weapon", data["peer_id"])
 
 
-@rpc("call_local", "authority", "reliable")
+@rpc("call_local", "any_peer", "reliable")
 func create_kill_log(killer_id, victim_id) -> void:
 	# Does player have player list?
 	if main.player_list == {}: return

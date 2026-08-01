@@ -10,7 +10,8 @@ class_name Weapon extends StaticBody3D
 @export var fire_type = ["semi", "burst", "auto"]
 @export var reload_speed : float = 1.0
 @export var player_speed_multiplier : float = 1.0
-@export var push_force : float = 2.0
+@export var push_corpse_force : float = 2.0
+@export var push_player_force : float = 10.0
 @export var recoil_strength : float = 1.35
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
@@ -50,7 +51,7 @@ func get_stats() -> Dictionary:
 		"reload_speed": reload_speed,
 		"player_speed_multiplier": player_speed_multiplier,
 		"recoil_strength": recoil_strength,
-		"push_force": push_force,
+		"push_corpse_force": push_corpse_force,
 		"max_ammo": max_ammo
 	}
 	
@@ -61,7 +62,7 @@ func set_stats(new_stats) -> void:
 	stats = new_stats
 	
 	var list_of_stats = [
-		"damage", "fire_speed", "fire_type", "reload_speed", "player_speed_multiplier", "push_force", "recoil_strength", "max_ammo"
+		"damage", "fire_speed", "fire_type", "reload_speed", "player_speed_multiplier", "push_corpse_force", "recoil_strength", "max_ammo"
 	]
 	
 	for stat_string in list_of_stats:
@@ -90,7 +91,7 @@ func get_weapon_speed_multiplier() -> float:
 
 
 func is_gun_ready() -> bool:
-	var gun_ready = is_ready and (fire_timer.is_stopped() and ammo > 0)
+	var gun_ready = is_ready and fire_timer.is_stopped()
 	
 	return gun_ready
 
@@ -100,7 +101,13 @@ func is_gun_reloading() -> bool:
 
 
 func change_ammo_counter() -> void:
-	player_hud.get_node("AmmoCounter").text = str(ammo) + " / " + str(max_ammo)
+	var ammo_counter_label = player_hud.get_node_or_null("AmmoCounter")
+	
+	while ammo_counter_label == null:
+		ammo_counter_label = player_hud.get_node_or_null("AmmoCounter")
+		await get_tree().process_frame
+	
+	ammo_counter_label.text = str(ammo) + " / " + str(max_ammo)
 
 
 func change_fire_type() -> void:
@@ -126,7 +133,10 @@ func reload() -> void:
 
 
 func fire() -> void:
-	if ammo < 1: return
+	if ammo < 1:
+		if !is_reloading:
+			reload()
+		return
 	ammo -= 1
 	
 	change_ammo_counter()
@@ -158,7 +168,7 @@ func fire() -> void:
 		"position": data["position"],
 		"normal": data["normal"],
 		"damage": damage,
-		"push_force": push_force
+		"push_corpse_force": push_corpse_force
 	}
 	
 	var particles : Node
@@ -192,8 +202,8 @@ func fire() -> void:
 	else:
 		particles = dust_hit_particles_scene.instantiate()
 	
+	# Creating particles
 	if particles != null:
-		# Creating particles
 		var normal = data["normal"]
 		
 		var tangent = normal.cross(Vector3.UP)
@@ -206,6 +216,17 @@ func fire() -> void:
 		particles.position = data["position"]
 		
 		particles_folder.add_child(particles)
+	
+	# Applying push force to the player if needed
+	#if push_player_force != 0.0: push_player()
+
+
+func push_player() -> void:
+	var camera = player.first_person_camera
+	
+	print(camera.rotation)
+	
+	player.velocity += (camera.rotation + player.rotation) * 10
 
 
 #region Animations

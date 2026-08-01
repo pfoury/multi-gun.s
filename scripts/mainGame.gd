@@ -1,7 +1,7 @@
 extends Node
 
 # For Multiplayer Synchronizer
-@export var amount_of_weapons : int = 16
+@export var amount_of_weapons : int = 50
 @export var weapon_pool : Array = []
 @export var player_list : Dictionary = {}
 @export var player_color_list : Dictionary = {}

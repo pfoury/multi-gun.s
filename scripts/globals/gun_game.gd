@@ -14,7 +14,7 @@ func generate_new_weapon_stats(peer_id) -> void:
 	var weapon_stats = await gun.get_stats()
 	
 	var list_of_stats = [
-		"damage", "fire_speed", "fire_type", "reload_speed", "player_speed_multiplier", "push_force", "recoil_strength", "max_ammo"
+		"damage", "fire_speed", "fire_type", "reload_speed", "player_speed_multiplier", "push_corpse_force", "recoil_strength", "max_ammo"
 	]
 	
 	# Generating new stats

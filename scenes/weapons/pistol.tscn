@@ -106,6 +106,7 @@ _data = {
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_4jni1")
+damage = 25.0
 fire_type = ["auto", "semi", "burst"]
 metadata/_custom_type_script = "uid://djo4d746r6i34"
 

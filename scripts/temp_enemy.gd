@@ -52,7 +52,7 @@ func die(data):
 	
 	var push_dir = -data["normal"]
 	
-	var push_force = data["push_force"]
+	var push_force = data["push_corpse_force"]
 	
 	corpse.apply_impulse(Vector3(0, 5, 0) + push_dir * push_force * 6)
 	corpse.apply_torque_impulse(
