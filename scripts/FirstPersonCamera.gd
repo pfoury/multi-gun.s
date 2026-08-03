@@ -1,12 +1,15 @@
 extends Camera3D
 
 @export var mouse_sensitivity : Vector2 = Vector2(2.0, 2.0)
+@export var recoil_recovery_speed : float = 5.0
 
 @onready var camera_pivot = $".."
 @onready var player = $"../.."
 
 var rotation_velocity: Vector2 = Vector2()
 var is_in_menu : bool = false
+var recoil_offset : float = 0.0
+var camera_rotation : float
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,10 +18,17 @@ func _ready() -> void:
 	
 	if not is_multiplayer_authority() or player.is_player_dead: return
 	
+	camera_rotation = rotation.x
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	recoil_offset = lerp(recoil_offset, 0.0, delta * recoil_recovery_speed)
+	
+	camera_pivot.transform.basis = Basis(Vector3.RIGHT, recoil_offset)
+
+
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority() or player.is_player_dead: return
 	
@@ -37,8 +47,6 @@ func _process(delta: float) -> void:
 			Input.set_mouse_mode(0)
 		false:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	update_camera_pivot(delta)
 
 
 func _input(event: InputEvent) -> void:
@@ -49,9 +57,9 @@ func _input(event: InputEvent) -> void:
 			rotation_velocity += event.screen_relative / (Vector2)(get_viewport().size / 2) * mouse_sensitivity
 
 
+func apply_recoil(recoil_strength) -> void:
+	recoil_offset += deg_to_rad(recoil_strength)
+
+
 func update_mouse_sensitivity(new_mouse_sensitivity) -> void:
 	mouse_sensitivity = new_mouse_sensitivity
-
-
-func update_camera_pivot(delta) -> void: # I'm doing it here because I don't want to have a lot of fucking scripts in this project.
-	camera_pivot.rotation.x = lerp(camera_pivot.rotation.x, 0.0, delta * 5)

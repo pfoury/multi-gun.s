@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://shn6qdb4lwck"]
+
+[ext_resource type="Script" uid="uid://sw7k8d3uk5uo" path="res://scripts/classes/medium_particles_class.gd" id="1_px7cg"]
+[ext_resource type="Texture2D" uid="uid://cemj8gv444jbp" path="res://common/textures/starparticle.png" id="2_gs2du"]
+
+[sub_resource type="Curve" id="Curve_g2uht"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.386512, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0a4cv"]
+curve = SubResource("Curve_g2uht")
+
+[sub_resource type="Gradient" id="Gradient_b4h0e"]
+colors = PackedColorArray(1, 1, 1, 1, 0.6255971, 0.6255971, 0.6255971, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_irt5y"]
+gradient = SubResource("Gradient_b4h0e")
+
+[sub_resource type="Curve" id="Curve_m6d2w"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2955665, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.321704, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_nm4qu"]
+curve = SubResource("Curve_m6d2w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ogq8d"]
+lifetime_randomness = 0.8
+emission_shape_scale = Vector3(0.095, 0.205, 0.3)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 0.01
+initial_velocity_max = 0.099999994
+gravity = Vector3(0, 0.01, 0)
+scale_min = 0.02
+scale_max = 0.07
+scale_curve = SubResource("CurveTexture_nm4qu")
+color = Color(1, 1, 0, 1)
+color_ramp = SubResource("GradientTexture1D_irt5y")
+alpha_curve = SubResource("CurveTexture_0a4cv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_gs2du")
+grow_amount = -16.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_eg0p3"]
+material = SubResource("StandardMaterial3D_hyap7")
+
+[node name="GoldenParticles" type="Node3D" unique_id=1946483043]
+script = ExtResource("1_px7cg")
+metadata/_custom_type_script = "uid://sw7k8d3uk5uo"
+
+[node name="Goldens" type="GPUParticles3D" parent="." unique_id=2114782544]
+amount = 6
+explosiveness = 0.6
+fixed_fps = 0
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_ogq8d")
+draw_pass_1 = SubResource("QuadMesh_eg0p3")

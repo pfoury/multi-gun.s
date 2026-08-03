@@ -433,7 +433,7 @@ func create_respawn_shield() -> void:
 	# Making visual effects
 	unique_mat.emission_enabled = true
 	unique_mat.blend_mode = 1
-	for _count in range(3):
+	for _count in range(2):
 		unique_mat.emission_energy_multiplier = 1.0
 		
 		var stars_particles = stars_particles_scene.instantiate()

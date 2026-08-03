@@ -16,6 +16,7 @@ class_name Weapon extends StaticBody3D
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
 @export var gun_sound_path : String = "res://common/sounds/pistol/"
+@export var is_golden : bool = false
 # Scenes
 @export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
 
@@ -35,12 +36,18 @@ var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
 var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
 var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
 var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
+var golden_particles_scene : PackedScene = load("res://scenes/particles/golden_particles.tscn")
 
 func _ready() -> void:
 	reset_ammo()
 	fire_timer.wait_time = fire_speed
 	fire_timer.one_shot = true
 	play_equip_animation()
+
+
+func _physics_process(_delta: float) -> void:
+	# Creating golden particles
+	if is_golden and player.is_multiplayer_authority() and randi_range(1, 100) == 1: spawn_golden_particles()
 
 
 func set_stats(new_stats) -> void:
@@ -112,6 +119,14 @@ func change_ammo_counter() -> void:
 
 func change_fire_type() -> void:
 	player_hud.get_node("FireType").text = str(fire_type)
+
+
+func spawn_golden_particles() -> void:
+	var golden_particles = golden_particles_scene.instantiate()
+	
+	golden_particles.transform = weapon_pivot.global_transform
+	
+	player.main_scene.particles_folder.add_child(golden_particles)
 
 
 func reload() -> void:
@@ -259,8 +274,9 @@ func play_shoot_animation() -> void:
 	player.main_scene.particles_folder.add_child(muzzle_flash_particles)
 	
 	# Adding recoil
-	if rad_to_deg(player.camera_pivot.rotation.x + player.first_person_camera.rotation.x) < 90:
-		player.camera_pivot.rotation.x += deg_to_rad(recoil_strength)
+	
+	if rad_to_deg(player.camera_pivot.rotation.x + player.first_person_camera.rotation.x + deg_to_rad(recoil_strength)) < 90:
+		player.first_person_camera.apply_recoil(recoil_strength)
 	
 	# Playing shoot sound
 	var gun_sound = sound_scene.instantiate()

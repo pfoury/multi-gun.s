@@ -4,7 +4,9 @@ const PORT = 9999
 const WEAPON_SCENES = [
 	"res://scenes/weapons/pistol.tscn", # Pistol scene
 	"res://scenes/weapons/sniper_rifle.tscn", # Sniper rifle scene
-	"res://scenes/weapons/assault_rifle.tscn" # Assault rifle scene
+	"res://scenes/weapons/assault_rifle.tscn", # Assault rifle scene
+	
+	"res://scenes/weapons/golden_gun.tscn" # Golden gun scene
 ]
 
 var arguments : Dictionary = {}

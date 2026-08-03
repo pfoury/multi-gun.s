@@ -30,8 +30,8 @@ initial_velocity_max = 0.5
 angular_velocity_min = -10.000016
 angular_velocity_max = 9.999984
 gravity = Vector3(0, 0.5, 0)
-scale_min = 0.19999999
-scale_max = 0.5
+scale_min = 0.099999994
+scale_max = 0.29999998
 scale_curve = SubResource("CurveTexture_irt5y")
 alpha_curve = SubResource("CurveTexture_g2uht")
 
@@ -49,7 +49,7 @@ script = ExtResource("1_rxghi")
 metadata/_custom_type_script = "uid://sw7k8d3uk5uo"
 
 [node name="Stars" type="GPUParticles3D" parent="." unique_id=1693703233]
-amount = 16
+amount = 10
 lifetime = 1.5
 explosiveness = 0.3
 fixed_fps = 0
