@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ce2c57trcya56"]
 
 [ext_resource type="Script" uid="uid://djo4d746r6i34" path="res://scripts/classes/weapon_class.gd" id="1_sf0vw"]
-[ext_resource type="PackedScene" uid="uid://hc8fncakv2hu" path="res://scenes/particles/muzzle_flash_particles.tscn" id="2_4yrss"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ogq8d"]
 size = Vector3(0.02, 0.02, 0.02)
@@ -152,13 +151,13 @@ collision_mask = 0
 script = ExtResource("1_sf0vw")
 damage = 200.0
 fire_speed = 0.75
-fire_type = ["semi", "auto", "burst"]
+fire_type = ["semi"]
 reload_speed = 1.5
 player_speed_multiplier = 0.8
+push_player_force = 10.0
 recoil_strength = 7.5
 max_ammo = 5
 gun_sound_path = "res://common/sounds/sniper_rifle/"
-muzzle_flash_particles_scene = ExtResource("2_4yrss")
 metadata/_custom_type_script = "uid://djo4d746r6i34"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=866677536]

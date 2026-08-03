@@ -125,7 +125,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_vm6pp"]
 resource_name = "reload"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -195,6 +195,7 @@ damage = 50.0
 fire_type = ["auto"]
 reload_speed = 0.4
 push_corpse_force = 25.0
+push_player_force = 1.0
 recoil_strength = 10.0
 max_ammo = 25
 gun_sound_path = "res://common/sounds/sniper_rifle/"

@@ -11,7 +11,7 @@ class_name Weapon extends StaticBody3D
 @export var reload_speed : float = 1.0
 @export var player_speed_multiplier : float = 1.0
 @export var push_corpse_force : float = 2.0
-@export var push_player_force : float = 10.0
+@export var push_player_force : float = 0.0
 @export var recoil_strength : float = 1.35
 @export var max_ammo : int = 12
 @export var is_scopable : bool = true
@@ -238,15 +238,15 @@ func fire() -> void:
 		particles_folder.add_child(particles)
 	
 	# Applying push force to the player if needed
-	#if push_player_force != 0.0: push_player()
+	if push_player_force != 0.0 and !player.is_on_floor(): push_player()
 
 
 func push_player() -> void:
 	var camera = player.first_person_camera
 	
-	print(camera.rotation)
+	var shoot_dir = -camera.global_transform.basis.z.normalized()
 	
-	player.velocity += (camera.rotation + player.rotation) * 10
+	player.velocity -= shoot_dir * push_player_force
 
 
 #region Animations

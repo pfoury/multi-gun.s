@@ -292,7 +292,7 @@ func update_player_fov(delta) -> void:
 
 func update_guns_transform(delta) -> void:
 	guns_folder.position = lerp(guns_folder.position, camera_pivot.position, delta * 5)
-	guns_folder.rotation = lerp(guns_folder.rotation, first_person_camera.rotation + camera_pivot.rotation, delta * 25)
+	guns_folder.rotation = lerp(guns_folder.rotation, first_person_camera.rotation + camera_pivot.rotation, delta * 15)
 	
 	guns_folder.position.y -= velocity.y * 0.0002
 

@@ -147,6 +147,7 @@ fire_type = ["semi"]
 reload_speed = 3.0
 player_speed_multiplier = 1.5
 push_corpse_force = 10.0
+push_player_force = 10.0
 recoil_strength = 10.0
 max_ammo = 2
 is_golden = true
