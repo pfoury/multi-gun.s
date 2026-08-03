@@ -133,6 +133,7 @@ shape = SubResource("BoxShape3D_ogq8d")
 [node name="HUD" type="CanvasLayer" parent="." unique_id=591277263]
 
 [node name="PlayerHUD" type="Control" parent="HUD" unique_id=1236664917]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

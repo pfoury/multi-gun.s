@@ -464,6 +464,9 @@ func respawn(new_position) -> void:
 	
 	create_respawn_shield()
 	
+	if gun_node != null:
+		gun_node.reset_ammo()
+	
 	# Setting new position
 	global_position = new_position
 	

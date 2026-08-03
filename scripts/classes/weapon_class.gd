@@ -37,7 +37,7 @@ var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_h
 var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
 
 func _ready() -> void:
-	ammo = max_ammo
+	reset_ammo()
 	fire_timer.wait_time = fire_speed
 	fire_timer.one_shot = true
 	play_equip_animation()
@@ -55,7 +55,7 @@ func set_stats(new_stats) -> void:
 		
 		set(stat_string, new_stat)
 	
-	ammo = max_ammo
+	reset_ammo()
 	fire_timer.wait_time = fire_speed
 	
 	# Working with player's HUD
@@ -126,10 +126,16 @@ func reload() -> void:
 	
 	# Checking if current animation is still reloading
 	if animations.get_current_animation() == "reload":
-		ammo = max_ammo
+		reset_ammo()
 		change_ammo_counter()
 	
 	is_reloading = false
+
+
+func reset_ammo() -> void:
+	ammo = max_ammo
+	if player_hud != null:
+		change_ammo_counter()
 
 
 func fire() -> void:
