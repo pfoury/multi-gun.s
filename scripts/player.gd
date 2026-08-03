@@ -7,7 +7,7 @@ const MAX_HEALTH : float = 150.0
 const LOW_HEALTH_COLOR : Color = Color("676767")
 const BUNNY_HOP_ACCELERATION : float = 0.6
 const GROUND_ACCELERATION := 60.0
-const GROUND_FRICTION := 60.0
+const GROUND_FRICTION := 100.0
 
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
@@ -66,8 +66,6 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	set_floor_snap_length(0)
-	
 	player_health = MAX_HEALTH
 	
 	scope_shadow_texture = main_scene.player_hud.get_node("ScopeShadow")
