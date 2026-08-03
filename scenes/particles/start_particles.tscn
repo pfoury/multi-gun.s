@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://cuel2t0engypd"]
+
+[ext_resource type="Script" uid="uid://sw7k8d3uk5uo" path="res://scripts/classes/medium_particles_class.gd" id="1_rxghi"]
+[ext_resource type="Texture2D" uid="uid://cemj8gv444jbp" path="res://common/textures/starparticle.png" id="2_5v56r"]
+
+[sub_resource type="Curve" id="Curve_nr3fk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.056179762), -4.4984393, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_g2uht"]
+curve = SubResource("Curve_nr3fk")
+
+[sub_resource type="Curve" id="Curve_j823s"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.21182267, 1), 0.0, 0.0, 0, 0, Vector2(0.6896551, 1), 1.2671659, 1.2671659, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_irt5y"]
+curve = SubResource("Curve_j823s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ogq8d"]
+lifetime_randomness = 0.5
+particle_flag_align_y = true
+emission_shape_scale = Vector3(0.5, 1, 0.5)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 0.19999999
+initial_velocity_max = 0.5
+angular_velocity_min = -10.000016
+angular_velocity_max = 9.999984
+gravity = Vector3(0, 0.5, 0)
+scale_min = 0.19999999
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_irt5y")
+alpha_curve = SubResource("CurveTexture_g2uht")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_5v56r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_eg0p3"]
+material = SubResource("StandardMaterial3D_hyap7")
+
+[node name="StartParticles" type="Node3D" unique_id=537389136]
+script = ExtResource("1_rxghi")
+metadata/_custom_type_script = "uid://sw7k8d3uk5uo"
+
+[node name="Stars" type="GPUParticles3D" parent="." unique_id=1693703233]
+amount = 16
+lifetime = 1.5
+explosiveness = 0.3
+fixed_fps = 0
+transform_align = 1
+transform_align_channel_filter = 1
+process_material = SubResource("ParticleProcessMaterial_ogq8d")
+draw_pass_1 = SubResource("QuadMesh_eg0p3")

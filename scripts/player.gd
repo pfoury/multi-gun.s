@@ -23,11 +23,13 @@ const GROUND_FRICTION := 60.0
 @export var is_regen_timer_ready : bool = true
 @export var is_player_dead : bool = false
 @export var color_difference : float = 1.0
+@export var is_invincible : bool = false
 
 @onready var main_scene : Node = get_tree().current_scene
 @onready var walk_timer : Timer = $WalkTimer
 @onready var regen_timer : Timer = $RegenTimer
 @onready var dead_timer : Timer = $DeadTimer
+@onready var invincible_timer : Timer = $InvincibleTimer
 # Player's camera
 @onready var camera_pivot : Node3D = $CameraPivot
 @onready var first_person_camera : Camera3D = camera_pivot.find_child("FPCamera")
@@ -54,6 +56,7 @@ var killer_id : int
 var look_at_killer_pivot : Node3D
 var kill_cam_pivot : Camera3D
 var weapon_speed_multiplier : float
+var stars_particles_scene : PackedScene = load("res://scenes/particles/start_particles.tscn")
 var test_object_scene : PackedScene = load("res://scenes/temp/testobject.tscn")
 var test_object : MeshInstance3D
 
@@ -76,6 +79,9 @@ func _ready() -> void:
 	player_capsule_mesh.set_surface_override_material(0, unique_mat)
 	
 	request_to_respawn()
+	
+	if is_invincible:
+		create_respawn_shield()
 	
 	#test_object = test_object_scene.instantiate()
 	#main_scene.add_child(test_object)
@@ -149,6 +155,9 @@ func _process(delta: float) -> void:
 		else:
 			look_at_killer_closely()
 		return
+	
+	if is_invincible:
+		unique_mat.emission_energy_multiplier = lerp(unique_mat.emission_energy_multiplier, 0.0, delta * 2)
 	
 	if not is_multiplayer_authority(): return
 	
@@ -332,6 +341,7 @@ func update_player_hud(delta) -> void:
 @rpc("reliable", "any_peer", "call_local")
 func damage(data) -> void:
 	if is_player_dead: return
+	if is_invincible: return
 	
 	player_health -= data["damage"]
 	regen_timer.start()
@@ -417,6 +427,32 @@ func request_to_respawn() -> void:
 		Server.respawn_player.rpc_id(1, int(name))
 
 
+func create_respawn_shield() -> void:
+	# Starting timer
+	invincible_timer.start()
+	is_invincible = true
+	
+	# Making visual effects
+	unique_mat.emission_enabled = true
+	unique_mat.blend_mode = 1
+	for _count in range(3):
+		unique_mat.emission_energy_multiplier = 1.0
+		
+		var stars_particles = stars_particles_scene.instantiate()
+		stars_particles.position = global_position
+		main_scene.particles_folder.add_child(stars_particles)
+		
+		await get_tree().create_timer(1.0).timeout
+
+func remove_respawn_shield() -> void:
+	# Reverting everything
+	unique_mat.emission_enabled = false
+	unique_mat.emission_energy_multiplier = 0
+	unique_mat.blend_mode = 0
+	
+	is_invincible = false
+
+
 @rpc("reliable", "any_peer", "call_local")
 func respawn(new_position) -> void:
 	# Setting up for player's color
@@ -425,6 +461,8 @@ func respawn(new_position) -> void:
 	await get_tree().process_frame
 	
 	change_color()
+	
+	create_respawn_shield()
 	
 	# Setting new position
 	global_position = new_position

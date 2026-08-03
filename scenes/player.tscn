@@ -7,7 +7,13 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eg0p3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhqgy"]
+diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(1, 0.20392157, 1, 1)
+roughness = 0.5
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hyap7"]
 material = SubResource("StandardMaterial3D_qhqgy")
@@ -61,6 +67,9 @@ properties/14/replication_mode = 1
 properties/15/path = NodePath(".:player_health")
 properties/15/spawn = true
 properties/15/replication_mode = 1
+properties/16/path = NodePath(".:is_invincible")
+properties/16/spawn = true
+properties/16/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["enemy", "player"]]
 collision_layer = 2
@@ -102,11 +111,17 @@ wait_time = 0.2
 one_shot = true
 
 [node name="RegenTimer" type="Timer" parent="." unique_id=515894033]
+wait_time = 3.0
 one_shot = true
 
 [node name="DeadTimer" type="Timer" parent="." unique_id=865736347]
 wait_time = 3.0
 one_shot = true
 
+[node name="InvincibleTimer" type="Timer" parent="." unique_id=1450977970]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="child_entered_tree" from="Guns" to="." method="_on_guns_child_entered_tree"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_regen_timer_timeout"]
+[connection signal="timeout" from="InvincibleTimer" to="." method="remove_respawn_shield"]
