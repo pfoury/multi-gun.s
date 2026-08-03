@@ -104,7 +104,7 @@ script = ExtResource("2_g2els")
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1042724857]
-_spawnable_scenes = PackedStringArray("uid://bxmrs4l4l1xbm", "uid://ce2c57trcya56", "uid://bc4tr7wp2lfem", "uid://bqd42k14tn2jr")
+_spawnable_scenes = PackedStringArray("uid://bxmrs4l4l1xbm", "uid://ce2c57trcya56", "uid://bc4tr7wp2lfem", "uid://bqd42k14tn2jr", "uid://df7asx6c4x8bm")
 spawn_path = NodePath("../Guns")
 
 [node name="WalkTimer" type="Timer" parent="." unique_id=155312434]

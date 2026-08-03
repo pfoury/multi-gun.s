@@ -6,7 +6,9 @@ const WEAPON_SCENES = [
 	"res://scenes/weapons/sniper_rifle.tscn", # Sniper rifle scene
 	"res://scenes/weapons/assault_rifle.tscn", # Assault rifle scene
 	
-	"res://scenes/weapons/golden_gun.tscn" # Golden gun scene
+	# Golden Guns
+	"res://scenes/weapons/golden_gun.tscn", # Golden gun scene
+	"res://scenes/weapons/golden_sniper.tscn" # Golden sniper rifle scene
 ]
 
 var arguments : Dictionary = {}

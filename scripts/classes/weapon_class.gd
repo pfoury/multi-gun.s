@@ -17,8 +17,6 @@ class_name Weapon extends StaticBody3D
 @export var is_scopable : bool = true
 @export var gun_sound_path : String = "res://common/sounds/pistol/"
 @export var is_golden : bool = false
-# Scenes
-@export var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
 
 @onready var animations : AnimationPlayer = $Pivot/AnimationPlayer
 @onready var weapon_pivot = $Pivot
@@ -33,6 +31,7 @@ var player_hud : Node
 var is_ready : bool = false
 var is_reloading : bool = false
 var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
+var muzzle_flash_particles_scene : PackedScene = load("res://scenes/particles/muzzle_flash_particles.tscn")
 var blood_flesh_particles_scene : PackedScene = load("res://scenes/particles/blood_flesh_particles.tscn")
 var dust_hit_particles_scene : PackedScene = load("res://scenes/particles/dust_hit_particles.tscn")
 var hit_indicator_particles_scene : PackedScene = load("res://scenes/particles/hit_indicator_particles.tscn")
