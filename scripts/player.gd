@@ -12,7 +12,6 @@ const GROUND_FRICTION := 100.0
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
 @export var health_regeneration_particles_scene : PackedScene = load("res://scenes/particles/health_regeneration_particles.tscn")
-@export var corpse_scene : PackedScene = load("res://scenes/corpse.tscn")
 @export var player_fov : float = 80
 # For MultiplayerSynchronizer
 @export var velocity_length : float
@@ -53,6 +52,7 @@ var white_screen_texture : ColorRect
 var escape_menu_panel : PanelContainer
 var unique_mat : Material
 var killer_id : int
+var corpse_after_death : Node3D
 var look_at_killer_pivot : Node3D
 var kill_cam_pivot : Camera3D
 var weapon_speed_multiplier : float
@@ -375,6 +375,8 @@ func die(data) -> void:
 		
 		killer_id = peer_id
 		
+		corpse_after_death = main_scene.objects_folder.get_node_or_null(str(data["corpse_name"]))
+		
 		var killer : CharacterBody3D = main_scene.players_folder.get_node_or_null(str(killer_id))
 		
 		if killer == null: return
@@ -504,6 +506,11 @@ func look_at_killer(delta) -> void:
 	kill_cam_pivot.fov = lerp(kill_cam_pivot.fov, 35.0, delta * 5)
 	
 	kill_cam_pivot.look_at(look_at_killer_pivot.position, Vector3.UP)
+	
+	# Move camera to the corpse
+	var shoot_dir = -kill_cam_pivot.global_transform.basis.z.normalized()
+	
+	kill_cam_pivot.global_position = corpse_after_death.global_position - shoot_dir * 10
 	
 	update_player_hud(delta)
 

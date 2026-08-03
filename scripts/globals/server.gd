@@ -197,6 +197,10 @@ func kill(data) -> void:
 	
 	dead_players.append(victim_id)
 	
+	data["corpse_name"] = corpse.name
+	
+	print(data)
+	
 	# Sending signal to kill the player
 	victim.die.rpc(data)
 
