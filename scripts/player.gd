@@ -5,7 +5,7 @@ const SPEED := 8.0
 const GRAVITY := 15.0
 const MAX_HEALTH : float = 150.0
 const LOW_HEALTH_COLOR : Color = Color("676767")
-const BUNNY_HOP_ACCELERATION : float = 0.7
+const BUNNY_HOP_ACCELERATION : float = 0.6
 const GROUND_ACCELERATION := 60.0
 const GROUND_FRICTION := 60.0
 
@@ -403,6 +403,9 @@ func die(data) -> void:
 		is_player_dead = true
 		
 		global_position = Vector3(0, -6767, 0)
+	
+	if multiplayer.is_server():
+		Server.dead_players.erase(name)
 	
 	change_color()
 

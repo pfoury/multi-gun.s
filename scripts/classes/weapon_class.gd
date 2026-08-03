@@ -43,21 +43,6 @@ func _ready() -> void:
 	play_equip_animation()
 
 
-func get_stats() -> Dictionary:
-	stats = {
-		"damage": damage,
-		"fire_speed": fire_speed,
-		"fire_type": fire_type,
-		"reload_speed": reload_speed,
-		"player_speed_multiplier": player_speed_multiplier,
-		"recoil_strength": recoil_strength,
-		"push_corpse_force": push_corpse_force,
-		"max_ammo": max_ammo
-	}
-	
-	return stats
-
-
 func set_stats(new_stats) -> void:
 	stats = new_stats
 	
@@ -80,6 +65,21 @@ func set_stats(new_stats) -> void:
 	player.update_gun_fire_type()
 	player.update_weapon_speed_multiplier()
 	player_hud.show()
+
+
+func get_stats() -> Dictionary:
+	stats = {
+		"damage": damage,
+		"fire_speed": fire_speed,
+		"fire_type": fire_type,
+		"reload_speed": reload_speed,
+		"player_speed_multiplier": player_speed_multiplier,
+		"recoil_strength": recoil_strength,
+		"push_corpse_force": push_corpse_force,
+		"max_ammo": max_ammo
+	}
+	
+	return stats
 
 
 func get_fire_type() -> String:

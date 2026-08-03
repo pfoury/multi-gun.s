@@ -4,6 +4,7 @@ var main : Node = null
 var update_timer : Timer
 var corpse_scene : PackedScene = load("res://scenes/corpse.tscn")
 var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
+var dead_players : Array = []
 
 
 func is_server() -> bool:
@@ -159,12 +160,17 @@ func kill(data) -> void:
 	# if server
 	if !is_server(): return
 	
+	var killer_id = data["killer_id"]
+	var killer = main.players_folder.get_node(str(killer_id))
 	# if killer is dead
-	var killer = main.players_folder.get_node(str(data["killer_id"]))
 	if killer.is_player_dead: return
 	
+	var victim_id = data["victim_id"]
+	# if player IS already dead
+	if victim_id in dead_players: return
+	
 	# thehn
-	var victim = main.players_folder.get_node(str(data["victim_id"]))
+	var victim = main.players_folder.get_node(str(victim_id))
 	
 	# Creating corpse
 	var corpse = corpse_scene.instantiate()
@@ -185,12 +191,13 @@ func kill(data) -> void:
 		)
 	)
 	
-	Client.add_point.rpc(data["killer_id"])
+	Client.add_point.rpc(killer_id)
 	
-	var victim_id = data["victim_id"]
+	Client.rpc("create_kill_log", int(killer_id), int(victim_id))
 	
-	Client.rpc("create_kill_log", int(data["killer_id"]), int(victim_id))
+	dead_players.append(victim_id)
 	
+	# Sending signal to kill the player
 	victim.die.rpc(data)
 
 
