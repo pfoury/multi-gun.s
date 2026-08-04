@@ -205,8 +205,6 @@ metadata/_custom_type_script = "uid://djo4d746r6i34"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1603348236]
 shape = SubResource("BoxShape3D_ogq8d")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=273682535]
-
 [node name="Pivot" type="Node3D" parent="." unique_id=424328330]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0.63883495, -0.49766386, -0.985813)
 
