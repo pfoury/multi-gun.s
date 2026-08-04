@@ -1,0 +1,231 @@
+[gd_scene format=3 uid="uid://dad2ehgljdg7k"]
+
+[ext_resource type="Script" uid="uid://djo4d746r6i34" path="res://scripts/classes/weapon_class.gd" id="1_divfv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kf5ds"]
+size = Vector3(0.01, 0.01, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4a8jh"]
+albedo_color = Color(0.41215247, 0.41215247, 0.41215247, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ogq8d"]
+material = SubResource("StandardMaterial3D_4a8jh")
+size = Vector3(0.07128906, 0.12426758, 0.4555664)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_divfv"]
+albedo_color = Color(0.41215247, 0.41215247, 0.41215247, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_divfv"]
+material = SubResource("StandardMaterial3D_divfv")
+size = Vector3(0.05078125, 0.12426758, 0.14501953)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sfy7o"]
+albedo_color = Color(0.69973755, 0.4107759, 5.7756904e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4a8jh"]
+material = SubResource("StandardMaterial3D_sfy7o")
+size = Vector3(0.05078125, 0.081726074, 0.16821289)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q6obj"]
+material = SubResource("StandardMaterial3D_sfy7o")
+size = Vector3(0.061523438, 0.097091675, 0.18054199)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6obj"]
+albedo_color = Color(0.41215247, 0.41215247, 0.41215247, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4rmhv"]
+material = SubResource("StandardMaterial3D_q6obj")
+size = Vector3(0.024414063, 0.046157837, 0.22189331)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qtdhr"]
+material = SubResource("StandardMaterial3D_sfy7o")
+size = Vector3(0.057617188, 0.07878113, 0.23841858)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4rmhv"]
+albedo_color = Color(0.41215247, 0.41215247, 0.41215247, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2mxdc"]
+material = SubResource("StandardMaterial3D_4rmhv")
+size = Vector3(0.015625, 0.036808014, 0.007839203)
+
+[sub_resource type="Animation" id="Animation_divfv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.55961925, -0.31338915, -0.7790591)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4a8jh"]
+resource_name = "equip"
+length = 0.39999999999999997
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.24148414, 1),
+"update": 0,
+"values": [Vector3(0.56, -1.452, -0.3290248), Vector3(0.55961925, -0.31338915, -0.7790591)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.21022417, 1),
+"update": 0,
+"values": [Vector3(-4.712389, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_q6obj"]
+resource_name = "reload"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.55961925, -0.31338915, -0.7790591)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.3186399, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(62.831852, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4rmhv"]
+resource_name = "shoot"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.049488254, 0.11893465, 0.24999999),
+"transitions": PackedFloat32Array(0.5358871, 2.0705297, 0.3789293, 1),
+"update": 0,
+"values": [Vector3(0.55961925, -0.31338915, -0.7790591), Vector3(0.56, -0.276, -0.727), Vector3(0.56, -0.381, -0.595), Vector3(0.55961925, -0.31338915, -0.7790591)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.11893465, 0.24999999),
+"transitions": PackedFloat32Array(0.5176324, 1.8660663, 0.49999997, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.2617994, 0, 0), Vector3(-0.03968562, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qtdhr"]
+_data = {
+&"RESET": SubResource("Animation_divfv"),
+&"equip": SubResource("Animation_4a8jh"),
+&"reload": SubResource("Animation_q6obj"),
+&"shoot": SubResource("Animation_4rmhv")
+}
+
+[node name="AK67" type="StaticBody3D" unique_id=1155384074]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_divfv")
+damage = 20.0
+fire_speed = 0.075
+fire_type = ["auto"]
+reload_speed = 1.5
+recoil_strength = 2.0
+max_ammo = 30
+is_scopable = false
+gun_sound_path = "res://common/sounds/ak_67/"
+metadata/_custom_type_script = "uid://djo4d746r6i34"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1178857424]
+shape = SubResource("BoxShape3D_kf5ds")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1694509676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55961925, -0.31338915, -0.7790591)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1936882439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.060913086, 0.06718608)
+mesh = SubResource("BoxMesh_ogq8d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pivot" unique_id=481824506]
+transform = Transform3D(1, 0, 0, 0, -0.20383167, -0.97900593, 0, 0.97900593, -0.20383167, 0, -0.049827762, -0.049665734)
+mesh = SubResource("BoxMesh_divfv")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Pivot" unique_id=497730516]
+transform = Transform3D(1, 0, 0, 0, -0.69237083, -0.7215418, 0, 0.7215418, -0.69237083, 0, -0.14220774, -0.09849368)
+mesh = SubResource("BoxMesh_divfv")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Pivot" unique_id=387255356]
+transform = Transform3D(1, 0, 0, 0, 0.279199, -0.9602332, 0, 0.9602332, 0.279199, 0, -0.05228091, 0.19826289)
+mesh = SubResource("BoxMesh_4a8jh")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Pivot" unique_id=572734648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.057914734, -0.24934867)
+mesh = SubResource("BoxMesh_q6obj")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Pivot" unique_id=180379444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05006651, -0.4476302)
+mesh = SubResource("BoxMesh_4rmhv")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Pivot" unique_id=1800873915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04491967, 0.40472648)
+mesh = SubResource("BoxMesh_qtdhr")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Pivot" unique_id=345460190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.090787195, -0.54410577)
+mesh = SubResource("BoxMesh_2mxdc")
+
+[node name="MuzzleFlashPivot" type="Node3D" parent="Pivot" unique_id=1823291407]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0.06825191, -0.5814968)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot" unique_id=1783886189]
+libraries/ = SubResource("AnimationLibrary_qtdhr")
+
+[node name="FireTimer" type="Timer" parent="." unique_id=740843339]
+one_shot = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1162531866]
