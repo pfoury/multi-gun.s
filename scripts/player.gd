@@ -415,6 +415,8 @@ func die(data) -> void:
 		global_position = Vector3(0, -6767, 0)
 	
 	if multiplayer.is_server():
+		await get_tree().create_timer(0.1).timeout
+		
 		Server.dead_players.erase(name)
 	
 	change_color()
@@ -462,24 +464,27 @@ func respawn(new_position) -> void:
 	
 	change_color()
 	
+	velocity = Vector3.ZERO
+	
 	create_respawn_shield()
 	
 	if gun_node != null:
 		gun_node.reset_ammo()
 	
-	# Setting new position
-	global_position = new_position
-	
-	# Creating spawn sound
-	var sound = sound_scene.instantiate()
-	
-	sound.folder_path = "res://common/sounds/spawn/"
-	
-	sounds_folder.add_child(sound)
+	if multiplayer.is_server():
+		# Creating spawn sound
+		var sound = sound_scene.instantiate()
+		
+		sound.folder_path = "res://common/sounds/spawn/"
+		
+		sounds_folder.add_child(sound)
 	
 	if not is_multiplayer_authority(): return
 	
 	# --==--
+	
+	# Setting new position
+	global_position = new_position
 	
 	white_screen_texture.self_modulate.a = 1.0
 	

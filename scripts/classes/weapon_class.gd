@@ -258,7 +258,7 @@ func play_reload_animation() -> void:
 	
 	reloading_sound.folder_path = "res://common/sounds/reloading/"
 	
-	player.sounds_folder.add_child(reloading_sound)
+	player.sounds_folder.add_child(reloading_sound, true)
 
 
 func play_shoot_animation() -> void:
@@ -282,7 +282,7 @@ func play_shoot_animation() -> void:
 	
 	gun_sound.folder_path = gun_sound_path
 	
-	player.sounds_folder.add_child(gun_sound)
+	player.sounds_folder.add_child(gun_sound, true)
 
 
 func play_equip_animation() -> void:
