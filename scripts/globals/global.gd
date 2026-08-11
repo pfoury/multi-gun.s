@@ -14,6 +14,8 @@ const WEAPON_SCENES = [
 ]
 
 var arguments : Dictionary = {}
+var sensitivity : Vector2 = Vector2(2.0, 2.0)
+var fov : int = 80
 
 
 func change_scene_with_arguments(scene_path, args = {}) -> void:

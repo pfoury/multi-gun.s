@@ -71,6 +71,7 @@ text = "Audio"
 flat = true
 
 [node name="CameraOptions" type="VBoxContainer" parent="PC/VBC" unique_id=1313778997]
+visible = false
 layout_mode = 2
 
 [node name="Sensitivity" type="HBoxContainer" parent="PC/VBC/CameraOptions" unique_id=862186372]
@@ -86,24 +87,14 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 4.0
+max_value = 10.0
 step = 0.01
 value = 2.0
 
 [node name="LineEdit" type="LineEdit" parent="PC/VBC/CameraOptions/Sensitivity" unique_id=532724366]
 layout_mode = 2
+text = "2.0"
 placeholder_text = "2.0"
-
-[node name="ReverseMouse" type="HBoxContainer" parent="PC/VBC/CameraOptions" unique_id=1102390341]
-layout_mode = 2
-
-[node name="ReverseLabel" type="Label" parent="PC/VBC/CameraOptions/ReverseMouse" unique_id=1347023260]
-layout_mode = 2
-text = "Reverse mouse: "
-label_settings = SubResource("LabelSettings_eg0p3")
-
-[node name="CheckBox" type="CheckBox" parent="PC/VBC/CameraOptions/ReverseMouse" unique_id=2036922065]
-layout_mode = 2
 
 [node name="FOV" type="HBoxContainer" parent="PC/VBC/CameraOptions" unique_id=1496912912]
 layout_mode = 2
@@ -116,13 +107,10 @@ label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="LineEdit" type="LineEdit" parent="PC/VBC/CameraOptions/FOV" unique_id=662793731]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "80"
 placeholder_text = "67"
-caret_blink = true
 
 [node name="DisplayOptions" type="VBoxContainer" parent="PC/VBC" unique_id=65180713]
-visible = false
 layout_mode = 2
 
 [node name="Resolution" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1409062558]
@@ -174,12 +162,24 @@ label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="LineEdit" type="LineEdit" parent="PC/VBC/DisplayOptions/FPS" unique_id=142373611]
 layout_mode = 2
+text = "0"
 placeholder_text = "0"
 
 [node name="InfoLabel" type="Label" parent="PC/VBC/DisplayOptions/FPS" unique_id=2057631538]
 self_modulate = Color(1, 1, 1, 0.28627452)
 layout_mode = 2
 text = "- Set 0 FPS for unlimited FPS"
+
+[node name="VSync" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=77370381]
+layout_mode = 2
+
+[node name="VSyncLabel" type="Label" parent="PC/VBC/DisplayOptions/VSync" unique_id=1587585861]
+layout_mode = 2
+text = "VSync:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/DisplayOptions/VSync" unique_id=1386062983]
+layout_mode = 2
 
 [node name="WindowType" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1955602721]
 layout_mode = 2
@@ -543,3 +543,12 @@ value = 1.0
 [connection signal="pressed" from="PC/VBC/ButtonsContainer/DisplayButton" to="." method="_on_display_button_pressed"]
 [connection signal="pressed" from="PC/VBC/ButtonsContainer/VideoButton" to="." method="_on_video_button_pressed"]
 [connection signal="pressed" from="PC/VBC/ButtonsContainer/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="value_changed" from="PC/VBC/CameraOptions/Sensitivity/HSlider" to="." method="_sensitivity_slider_changed"]
+[connection signal="text_submitted" from="PC/VBC/CameraOptions/Sensitivity/LineEdit" to="." method="_sensitivity_line_submitted"]
+[connection signal="text_submitted" from="PC/VBC/CameraOptions/FOV/LineEdit" to="." method="_fov_changed"]
+[connection signal="item_selected" from="PC/VBC/DisplayOptions/Resolution/Resolutions" to="." method="_resolutions_item_selected"]
+[connection signal="text_submitted" from="PC/VBC/DisplayOptions/FPS/LineEdit" to="." method="_new_fps_submitted"]
+[connection signal="toggled" from="PC/VBC/DisplayOptions/VSync/CheckBox" to="." method="_vsync_toggled"]
+[connection signal="item_selected" from="PC/VBC/DisplayOptions/WindowType/WindowTypes" to="." method="_window_types_selected"]
+[connection signal="toggled" from="PC/VBC/DisplayOptions/Borderless/CheckBox" to="." method="_borderless_toggled"]
+[connection signal="toggled" from="PC/VBC/DisplayOptions/BarbieMode/CheckBox" to="." method="_barbie_mode_toggled"]
