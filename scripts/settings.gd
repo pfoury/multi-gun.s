@@ -29,6 +29,12 @@ extends PanelContainer
 @onready var window_types: OptionButton = $PC/VBC/DisplayOptions/WindowType/WindowTypes
 
 
+var master_idx = AudioServer.get_bus_index("Master")
+var respawn_sounds_idx = AudioServer.get_bus_index("RespawnSounds")
+var gun_sfx_idx = AudioServer.get_bus_index("GunSFX")
+var kill_effects_idx = AudioServer.get_bus_index("KillEffectsSound")
+var death_idx = AudioServer.get_bus_index("DeathSound")
+
 
 func _ready() -> void:
 	setting_up()
@@ -153,3 +159,33 @@ func _borderless_toggled(toggled_on: bool) -> void:
 func _barbie_mode_toggled(toggled_on: bool) -> void:
 	pass # Replace with function body.
 #endregion
+
+
+#region Audio options
+# Master
+func _master_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(master_idx, linear_to_db(value))
+
+
+# Respawn
+func _respawn_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(respawn_sounds_idx, linear_to_db(value))
+
+
+# Guns
+func _guns_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(gun_sfx_idx, linear_to_db(value))
+
+
+# Kill Effects
+func _kill_effect_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(kill_effects_idx, linear_to_db(value))
+
+
+# Death
+func _death_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(death_idx, linear_to_db(value))
+#endregion
+
+
+#region Video options

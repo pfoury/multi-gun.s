@@ -111,6 +111,7 @@ text = "80"
 placeholder_text = "67"
 
 [node name="DisplayOptions" type="VBoxContainer" parent="PC/VBC" unique_id=65180713]
+visible = false
 layout_mode = 2
 
 [node name="Resolution" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1409062558]
@@ -223,7 +224,6 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 
 [node name="VideoOptions" type="VBoxContainer" parent="PC/VBC" unique_id=550629423]
-visible = false
 layout_mode = 2
 
 [node name="Brightness" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1072430437]
@@ -471,8 +471,8 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 3.0
-step = 0.01
+max_value = 1.0
+step = 0.001
 value = 1.0
 
 [node name="RespawnVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1809078989]
@@ -487,8 +487,8 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 5.0
-step = 0.01
+max_value = 1.0
+step = 0.001
 value = 1.0
 
 [node name="GunsVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1051445205]
@@ -503,8 +503,8 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 5.0
-step = 0.01
+max_value = 1.0
+step = 0.001
 value = 1.0
 
 [node name="KillEffectVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1438341480]
@@ -519,8 +519,8 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 5.0
-step = 0.01
+max_value = 1.0
+step = 0.001
 value = 1.0
 
 [node name="DeathVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=468473182]
@@ -535,8 +535,8 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 5.0
-step = 0.01
+max_value = 1.0
+step = 0.001
 value = 1.0
 
 [connection signal="pressed" from="PC/VBC/ButtonsContainer/CameraButton" to="." method="_on_camera_button_pressed"]
@@ -552,3 +552,8 @@ value = 1.0
 [connection signal="item_selected" from="PC/VBC/DisplayOptions/WindowType/WindowTypes" to="." method="_window_types_selected"]
 [connection signal="toggled" from="PC/VBC/DisplayOptions/Borderless/CheckBox" to="." method="_borderless_toggled"]
 [connection signal="toggled" from="PC/VBC/DisplayOptions/BarbieMode/CheckBox" to="." method="_barbie_mode_toggled"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/MasterVolume/HSlider" to="." method="_master_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/RespawnVolume/HSlider" to="." method="_respawn_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/GunsVolume/HSlider" to="." method="_guns_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/KillEffectVolume/HSlider" to="." method="_kill_effect_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/DeathVolume/HSlider" to="." method="_death_changed"]

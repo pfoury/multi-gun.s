@@ -8,6 +8,7 @@ func _ready() -> void:
 	var death_sound_effect = sound_effect_scene.instantiate()
 	
 	death_sound_effect.folder_path = "res://common/sounds/death/"
+	death_sound_effect.bus = "DeathSound"
 	
 	add_child(death_sound_effect)
 	

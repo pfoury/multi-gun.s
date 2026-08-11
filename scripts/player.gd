@@ -241,6 +241,7 @@ func play_kill_sound() -> void:
 	var kill_sound = sound_scene.instantiate()
 	
 	kill_sound.folder_path = "res://common/sounds/kill_sound/"
+	kill_sound.bus = "KillEffectsSound"
 	
 	sounds_folder.add_child(kill_sound)
 
@@ -466,6 +467,7 @@ func respawn(new_position) -> void:
 	var sound = sound_scene.instantiate()
 	
 	sound.folder_path = "res://common/sounds/spawn/"
+	sound.bus = "RespawnSounds"
 	
 	sounds_folder.add_child(sound)
 	

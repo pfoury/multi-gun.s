@@ -1,7 +1,6 @@
 [gd_resource type="AudioBusLayout" format=3 uid="uid://cc4l7yicnijlf"]
 
 [resource]
-bus/0/volume_db = -4.002995
 bus/1/name = &"RespawnSounds"
 bus/1/solo = false
 bus/1/mute = false

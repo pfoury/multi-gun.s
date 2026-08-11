@@ -257,6 +257,7 @@ func play_reload_animation() -> void:
 	var reloading_sound = sound_scene.instantiate()
 	
 	reloading_sound.folder_path = "res://common/sounds/reloading/"
+	reloading_sound.bus = "GunSFX"
 	
 	player.sounds_folder.add_child(reloading_sound, true)
 
@@ -281,6 +282,7 @@ func play_shoot_animation() -> void:
 	var gun_sound = sound_scene.instantiate()
 	
 	gun_sound.folder_path = gun_sound_path
+	gun_sound.bus = "GunSFX"
 	
 	player.sounds_folder.add_child(gun_sound, true)
 
