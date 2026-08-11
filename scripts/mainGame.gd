@@ -18,7 +18,7 @@ extends Node
 @onready var kill_feed := $HUD/PlayerHUD/KillFeed
 @onready var statistics := $HUD/PlayerHUD/Statistics
 @onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopPlayers
-@onready var escape_menu: PanelContainer = $HUD/PlayerHUD/EscapeMenu
+@onready var escape_menu: Control = $HUD/PlayerHUD/EscapeMenu
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0

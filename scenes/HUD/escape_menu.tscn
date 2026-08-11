@@ -1,59 +1,218 @@
-[gd_scene format=3 uid="uid://d2xnrkoati08x"]
+[gd_scene format=3 uid="uid://c2l0lpnfjfs2u"]
 
-[ext_resource type="Script" uid="uid://bu10cpyo86onc" path="res://scripts/escape_menu.gd" id="1_odrm7"]
+[ext_resource type="PackedScene" uid="uid://d2xnrkoati08x" path="res://scenes/HUD/left_panel.tscn" id="1_acyh2"]
+[ext_resource type="Script" uid="uid://6deiivslhjau" path="res://scripts/escape_menu.gd" id="1_lbssg"]
+[ext_resource type="PackedScene" uid="uid://bb3ssvhimttvs" path="res://scenes/HUD/settings.tscn" id="2_lbssg"]
 
-[node name="EscapeMenu" type="PanelContainer" unique_id=1665525603]
-self_modulate = Color(1, 1, 1, 0.48235294)
-anchors_preset = 9
+[sub_resource type="Animation" id="Animation_lbssg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftPanel:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_w27i5"]
+resource_name = "close"
+length = 0.19999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftPanel:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2.219139, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.00096197077, 0.2),
+"transitions": PackedFloat32Array(2.4622893, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tc404"]
+resource_name = "open"
+length = 0.19999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftPanel:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.20306318, 1),
+"update": 0,
+"values": [Vector2(-1, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.6155725, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w27i5"]
+_data = {
+&"RESET": SubResource("Animation_lbssg"),
+&"close": SubResource("Animation_w27i5"),
+&"open": SubResource("Animation_tc404")
+}
+
+[sub_resource type="Animation" id="Animation_c0nfc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Settings:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Settings:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_02ttg"]
+resource_name = "close"
+length = 0.19999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Settings:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2.5491211, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Settings:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2.378416, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wqjjv"]
+resource_name = "open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Settings:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.28717464, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Settings:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.29730183, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qjqp7"]
+_data = {
+&"RESET": SubResource("Animation_c0nfc"),
+&"close": SubResource("Animation_02ttg"),
+&"open": SubResource("Animation_wqjjv")
+}
+
+[node name="EscapeMenu" type="HBoxContainer" unique_id=552312953]
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 380.0
+grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
-script = ExtResource("1_odrm7")
+offset_transform_enabled = true
+script = ExtResource("1_lbssg")
 
-[node name="PC" type="PanelContainer" parent="." unique_id=637838651]
-self_modulate = Color(1, 1, 1, 0)
+[node name="LeftPanel" parent="." unique_id=1665525603 instance=ExtResource("1_acyh2")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-1, 0)
 
-[node name="VBC" type="VBoxContainer" parent="PC" unique_id=390062094]
+[node name="Settings" parent="." unique_id=1720427517 instance=ExtResource("2_lbssg")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(1, 0)
 
-[node name="TitleLabel" type="Label" parent="PC/VBC" unique_id=322437082]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "multi gun.s"
-horizontal_alignment = 1
+[node name="LeftPanelAnimations" type="AnimationPlayer" parent="." unique_id=549525762]
+deterministic = true
+libraries/ = SubResource("AnimationLibrary_w27i5")
 
-[node name="ResumeButton" type="Button" parent="PC/VBC" unique_id=760570388]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 32
-text = "Resume"
+[node name="SettingsAnimations" type="AnimationPlayer" parent="." unique_id=1835645380]
+libraries/ = SubResource("AnimationLibrary_qjqp7")
 
-[node name="SettingsButton" type="Button" parent="PC/VBC" unique_id=528929503]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 32
-text = "Settings
-"
-
-[node name="MainMenuButton" type="Button" parent="PC/VBC" unique_id=263432579]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 32
-text = "Main Menu"
-
-[node name="QuitButton" type="Button" parent="PC/VBC" unique_id=1560612566]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 32
-text = "Quit to Desktop"
-
-[connection signal="pressed" from="PC/VBC/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="PC/VBC/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="PC/VBC/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="PC/VBC/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="close" from="LeftPanel" to="." method="_on_left_panel_close"]
+[connection signal="open" from="LeftPanel" to="." method="_on_left_panel_open"]
+[connection signal="settings_close" from="LeftPanel" to="." method="_on_left_panel_settings_close"]
+[connection signal="settings_open" from="LeftPanel" to="." method="_on_left_panel_settings_open"]

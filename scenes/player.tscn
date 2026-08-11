@@ -70,6 +70,9 @@ properties/15/replication_mode = 1
 properties/16/path = NodePath(".:is_invincible")
 properties/16/spawn = true
 properties/16/replication_mode = 1
+properties/17/path = NodePath(".:add_child")
+properties/17/spawn = true
+properties/17/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["enemy", "player"]]
 collision_layer = 2
@@ -106,10 +109,6 @@ replication_config = SubResource("SceneReplicationConfig_qhqgy")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1042724857]
 _spawnable_scenes = PackedStringArray("uid://bxmrs4l4l1xbm", "uid://ce2c57trcya56", "uid://bc4tr7wp2lfem", "uid://bqd42k14tn2jr", "uid://df7asx6c4x8bm", "uid://cpxx0nu5l44bd", "uid://dad2ehgljdg7k")
 spawn_path = NodePath("../Guns")
-
-[node name="SoundsSpawner" type="MultiplayerSpawner" parent="." unique_id=1272734221]
-_spawnable_scenes = PackedStringArray("uid://dlfl1anoio8cm")
-spawn_path = NodePath("../Sounds")
 
 [node name="WalkTimer" type="Timer" parent="." unique_id=155312434]
 wait_time = 0.2

@@ -1,0 +1,545 @@
+[gd_scene format=3 uid="uid://bb3ssvhimttvs"]
+
+[ext_resource type="Script" uid="uid://dxhgau76wl3lq" path="res://scripts/settings.gd" id="1_uk2q4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eg0p3"]
+font_size = 20
+
+[node name="Settings" type="PanelContainer" unique_id=1720427517]
+self_modulate = Color(1, 1, 1, 0.48235294)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -402.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_uk2q4")
+
+[node name="PC" type="PanelContainer" parent="." unique_id=1534344226]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 0
+offset_transform_position = Vector2(0, 20)
+
+[node name="VBC" type="VBoxContainer" parent="PC" unique_id=223056556]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+theme_override_constants/separation = 16
+
+[node name="SettingsLabel" type="RichTextLabel" parent="PC/VBC" unique_id=416325670]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[wave amp=30 freq=5 speed=3 ease=-2.0]Settings[/wave]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="PC/VBC" unique_id=420243111]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="CameraButton" type="Button" parent="PC/VBC/ButtonsContainer" unique_id=118708419]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Camera"
+flat = true
+
+[node name="DisplayButton" type="Button" parent="PC/VBC/ButtonsContainer" unique_id=1915159165]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Display"
+flat = true
+
+[node name="VideoButton" type="Button" parent="PC/VBC/ButtonsContainer" unique_id=1244608337]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Video"
+flat = true
+
+[node name="AudioButton" type="Button" parent="PC/VBC/ButtonsContainer" unique_id=1562962223]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Audio"
+flat = true
+
+[node name="CameraOptions" type="VBoxContainer" parent="PC/VBC" unique_id=1313778997]
+layout_mode = 2
+
+[node name="Sensitivity" type="HBoxContainer" parent="PC/VBC/CameraOptions" unique_id=862186372]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SensitivityLabel" type="Label" parent="PC/VBC/CameraOptions/Sensitivity" unique_id=1301886412]
+layout_mode = 2
+text = "Sensitivity:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/CameraOptions/Sensitivity" unique_id=634739862]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 4.0
+step = 0.01
+value = 2.0
+
+[node name="LineEdit" type="LineEdit" parent="PC/VBC/CameraOptions/Sensitivity" unique_id=532724366]
+layout_mode = 2
+placeholder_text = "2.0"
+
+[node name="ReverseMouse" type="HBoxContainer" parent="PC/VBC/CameraOptions" unique_id=1102390341]
+layout_mode = 2
+
+[node name="ReverseLabel" type="Label" parent="PC/VBC/CameraOptions/ReverseMouse" unique_id=1347023260]
+layout_mode = 2
+text = "Reverse mouse: "
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/CameraOptions/ReverseMouse" unique_id=2036922065]
+layout_mode = 2
+
+[node name="FOV" type="HBoxContainer" parent="PC/VBC/CameraOptions" unique_id=1496912912]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="FOVLabel" type="Label" parent="PC/VBC/CameraOptions/FOV" unique_id=526998129]
+layout_mode = 2
+text = "FOV:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="LineEdit" type="LineEdit" parent="PC/VBC/CameraOptions/FOV" unique_id=662793731]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "80"
+placeholder_text = "67"
+caret_blink = true
+
+[node name="DisplayOptions" type="VBoxContainer" parent="PC/VBC" unique_id=65180713]
+visible = false
+layout_mode = 2
+
+[node name="Resolution" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1409062558]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ResolutionLabel" type="Label" parent="PC/VBC/DisplayOptions/Resolution" unique_id=1364618359]
+layout_mode = 2
+text = "Resolution:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="Resolutions" type="OptionButton" parent="PC/VBC/DisplayOptions/Resolution" unique_id=1958095691]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 7
+item_count = 12
+popup/item_0/text = "640×360"
+popup/item_0/id = 0
+popup/item_1/text = "640×480"
+popup/item_1/id = 1
+popup/item_2/text = "800×600"
+popup/item_2/id = 2
+popup/item_3/text = "1024×768"
+popup/item_3/id = 3
+popup/item_4/text = "1280×720"
+popup/item_4/id = 4
+popup/item_5/text = "1280×800"
+popup/item_5/id = 5
+popup/item_6/text = "1600×900"
+popup/item_6/id = 6
+popup/item_7/text = "1920×1080"
+popup/item_7/id = 7
+popup/item_8/text = "1920×1200"
+popup/item_8/id = 8
+popup/item_9/text = "2560×1440"
+popup/item_9/id = 9
+popup/item_10/text = "2560×1600"
+popup/item_10/id = 10
+popup/item_11/text = "2560×1080"
+popup/item_11/id = 11
+
+[node name="FPS" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1228048382]
+layout_mode = 2
+
+[node name="FPSLabel" type="Label" parent="PC/VBC/DisplayOptions/FPS" unique_id=1711424263]
+layout_mode = 2
+text = "FPS:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="LineEdit" type="LineEdit" parent="PC/VBC/DisplayOptions/FPS" unique_id=142373611]
+layout_mode = 2
+placeholder_text = "0"
+
+[node name="InfoLabel" type="Label" parent="PC/VBC/DisplayOptions/FPS" unique_id=2057631538]
+self_modulate = Color(1, 1, 1, 0.28627452)
+layout_mode = 2
+text = "- Set 0 FPS for unlimited FPS"
+
+[node name="WindowType" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1955602721]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="WindowTypeLabel" type="Label" parent="PC/VBC/DisplayOptions/WindowType" unique_id=432104834]
+layout_mode = 2
+text = "Window Type:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="WindowTypes" type="OptionButton" parent="PC/VBC/DisplayOptions/WindowType" unique_id=1883621936]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+
+[node name="Borderless" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1227403158]
+layout_mode = 2
+
+[node name="BorderlessLabel" type="Label" parent="PC/VBC/DisplayOptions/Borderless" unique_id=1777293710]
+layout_mode = 2
+text = "Borderless:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/DisplayOptions/Borderless" unique_id=1004544969]
+layout_mode = 2
+
+[node name="BarbieMode" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=870723228]
+layout_mode = 2
+
+[node name="BorderlessLabel" type="Label" parent="PC/VBC/DisplayOptions/BarbieMode" unique_id=1059342759]
+layout_mode = 2
+text = "Barbie Mode:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/DisplayOptions/BarbieMode" unique_id=661091653]
+layout_mode = 2
+
+[node name="VideoOptions" type="VBoxContainer" parent="PC/VBC" unique_id=550629423]
+visible = false
+layout_mode = 2
+
+[node name="Brightness" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1072430437]
+layout_mode = 2
+
+[node name="BrightnessLabel" type="Label" parent="PC/VBC/VideoOptions/Brightness" unique_id=1964882068]
+layout_mode = 2
+text = "Brightness:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/VideoOptions/Brightness" unique_id=1718859483]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 4.0
+step = 0.01
+value = 1.0
+
+[node name="SkyBrightness" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1584640986]
+layout_mode = 2
+
+[node name="BrightnessLabel" type="Label" parent="PC/VBC/VideoOptions/SkyBrightness" unique_id=85579028]
+layout_mode = 2
+text = "Sky Brightness:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/VideoOptions/SkyBrightness" unique_id=560019116]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 10.0
+step = 0.01
+value = 1.0
+
+[node name="Glow" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1455999592]
+layout_mode = 2
+
+[node name="GlowLabel" type="Label" parent="PC/VBC/VideoOptions/Glow" unique_id=731582880]
+layout_mode = 2
+text = "Glow:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/Glow" unique_id=213993341]
+layout_mode = 2
+button_pressed = true
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/VideoOptions/Glow" unique_id=2043945569]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="OcclusionCulling" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=494752277]
+layout_mode = 2
+
+[node name="OcclusionCullingLabel" type="Label" parent="PC/VBC/VideoOptions/OcclusionCulling" unique_id=1092707617]
+layout_mode = 2
+text = "Occlusion Culling:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/OcclusionCulling" unique_id=539333150]
+layout_mode = 2
+
+[node name="Anisotropic" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=657978484]
+layout_mode = 2
+
+[node name="AnisotropicLabel" type="Label" parent="PC/VBC/VideoOptions/Anisotropic" unique_id=880170097]
+layout_mode = 2
+text = "Anisotropic:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="OptionButton" type="OptionButton" parent="PC/VBC/VideoOptions/Anisotropic" unique_id=602445939]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 5
+popup/item_0/text = "Disabled (Fastest)"
+popup/item_0/id = 0
+popup/item_1/text = "2x (Faster)"
+popup/item_1/id = 1
+popup/item_2/text = "4x (Fast)"
+popup/item_2/id = 2
+popup/item_3/text = "8x (Average)"
+popup/item_3/id = 3
+popup/item_4/text = "16x (Slow)"
+popup/item_4/id = 4
+
+[node name="SoftShadow" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1847252426]
+layout_mode = 2
+
+[node name="SoftShadowLabel" type="Label" parent="PC/VBC/VideoOptions/SoftShadow" unique_id=353882863]
+layout_mode = 2
+text = "Soft Shadow:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="OptionButton" type="OptionButton" parent="PC/VBC/VideoOptions/SoftShadow" unique_id=1829257349]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 6
+popup/item_0/text = "Hard (Fastest)"
+popup/item_0/id = 0
+popup/item_1/text = "Soft Very Low (Faster)"
+popup/item_1/id = 1
+popup/item_2/text = "Soft Low (Fast)"
+popup/item_2/id = 2
+popup/item_3/text = "Soft Medium (Average)"
+popup/item_3/id = 3
+popup/item_4/text = "Soft High (Slow)"
+popup/item_4/id = 4
+popup/item_5/text = "Soft Ultra (Slowest)"
+popup/item_5/id = 5
+
+[node name="GlobalIllumination" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=460385225]
+layout_mode = 2
+
+[node name="GlobalIlluminationLabel" type="Label" parent="PC/VBC/VideoOptions/GlobalIllumination" unique_id=1805789218]
+layout_mode = 2
+text = "Global Illumination:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/GlobalIllumination" unique_id=650028734]
+layout_mode = 2
+
+[node name="SSAO" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=2071347723]
+layout_mode = 2
+
+[node name="SSAOLabel" type="Label" parent="PC/VBC/VideoOptions/SSAO" unique_id=266638453]
+layout_mode = 2
+text = "SSAO:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/SSAO" unique_id=844181324]
+layout_mode = 2
+button_pressed = true
+
+[node name="OptionButton" type="OptionButton" parent="PC/VBC/VideoOptions/SSAO" unique_id=1204366377]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 2
+item_count = 4
+popup/item_0/text = "Very Low (Fast)"
+popup/item_0/id = 0
+popup/item_1/text = "Low (Fast)"
+popup/item_1/id = 1
+popup/item_2/text = "Medium (Average)"
+popup/item_2/id = 2
+popup/item_3/text = "High (Slow)"
+popup/item_3/id = 3
+
+[node name="SSIL" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1253075470]
+layout_mode = 2
+
+[node name="SSILLabel" type="Label" parent="PC/VBC/VideoOptions/SSIL" unique_id=1928100411]
+layout_mode = 2
+text = "SSIL:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/SSIL" unique_id=1303282675]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="PC/VBC/VideoOptions/SSIL" unique_id=414722190]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 2
+item_count = 4
+popup/item_0/text = "Very Low (Fast)"
+popup/item_0/id = 0
+popup/item_1/text = "Low (Fast)"
+popup/item_1/id = 1
+popup/item_2/text = "Medium (Average)"
+popup/item_2/id = 2
+popup/item_3/text = "High (Slow)"
+popup/item_3/id = 3
+
+[node name="MSAA" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=445368615]
+layout_mode = 2
+
+[node name="MSAALabel" type="Label" parent="PC/VBC/VideoOptions/MSAA" unique_id=1650534824]
+layout_mode = 2
+text = "MSAA:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="OptionButton" type="OptionButton" parent="PC/VBC/VideoOptions/MSAA" unique_id=1958579757]
+layout_mode = 2
+selected = 2
+item_count = 4
+popup/item_0/text = "Disabled (Fastest)"
+popup/item_0/id = 0
+popup/item_1/text = "2x (Average)"
+popup/item_1/id = 1
+popup/item_2/text = "4x (Slow)"
+popup/item_2/id = 2
+popup/item_3/text = "8x (Slowest)"
+popup/item_3/id = 3
+
+[node name="TAA" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=596731081]
+layout_mode = 2
+
+[node name="TAALabel" type="Label" parent="PC/VBC/VideoOptions/TAA" unique_id=160233647]
+layout_mode = 2
+text = "TAA:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/TAA" unique_id=663654048]
+layout_mode = 2
+
+[node name="SSR" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=749367531]
+layout_mode = 2
+
+[node name="SSRLabel" type="Label" parent="PC/VBC/VideoOptions/SSR" unique_id=127369755]
+layout_mode = 2
+text = "SSR:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/SSR" unique_id=917957737]
+layout_mode = 2
+
+[node name="SDFGI" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1270725333]
+layout_mode = 2
+
+[node name="SDFGILabel" type="Label" parent="PC/VBC/VideoOptions/SDFGI" unique_id=1929491548]
+layout_mode = 2
+text = "SDFGI (this will fuck your pc):"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/SDFGI" unique_id=819152367]
+layout_mode = 2
+
+[node name="AudioOptions" type="VBoxContainer" parent="PC/VBC" unique_id=1632253977]
+visible = false
+layout_mode = 2
+
+[node name="MasterVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1521605268]
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="PC/VBC/AudioOptions/MasterVolume" unique_id=1821367457]
+layout_mode = 2
+text = "Master Volume:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/MasterVolume" unique_id=169772954]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 3.0
+step = 0.01
+value = 1.0
+
+[node name="RespawnVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1809078989]
+layout_mode = 2
+
+[node name="RespawnLabel" type="Label" parent="PC/VBC/AudioOptions/RespawnVolume" unique_id=380216246]
+layout_mode = 2
+text = "Respawn Volume:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/RespawnVolume" unique_id=1340336024]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.01
+value = 1.0
+
+[node name="GunsVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1051445205]
+layout_mode = 2
+
+[node name="GunsLabel" type="Label" parent="PC/VBC/AudioOptions/GunsVolume" unique_id=2068949959]
+layout_mode = 2
+text = "Guns' Volume:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/GunsVolume" unique_id=1249189270]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.01
+value = 1.0
+
+[node name="KillEffectVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1438341480]
+layout_mode = 2
+
+[node name="KillEffectLabel" type="Label" parent="PC/VBC/AudioOptions/KillEffectVolume" unique_id=1401811912]
+layout_mode = 2
+text = "Kill Effects Volume:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/KillEffectVolume" unique_id=1621508466]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.01
+value = 1.0
+
+[node name="DeathVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=468473182]
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="PC/VBC/AudioOptions/DeathVolume" unique_id=120800890]
+layout_mode = 2
+text = "Death Volume:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/DeathVolume" unique_id=1563082339]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.01
+value = 1.0
+
+[connection signal="pressed" from="PC/VBC/ButtonsContainer/CameraButton" to="." method="_on_camera_button_pressed"]
+[connection signal="pressed" from="PC/VBC/ButtonsContainer/DisplayButton" to="." method="_on_display_button_pressed"]
+[connection signal="pressed" from="PC/VBC/ButtonsContainer/VideoButton" to="." method="_on_video_button_pressed"]
+[connection signal="pressed" from="PC/VBC/ButtonsContainer/AudioButton" to="." method="_on_audio_button_pressed"]

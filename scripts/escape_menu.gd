@@ -1,32 +1,46 @@
-extends PanelContainer
+extends Control
+
+@onready var left_panel: PanelContainer = $LeftPanel
+@onready var settings: PanelContainer = $Settings
+@onready var left_panel_animations: AnimationPlayer = $LeftPanelAnimations
+@onready var settings_animations: AnimationPlayer = $SettingsAnimations
+
 
 var is_in_menu : bool = false
+var is_in_settings : bool = false
 
 
 func _ready() -> void:
-	pass
-
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("escape"):
-		is_in_menu = !is_in_menu
-
-
-func _on_resume_button_pressed() -> void:
-	is_in_menu = false
-
-
-func _on_settings_button_pressed() -> void:
-	pass # Replace with settings scene
-
-
-func _on_main_menu_button_pressed() -> void:
-	multiplayer.multiplayer_peer.close()
+	left_panel_animations.play("RESET")
+	settings_animations.play("RESET")
 	
-	await get_tree().process_frame
-	
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	left_panel.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
+	settings.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
 
 
-func _on_quit_button_pressed() -> void:
-	get_tree().quit()
+func _physics_process(_delta: float) -> void:
+	# Setting up variables
+	is_in_menu = left_panel.is_in_menu
+	is_in_settings = left_panel.is_in_settings
+
+
+# Left panel
+func _on_left_panel_open() -> void:
+	left_panel.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_INHERITED
+	left_panel_animations.play("open")
+
+
+func _on_left_panel_close() -> void:
+	left_panel.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
+	left_panel_animations.play("close")
+
+
+# Settings
+func _on_left_panel_settings_open() -> void:
+	settings.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_INHERITED
+	settings_animations.play("open")
+
+
+func _on_left_panel_settings_close() -> void:
+	settings.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
+	settings_animations.play("close")

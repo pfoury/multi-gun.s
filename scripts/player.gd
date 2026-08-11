@@ -49,7 +49,7 @@ var gun_fire_type : String = ""
 var scope_shadow_texture : TextureRect
 var low_hp_shadow_texture : TextureRect
 var white_screen_texture : ColorRect
-var escape_menu_panel : PanelContainer
+var escape_menu_panel : Control
 var unique_mat : Material
 var killer_id : int
 var corpse_after_death : Node3D
@@ -319,15 +319,6 @@ func update_player_hud(delta) -> void:
 			low_hp_shadow_texture.self_modulate.a = lerp(low_hp_shadow_texture.self_modulate.a, 0.0, delta * 5)
 			low_hp_shadow_texture.offset_transform_scale = lerp(low_hp_shadow_texture.offset_transform_scale, Vector2(2, 2), delta * 5)
 	
-	# Escape menu
-	match is_in_menu:
-		false:
-			escape_menu_panel.modulate.a = lerp(escape_menu_panel.modulate.a, 0.0, delta * 5)
-			escape_menu_panel.offset_transform_position_ratio.x = lerp(escape_menu_panel.offset_transform_position_ratio.x, -1.0, delta * 10)
-		true:
-			escape_menu_panel.modulate.a = lerp(escape_menu_panel.modulate.a, 1.0, delta * 5)
-			escape_menu_panel.offset_transform_position_ratio.x = lerp(escape_menu_panel.offset_transform_position_ratio.x, 0.0, delta * 10)
-	
 	# Changing velocity
 	var velocity_label = main_scene.statistics.get_node_or_null("VelocityLabel")
 	
@@ -471,13 +462,12 @@ func respawn(new_position) -> void:
 	if gun_node != null:
 		gun_node.reset_ammo()
 	
-	if multiplayer.is_server():
-		# Creating spawn sound
-		var sound = sound_scene.instantiate()
-		
-		sound.folder_path = "res://common/sounds/spawn/"
-		
-		sounds_folder.add_child(sound)
+	# Creating spawn sound
+	var sound = sound_scene.instantiate()
+	
+	sound.folder_path = "res://common/sounds/spawn/"
+	
+	sounds_folder.add_child(sound)
 	
 	if not is_multiplayer_authority(): return
 	
