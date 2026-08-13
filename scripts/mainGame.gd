@@ -105,7 +105,7 @@ func remove_player(peer_id) -> void:
 
 
 func to_menu() -> void:
-	Client.rpc("receive_global_update")
+	if !multiplayer.connected_to_server: return
 
 
 func play_shoot_animation() -> void: ## REWORKED
@@ -114,13 +114,11 @@ func play_shoot_animation() -> void: ## REWORKED
 	else:
 		Client.rpc("receive_shoot_animation", multiplayer.get_unique_id())
 
-
 func play_reload_animation() -> void: ## REWORKED
 	if !multiplayer.is_server():
 		Server.rpc_id(1, "reload_animation", multiplayer.get_unique_id())
 	else:
 		Client.rpc("receive_reload_animation", multiplayer.get_unique_id())
-
 
 func damage_player(result) -> void: ## REWORKED
 	if !multiplayer.is_server():

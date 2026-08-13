@@ -23,9 +23,9 @@ var brightness : float = 1.0
 var sky_brightness : float = 1.0
 var glow : float = 1.3
 var is_glow : bool = true
-var ssao : String = "Medium (Average)"
+var ssao_index : int = 2
 var is_ssao : bool = true
-var ssil : String = "Medium (Average)"
+var ssil_index : int = 2
 var is_ssil : bool = true
 var is_ssr : bool = false
 var is_sdfgi : bool = false
@@ -36,37 +36,70 @@ func change_scene_with_arguments(scene_path, args = {}) -> void:
 	
 	get_tree().change_scene_to_file(scene_path)
 
+
+func _update_sensitivity() -> void:
+	var main_scene = get_tree().current_scene
+	var id = multiplayer.get_unique_id()
+	var player = main_scene.players_folder.get_node_or_null(str(id))
+	
+	if player == null: return
+	
+	player.first_person_camera.update_mouse_sensitivity(sensitivity)
+
+
 func _update_fov() -> void:
-	pass
+	var main_scene = get_tree().current_scene
+	var id = multiplayer.get_unique_id()
+	var player = main_scene.players_folder.get_node_or_null(str(id))
+	
+	if player == null: return
+	
+	player.player_fov = fov
 
 
 func _update_brightness() -> void:
-	pass
+	var main_scene = get_tree().current_scene
+	var world_env : WorldEnvironment = main_scene.get_node_or_null("WorldEnvironment")
+	
+	world_env.environment.adjustment_brightness = brightness
 
 
 func _update_sky_brightness() -> void:
-	pass
+	var main_scene = get_tree().current_scene
+	var world_env : WorldEnvironment = main_scene.get_node_or_null("WorldEnvironment")
+	
+	world_env.environment.background_energy_multiplier = sky_brightness
 
 
 func _update_glow() -> void:
-	pass
-
-
-func _update_global_illumination() -> void:
-	pass
+	var main_scene = get_tree().current_scene
+	var world_env : WorldEnvironment = main_scene.get_node_or_null("WorldEnvironment")
+	
+	world_env.environment.glow_enabled = is_glow
+	
+	world_env.environment.glow_strength = glow
 
 
 func _update_SSAO() -> void:
-	pass
+	var main_scene = get_tree().current_scene
+	var world_env : WorldEnvironment = main_scene.get_node_or_null("WorldEnvironment")
+	
+	world_env.environment.ssao_enabled = is_ssao
+	
+	ProjectSettings.set_setting("rendering/environment/ssao/quality", ssao_index)
 
 
 func _update_SSIL() -> void:
-	pass
+	var main_scene = get_tree().current_scene
+	var world_env : WorldEnvironment = main_scene.get_node_or_null("WorldEnvironment")
+	
+	world_env.environment.ssil_enabled = is_ssao
+	
+	ProjectSettings.set_setting("rendering/environment/ssil/quality", ssil_index)
 
 
 func _update_SSR() -> void:
-	pass
-
-
-func _update_SDFGI() -> void:
-	pass
+	var main_scene = get_tree().current_scene
+	var world_env : WorldEnvironment = main_scene.get_node_or_null("WorldEnvironment")
+	
+	world_env.environment.ssr_enabled = is_ssr

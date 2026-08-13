@@ -7,12 +7,10 @@ font_size = 20
 
 [node name="Settings" type="PanelContainer" unique_id=1720427517]
 self_modulate = Color(1, 1, 1, 0.48235294)
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -402.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -21,7 +19,7 @@ script = ExtResource("1_uk2q4")
 [node name="PC" type="PanelContainer" parent="." unique_id=1534344226]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 4
 offset_transform_position = Vector2(0, 20)
 
 [node name="VBC" type="VBoxContainer" parent="PC" unique_id=223056556]
@@ -284,6 +282,7 @@ button_pressed = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+min_value = 1.0
 max_value = 2.0
 step = 0.01
 value = 1.3
@@ -339,7 +338,7 @@ label_settings = SubResource("LabelSettings_eg0p3")
 [node name="OptionButton" type="OptionButton" parent="PC/VBC/VideoOptions/SoftShadow" unique_id=1829257349]
 layout_mode = 2
 size_flags_horizontal = 3
-selected = 0
+selected = 2
 item_count = 6
 popup/item_0/text = "Hard (Fastest)"
 popup/item_0/id = 0
@@ -447,17 +446,6 @@ text = "SSR:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/SSR" unique_id=917957737]
-layout_mode = 2
-
-[node name="SDFGI" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1270725333]
-layout_mode = 2
-
-[node name="SDFGILabel" type="Label" parent="PC/VBC/VideoOptions/SDFGI" unique_id=1929491548]
-layout_mode = 2
-text = "SDFGI (this will fuck your pc):"
-label_settings = SubResource("LabelSettings_eg0p3")
-
-[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/SDFGI" unique_id=819152367]
 layout_mode = 2
 
 [node name="AudioOptions" type="VBoxContainer" parent="PC/VBC" unique_id=1632253977]
@@ -574,7 +562,6 @@ value = 1.0
 [connection signal="item_selected" from="PC/VBC/VideoOptions/MSAA/OptionButton" to="." method="_msaa_selected"]
 [connection signal="toggled" from="PC/VBC/VideoOptions/TAA/CheckBox" to="." method="_taa_toggled"]
 [connection signal="toggled" from="PC/VBC/VideoOptions/SSR/CheckBox" to="." method="_ssr_toggled"]
-[connection signal="toggled" from="PC/VBC/VideoOptions/SDFGI/CheckBox" to="." method="_sdfgi_toggled"]
 [connection signal="value_changed" from="PC/VBC/AudioOptions/MasterVolume/HSlider" to="." method="_master_changed"]
 [connection signal="value_changed" from="PC/VBC/AudioOptions/RespawnVolume/HSlider" to="." method="_respawn_changed"]
 [connection signal="value_changed" from="PC/VBC/AudioOptions/GunsVolume/HSlider" to="." method="_guns_changed"]

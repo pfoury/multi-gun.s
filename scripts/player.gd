@@ -12,7 +12,7 @@ const GROUND_FRICTION := 100.0
 @export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
 @export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
 @export var health_regeneration_particles_scene : PackedScene = load("res://scenes/particles/health_regeneration_particles.tscn")
-@export var player_fov : float = 80
+@export var player_fov : float = Global.fov
 # For MultiplayerSynchronizer
 @export var velocity_length : float
 @export var is_walk_timer_stopped : bool
@@ -100,7 +100,7 @@ func _physics_process(delta: float) -> void:
 		is_regen_timer_ready = false
 		regen_timer.start()
 	
-	if not is_multiplayer_authority(): return
+	if !multiplayer.connected_to_server or not is_multiplayer_authority(): return
 	
 	# If player is dead, then do not calculate anything
 	if is_player_dead: return
@@ -140,6 +140,11 @@ func _physics_process(delta: float) -> void:
 		
 		if normal.y > 0.1 and normal.y < 0.95:
 			velocity = velocity.slide(normal)
+	
+	update_player_height(delta)
+	update_guns_transform(delta)
+	update_player_fov(delta)
+	update_player_hud(delta)
 
 
 func _process(delta: float) -> void:
@@ -196,11 +201,6 @@ func _process(delta: float) -> void:
 	is_walk_timer_stopped = walk_timer.is_stopped()
 	is_player_on_floor = is_on_floor()
 	velocity_length = velocity.length()
-	
-	update_player_height(delta)
-	update_guns_transform(delta)
-	update_player_fov(delta)
-	update_player_hud(delta)
 	
 	is_in_menu = escape_menu_panel.is_in_menu
 	
@@ -267,26 +267,29 @@ func update_player_camera(delta) -> void:
 func update_player_fov(delta) -> void:
 	var camera_fov = first_person_camera.fov
 	
-	var mouse_sensitivity = first_person_camera.mouse_sensitivity
+	var mouse_sensitivity = Global.sensitivity
+	var old_mouse_sensitivity = mouse_sensitivity
 	
 	# Lerping fov, scope shadow and mouse sensitivity
 	match is_scoping:
 		1:
-			camera_fov = lerp(camera_fov, 30.0, delta * 10)
+			camera_fov = lerp(camera_fov, player_fov / 2.5, delta * 10)
 			
 			scope_shadow_texture.self_modulate.a = lerp(scope_shadow_texture.self_modulate.a, 0.45, delta * 10)
 			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(1.5, 1.5), delta * 10)
 			
-			mouse_sensitivity = lerp(mouse_sensitivity, Vector2(1.0, 1.0), delta * 10)
+			mouse_sensitivity = lerp(mouse_sensitivity, Global.sensitivity / 2, delta * 10)
 		0:
 			camera_fov = lerp(camera_fov, player_fov, delta * 10)
 			
 			scope_shadow_texture.self_modulate.a = lerp(scope_shadow_texture.self_modulate.a, 0.0, delta * 10)
 			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(2, 2), delta * 10)
 			
-			mouse_sensitivity = lerp(mouse_sensitivity, Vector2(2.0, 2.0), delta * 10)
+			mouse_sensitivity = lerp(mouse_sensitivity, Global.sensitivity, delta * 10)
 	
 	first_person_camera.fov = camera_fov
+	
+	if old_mouse_sensitivity == mouse_sensitivity: return
 	
 	first_person_camera.update_mouse_sensitivity(mouse_sensitivity)
 

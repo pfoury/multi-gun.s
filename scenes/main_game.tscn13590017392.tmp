@@ -23,11 +23,9 @@ background_mode = 2
 sky = SubResource("Sky_jyhfs")
 ambient_light_source = 3
 ssr_fade_in = 0.010047832
+ssao_enabled = true
 ssao_intensity = 4.07
-sdfgi_use_occlusion = true
-sdfgi_min_cell_size = 4.0
-sdfgi_normal_bias = 1.0
-sdfgi_probe_bias = 1.0
+glow_enabled = true
 glow_strength = 1.3
 adjustment_enabled = true
 

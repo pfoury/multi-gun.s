@@ -94,7 +94,6 @@ mesh = SubResource("CapsuleMesh_hyap7")
 
 [node name="FPCamera" type="Camera3D" parent="CameraPivot" unique_id=517064210]
 cull_mask = 524287
-fov = 80.0
 script = ExtResource("2_g2els")
 
 [node name="LookAtKillerPivot" type="Node3D" parent="." unique_id=1298529011]

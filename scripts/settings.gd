@@ -105,6 +105,9 @@ func _sensitivity_slider_changed(value: float) -> void:
 	sens_line_edit.placeholder_text = str(value)
 	
 	Global.sensitivity = Vector2(value, value)
+	
+	if Global.is_in_game:
+		Global._update_sensitivity()
 
 func _sensitivity_line_submitted(new_text: String) -> void:
 	var new_value = float(new_text)
@@ -122,6 +125,9 @@ func _sensitivity_line_submitted(new_text: String) -> void:
 	sens_h_slider.value = new_value
 	
 	Global.sensitivity = Vector2(new_value, new_value)
+	
+	if Global.is_in_game:
+		Global._update_sensitivity()
 
 
 # FOV
@@ -134,8 +140,8 @@ func _fov_changed(new_text: String) -> void:
 	
 	if new_value < 20:
 		new_value = 20
-	elif new_value > 200:
-		new_value = 200
+	elif new_value > 150:
+		new_value = 150
 	fov_line_edit.text = str(new_value)
 	fov_line_edit.placeholder_text = str(new_value)
 	
@@ -322,8 +328,8 @@ func _glow_submitted(new_text: String) -> void:
 		glow_line_edit.text = glow_line_edit.placeholder_text
 		return
 	
-	if new_value < 0.0:
-		new_value = 0.0
+	if new_value < 1.0:
+		new_value = 1.0
 	elif new_value > 2.0:
 		new_value = 2.0
 	glow_line_edit.text = str(new_value)
@@ -375,9 +381,7 @@ func _ssao_toggled(toggled_on: bool) -> void:
 		Global._update_SSAO()
 
 func _ssao_selected(index: int) -> void:
-	var new_ssao = ssao_option_button.get_item_text(index)
-	
-	Global.ssao = new_ssao
+	Global.ssao_index = index
 	
 	if Global.is_in_game:
 		Global._update_SSAO()
@@ -393,9 +397,7 @@ func _ssil_toggled(toggled_on: bool) -> void:
 		Global._update_SSIL()
 
 func _ssil_selected(index: int) -> void:
-	var new_ssil = ssil_option_button.get_item_text(index)
-	
-	Global.ssil = new_ssil
+	Global.ssil_index = index
 	
 	if Global.is_in_game:
 		Global._update_SSIL()
@@ -426,11 +428,4 @@ func _ssr_toggled(toggled_on: bool) -> void:
 	
 	if Global.is_in_game:
 		Global._update_SSR()
-
-
-# SDFGI
-func _sdfgi_toggled(toggled_on: bool) -> void:
-	Global.is_sdfgi = toggled_on
-	
-	if Global.is_in_game:
-		Global._update_SDFGI()
+#endregion
