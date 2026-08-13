@@ -242,6 +242,11 @@ max_value = 4.0
 step = 0.01
 value = 1.0
 
+[node name="LineEdit" type="LineEdit" parent="PC/VBC/VideoOptions/Brightness" unique_id=2023589850]
+layout_mode = 2
+text = "1.0"
+placeholder_text = "1.0"
+
 [node name="SkyBrightness" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1584640986]
 layout_mode = 2
 
@@ -257,6 +262,11 @@ size_flags_vertical = 4
 max_value = 10.0
 step = 0.01
 value = 1.0
+
+[node name="LineEdit" type="LineEdit" parent="PC/VBC/VideoOptions/SkyBrightness" unique_id=282168729]
+layout_mode = 2
+text = "1.0"
+placeholder_text = "1.0"
 
 [node name="Glow" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1455999592]
 layout_mode = 2
@@ -276,7 +286,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 max_value = 2.0
 step = 0.01
-value = 1.0
+value = 1.3
+
+[node name="LineEdit" type="LineEdit" parent="PC/VBC/VideoOptions/Glow" unique_id=864186865]
+layout_mode = 2
+text = "1.3"
+placeholder_text = "1.3"
 
 [node name="OcclusionCulling" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=494752277]
 layout_mode = 2
@@ -339,17 +354,6 @@ popup/item_4/id = 4
 popup/item_5/text = "Soft Ultra (Slowest)"
 popup/item_5/id = 5
 
-[node name="GlobalIllumination" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=460385225]
-layout_mode = 2
-
-[node name="GlobalIlluminationLabel" type="Label" parent="PC/VBC/VideoOptions/GlobalIllumination" unique_id=1805789218]
-layout_mode = 2
-text = "Global Illumination:"
-label_settings = SubResource("LabelSettings_eg0p3")
-
-[node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/GlobalIllumination" unique_id=650028734]
-layout_mode = 2
-
 [node name="SSAO" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=2071347723]
 layout_mode = 2
 
@@ -390,6 +394,7 @@ layout_mode = 2
 [node name="OptionButton" type="OptionButton" parent="PC/VBC/VideoOptions/SSIL" unique_id=414722190]
 layout_mode = 2
 size_flags_horizontal = 3
+disabled = true
 selected = 2
 item_count = 4
 popup/item_0/text = "Very Low (Fast)"
@@ -552,6 +557,24 @@ value = 1.0
 [connection signal="item_selected" from="PC/VBC/DisplayOptions/WindowType/WindowTypes" to="." method="_window_types_selected"]
 [connection signal="toggled" from="PC/VBC/DisplayOptions/Borderless/CheckBox" to="." method="_borderless_toggled"]
 [connection signal="toggled" from="PC/VBC/DisplayOptions/BarbieMode/CheckBox" to="." method="_barbie_mode_toggled"]
+[connection signal="value_changed" from="PC/VBC/VideoOptions/Brightness/HSlider" to="." method="_brightness_changed"]
+[connection signal="text_submitted" from="PC/VBC/VideoOptions/Brightness/LineEdit" to="." method="_brightness_submitted"]
+[connection signal="value_changed" from="PC/VBC/VideoOptions/SkyBrightness/HSlider" to="." method="_sky_brightness_changed"]
+[connection signal="text_submitted" from="PC/VBC/VideoOptions/SkyBrightness/LineEdit" to="." method="_sky_brightness_submitted"]
+[connection signal="toggled" from="PC/VBC/VideoOptions/Glow/CheckBox" to="." method="_glow_toggled"]
+[connection signal="value_changed" from="PC/VBC/VideoOptions/Glow/HSlider" to="." method="_glow_changed"]
+[connection signal="text_submitted" from="PC/VBC/VideoOptions/Glow/LineEdit" to="." method="_glow_submitted"]
+[connection signal="toggled" from="PC/VBC/VideoOptions/OcclusionCulling/CheckBox" to="." method="_occlusion_culling_toggled"]
+[connection signal="item_selected" from="PC/VBC/VideoOptions/Anisotropic/OptionButton" to="." method="_anisotropic_selected"]
+[connection signal="item_selected" from="PC/VBC/VideoOptions/SoftShadow/OptionButton" to="." method="_soft_shadow_selected"]
+[connection signal="toggled" from="PC/VBC/VideoOptions/SSAO/CheckBox" to="." method="_ssao_toggled"]
+[connection signal="item_selected" from="PC/VBC/VideoOptions/SSAO/OptionButton" to="." method="_ssao_selected"]
+[connection signal="toggled" from="PC/VBC/VideoOptions/SSIL/CheckBox" to="." method="_ssil_toggled"]
+[connection signal="item_selected" from="PC/VBC/VideoOptions/SSIL/OptionButton" to="." method="_ssil_selected"]
+[connection signal="item_selected" from="PC/VBC/VideoOptions/MSAA/OptionButton" to="." method="_msaa_selected"]
+[connection signal="toggled" from="PC/VBC/VideoOptions/TAA/CheckBox" to="." method="_taa_toggled"]
+[connection signal="toggled" from="PC/VBC/VideoOptions/SSR/CheckBox" to="." method="_ssr_toggled"]
+[connection signal="toggled" from="PC/VBC/VideoOptions/SDFGI/CheckBox" to="." method="_sdfgi_toggled"]
 [connection signal="value_changed" from="PC/VBC/AudioOptions/MasterVolume/HSlider" to="." method="_master_changed"]
 [connection signal="value_changed" from="PC/VBC/AudioOptions/RespawnVolume/HSlider" to="." method="_respawn_changed"]
 [connection signal="value_changed" from="PC/VBC/AudioOptions/GunsVolume/HSlider" to="." method="_guns_changed"]

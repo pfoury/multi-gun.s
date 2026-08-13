@@ -85,6 +85,8 @@ func update_top_players() -> void:
 
 func quit_to_main_menu() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	
+	Global.is_in_game = false
 
 
 func add_test_object(result) -> void:

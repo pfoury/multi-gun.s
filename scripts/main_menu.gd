@@ -14,6 +14,10 @@ extends Node
 var args : Dictionary = {}
 
 
+func _ready() -> void:
+	Global.is_in_game = false
+
+
 func creating_args() -> void:
 	# Setting username
 	if len(display_nickname.text) < 3 or len(display_nickname.text) > 20:

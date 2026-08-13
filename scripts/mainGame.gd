@@ -35,6 +35,8 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	
+	Global.is_in_game = true
+	
 	var args : Dictionary = {
 		"username": Global.arguments["username"],
 		"color": Global.arguments["color"]
@@ -52,6 +54,7 @@ func _ready() -> void:
 				multiplayer.multiplayer_peer = enet_peer
 				
 				multiplayer.peer_disconnected.connect(remove_player)
+				multiplayer.server_disconnected.connect(to_menu)
 				
 				Server.create_weapon_pool()
 				Server.create_global_timer()
@@ -98,6 +101,10 @@ func remove_player(peer_id) -> void:
 	if player:
 		player.queue_free()
 	
+	Client.rpc("receive_global_update")
+
+
+func to_menu() -> void:
 	Client.rpc("receive_global_update")
 
 
