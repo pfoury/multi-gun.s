@@ -108,6 +108,8 @@ func _sensitivity_slider_changed(value: float) -> void:
 	
 	if Global.is_in_game:
 		Global._update_sensitivity()
+	
+	ConfigFileHandler.save_camera_setting("sensitivity", value)
 
 func _sensitivity_line_submitted(new_text: String) -> void:
 	var new_value = float(new_text)
@@ -128,6 +130,8 @@ func _sensitivity_line_submitted(new_text: String) -> void:
 	
 	if Global.is_in_game:
 		Global._update_sensitivity()
+	
+	ConfigFileHandler.save_camera_setting("sensitivity", new_value)
 
 
 # FOV
@@ -149,6 +153,8 @@ func _fov_changed(new_text: String) -> void:
 	
 	if Global.is_in_game:
 		Global._update_fov()
+	
+	ConfigFileHandler.save_camera_setting("fov", new_value)
 #endregion
 
 
@@ -160,6 +166,8 @@ func _resolutions_item_selected(index: int) -> void:
 	var new_size = Vector2i(int(new_resolution[0]), int(new_resolution[1]))
 	
 	DisplayServer.window_set_size(new_size)
+	
+	ConfigFileHandler.save_display_setting("resolution", new_size)
 
 
 # FPS
@@ -176,6 +184,8 @@ func _new_fps_submitted(new_text: String) -> void:
 	fps_line_edit.placeholder_text = str(new_value)
 	
 	Engine.max_fps = new_value
+	
+	ConfigFileHandler.save_display_setting("fps", new_value)
 
 
 # VSync
@@ -184,6 +194,8 @@ func _vsync_toggled(toggled_on: bool) -> void:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 	else:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	
+	ConfigFileHandler.save_display_setting("vsync", toggled_on)
 
 
 # Window Type
@@ -196,11 +208,15 @@ func _window_types_selected(index: int) -> void:
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		resolutions.disabled = false
+	
+	ConfigFileHandler.save_display_setting("window_type", index)
 
 
 # Borderless
 func _borderless_toggled(toggled_on: bool) -> void:
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, toggled_on)
+	
+	ConfigFileHandler.save_display_setting("borderless", toggled_on)
 
 
 # Barbie Mode
@@ -213,26 +229,36 @@ func _barbie_mode_toggled(toggled_on: bool) -> void:
 # Master
 func _master_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(master_idx, linear_to_db(value))
+	
+	ConfigFileHandler.save_audio_setting("master", value)
 
 
 # Respawn
 func _respawn_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(respawn_sounds_idx, linear_to_db(value))
+	
+	ConfigFileHandler.save_audio_setting("respawn", value)
 
 
 # Guns
 func _guns_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(gun_sfx_idx, linear_to_db(value))
+	
+	ConfigFileHandler.save_audio_setting("guns", value)
 
 
 # Kill Effects
 func _kill_effect_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(kill_effects_idx, linear_to_db(value))
+	
+	ConfigFileHandler.save_audio_setting("kill_effects", value)
 
 
 # Death
 func _death_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(death_idx, linear_to_db(value))
+	
+	ConfigFileHandler.save_audio_setting("death", value)
 #endregion
 
 
@@ -246,6 +272,8 @@ func _brightness_changed(value: float) -> void:
 	
 	if Global.is_in_game:
 		Global._update_brightness()
+	
+	ConfigFileHandler.save_video_setting("brightness", value)
 
 func _brightness_submitted(new_text: String) -> void:
 	var new_value = float(new_text)
@@ -267,6 +295,8 @@ func _brightness_submitted(new_text: String) -> void:
 	
 	if Global.is_in_game:
 		Global._update_brightness()
+	
+	ConfigFileHandler.save_video_setting("brightness", new_value)
 
 
 # Sky Brightness
@@ -278,6 +308,8 @@ func _sky_brightness_changed(value: float) -> void:
 	
 	if Global.is_in_game:
 		Global._update_sky_brightness()
+	
+	ConfigFileHandler.save_video_setting("sky_brightness", value)
 
 func _sky_brightness_submitted(new_text: String) -> void:
 	var new_value = float(new_text)
@@ -299,6 +331,8 @@ func _sky_brightness_submitted(new_text: String) -> void:
 	
 	if Global.is_in_game:
 		Global._update_sky_brightness()
+	
+	ConfigFileHandler.save_video_setting("sky_brightness", new_value)
 
 
 # Glow
@@ -311,6 +345,8 @@ func _glow_toggled(toggled_on: bool) -> void:
 	
 	if Global.is_in_game:
 		Global._update_glow()
+	
+	ConfigFileHandler.save_video_setting("glow", toggled_on)
 
 func _glow_changed(value: float) -> void:
 	glow_line_edit.text = str(value)
@@ -320,6 +356,8 @@ func _glow_changed(value: float) -> void:
 	
 	if Global.is_in_game:
 		Global._update_glow()
+	
+	ConfigFileHandler.save_video_setting("glow_strength", value)
 
 func _glow_submitted(new_text: String) -> void:
 	var new_value = float(new_text)
@@ -341,16 +379,22 @@ func _glow_submitted(new_text: String) -> void:
 	
 	if Global.is_in_game:
 		Global._update_glow()
+	
+	ConfigFileHandler.save_video_setting("glow_strength", new_value)
 
 
 # Occlusion Culling
 func _occlusion_culling_toggled(toggled_on: bool) -> void:
 	ProjectSettings.set_setting("rendering/occlusion_culling/use_occlusion_culling", toggled_on)
+	
+	ConfigFileHandler.save_video_setting("occlusion_culling", toggled_on)
 
 
 # Anisotropic
 func _anisotropic_selected(index: int) -> void:
 	ProjectSettings.set_setting("rendering/textures/default_filters/anisotropic_filtering_level", index)
+	
+	ConfigFileHandler.save_video_setting("anisotropic", index)
 
 
 # Soft shadow
@@ -369,6 +413,8 @@ func _soft_shadow_selected(index: int) -> void:
 		RenderingServer.directional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_HIGH)
 	else:
 		RenderingServer.directional_soft_shadow_filter_set_quality(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)
+	
+	ConfigFileHandler.save_video_setting("soft_shadow", index)
 
 
 # SSAO
@@ -379,12 +425,16 @@ func _ssao_toggled(toggled_on: bool) -> void:
 	
 	if Global.is_in_game:
 		Global._update_SSAO()
+	
+	ConfigFileHandler.save_video_setting("ssao", toggled_on)
 
 func _ssao_selected(index: int) -> void:
 	Global.ssao_index = index
 	
 	if Global.is_in_game:
 		Global._update_SSAO()
+	
+	ConfigFileHandler.save_video_setting("ssao", index)
 
 
 # SSIL
@@ -395,12 +445,16 @@ func _ssil_toggled(toggled_on: bool) -> void:
 	
 	if Global.is_in_game:
 		Global._update_SSIL()
+	
+	ConfigFileHandler.save_video_setting("ssil", toggled_on)
 
 func _ssil_selected(index: int) -> void:
 	Global.ssil_index = index
 	
 	if Global.is_in_game:
 		Global._update_SSIL()
+	
+	ConfigFileHandler.save_video_setting("ssil", index)
 
 
 # MSAA
@@ -415,11 +469,15 @@ func _msaa_selected(index: int) -> void:
 		get_viewport().msaa_3d = Viewport.MSAA_4X
 	else:
 		get_viewport().msaa_3d = Viewport.MSAA_8X
+	
+	ConfigFileHandler.save_video_setting("mssa", index)
 
 
 # TAA (like that emoji from twitch xdd)
 func _taa_toggled(toggled_on: bool) -> void:
 	get_viewport().use_taa = toggled_on
+	
+	ConfigFileHandler.save_video_setting("taa", toggled_on)
 
 
 # SSR
@@ -428,4 +486,6 @@ func _ssr_toggled(toggled_on: bool) -> void:
 	
 	if Global.is_in_game:
 		Global._update_SSR()
+	
+	ConfigFileHandler.save_video_setting("ssr", toggled_on)
 #endregion

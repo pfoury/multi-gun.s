@@ -192,7 +192,7 @@ label_settings = SubResource("LabelSettings_eg0p3")
 [node name="WindowTypes" type="OptionButton" parent="PC/VBC/DisplayOptions/WindowType" unique_id=1883621936]
 layout_mode = 2
 size_flags_horizontal = 3
-selected = 0
+selected = 1
 item_count = 2
 popup/item_0/text = "Windowed"
 popup/item_0/id = 0
