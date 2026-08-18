@@ -40,7 +40,7 @@ var death_idx = AudioServer.get_bus_index("DeathSound")
 
 
 func _ready() -> void: ## !!! Important shit !!!
-	await ConfigFileHandler.load_configs()
+	ConfigFileHandler.load_configs()
 	
 	# Loading these settings
 	load_settings()
