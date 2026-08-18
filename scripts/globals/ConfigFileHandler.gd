@@ -12,7 +12,7 @@ func load_configs() -> void:
 		config_settings.set_value("camera", "fov", 80)
 		
 		# Display
-		config_settings.set_value("display", "resolution", Vector2i(1920, 1080))
+		config_settings.set_value("display", "resolution", 7)
 		config_settings.set_value("display", "fps", 0)
 		config_settings.set_value("display", "vsync", false)
 		config_settings.set_value("display", "window_type", 0)

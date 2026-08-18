@@ -61,6 +61,11 @@ var death_idx = AudioServer.get_bus_index("DeathSound")
 
 func _ready() -> void:
 	setting_up()
+	
+	await get_tree().process_frame
+	
+	# Loading settings from Config file
+	load_settings()
 
 
 func setting_up(node_name : String = "camera") -> void:
@@ -78,6 +83,48 @@ func setting_up(node_name : String = "camera") -> void:
 	# ..then turning on what you need
 	get(node_name + "_options").show()
 	get(node_name + "_button").disabled = true
+
+
+func load_settings() -> void:
+	var camera_settings = ConfigFileHandler.load_camera_setting()
+	var display_settings = ConfigFileHandler.load_display_setting()
+	var audio_settings = ConfigFileHandler.load_audio_setting()
+	var video_settings = ConfigFileHandler.load_video_setting()
+	
+	# Camera
+	_sensitivity_slider_changed(camera_settings.sensitivity)
+	_fov_changed(str(camera_settings.fov))
+	
+	# Display
+	_resolutions_item_selected(display_settings.resolution)
+	_new_fps_submitted(str(display_settings.fps))
+	_vsync_toggled(display_settings.vsync)
+	_window_types_selected(display_settings.window_type)
+	_borderless_toggled(display_settings.borderless)
+	_barbie_mode_toggled(display_settings.barbie_mode)
+	
+	# Audio
+	_master_changed(audio_settings.master)
+	_respawn_changed(audio_settings.respawn)
+	_guns_changed(audio_settings.guns)
+	_kill_effect_changed(audio_settings.kill_effects)
+	_death_changed(audio_settings.death)
+	
+	# Video
+	_brightness_changed(video_settings.brightness)
+	_sky_brightness_changed(video_settings.sky_brightness)
+	_glow_toggled(video_settings.glow)
+	_glow_changed(video_settings.glow_strength)
+	_occlusion_culling_toggled(video_settings.occlusion_culling)
+	_anisotropic_selected(video_settings.anisotropic)
+	_soft_shadow_selected(video_settings.soft_shadow)
+	_ssao_toggled(video_settings.ssao)
+	_ssao_selected(video_settings.ssao_option)
+	_ssil_toggled(video_settings.ssil)
+	_ssil_selected(video_settings.ssil_option)
+	_msaa_selected(video_settings.msaa)
+	_taa_toggled(video_settings.taa)
+	_ssr_toggled(video_settings.ssr)
 
 
 #region Buttons' logic
@@ -167,7 +214,7 @@ func _resolutions_item_selected(index: int) -> void:
 	
 	DisplayServer.window_set_size(new_size)
 	
-	ConfigFileHandler.save_display_setting("resolution", new_size)
+	ConfigFileHandler.save_display_setting("resolution", index)
 
 
 # FPS

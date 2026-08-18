@@ -14,6 +14,20 @@ const WEAPON_SCENES = [
 	"res://scenes/weapons/golden_gun.tscn", # Golden gun scene
 	"res://scenes/weapons/golden_sniper.tscn" # Golden sniper rifle scene
 ]
+const RESOLUTIONS = [
+	"640×360",
+	"640×480",
+	"800×600",
+	"1024×768",
+	"1280×720",
+	"1280×800",
+	"1600×900",
+	"1920×1080",
+	"1920×1200",
+	"2560×1440",
+	"2560×1600",
+	"2560×1080"
+]
 
 var is_in_game : bool = false
 var arguments : Dictionary = {}
@@ -96,8 +110,10 @@ func _load_display_settings() -> void:
 		0:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	
-	var resolution = display_settings.resolution
-	DisplayServer.window_set_size(resolution)
+	var resolution_id = display_settings.resolution
+	var new_resolution = RESOLUTIONS[resolution_id].split("×")
+	var new_size = Vector2i(int(new_resolution[0]), int(new_resolution[1]))
+	DisplayServer.window_set_size(new_size)
 	
 	var fps = display_settings.fps
 	Engine.max_fps = fps

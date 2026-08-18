@@ -192,7 +192,7 @@ label_settings = SubResource("LabelSettings_eg0p3")
 [node name="WindowTypes" type="OptionButton" parent="PC/VBC/DisplayOptions/WindowType" unique_id=1883621936]
 layout_mode = 2
 size_flags_horizontal = 3
-selected = 1
+selected = 0
 item_count = 2
 popup/item_0/text = "Windowed"
 popup/item_0/id = 0
@@ -447,6 +447,14 @@ label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="CheckBox" type="CheckBox" parent="PC/VBC/VideoOptions/SSR" unique_id=917957737]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="PC/VBC/VideoOptions" unique_id=293450552]
+modulate = Color(0.446777, 0.44677705, 0.44677705, 1)
+layout_mode = 2
+text = "
+ * Some of these options may freeze your game. Idk how to fix that lmao"
+label_settings = SubResource("LabelSettings_eg0p3")
+autowrap_mode = 1
 
 [node name="AudioOptions" type="VBoxContainer" parent="PC/VBC" unique_id=1632253977]
 visible = false
