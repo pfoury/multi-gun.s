@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bicky7j3wwj6t"]
+
+[ext_resource type="FontFile" uid="uid://d14ixvtk4ufb" path="res://common/fonts/Oswald/Oswald-VariableFont_wght.ttf" id="1_0oy68"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ogq8d"]
+font = ExtResource("1_0oy68")
+font_size = 32
+
+[node name="GamemodeContainer" type="PanelContainer" unique_id=1340887717]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 108.0
+offset_bottom = 32.0
+offset_transform_enabled = true
+
+[node name="GamemodeLabel" type="Label" parent="." unique_id=701071087]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Standard"
+label_settings = SubResource("LabelSettings_ogq8d")

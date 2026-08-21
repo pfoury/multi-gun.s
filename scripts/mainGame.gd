@@ -17,7 +17,7 @@ extends Node
 @onready var player_hud := $HUD/PlayerHUD
 @onready var kill_feed := $HUD/PlayerHUD/KillFeed
 @onready var statistics := $HUD/PlayerHUD/Statistics
-@onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopPlayers
+@onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopHUD/TopPlayers
 @onready var escape_menu: Control = $HUD/PlayerHUD/EscapeMenu
 
 var enet_peer = ENetMultiplayerPeer.new()

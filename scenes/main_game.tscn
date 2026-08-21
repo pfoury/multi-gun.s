@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="4_2l77h"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="5_nqdth"]
 [ext_resource type="PackedScene" uid="uid://c2l0lpnfjfs2u" path="res://scenes/HUD/escape_menu.tscn" id="6_5cypo"]
+[ext_resource type="PackedScene" uid="uid://bicky7j3wwj6t" path="res://scenes/HUD/gamemode_container.tscn" id="6_wi4c7"]
 [ext_resource type="PackedScene" uid="uid://e3slls5q0v0o" path="res://common/maps/cp_orange.blend" id="7_wi4c7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
@@ -66,8 +67,7 @@ layers = 524289
 light_color = Color(0.8819366, 0.8819366, 0.88193655, 1)
 shadow_enabled = true
 shadow_normal_bias = 10.0
-shadow_opacity = 0.4
-shadow_blur = 10.0
+shadow_opacity = 0.87
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 
@@ -147,7 +147,6 @@ shape = SubResource("BoxShape3D_ogq8d")
 [node name="HUD" type="CanvasLayer" parent="." unique_id=591277263]
 
 [node name="PlayerHUD" type="Control" parent="HUD" unique_id=1236664917]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -247,17 +246,25 @@ offset_bottom = 191.0
 grow_horizontal = 0
 alignment = 2
 
-[node name="TopPlayers" type="HBoxContainer" parent="HUD/PlayerHUD" unique_id=683275826]
+[node name="TopHUD" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=174400602]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -274.0
-offset_right = 274.0
-offset_bottom = 89.0
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 156.0
 grow_horizontal = 2
+
+[node name="GamemodeContainer" parent="HUD/PlayerHUD/TopHUD" unique_id=1340887717 instance=ExtResource("6_wi4c7")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TopPlayers" type="HBoxContainer" parent="HUD/PlayerHUD/TopHUD" unique_id=683275826]
+layout_mode = 2
+size_flags_vertical = 3
 offset_transform_enabled = true
-offset_transform_position = Vector2(0, 25)
+offset_transform_position = Vector2(0, 10)
 alignment = 1
 
 [node name="Statistics" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=1822386790]
@@ -284,6 +291,7 @@ horizontal_alignment = 2
 layout_mode = 1
 offset_top = -219.0
 offset_bottom = 219.0
+metadata/_edit_lock_ = true
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=776113691]
 _spawnable_scenes = PackedStringArray("uid://1pbxshbpwk1v")

@@ -26,8 +26,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	recoil_offset = lerp(recoil_offset, 0.0, delta * recoil_recovery_speed)
 	
-	print(mouse_sensitivity)
-	
 	camera_pivot.transform.basis = Basis(Vector3.RIGHT, recoil_offset)
 
 

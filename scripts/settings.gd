@@ -1,5 +1,8 @@
 extends PanelContainer
 
+
+
+#region Onready's
 # Buttons
 @onready var camera_button: Button = $PC/VBC/ButtonsContainer/CameraButton
 @onready var display_button: Button = $PC/VBC/ButtonsContainer/DisplayButton
@@ -25,8 +28,32 @@ extends PanelContainer
 # FPS
 @onready var fps_line_edit: LineEdit = $PC/VBC/DisplayOptions/FPS/LineEdit
 
+# Vsync
+@onready var vsync_check_box: CheckBox = $PC/VBC/DisplayOptions/VSync/CheckBox
+
 # Window types
 @onready var window_types: OptionButton = $PC/VBC/DisplayOptions/WindowType/WindowTypes
+
+# Borderless
+@onready var borderless_check_box: CheckBox = $PC/VBC/DisplayOptions/Borderless/CheckBox
+
+# Barbie mode
+@onready var barbie_check_box: CheckBox = $PC/VBC/DisplayOptions/BarbieMode/CheckBox
+
+# Master
+@onready var master_h_slider: HSlider = $PC/VBC/AudioOptions/MasterVolume/HSlider
+
+# Respawn
+@onready var respawn_h_slider: HSlider = $PC/VBC/AudioOptions/RespawnVolume/HSlider
+
+# Guns
+@onready var guns_h_slider: HSlider = $PC/VBC/AudioOptions/GunsVolume/HSlider
+
+# Kill effect
+@onready var kill_effect_h_slider: HSlider = $PC/VBC/AudioOptions/KillEffectVolume/HSlider
+
+# Death
+@onready var death_h_slider: HSlider = $PC/VBC/AudioOptions/DeathVolume/HSlider
 
 # Brightness
 @onready var b_h_slider: HSlider = $PC/VBC/VideoOptions/Brightness/HSlider
@@ -37,20 +64,37 @@ extends PanelContainer
 @onready var sb_line_edit: LineEdit = $PC/VBC/VideoOptions/SkyBrightness/LineEdit
 
 # Glow
+@onready var glow_check_box: CheckBox = $PC/VBC/VideoOptions/Glow/CheckBox
 @onready var glow_h_slider: HSlider = $PC/VBC/VideoOptions/Glow/HSlider
 @onready var glow_line_edit: LineEdit = $PC/VBC/VideoOptions/Glow/LineEdit
+
+# Occlusion Culling
+@onready var oc_check_box: CheckBox = $PC/VBC/VideoOptions/OcclusionCulling/CheckBox
+
+# Anisotropic
+@onready var ani_option_button: OptionButton = $PC/VBC/VideoOptions/Anisotropic/OptionButton
 
 # Soft Shadow
 @onready var ss_option_button: OptionButton = $PC/VBC/VideoOptions/SoftShadow/OptionButton
 
 # SSAO
+@onready var ssao_check_box: CheckBox = $PC/VBC/VideoOptions/SSAO/CheckBox
 @onready var ssao_option_button: OptionButton = $PC/VBC/VideoOptions/SSAO/OptionButton
 
 # SSIL
+@onready var ssil_check_box: CheckBox = $PC/VBC/VideoOptions/SSIL/CheckBox
 @onready var ssil_option_button: OptionButton = $PC/VBC/VideoOptions/SSIL/OptionButton
 
 # MSAA
 @onready var msaa_option_button: OptionButton = $PC/VBC/VideoOptions/MSAA/OptionButton
+
+# TAA
+@onready var taa_check_box: CheckBox = $PC/VBC/VideoOptions/TAA/CheckBox
+
+# SSR
+@onready var ssr_check_box: CheckBox = $PC/VBC/VideoOptions/SSR/CheckBox
+
+#endregion
 
 var master_idx = AudioServer.get_bus_index("Master")
 var respawn_sounds_idx = AudioServer.get_bus_index("RespawnSounds")
@@ -93,38 +137,92 @@ func load_settings() -> void:
 	
 	# Camera
 	_sensitivity_slider_changed(camera_settings.sensitivity)
+	sens_h_slider.value = camera_settings.sensitivity
+	sens_line_edit.text = str(camera_settings.sensitivity)
+	
 	_fov_changed(str(camera_settings.fov))
+	fov_line_edit.text = str(camera_settings.fov)
 	
 	# Display
 	_resolutions_item_selected(display_settings.resolution)
+	resolutions.select(display_settings.resolution)
+	
 	_new_fps_submitted(str(display_settings.fps))
+	fps_line_edit.text = str(display_settings.fps)
+	
 	_vsync_toggled(display_settings.vsync)
+	vsync_check_box.button_pressed = display_settings.vsync
+	
 	_window_types_selected(display_settings.window_type)
+	window_types.select(display_settings.window_type)
+	
 	_borderless_toggled(display_settings.borderless)
+	borderless_check_box.button_pressed = display_settings.borderless
+	
 	_barbie_mode_toggled(display_settings.barbie_mode)
+	barbie_check_box.button_pressed = display_settings.barbie_mode
 	
 	# Audio
 	_master_changed(audio_settings.master)
+	master_h_slider.value = audio_settings.master
+	
 	_respawn_changed(audio_settings.respawn)
+	respawn_h_slider.value = audio_settings.respawn
+	
 	_guns_changed(audio_settings.guns)
+	guns_h_slider.value = audio_settings.guns
+	
 	_kill_effect_changed(audio_settings.kill_effects)
+	kill_effect_h_slider.value = audio_settings.kill_effects
+	
 	_death_changed(audio_settings.death)
+	death_h_slider.value = audio_settings.death
 	
 	# Video
 	_brightness_changed(video_settings.brightness)
+	b_h_slider.value = video_settings.brightness
+	b_line_edit.text = str(video_settings.brightness)
+	
 	_sky_brightness_changed(video_settings.sky_brightness)
+	sb_h_slider.value = video_settings.sky_brightness
+	sb_line_edit.text = str(video_settings.sky_brightness)
+	
 	_glow_toggled(video_settings.glow)
+	glow_check_box.button_pressed = video_settings.glow
+	
 	_glow_changed(video_settings.glow_strength)
+	glow_h_slider.value = video_settings.glow_strength
+	glow_line_edit.text = str(video_settings.glow_strength)
+	
 	_occlusion_culling_toggled(video_settings.occlusion_culling)
+	oc_check_box.button_pressed = video_settings.occlusion_culling
+	
 	_anisotropic_selected(video_settings.anisotropic)
+	ani_option_button.select(video_settings.anisotropic)
+	
 	_soft_shadow_selected(video_settings.soft_shadow)
+	ss_option_button.select(video_settings.soft_shadow)
+	
 	_ssao_toggled(video_settings.ssao)
+	ssao_check_box.button_pressed = video_settings.ssao
+	
 	_ssao_selected(video_settings.ssao_option)
+	ssao_option_button.select(video_settings.ssao_option)
+	
 	_ssil_toggled(video_settings.ssil)
+	ssil_check_box.button_pressed = video_settings.ssil
+	
 	_ssil_selected(video_settings.ssil_option)
+	ssil_option_button.select(video_settings.ssil_option)
+	
 	_msaa_selected(video_settings.msaa)
+	msaa_option_button.select(video_settings.msaa)
+	
 	_taa_toggled(video_settings.taa)
+	taa_check_box.button_pressed = video_settings.taa
+	
 	_ssr_toggled(video_settings.ssr)
+	ssr_check_box.button_pressed = video_settings.ssr
 
 
 #region Buttons' logic

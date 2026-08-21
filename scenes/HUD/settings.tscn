@@ -109,7 +109,6 @@ text = "80"
 placeholder_text = "67"
 
 [node name="DisplayOptions" type="VBoxContainer" parent="PC/VBC" unique_id=65180713]
-visible = false
 layout_mode = 2
 
 [node name="Resolution" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1409062558]
@@ -222,6 +221,7 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 
 [node name="VideoOptions" type="VBoxContainer" parent="PC/VBC" unique_id=550629423]
+visible = false
 layout_mode = 2
 
 [node name="Brightness" type="HBoxContainer" parent="PC/VBC/VideoOptions" unique_id=1072430437]
