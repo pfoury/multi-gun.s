@@ -112,6 +112,34 @@ placeholder_text = "Display Nickname"
 layout_mode = 2
 placeholder_text = "HEX Color (like #123456)"
 
+[node name="HBoxContainer" type="Control" parent="." unique_id=1240080276]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -720.0
+offset_top = -20.0
+offset_right = -651.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer" unique_id=1765678665]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/HBoxContainer" unique_id=358990744]
+layout_mode = 2
+text = "S"
+placeholder_text = "S"
+
+[node name="Label" type="Label" parent="HBoxContainer/HBoxContainer" unique_id=446577913]
+layout_mode = 2
+text = "[S]tandard ; [R]andomizer ; [C]ompetitive"
+
 [connection signal="pressed" from="MainMenu/MainTab/VBoxContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MainMenu/MainTab/VBoxContainer/HBoxContainer/HostDebug" to="." method="_on_host_debug_pressed"]
 [connection signal="pressed" from="MainMenu/MainTab/VBoxContainer/HBoxContainer2/Join" to="." method="_on_join_pressed"]

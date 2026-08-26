@@ -95,6 +95,7 @@ func add_test_object(result) -> void:
 	if multiplayer.get_unique_id() != 1:
 		Server.receive_creation_of_test_object(result)
 
+
 #region Rpcs
 @rpc("call_local", "authority", "reliable") # Creates object ON ALL clients, but package may be lost
 func receive_shoot_animation(data) -> void:
@@ -142,8 +143,13 @@ func load_client(data) -> void:
 	main.scoreboard = data["scoreboard"]
 	main.amount_of_weapons = data["amount_of_weapons"]
 	main.player_color_list = data["player_color_list"]
+	main.gm = data["gm"]
 	
-	rpc("create_weapon", data["peer_id"])
+	var gm_label = main.gamemode_container.get_node_or_null("GMLabel")
+	
+	if gm_label != null: gm_label.text = main.gm
+	
+	if main.gm != "Randomizer": rpc("create_weapon", data["peer_id"])
 
 
 @rpc("call_local", "any_peer", "reliable")
@@ -177,28 +183,42 @@ func add_point(data) -> void:
 		print("ИГРОК ", data, " ПОБЕДИЛ!!!")
 		return
 	
-	var player = main.players_folder.get_node(str(data))
+	if main.gm == "Randomizer": return
+	
+	replace_gun(data)
+
+
+@rpc("call_local", "any_peer", "reliable")
+func replace_gun(peer_id : int = multiplayer.get_unique_id()) -> void:
+	var player = main.players_folder.get_node(str(peer_id))
 	var guns : Node3D = player.guns_folder
 	var gun = guns.get_node_or_null("Gun")
 	
-	guns.remove_child(gun)
-	gun.queue_free()
-	
-	while player.guns_folder.has_node("Gun"):
-		await get_tree().process_frame
-	
-	create_weapon.rpc(data)
+	if gun != null and multiplayer.get_unique_id() == peer_id:
+		guns.remove_child(gun)
+		gun.queue_free()
+		
+		while player.guns_folder.has_node("Gun"):
+			await get_tree().process_frame
+	create_weapon.rpc(peer_id)
 
 
 @rpc("call_local", "any_peer", "reliable")
 func create_weapon(peer_id) -> void:
+	if multiplayer.get_unique_id() != peer_id: return
+	
 	var player = main.players_folder.get_node(str(peer_id))
 	var guns : Node3D = player.guns_folder
 	var gun = guns.get_node_or_null("Gun")
 	
 	if gun == null and peer_id in main.scoreboard:
 		var weapon_number = main.scoreboard[peer_id]
-		var new_gun = load(Global.WEAPON_SCENES[main.weapon_pool[weapon_number]]).instantiate()
+		
+		var new_gun
+		if main.gm != "Randomizer":
+			new_gun = load(Global.WEAPON_SCENES[main.weapon_pool[weapon_number]]).instantiate()
+		else:
+			new_gun = load(Global.WEAPON_SCENES[randi_range(0, len(Global.WEAPON_SCENES) - 1)]).instantiate()
 		
 		new_gun.name = "Gun"
 		
@@ -206,8 +226,8 @@ func create_weapon(peer_id) -> void:
 		
 		if multiplayer.get_unique_id() == peer_id:
 			if multiplayer.get_unique_id() == 1:
-				GunGame.generate_new_weapon_stats(1)
+				Standard.generate_new_weapon_stats(1)
 			else:
-				GunGame.generate_new_weapon_stats.rpc_id(1, peer_id)
+				Standard.generate_new_weapon_stats.rpc_id(1, peer_id)
 
 #endregion

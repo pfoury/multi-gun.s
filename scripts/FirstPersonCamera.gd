@@ -23,12 +23,6 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
-func _physics_process(delta: float) -> void:
-	recoil_offset = lerp(recoil_offset, 0.0, delta * recoil_recovery_speed)
-	
-	camera_pivot.transform.basis = Basis(Vector3.RIGHT, recoil_offset)
-
-
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority() or player.is_player_dead: return
 	
@@ -47,6 +41,10 @@ func _process(delta: float) -> void:
 			Input.set_mouse_mode(0)
 		false:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	recoil_offset = lerp(recoil_offset, 0.0, delta * recoil_recovery_speed)
+	
+	camera_pivot.transform.basis = Basis(Vector3.RIGHT, recoil_offset)
 
 
 func _input(event: InputEvent) -> void:

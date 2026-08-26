@@ -456,6 +456,9 @@ func respawn(new_position) -> void:
 	
 	change_color()
 	
+	if main_scene.gm == "Randomizer":
+		Client.replace_gun(int(name))
+	
 	velocity = Vector3.ZERO
 	
 	create_respawn_shield()

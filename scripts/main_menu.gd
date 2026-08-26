@@ -11,6 +11,9 @@ extends Node
 @onready var display_nickname: LineEdit = $MainMenu/PlayerCustomization/VBoxContainer/DisplayNickname
 @onready var hex_color: LineEdit = $MainMenu/PlayerCustomization/VBoxContainer/HEXColor
 
+# Test
+@onready var gm_line_edit: LineEdit = $HBoxContainer/HBoxContainer/LineEdit
+
 var args : Dictionary = {}
 
 
@@ -32,6 +35,17 @@ func creating_args() -> void:
 		args["color"] = random_color
 	else:
 		args["color"] = Color(hex_color.text)
+	
+	# Gamemode
+	match gm_line_edit.text.to_lower():
+		"s":
+			args["gm"] = "Standard"
+		"r":
+			args["gm"] = "Randomizer"
+		"c":
+			args["gm"] = "Competitive"
+		_:
+			args["gm"] = "Standard"
 
 
 #region For debuggin

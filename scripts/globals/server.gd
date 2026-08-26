@@ -44,7 +44,8 @@ func add_player(data) -> void:
 			"scoreboard": main.scoreboard,
 			"amount_of_weapons": main.amount_of_weapons,
 			"player_color_list": main.player_color_list,
-			"peer_id": peer_id
+			"peer_id": peer_id,
+			"gm": main.gm
 		}
 		
 		Client.rpc_id(peer_id, "load_client", result)
@@ -75,6 +76,20 @@ func create_weapon_pool() -> void:
 		var random_pick = randi_range(1, Global.WEAPON_SCENES.size())
 		
 		main.weapon_pool.append(random_pick - 1)
+
+
+func change_gamemode() -> void:
+	main.gm = Global.arguments["gm"]
+	
+	match Global.arguments["gm"]:
+		"Standard":
+			create_weapon_pool()
+			main.weapon_craziness = 20.0
+		"Competitive":
+			create_weapon_pool()
+			main.weapon_craziness = 0.0
+		"Randomizer":
+			main.weapon_craziness = 75.0
 
 
 #region Rpcs

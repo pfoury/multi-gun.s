@@ -6,6 +6,7 @@ extends Node
 @export var player_list : Dictionary = {}
 @export var player_color_list : Dictionary = {}
 @export var scoreboard : Dictionary = {}
+@export var gm : String = "Standard"
 
 @onready var test_object_spawner : MultiplayerSpawner = $TestObjectsSpawner
 # Folders
@@ -19,6 +20,7 @@ extends Node
 @onready var statistics := $HUD/PlayerHUD/Statistics
 @onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopHUD/TopPlayers
 @onready var escape_menu: Control = $HUD/PlayerHUD/EscapeMenu
+@onready var gamemode_container: PanelContainer = $HUD/PlayerHUD/TopHUD/GamemodeContainer
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
@@ -56,7 +58,7 @@ func _ready() -> void:
 				multiplayer.peer_disconnected.connect(remove_player)
 				multiplayer.server_disconnected.connect(to_menu)
 				
-				Server.create_weapon_pool()
+				Server.change_gamemode()
 				Server.create_global_timer()
 				
 				args["peer_id"] = multiplayer.get_unique_id()
@@ -79,7 +81,11 @@ func _ready() -> void:
 						return
 				
 				Server.rpc_id(1, "receive_new_player", args)
-		Global.arguments.clear()
+		#Global.arguments.clear()
+		
+		var gm_label = gamemode_container.get_node_or_null("GMLabel")
+		
+		if gm_label != null: gm_label.text = gm
 	else:
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 

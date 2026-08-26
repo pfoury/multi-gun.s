@@ -12,7 +12,7 @@ offset_right = 108.0
 offset_bottom = 32.0
 offset_transform_enabled = true
 
-[node name="GamemodeLabel" type="Label" parent="." unique_id=701071087]
+[node name="GMLabel" type="Label" parent="." unique_id=701071087]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Standard"
