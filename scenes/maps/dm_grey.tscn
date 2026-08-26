@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://cstnhlys67mcc"]
+
+[ext_resource type="PackedScene" uid="uid://e3slls5q0v0o" path="res://common/maps/cp_orange.blend" id="1_svncq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f05kx"]
+size = Vector3(3, 0, 3)
+
+[node name="dm_grey" type="Node3D" unique_id=1549250257]
+
+[node name="Layout" type="Node3D" parent="." unique_id=553828185]
+
+[node name="cp_orange" parent="Layout" unique_id=91923866 instance=ExtResource("1_svncq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2364254, 0.1735611, 0.40246964)
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=519848428]
+
+[node name="Spawn1" type="Area3D" parent="SpawnPoints" unique_id=899800933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.357765, 1.1689847, -32.969677)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn1" unique_id=1731488989]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn2" type="Area3D" parent="SpawnPoints" unique_id=263663117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.613464, 1.1689847, 41.076454)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn2" unique_id=90474547]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn3" type="Area3D" parent="SpawnPoints" unique_id=1432556856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.218354, 20.898933, 6.7482595)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn3" unique_id=1629493956]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn4" type="Area3D" parent="SpawnPoints" unique_id=1847397480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.449272, 1.1689847, -3.1568918)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn4" unique_id=1434947625]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn5" type="Area3D" parent="SpawnPoints" unique_id=472075586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.112396, 1.1689847, 51.83142)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn5" unique_id=599627201]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn6" type="Area3D" parent="SpawnPoints" unique_id=664251909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.09848, 3.4988549, -25.83259)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn6" unique_id=442712847]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn7" type="Area3D" parent="SpawnPoints" unique_id=809122560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.921295, 1.1689847, 16.650236)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn7" unique_id=437991969]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn8" type="Area3D" parent="SpawnPoints" unique_id=2095755033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3609581, 1.1689847, -2.1225586)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn8" unique_id=83461692]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn9" type="Area3D" parent="SpawnPoints" unique_id=875555376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.218354, 12.192676, 6.7482595)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn9" unique_id=1396985303]
+shape = SubResource("BoxShape3D_f05kx")
+
+[node name="Spawn10" type="Area3D" parent="SpawnPoints" unique_id=82870651]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.218354, 3.1510363, 7.239358)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn10" unique_id=112395650]
+shape = SubResource("BoxShape3D_f05kx")

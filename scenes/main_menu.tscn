@@ -126,19 +126,34 @@ offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer" unique_id=1765678665]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1686306524]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/HBoxContainer" unique_id=358990744]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1765678665]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=358990744]
 layout_mode = 2
 text = "S"
 placeholder_text = "S"
 
-[node name="Label" type="Label" parent="HBoxContainer/HBoxContainer" unique_id=446577913]
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=446577913]
 layout_mode = 2
 text = "[S]tandard ; [R]andomizer ; [C]ompetitive"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1877119850]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1170685549]
+layout_mode = 2
+text = "G"
+placeholder_text = "G"
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2110654959]
+layout_mode = 2
+text = "[G]rey ; [M]atrix"
 
 [connection signal="pressed" from="MainMenu/MainTab/VBoxContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MainMenu/MainTab/VBoxContainer/HBoxContainer/HostDebug" to="." method="_on_host_debug_pressed"]

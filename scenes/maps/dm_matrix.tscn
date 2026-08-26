@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://7xopy2ru806g"]
+
+[ext_resource type="PackedScene" uid="uid://c3wkklf1v0glr" path="res://common/maps/Matrix.blend" id="1_suoxt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_31kpq"]
+size = Vector3(3, 0, 3)
+
+[node name="dm_matrix" type="Node3D" unique_id=824070941]
+
+[node name="Layout" type="Node3D" parent="." unique_id=1572840315]
+
+[node name="Matrix" parent="Layout" unique_id=28857089 instance=ExtResource("1_suoxt")]
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=300755963]
+
+[node name="Spawn1" type="Area3D" parent="SpawnPoints" unique_id=287217210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4880724, 1.9378972, -0.69750214)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn1" unique_id=1160297324]
+shape = SubResource("BoxShape3D_31kpq")

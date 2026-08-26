@@ -13,7 +13,8 @@ extends Node
 @onready var players_folder : Node3D = $Players
 @onready var objects_folder : Node3D = $Objects
 @onready var particles_folder : Node3D = $Particles
-@onready var spawn_points_folder : Node3D = $SpawnPoints
+@onready var map_folder : Node3D = $Map
+@onready var spawn_points_folder : Node3D
 # HUD
 @onready var player_hud := $HUD/PlayerHUD
 @onready var kill_feed := $HUD/PlayerHUD/KillFeed
@@ -48,6 +49,16 @@ func _ready() -> void:
 		args["ip"] = Global.arguments["ip"]
 	else:
 		args["ip"] = "localhost"
+	
+	var new_map : Node3D
+	match Global.arguments["map"]:
+		"Grey":
+			new_map = load(Global.MAPS[0]).instantiate()
+		"Matrix":
+			new_map = load(Global.MAPS[1]).instantiate()
+	map_folder.add_child(new_map)
+	
+	spawn_points_folder = map_folder.get_child(0).get_node("SpawnPoints")
 	
 	if Global.arguments.has("peer"):
 		match Global.arguments["peer"]:

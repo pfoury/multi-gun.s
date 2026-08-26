@@ -12,7 +12,8 @@ extends Node
 @onready var hex_color: LineEdit = $MainMenu/PlayerCustomization/VBoxContainer/HEXColor
 
 # Test
-@onready var gm_line_edit: LineEdit = $HBoxContainer/HBoxContainer/LineEdit
+@onready var gm_line_edit: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer/LineEdit
+@onready var map_line_edit: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer2/LineEdit
 
 var args : Dictionary = {}
 
@@ -46,7 +47,15 @@ func creating_args() -> void:
 			args["gm"] = "Competitive"
 		_:
 			args["gm"] = "Standard"
-
+	
+	# Map
+	match map_line_edit.text.to_lower()[0]:
+		"g":
+			args["map"] = "Grey"
+		"m":
+			args["map"] = "Matrix"
+		_:
+			args["map"] = "Matrix"
 
 #region For debuggin
 func _on_host_debug_pressed() -> void: # For debuggin

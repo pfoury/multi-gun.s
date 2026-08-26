@@ -28,6 +28,10 @@ const RESOLUTIONS = [
 	"2560×1600",
 	"2560×1080"
 ]
+const MAPS = [
+	"res://scenes/maps/dm_grey.tscn", # DM_GREY [0]
+	"res://scenes/maps/dm_matrix.tscn", # DM_MATRIX [1]
+]
 
 var is_in_game : bool = false
 var arguments : Dictionary = {}
