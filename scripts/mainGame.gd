@@ -1,7 +1,7 @@
 extends Node
 
 # For Multiplayer Synchronizer
-@export var amount_of_weapons : int = 50
+@export var amount_of_weapons : int = 2
 @export var weapon_pool : Array = []
 @export var player_list : Dictionary = {}
 @export var player_color_list : Dictionary = {}
@@ -22,6 +22,7 @@ extends Node
 @onready var top_players: HBoxContainer = $HUD/PlayerHUD/TopHUD/TopPlayers
 @onready var escape_menu: Control = $HUD/PlayerHUD/EscapeMenu
 @onready var gamemode_container: PanelContainer = $HUD/PlayerHUD/TopHUD/GamemodeContainer
+@onready var end_screen: Control = $HUD/PlayerHUD/EndScreen
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
@@ -50,16 +51,6 @@ func _ready() -> void:
 	else:
 		args["ip"] = "localhost"
 	
-	var new_map : Node3D
-	match Global.arguments["map"]:
-		"Grey":
-			new_map = load(Global.MAPS[0]).instantiate()
-		"Matrix":
-			new_map = load(Global.MAPS[1]).instantiate()
-	map_folder.add_child(new_map)
-	
-	spawn_points_folder = map_folder.get_child(0).get_node("SpawnPoints")
-	
 	if Global.arguments.has("peer"):
 		match Global.arguments["peer"]:
 			"host":
@@ -71,6 +62,16 @@ func _ready() -> void:
 				
 				Server.change_gamemode()
 				Server.create_global_timer()
+				
+				var new_map : Node3D
+				match Global.arguments["map"]:
+					"Grey":
+						new_map = load(Global.MAPS[0]).instantiate()
+					"Matrix":
+						new_map = load(Global.MAPS[1]).instantiate()
+				map_folder.add_child(new_map)
+				
+				spawn_points_folder = map_folder.get_child(0).get_node("SpawnPoints")
 				
 				args["peer_id"] = multiplayer.get_unique_id()
 				Server.add_player(args)

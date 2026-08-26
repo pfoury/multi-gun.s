@@ -146,7 +146,6 @@ func load_client(data) -> void:
 	main.gm = data["gm"]
 	
 	var gm_label = main.gamemode_container.get_node_or_null("GMLabel")
-	
 	if gm_label != null: gm_label.text = main.gm
 	
 	if main.gm != "Randomizer": rpc("create_weapon", data["peer_id"])
@@ -181,7 +180,7 @@ func add_point(data) -> void:
 	
 	if multiplayer.is_server() and main.scoreboard[data] >= main.amount_of_weapons:
 		print("ИГРОК ", data, " ПОБЕДИЛ!!!")
-		return
+		end_game.rpc(data)
 	
 	if main.gm == "Randomizer": return
 	
@@ -189,17 +188,66 @@ func add_point(data) -> void:
 
 
 @rpc("call_local", "any_peer", "reliable")
-func replace_gun(peer_id : int = multiplayer.get_unique_id()) -> void:
+func end_game(winner_peer_id) -> void:
+	delete_gun.rpc()
+	var player = main.players_folder.get_node_or_null(str(winner_peer_id))
+	
+	# End screen
+	var end_screen_animations = main.end_screen.get_node("AnimationPlayer")
+	end_screen_animations.play("play")
+	
+	var end_screen_pc = main.end_screen.get_node("PC")
+	
+	var player_icon = end_screen_pc.get_node("HBC").get_node("PlayerIcon")
+	var player_icon_color = player_icon.get_node("PlayerColor")
+	
+	var player_color = main.player_color_list[winner_peer_id]
+	
+	player_icon_color.self_modulate.r = player_color.r
+	player_icon_color.self_modulate.g = player_color.g
+	player_icon_color.self_modulate.b = player_color.b
+	
+	player_icon.get_node("Score").hide()
+	
+	end_screen_pc.self_modulate.r = player_color.r
+	end_screen_pc.self_modulate.g = player_color.g
+	end_screen_pc.self_modulate.b = player_color.b
+	
+	var winner_username = end_screen_pc.get_node("HBC").get_node("VBC").get_node("VBC").get_node("PlayerUsername")
+	winner_username.text = main.player_list[winner_peer_id]
+	
+	# Sound
+	var sound_scene = load("res://scenes/sounds/sound_effect.tscn").instantiate()
+	sound_scene.bus = "EndScreen"
+	
+	if winner_peer_id == multiplayer.get_unique_id():
+		sound_scene.folder_path = "res://common/sounds/end_sounds/victory/"
+	else:
+		sound_scene.folder_path = "res://common/sounds/end_sounds/defeat/"
+	
+	player.sounds_folder.add_child(sound_scene)
+
+
+@rpc("call_local", "any_peer", "reliable")
+func delete_gun() -> void:
+	var peer_id = multiplayer.get_unique_id()
+	
 	var player = main.players_folder.get_node(str(peer_id))
 	var guns : Node3D = player.guns_folder
 	var gun = guns.get_node_or_null("Gun")
 	
-	if gun != null and multiplayer.get_unique_id() == peer_id:
+	if gun:
 		guns.remove_child(gun)
 		gun.queue_free()
 		
 		while player.guns_folder.has_node("Gun"):
 			await get_tree().process_frame
+
+
+@rpc("call_local", "any_peer", "reliable")
+func replace_gun(peer_id : int = multiplayer.get_unique_id()) -> void:
+	if multiplayer.get_unique_id() == peer_id:
+		delete_gun()
 	create_weapon.rpc(peer_id)
 
 
@@ -211,7 +259,7 @@ func create_weapon(peer_id) -> void:
 	var guns : Node3D = player.guns_folder
 	var gun = guns.get_node_or_null("Gun")
 	
-	if gun == null and peer_id in main.scoreboard:
+	if gun == null and peer_id in main.scoreboard and main.scoreboard[peer_id] < len(main.weapon_pool):
 		var weapon_number = main.scoreboard[peer_id]
 		
 		var new_gun

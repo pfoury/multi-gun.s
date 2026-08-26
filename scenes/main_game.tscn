@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="4_2l77h"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="5_nqdth"]
 [ext_resource type="PackedScene" uid="uid://c2l0lpnfjfs2u" path="res://scenes/HUD/escape_menu.tscn" id="6_5cypo"]
+[ext_resource type="PackedScene" uid="uid://bfyyyausnectr" path="res://scenes/HUD/end_screen.tscn" id="6_70vka"]
 [ext_resource type="PackedScene" uid="uid://bicky7j3wwj6t" path="res://scenes/HUD/gamemode_container.tscn" id="6_wi4c7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
@@ -53,12 +54,6 @@ properties/4/replication_mode = 1
 
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_ygxny")
-amount_of_weapons = null
-weapon_pool = null
-player_list = null
-player_color_list = null
-scoreboard = null
-gm = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=180801174]
 environment = SubResource("Environment_tbgi4")
@@ -224,6 +219,10 @@ layout_mode = 2
 text = "Velocity: 67"
 horizontal_alignment = 2
 
+[node name="EndScreen" parent="HUD/PlayerHUD" unique_id=1164046531 instance=ExtResource("6_70vka")]
+layout_mode = 1
+metadata/_edit_lock_ = true
+
 [node name="EscapeMenu" parent="HUD/PlayerHUD" unique_id=333258170 instance=ExtResource("6_5cypo")]
 layout_mode = 1
 offset_top = -219.0
@@ -240,6 +239,10 @@ spawn_path = NodePath("../Objects")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2000071768]
 replication_config = SubResource("SceneReplicationConfig_tipki")
+
+[node name="MapSpawner" type="MultiplayerSpawner" parent="." unique_id=760290793]
+_spawnable_scenes = PackedStringArray("uid://cstnhlys67mcc", "uid://7xopy2ru806g")
+spawn_path = NodePath("../Map")
 
 [node name="UpdateTimer" type="Timer" parent="." unique_id=1217523922]
 one_shot = true

@@ -1,0 +1,214 @@
+[gd_scene format=3 uid="uid://bfyyyausnectr"]
+
+[ext_resource type="PackedScene" uid="uid://dc4a0ow1vshd5" path="res://scenes/HUD/player_icon.tscn" id="1_sqv2h"]
+[ext_resource type="FontFile" uid="uid://du4a53t10ij4d" path="res://common/fonts/Oswald/Oswald-Bold.ttf" id="2_wmu8b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ogq8d"]
+font = ExtResource("2_wmu8b")
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_dwrfc"]
+font = ExtResource("2_wmu8b")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_ski3t"]
+font = ExtResource("2_wmu8b")
+
+[sub_resource type="Animation" id="Animation_sqv2h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PC:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PC:offset_transform_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PC:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PC/HBC/VBC/Quote:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PC/HBC/VBC:theme_override_constants/separation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-24]
+}
+
+[sub_resource type="Animation" id="Animation_wmu8b"]
+resource_name = "play"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PC:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 4.99, 5.15, 5.5),
+"transitions": PackedFloat32Array(0.2588162, 1, 1.7411016, 1.741102, 0.2588162),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, 0.5), Vector2(0, 0.5), Vector2(0, 0.6), Vector2(0, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PC:offset_transform_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 5, 5.5),
+"transitions": PackedFloat32Array(0.39229208, 1, 1.8660665, 0.39229208),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PC:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 5, 5.5),
+"transitions": PackedFloat32Array(0.32987702, 1, 1.9318736, 0.32987702),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PC/HBC/VBC/Quote:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.2299999, 1.3799999, 5),
+"transitions": PackedFloat32Array(1, 0.8408968, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PC/HBC/VBC:theme_override_constants/separation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.2299999, 1.3799999, 5),
+"transitions": PackedFloat32Array(1, 0.40612623, 1, 1),
+"update": 0,
+"values": [-24, -24, 12, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dwrfc"]
+_data = {
+&"RESET": SubResource("Animation_sqv2h"),
+&"play": SubResource("Animation_wmu8b")
+}
+
+[node name="EndScreen" type="Control" unique_id=1164046531]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -310.0
+offset_right = 310.0
+offset_bottom = 280.0
+grow_horizontal = 2
+size_flags_vertical = 4
+
+[node name="PC" type="PanelContainer" parent="." unique_id=1425197733]
+self_modulate = Color(1, 1, 1, 0.78431374)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_right = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, -1)
+offset_transform_scale = Vector2(0.5, 0.5)
+
+[node name="HBC" type="HBoxContainer" parent="PC" unique_id=524827972]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.95, 0.95)
+theme_override_constants/separation = 24
+
+[node name="PlayerIcon" parent="PC/HBC" unique_id=1665533258 instance=ExtResource("1_sqv2h")]
+layout_mode = 2
+offset_transform_scale = Vector2(0.9, 0.9)
+
+[node name="VBC" type="VBoxContainer" parent="PC/HBC" unique_id=31708986]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = -24
+
+[node name="VBC" type="VBoxContainer" parent="PC/HBC/VBC" unique_id=766850351]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = -10
+
+[node name="WinnerLabel" type="Label" parent="PC/HBC/VBC/VBC" unique_id=957219167]
+layout_mode = 2
+text = "Winner:"
+label_settings = SubResource("LabelSettings_ogq8d")
+
+[node name="PlayerUsername" type="Label" parent="PC/HBC/VBC/VBC" unique_id=849817619]
+layout_mode = 2
+text = "OnlyTwentyCharacters"
+label_settings = SubResource("LabelSettings_dwrfc")
+
+[node name="Quote" type="Label" parent="PC/HBC/VBC" unique_id=336774846]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "\"Oppsie Doopsie, you're all suck\" - they"
+label_settings = SubResource("LabelSettings_ski3t")
+autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=171339660]
+libraries/ = SubResource("AnimationLibrary_dwrfc")

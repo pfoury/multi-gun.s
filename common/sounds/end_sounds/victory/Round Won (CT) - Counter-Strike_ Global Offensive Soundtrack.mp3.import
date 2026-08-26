@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cf7fborsivcb7"
+path="res://.godot/imported/Round Won (CT) - Counter-Strike_ Global Offensive Soundtrack.mp3-f7890bb1aeb0f7e9abae256cfbed68f7.mp3str"
+
+[deps]
+
+source_file="res://common/sounds/end_sounds/victory/Round Won (CT) - Counter-Strike_ Global Offensive Soundtrack.mp3"
+dest_files=["res://.godot/imported/Round Won (CT) - Counter-Strike_ Global Offensive Soundtrack.mp3-f7890bb1aeb0f7e9abae256cfbed68f7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
