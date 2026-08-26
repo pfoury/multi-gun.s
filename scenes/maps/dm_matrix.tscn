@@ -14,7 +14,37 @@ size = Vector3(3, 0, 3)
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=300755963]
 
 [node name="Spawn1" type="Area3D" parent="SpawnPoints" unique_id=287217210]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4880724, 1.9378972, -0.69750214)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.790234, 1.254816, -26.763615)
 
 [node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn1" unique_id=1160297324]
+shape = SubResource("BoxShape3D_31kpq")
+
+[node name="Spawn2" type="Area3D" parent="SpawnPoints" unique_id=686590845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.819046, 1.254816, -26.763615)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn2" unique_id=1402562517]
+shape = SubResource("BoxShape3D_31kpq")
+
+[node name="Spawn3" type="Area3D" parent="SpawnPoints" unique_id=412799578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.132528, 1.254816, 15.97913)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn3" unique_id=1821016210]
+shape = SubResource("BoxShape3D_31kpq")
+
+[node name="Spawn4" type="Area3D" parent="SpawnPoints" unique_id=985804061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07110596, 1.254816, -25.94731)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn4" unique_id=504215015]
+shape = SubResource("BoxShape3D_31kpq")
+
+[node name="Spawn5" type="Area3D" parent="SpawnPoints" unique_id=911432059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.790234, 6.4609833, 16.417877)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn5" unique_id=361500650]
+shape = SubResource("BoxShape3D_31kpq")
+
+[node name="Spawn6" type="Area3D" parent="SpawnPoints" unique_id=202167113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.639797, 1.254816, 16.35359)
+
+[node name="Collision" type="CollisionShape3D" parent="SpawnPoints/Spawn6" unique_id=12318933]
 shape = SubResource("BoxShape3D_31kpq")

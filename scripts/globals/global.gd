@@ -32,6 +32,11 @@ const MAPS = [
 	"res://scenes/maps/dm_grey.tscn", # DM_GREY [0]
 	"res://scenes/maps/dm_matrix.tscn", # DM_MATRIX [1]
 ]
+const GAMEMODES = [
+	"Randomizer",
+	"Competitive",
+	"Standard"
+]
 
 var is_in_game : bool = false
 var arguments : Dictionary = {}
@@ -109,6 +114,8 @@ func _load_display_settings() -> void:
 	
 	var window_type = display_settings.window_type
 	match window_type:
+		2:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 		1:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 		0:

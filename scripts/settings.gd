@@ -349,10 +349,10 @@ func _window_types_selected(index: int) -> void:
 	
 	if new_window_type == "Fullscreen":
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		resolutions.disabled = true
+	elif new_window_type == "Exclusive Fullscreen":
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		resolutions.disabled = false
 	
 	ConfigFileHandler.save_display_setting("window_type", index)
 

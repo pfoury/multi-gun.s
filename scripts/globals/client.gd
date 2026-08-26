@@ -179,8 +179,8 @@ func add_point(data) -> void:
 	main.scoreboard[data] += 1
 	
 	if multiplayer.is_server() and main.scoreboard[data] >= main.amount_of_weapons:
-		print("ИГРОК ", data, " ПОБЕДИЛ!!!")
 		end_game.rpc(data)
+		return
 	
 	if main.gm == "Randomizer": return
 	
@@ -190,8 +190,6 @@ func add_point(data) -> void:
 @rpc("call_local", "any_peer", "reliable")
 func end_game(winner_peer_id) -> void:
 	delete_gun.rpc()
-	var player = main.players_folder.get_node_or_null(str(winner_peer_id))
-	
 	# End screen
 	var end_screen_animations = main.end_screen.get_node("AnimationPlayer")
 	end_screen_animations.play("play")
@@ -217,7 +215,8 @@ func end_game(winner_peer_id) -> void:
 	winner_username.text = main.player_list[winner_peer_id]
 	
 	# Sound
-	var sound_scene = load("res://scenes/sounds/sound_effect.tscn").instantiate()
+	var player = main.players_folder.get_node_or_null(str(multiplayer.get_unique_id()))
+	var sound_scene = load("res://scenes/sounds/interface_sound.tscn").instantiate()
 	sound_scene.bus = "EndScreen"
 	
 	if winner_peer_id == multiplayer.get_unique_id():
@@ -225,7 +224,12 @@ func end_game(winner_peer_id) -> void:
 	else:
 		sound_scene.folder_path = "res://common/sounds/end_sounds/defeat/"
 	
-	player.sounds_folder.add_child(sound_scene)
+	add_child(sound_scene)
+	
+	await get_tree().create_timer(10.0).timeout
+	
+	if multiplayer.get_unique_id() == 1:
+		Server.restart_game()
 
 
 @rpc("call_local", "any_peer", "reliable")
@@ -259,7 +263,7 @@ func create_weapon(peer_id) -> void:
 	var guns : Node3D = player.guns_folder
 	var gun = guns.get_node_or_null("Gun")
 	
-	if gun == null and peer_id in main.scoreboard and main.scoreboard[peer_id] < len(main.weapon_pool):
+	if gun == null and peer_id in main.scoreboard and ((main.scoreboard[peer_id] < len(main.weapon_pool) and main.gm != "Randomizer") or main.gm == "Randomizer"):
 		var weapon_number = main.scoreboard[peer_id]
 		
 		var new_gun

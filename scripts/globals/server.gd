@@ -78,10 +78,10 @@ func create_weapon_pool() -> void:
 		main.weapon_pool.append(random_pick - 1)
 
 
-func change_gamemode() -> void:
-	main.gm = Global.arguments["gm"]
+func change_gamemode(gm) -> void:
+	main.gm = gm
 	
-	match Global.arguments["gm"]:
+	match gm:
 		"Standard":
 			create_weapon_pool()
 			main.weapon_craziness = 20.0
@@ -216,8 +216,6 @@ func kill(data) -> void:
 	
 	data["corpse_name"] = corpse.name
 	
-	print(data)
-	
 	# Sending signal to kill the player
 	victim.die.rpc(data)
 
@@ -249,4 +247,55 @@ func respawn_player(victim_id) -> void:
 	
 	victim.respawn.rpc(new_position)
 
+
+@rpc("call_remote", "any_peer", "reliable")
+func restart_game() -> void:
+	# Cleaning up the map
+	for child in main.map_folder.get_children():
+		main.map_folder.remove_child(child)
+		child.queue_free()
+	
+	var new_map = load(Global.MAPS[randi_range(0, len(Global.MAPS) - 1)]).instantiate()
+	new_map.name = "Map"
+	main.map_folder.add_child(new_map)
+	
+	while new_map.get_node_or_null("SpawnPoints") == null:
+		await get_tree().process_frame
+	
+	main.spawn_points_folder = new_map.get_node_or_null("SpawnPoints")
+	
+	# New gm
+	var new_gm = Global.GAMEMODES[randi_range(0, len(Global.GAMEMODES) - 1)]
+	main.weapon_pool = []
+	
+	for player in main.players_folder.get_children():
+		var peer_id = int(player.name)
+		main.scoreboard[peer_id] = 0
+		
+	main.gm = new_gm
+	change_gamemode(new_gm)
+	
+	while main.weapon_pool == [] and new_gm != "Randomizer":
+		await get_tree().process_frame
+	
+	var result : Dictionary = {
+		"weapon_pool": main.weapon_pool,
+		"player_list": main.player_list,
+		"scoreboard": main.scoreboard,
+		"amount_of_weapons": main.amount_of_weapons,
+		"player_color_list": main.player_color_list,
+		"gm": main.gm
+	}
+	# Reseting scoreboard and everything else
+	for player in main.players_folder.get_children():
+		var peer_id = int(player.name)
+		result["peer_id"] = peer_id
+		
+		if new_gm != "Randomizer":
+			if peer_id == 1:
+				Client.load_client(result)
+			else:
+				Client.load_client.rpc_id(peer_id, result)
+		
+		respawn_player(peer_id)
 #endregion

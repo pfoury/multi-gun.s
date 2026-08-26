@@ -33,6 +33,8 @@ func generate_new_weapon_stats(peer_id) -> void:
 			stat = round(stat * randomness)
 		elif stat is Array:
 			stat = stat.pick_random()
+		elif stat == "burst":
+			weapon_stats["damage"] /= 3.0
 		
 		weapon_stats[stat_string] = stat
 	

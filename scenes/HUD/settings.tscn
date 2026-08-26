@@ -192,11 +192,13 @@ label_settings = SubResource("LabelSettings_eg0p3")
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 2
+item_count = 3
 popup/item_0/text = "Windowed"
 popup/item_0/id = 0
 popup/item_1/text = "Fullscreen"
 popup/item_1/id = 1
+popup/item_2/text = "Exclusive Fullscreen"
+popup/item_2/id = 2
 
 [node name="Borderless" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1227403158]
 layout_mode = 2

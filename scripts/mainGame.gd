@@ -60,7 +60,7 @@ func _ready() -> void:
 				multiplayer.peer_disconnected.connect(remove_player)
 				multiplayer.server_disconnected.connect(to_menu)
 				
-				Server.change_gamemode()
+				Server.change_gamemode(Global.arguments["gm"])
 				Server.create_global_timer()
 				
 				var new_map : Node3D
@@ -69,6 +69,7 @@ func _ready() -> void:
 						new_map = load(Global.MAPS[0]).instantiate()
 					"Matrix":
 						new_map = load(Global.MAPS[1]).instantiate()
+				new_map.name = "Map"
 				map_folder.add_child(new_map)
 				
 				spawn_points_folder = map_folder.get_child(0).get_node("SpawnPoints")

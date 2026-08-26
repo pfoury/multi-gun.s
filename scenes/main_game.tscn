@@ -51,6 +51,9 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath(".:scoreboard")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath(".:gm")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_ygxny")
