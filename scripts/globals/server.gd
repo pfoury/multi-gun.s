@@ -266,8 +266,8 @@ func restart_game() -> void:
 	main.spawn_points_folder = new_map.get_node_or_null("SpawnPoints")
 	
 	# New gm
-	#var new_gm = Global.GAMEMODES[randi_range(0, len(Global.GAMEMODES) - 1)]
-	var new_gm = "Randomizer"
+	var new_gm = Global.GAMEMODES[randi_range(0, len(Global.GAMEMODES) - 1)]
+	#var new_gm = "Randomizer"
 	main.weapon_pool = []
 	
 	for player in main.players_folder.get_children():
