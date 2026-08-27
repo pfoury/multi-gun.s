@@ -9,13 +9,12 @@ const BUNNY_HOP_ACCELERATION : float = 0.6
 const GROUND_ACCELERATION := 60.0
 const GROUND_FRICTION := 100.0
 
-@export var dust_walk_particles_scene : PackedScene = load("res://scenes/particles/dust_walk_particles.tscn")
-@export var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
-@export var health_regeneration_particles_scene : PackedScene = load("res://scenes/particles/health_regeneration_particles.tscn")
+@export var dust_walk_particles_scene : PackedScene = preload("res://scenes/particles/dust_walk_particles.tscn")
+@export var sound_scene : PackedScene = preload("res://scenes/sounds/sound_effect.tscn")
+@export var health_regeneration_particles_scene : PackedScene = preload("res://scenes/particles/health_regeneration_particles.tscn")
 @export var player_fov : float = Global.fov
 # For MultiplayerSynchronizer
 @export var velocity_length : float
-@export var is_walk_timer_stopped : bool
 @export var is_player_on_floor : bool
 @export var player_color : Color = Color.DEEP_PINK
 @export var player_health : float
@@ -23,9 +22,9 @@ const GROUND_FRICTION := 100.0
 @export var is_player_dead : bool = false
 @export var color_difference : float = 1.0
 @export var is_invincible : bool = false
+@export var steps : float = 0.0
 
 @onready var main_scene : Node = get_tree().current_scene
-@onready var walk_timer : Timer = $WalkTimer
 @onready var regen_timer : Timer = $RegenTimer
 @onready var dead_timer : Timer = $DeadTimer
 @onready var invincible_timer : Timer = $InvincibleTimer
@@ -55,7 +54,7 @@ var killer_id : int
 var corpse_after_death : Node3D
 var look_at_killer_pivot : Node3D
 var kill_cam_pivot : Camera3D
-var weapon_speed_multiplier : float
+var weapon_speed_multiplier : float = 1.0
 var stars_particles_scene : PackedScene = load("res://scenes/particles/start_particles.tscn")
 var test_object_scene : PackedScene = load("res://scenes/temp/testobject.tscn")
 var test_object : MeshInstance3D
@@ -87,13 +86,17 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Creating dust particles
-	if velocity_length > 6 and is_walk_timer_stopped and is_player_on_floor:
-		walk_timer.start()
+	if steps > 6 and is_player_on_floor:
+		steps = 0
 		var dust_walk_particles = dust_walk_particles_scene.instantiate()
 		
 		dust_walk_particles.position = global_position - Vector3(0.0, 1.0, 0.0)
-		
 		main_scene.particles_folder.add_child(dust_walk_particles)
+		
+		var sound = sound_scene.instantiate()
+		sound.folder_path = "res://common/sounds/footsteps/"
+		sound.bus = "Footsteps"
+		sounds_folder.add_child(sound)
 	
 	# Health regenerating
 	if player_health < MAX_HEALTH and is_regen_timer_ready:
@@ -192,13 +195,12 @@ func _process(delta: float) -> void:
 					print("what the fuck is ", unknown_fire_type)
 	
 	# Scoping
-	if Input.is_action_pressed("scope") and gun_node.is_scopable:
+	if Input.is_action_pressed("scope") and gun_node != null and gun_node.is_scopable:
 		is_scoping = 1
 	else:
 		is_scoping = 0
 	
 	# For multiplayerSynchronizer
-	is_walk_timer_stopped = walk_timer.is_stopped()
 	is_player_on_floor = is_on_floor()
 	velocity_length = velocity.length()
 	
@@ -210,6 +212,8 @@ func _process(delta: float) -> void:
 		#test_object.look_at(velocity_vector, Vector3(0, 1, 0.1))
 		#
 		#test_object.position = global_position
+	
+	if is_player_on_floor: steps += velocity_length * delta * 3
 
 
 func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
@@ -456,15 +460,11 @@ func respawn(new_position) -> void:
 	
 	change_color()
 	
-	if main_scene.gm == "Randomizer":
-		Client.replace_gun()
-	
 	velocity = Vector3.ZERO
 	
 	create_respawn_shield()
 	
-	if gun_node != null:
-		gun_node.reset_ammo()
+	if gun_node != null: gun_node.reset_ammo()
 	
 	# Creating spawn sound
 	var sound = sound_scene.instantiate()
@@ -477,6 +477,9 @@ func respawn(new_position) -> void:
 	if not is_multiplayer_authority(): return
 	
 	# --==--
+	
+	if main_scene.gm == "Randomizer" and !main_scene.is_ended:
+		Client.replace_gun()
 	
 	# Setting new position
 	global_position = new_position

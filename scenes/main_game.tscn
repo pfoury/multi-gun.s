@@ -54,6 +54,9 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath(".:gm")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath(".:is_ended")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_ygxny")

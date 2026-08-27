@@ -2,8 +2,8 @@ extends Node
 
 var main : Node = null
 var update_timer : Timer
-var corpse_scene : PackedScene = load("res://scenes/corpse.tscn")
-var sound_scene : PackedScene = load("res://scenes/sounds/sound_effect.tscn")
+var corpse_scene : PackedScene = preload("res://scenes/corpse.tscn")
+var sound_scene : PackedScene = preload("res://scenes/sounds/sound_effect.tscn")
 var dead_players : Array = []
 
 
@@ -45,12 +45,11 @@ func add_player(data) -> void:
 			"amount_of_weapons": main.amount_of_weapons,
 			"player_color_list": main.player_color_list,
 			"peer_id": peer_id,
-			"gm": main.gm
+			"gm": main.gm,
+			"is_ended": main.is_ended
 		}
 		
 		Client.rpc_id(peer_id, "load_client", result)
-	
-	global_update()
 
 
 func create_global_timer() -> void:
@@ -250,6 +249,8 @@ func respawn_player(victim_id) -> void:
 
 @rpc("call_remote", "any_peer", "reliable")
 func restart_game() -> void:
+	main.is_ended = false
+	
 	# Cleaning up the map
 	for child in main.map_folder.get_children():
 		main.map_folder.remove_child(child)
@@ -265,7 +266,8 @@ func restart_game() -> void:
 	main.spawn_points_folder = new_map.get_node_or_null("SpawnPoints")
 	
 	# New gm
-	var new_gm = Global.GAMEMODES[randi_range(0, len(Global.GAMEMODES) - 1)]
+	#var new_gm = Global.GAMEMODES[randi_range(0, len(Global.GAMEMODES) - 1)]
+	var new_gm = "Randomizer"
 	main.weapon_pool = []
 	
 	for player in main.players_folder.get_children():
@@ -284,8 +286,10 @@ func restart_game() -> void:
 		"scoreboard": main.scoreboard,
 		"amount_of_weapons": main.amount_of_weapons,
 		"player_color_list": main.player_color_list,
-		"gm": main.gm
+		"gm": main.gm,
+		"is_ended": main.is_ended
 	}
+	
 	# Reseting scoreboard and everything else
 	for player in main.players_folder.get_children():
 		var peer_id = int(player.name)
@@ -298,4 +302,5 @@ func restart_game() -> void:
 				Client.load_client.rpc_id(peer_id, result)
 		
 		respawn_player(peer_id)
+
 #endregion

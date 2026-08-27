@@ -1,10 +1,10 @@
 extends Node
 
 var main : Node
-var player_scene : PackedScene = load("res://scenes/player.tscn")
-var testobject_scene : PackedScene = load("res://scenes/temp/temp_enemy.tscn")
-var kill_log_scene : PackedScene = load("res://scenes/HUD/kill_log.tscn")
-var player_icon_scene : PackedScene = load("res://scenes/HUD/player_icon.tscn")
+var player_scene : PackedScene = preload("res://scenes/player.tscn")
+var testobject_scene : PackedScene = preload("res://scenes/temp/temp_enemy.tscn")
+var kill_log_scene : PackedScene = preload("res://scenes/HUD/kill_log.tscn")
+var player_icon_scene : PackedScene = preload("res://scenes/HUD/player_icon.tscn")
 
 
 func change_main_scene():
@@ -13,17 +13,21 @@ func change_main_scene():
 
 func list_of_updates() -> void: # Call this function to update everything player needs
 	update_players()
-	update_top_players()
+	update_top()
 
 
 func update_players() -> void:
 	var players = main.players_folder.get_children()
 	
 	for player in players:
+		if player.name == str(multiplayer.get_unique_id()) and player.gun_node == null and !main.is_ended: create_weapon(multiplayer.get_unique_id())
+		
 		player.change_color()
 
 
-func update_top_players() -> void:
+func update_top() -> void:
+	main.gamemode_container.get_node("GMLabel").text = main.gm
+	
 	if main.player_list == {}: return
 	
 	var player_count = len(main.player_list)
@@ -148,7 +152,7 @@ func load_client(data) -> void:
 	var gm_label = main.gamemode_container.get_node_or_null("GMLabel")
 	if gm_label != null: gm_label.text = main.gm
 	
-	if main.gm != "Randomizer": rpc("create_weapon", data["peer_id"])
+	if main.gm != "Randomizer" and !data["is_ended"]: create_weapon(data["peer_id"])
 
 
 @rpc("call_local", "any_peer", "reliable")
@@ -190,6 +194,8 @@ func add_point(data) -> void:
 @rpc("call_local", "any_peer", "reliable")
 func end_game(winner_peer_id) -> void:
 	delete_gun.rpc()
+	main.is_ended = true
+	
 	# End screen
 	var end_screen_animations = main.end_screen.get_node("AnimationPlayer")
 	end_screen_animations.play("play")
@@ -215,7 +221,6 @@ func end_game(winner_peer_id) -> void:
 	winner_username.text = main.player_list[winner_peer_id]
 	
 	# Sound
-	var player = main.players_folder.get_node_or_null(str(multiplayer.get_unique_id()))
 	var sound_scene = load("res://scenes/sounds/interface_sound.tscn").instantiate()
 	sound_scene.bus = "EndScreen"
 	
@@ -252,12 +257,12 @@ func delete_gun() -> void:
 func replace_gun(peer_id : int = multiplayer.get_unique_id()) -> void:
 	if multiplayer.get_unique_id() == peer_id:
 		delete_gun()
-	create_weapon.rpc(peer_id)
+	create_weapon(peer_id)
 
 
 @rpc("call_local", "any_peer", "reliable")
 func create_weapon(peer_id) -> void:
-	if multiplayer.get_unique_id() != peer_id: return
+	if multiplayer.get_unique_id() != peer_id or main.is_ended: return
 	
 	var player = main.players_folder.get_node(str(peer_id))
 	var guns : Node3D = player.guns_folder

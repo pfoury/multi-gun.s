@@ -206,7 +206,7 @@ label_settings = SubResource("LabelSettings_dwrfc")
 [node name="Quote" type="Label" parent="PC/HBC/VBC" unique_id=336774846]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-text = "\"Oppsie Doopsie, you're all suck\" - they"
+text = "Oopsie doopsie, you all suck"
 label_settings = SubResource("LabelSettings_ski3t")
 autowrap_mode = 2
 

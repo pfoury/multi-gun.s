@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dybqxhbeg0rld" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://7t8uloac210m" path="res://scripts/FirstPersonCamera.gd" id="2_g2els"]
-[ext_resource type="PackedScene" uid="uid://dbgaoqqj4mgmm" path="res://scenes/particles/dust_walk_particles.tscn" id="3_dqkch"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eg0p3"]
 
@@ -55,22 +54,22 @@ properties/10/replication_mode = 1
 properties/11/path = NodePath(".:velocity_length")
 properties/11/spawn = true
 properties/11/replication_mode = 1
-properties/12/path = NodePath(".:is_walk_timer_stopped")
+properties/12/path = NodePath(".:is_player_on_floor")
 properties/12/spawn = true
 properties/12/replication_mode = 1
-properties/13/path = NodePath(".:is_player_on_floor")
+properties/13/path = NodePath(".:color_difference")
 properties/13/spawn = true
 properties/13/replication_mode = 1
-properties/14/path = NodePath(".:color_difference")
+properties/14/path = NodePath(".:player_health")
 properties/14/spawn = true
 properties/14/replication_mode = 1
-properties/15/path = NodePath(".:player_health")
+properties/15/path = NodePath(".:is_invincible")
 properties/15/spawn = true
 properties/15/replication_mode = 1
-properties/16/path = NodePath(".:is_invincible")
+properties/16/path = NodePath(".:add_child")
 properties/16/spawn = true
 properties/16/replication_mode = 1
-properties/17/path = NodePath(".:add_child")
+properties/17/path = NodePath(".:steps")
 properties/17/spawn = true
 properties/17/replication_mode = 1
 
@@ -80,7 +79,6 @@ floor_constant_speed = true
 floor_max_angle = 1.3089969
 floor_snap_length = 0.15
 script = ExtResource("1_3vyb7")
-dust_walk_particles_scene = ExtResource("3_dqkch")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1828303792]
 shape = SubResource("CapsuleShape3D_eg0p3")
@@ -108,10 +106,6 @@ replication_config = SubResource("SceneReplicationConfig_qhqgy")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1042724857]
 _spawnable_scenes = PackedStringArray("uid://bxmrs4l4l1xbm", "uid://ce2c57trcya56", "uid://bc4tr7wp2lfem", "uid://bqd42k14tn2jr", "uid://df7asx6c4x8bm", "uid://cpxx0nu5l44bd", "uid://dad2ehgljdg7k")
 spawn_path = NodePath("../Guns")
-
-[node name="WalkTimer" type="Timer" parent="." unique_id=155312434]
-wait_time = 0.2
-one_shot = true
 
 [node name="RegenTimer" type="Timer" parent="." unique_id=515894033]
 wait_time = 3.0

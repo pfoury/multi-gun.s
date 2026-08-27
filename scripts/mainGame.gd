@@ -1,12 +1,13 @@
 extends Node
 
 # For Multiplayer Synchronizer
-@export var amount_of_weapons : int = 2
+@export var amount_of_weapons : int = 32
 @export var weapon_pool : Array = []
 @export var player_list : Dictionary = {}
 @export var player_color_list : Dictionary = {}
 @export var scoreboard : Dictionary = {}
 @export var gm : String = "Standard"
+@export var is_ended : bool = false
 
 @onready var test_object_spawner : MultiplayerSpawner = $TestObjectsSpawner
 # Folders
@@ -27,10 +28,10 @@ extends Node
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
 var gun_scene : PackedScene
-var player_scene : PackedScene = load("res://scenes/player.tscn")
-var testobject_scene : PackedScene = load("res://scenes/temp/temp_enemy.tscn")
-var kill_log_scene : PackedScene = load("res://scenes/HUD/kill_log.tscn")
-var player_icon_scene : PackedScene = load("res://scenes/HUD/player_icon.tscn")
+var player_scene : PackedScene = preload("res://scenes/player.tscn")
+var testobject_scene : PackedScene = preload("res://scenes/temp/temp_enemy.tscn")
+var kill_log_scene : PackedScene = preload("res://scenes/HUD/kill_log.tscn")
+var player_icon_scene : PackedScene = preload("res://scenes/HUD/player_icon.tscn")
 
 
 func _ready() -> void:
