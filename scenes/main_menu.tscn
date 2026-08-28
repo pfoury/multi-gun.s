@@ -231,7 +231,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.3186402, 1),
+"transitions": PackedFloat32Array(0.4352752, 1),
 "update": 0,
 "values": [Vector3(-1.4375434, 1.7193271, 0.39999485), Vector3(0, 1.617, -1.8709984)]
 }
@@ -242,8 +242,8 @@ tracks/1/path = NodePath("Camera3D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.37892917, 1),
+"times": PackedFloat32Array(0.009999998, 0.5),
+"transitions": PackedFloat32Array(0.43527526, 1),
 "update": 0,
 "values": [Vector3(-0.16144313, -0.16580579, 0), Vector3(-0.06632251, 0, 0)]
 }
@@ -317,6 +317,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.18820275, 1),
 "update": 0,
 "values": [Vector3(-10.682566, 1.7193271, -1.1470866), Vector3(-1.4375434, 1.7193271, 0.39999485)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.16144313, -0.16580579, 0), Vector3(-0.16144313, -0.16580579, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wu84c"]
@@ -532,6 +544,7 @@ fov = 50.0
 
 [node name="CameraPlayer" type="AnimationPlayer" parent="." unique_id=1109188921]
 libraries/ = SubResource("AnimationLibrary_wu84c")
+playback_auto_capture = false
 
 [node name="MenuPlayer" type="AnimationPlayer" parent="." unique_id=507960813]
 libraries/ = SubResource("AnimationLibrary_rtw2f")
@@ -782,7 +795,7 @@ offset_bottom = 129.0
 grow_horizontal = 0
 offset_transform_enabled = true
 
-[node name="Button" type="Button" parent="MainMenu/CloseButton" unique_id=1520485162]
+[node name="CloseButton" type="Button" parent="MainMenu/CloseButton" unique_id=1520485162]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_wu84c")
 theme_override_font_sizes/font_size = 96
@@ -794,3 +807,9 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug" to="." method="_on_host_debug_pressed"]
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/JoinDebug" to="." method="_on_join_debug_pressed"]
+[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/DeployButton" to="." method="_on_deploy_button_pressed"]
+[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/CustomizationButton" to="." method="_on_customization_button_pressed"]
+[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MainMenu/CloseButton/CloseButton" to="." method="_on_close_button_pressed"]
