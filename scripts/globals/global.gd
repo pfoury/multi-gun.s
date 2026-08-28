@@ -1,7 +1,7 @@
 extends Node
 
 const SETTINGS_FILE_PATH = "user://settings.ini"
-const PLAYER_FILE_PATH = "user://player.ini"
+const PLAYER_FILE_PATH = "user://player_settings.ini"
 const PORT = 9999
 const WEAPON_SCENES = [
 	"res://scenes/weapons/pistol.tscn", # Pistol scene

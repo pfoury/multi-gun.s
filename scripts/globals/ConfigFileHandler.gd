@@ -49,11 +49,14 @@ func load_configs() -> void:
 	# Player
 	if !FileAccess.file_exists(Global.PLAYER_FILE_PATH):
 		config_player.set_value("player", "username", "Newbie")
+		config_player.set_value("player", "quote", "I didn't change my quote bleh")
 		config_player.set_value("player", "color", Color("00aa00"))
 		
 		# Accessories
-		config_player.set_value("player", "hat accessory", 0)
-		config_player.set_value("player", "face accessory", 0)
+		config_player.set_value("accessories", "hat accessory", 0)
+		config_player.set_value("accessories", "face accessory", 0)
+		
+		config_player.save(Global.PLAYER_FILE_PATH)
 	else:
 		config_player.load(Global.PLAYER_FILE_PATH)
 
