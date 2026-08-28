@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bwy6ewrcmb6li"]
+
+[ext_resource type="FontFile" uid="uid://d14ixvtk4ufb" path="res://common/fonts/Oswald/Oswald-VariableFont_wght.ttf" id="1_gsuy1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bb6im"]
+font = ExtResource("1_gsuy1")
+font_size = 32
+
+[node name="PlayerLB" type="HBoxContainer" unique_id=25625580]
+offset_right = 668.0
+offset_bottom = 72.0
+size_flags_horizontal = 3
+
+[node name="HBC" type="HBoxContainer" parent="." unique_id=446361639]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Username" type="Label" parent="HBC" unique_id=120829462]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "OnlyTwentyCharacters"
+label_settings = SubResource("LabelSettings_bb6im")
+horizontal_alignment = 1
+
+[node name="ID" type="Label" parent="HBC" unique_id=1080031725]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1234567890"
+label_settings = SubResource("LabelSettings_bb6im")
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="." unique_id=897519331]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = SubResource("LabelSettings_bb6im")
+horizontal_alignment = 2

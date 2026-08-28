@@ -24,6 +24,7 @@ extends Node
 @onready var escape_menu: Control = $HUD/PlayerHUD/EscapeMenu
 @onready var gamemode_container: PanelContainer = $HUD/PlayerHUD/TopHUD/GamemodeContainer
 @onready var end_screen: Control = $HUD/PlayerHUD/EndScreen
+@onready var leaderboard: Control = $HUD/PlayerHUD/Leaderboard
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
@@ -32,9 +33,13 @@ var player_scene : PackedScene = preload("res://scenes/player.tscn")
 var testobject_scene : PackedScene = preload("res://scenes/temp/temp_enemy.tscn")
 var kill_log_scene : PackedScene = preload("res://scenes/HUD/kill_log.tscn")
 var player_icon_scene : PackedScene = preload("res://scenes/HUD/player_icon.tscn")
+var player_lb_scene : PackedScene = preload("res://scenes/HUD/player_lb.tscn")
+var lb_player_list : VBoxContainer
 
 
 func _ready() -> void:
+	lb_player_list = leaderboard.get_node("PC").get_node("VBC").get_node("PlayerList")
+	
 	Client.change_main_scene()
 	Server.change_main_scene()
 	
@@ -109,6 +114,40 @@ func _process(_delta: float) -> void:
 	var fps_label = statistics.get_node_or_null("FPSLabel")
 	
 	fps_label.text = "FPS: " + str(Engine.get_frames_per_second())
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("tab"):
+		_show_tab()
+	elif event.is_action_released("tab"):
+		_clean_tab()
+
+
+func _show_tab() -> void:
+	# Getting all players and creating lines..?
+	for player_id in scoreboard:
+		var username = player_list[player_id]
+		var score = scoreboard[player_id]
+		
+		var player_lb = player_lb_scene.instantiate()
+		
+		lb_player_list.add_child(player_lb)
+		
+		var lb_username = player_lb.get_node("HBC").get_node("Username")
+		var lb_id = player_lb.get_node("HBC").get_node("ID")
+		var lb_score = player_lb.get_node("Score")
+		
+		lb_username.text = str(username)
+		lb_id.text = str(player_id)
+		lb_score.text = str(score)
+	
+	leaderboard.show()
+
+func _clean_tab() -> void:
+	leaderboard.hide()
+	
+	for child in lb_player_list.get_children():
+		lb_player_list.remove_child(child)
+		child.queue_free()
 
 
 func remove_player(peer_id) -> void:

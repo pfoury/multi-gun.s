@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c50pgbqpe5muc" path="res://common/textures/LowHPShadow.png" id="3_70vka"]
 [ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="4_2l77h"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="5_nqdth"]
+[ext_resource type="PackedScene" uid="uid://0q1onkyh5wbx" path="res://scenes/HUD/leaderboard.tscn" id="6_2l77h"]
 [ext_resource type="PackedScene" uid="uid://c2l0lpnfjfs2u" path="res://scenes/HUD/escape_menu.tscn" id="6_5cypo"]
 [ext_resource type="PackedScene" uid="uid://bfyyyausnectr" path="res://scenes/HUD/end_screen.tscn" id="6_70vka"]
 [ext_resource type="PackedScene" uid="uid://bicky7j3wwj6t" path="res://scenes/HUD/gamemode_container.tscn" id="6_wi4c7"]
@@ -224,6 +225,10 @@ horizontal_alignment = 2
 layout_mode = 2
 text = "Velocity: 67"
 horizontal_alignment = 2
+
+[node name="Leaderboard" parent="HUD/PlayerHUD" unique_id=1472133001 instance=ExtResource("6_2l77h")]
+visible = false
+layout_mode = 1
 
 [node name="EndScreen" parent="HUD/PlayerHUD" unique_id=1164046531 instance=ExtResource("6_70vka")]
 layout_mode = 1
