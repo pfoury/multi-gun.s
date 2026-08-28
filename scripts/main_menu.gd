@@ -1,25 +1,32 @@
 extends Node
 
 # Main tab
-@onready var host: Button = $MainMenu/MainTab/VBoxContainer/HBoxContainer/Host
-@onready var host_debug: Button = $MainMenu/MainTab/VBoxContainer/HBoxContainer/HostDebug
-@onready var join: Button = $MainMenu/MainTab/VBoxContainer/HBoxContainer2/Join
-@onready var join_debug: Button = $MainMenu/MainTab/VBoxContainer/HBoxContainer2/JoinDebug
-@onready var ip_grabber: LineEdit = $MainMenu/MainTab/VBoxContainer/IPGrabber
+@onready var host: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host
+@onready var host_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug
+@onready var join: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/Join
+@onready var join_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/JoinDebug
+@onready var ip_grabber: LineEdit = $MainMenuOLD/MainTab/VBoxContainer/IPGrabber
+
+# Animations
+@onready var camera_player: AnimationPlayer = $CameraPlayer
+@onready var menu_player: AnimationPlayer = $MenuPlayer
 
 # Player Customization
-@onready var display_nickname: LineEdit = $MainMenu/PlayerCustomization/VBoxContainer/DisplayNickname
-@onready var hex_color: LineEdit = $MainMenu/PlayerCustomization/VBoxContainer/HEXColor
+@onready var display_nickname: LineEdit = $MainMenuOLD/PlayerCustomization/VBoxContainer/DisplayNickname
+@onready var hex_color: LineEdit = $MainMenuOLD/PlayerCustomization/VBoxContainer/HEXColor
 
 # Test
-@onready var gm_line_edit: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer/LineEdit
-@onready var map_line_edit: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer2/LineEdit
+@onready var gm_line_edit: LineEdit = $MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer/LineEdit
+@onready var map_line_edit: LineEdit = $MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer2/LineEdit
 
 var args : Dictionary = {}
 
 
 func _ready() -> void:
 	Global.is_in_game = false
+	
+	camera_player.play("intro")
+	menu_player.play("intro")
 
 
 func creating_args() -> void:
