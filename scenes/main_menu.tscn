@@ -170,7 +170,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -182,7 +182,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/path = NodePath("CameraPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -198,7 +198,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -210,7 +210,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/path = NodePath("CameraPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -226,7 +226,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -238,7 +238,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/path = NodePath("CameraPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -254,7 +254,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -266,14 +266,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/path = NodePath("CameraPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.29730177, 0.2973021),
+"transitions": PackedFloat32Array(0.29730177, 1),
 "update": 0,
-"values": [Vector3(-0.0008730637, -0.9512035, 0), Vector3(-0.06632251, 0, 0)]
+"values": [Vector3(-0.0008730637, -0.9512035, 0), Vector3(-0.16144313, -0.16580579, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_hl5e0"]
@@ -282,7 +282,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -294,14 +294,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/path = NodePath("CameraPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.2973021, 1),
+"transitions": PackedFloat32Array(0.36602145, 1),
 "update": 0,
-"values": [Vector3(-0.06632251, 0, 0), Vector3(-0.0008730637, -0.9512035, 0)]
+"values": [Vector3(-0.16144313, -0.16580579, 0), Vector3(-0.0008730637, -0.9512035, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_bqqt6"]
@@ -309,7 +309,7 @@ resource_name = "intro"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -321,7 +321,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/path = NodePath("CameraPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -538,8 +538,11 @@ shadow_opacity = 0.87
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1268460033]
-transform = Transform3D(0.9862857, 0.026530126, -0.16290091, 0, 0.98699635, 0.16074273, 0.16504712, -0.15853825, 0.9734604, -1.4375434, 1.7193271, 0.39999485)
+[node name="CameraPivot" type="Node3D" parent="." unique_id=2137048156]
+transform = Transform3D(0.9862857, 0.026530126, -0.16290092, 0, 0.98699635, 0.16074274, 0.16504712, -0.15853825, 0.9734605, -1.4375434, 1.7193271, 0.39999485)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1495763062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
 fov = 50.0
 
 [node name="CameraPlayer" type="AnimationPlayer" parent="." unique_id=1109188921]
