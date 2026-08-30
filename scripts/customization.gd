@@ -63,9 +63,10 @@ func _on_red_h_slider_value_changed(value: float) -> void:
 	var blue : float = args["color"][2]
 	
 	var new_color : Color = Color(value / 255, green, blue)
+	main.player_mesh.mesh.material.albedo_color = new_color
 	
 	args["color"] = new_color
-	main.player_mesh.mesh.material.albedo_color = new_color
+	hex_line_edit.text = new_color.to_html(false).to_upper()
 	
 	ConfigFileHandler.save_player_setting("color", new_color)
 
@@ -94,6 +95,7 @@ func _on_green_h_slider_value_changed(value: float) -> void:
 	main.player_mesh.mesh.material.albedo_color = new_color
 	
 	args["color"] = new_color
+	hex_line_edit.text = new_color.to_html(false).to_upper()
 	
 	ConfigFileHandler.save_player_setting("color", new_color)
 
@@ -122,6 +124,7 @@ func _on_blue_h_slider_value_changed(value: float) -> void:
 	main.player_mesh.mesh.material.albedo_color = new_color
 	
 	args["color"] = new_color
+	hex_line_edit.text = new_color.to_html(false).to_upper()
 	
 	ConfigFileHandler.save_player_setting("color", new_color)
 
@@ -137,3 +140,18 @@ func _on_blue_line_edit_text_changed(new_text: String) -> void:
 			value = 255
 		
 		_on_blue_h_slider_value_changed(value)
+
+
+# HEX
+func _on_hex_line_edit_text_submitted(new_text: String) -> void:
+	var new_color : Color
+	if len(hex_line_edit.text) != 6:
+		new_color = Color(randf(), randf(), randf())
+	else:
+		new_color = Color(hex_line_edit.text)
+	args["color"] = new_color
+	
+	ConfigFileHandler.save_player_setting("color", new_color)
+	main.player_mesh.mesh.material.albedo_color = new_color
+	hex_line_edit.text = new_color.to_html(false).to_upper()
+#endregion

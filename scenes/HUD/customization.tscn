@@ -2152,3 +2152,4 @@ alignment = 1
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Green/LineEdit" to="." method="_on_green_line_edit_text_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/HSlider" to="." method="_on_blue_h_slider_value_changed"]
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/LineEdit" to="." method="_on_blue_line_edit_text_changed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/Color/VBoxContainer/HEXColor/LineEdit" to="." method="_on_hex_line_edit_text_submitted"]
