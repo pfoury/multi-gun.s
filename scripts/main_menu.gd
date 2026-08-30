@@ -3,12 +3,15 @@ extends Node
 # HUD
 @onready var menu: PanelContainer = $MainMenu/Menu
 @onready var close_button: PanelContainer = $MainMenu/CloseButton
+@onready var customization: PanelContainer = $MainMenu/Customization
 
 @onready var host: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host
 @onready var host_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug
 @onready var join: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/Join
 @onready var join_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/JoinDebug
 @onready var ip_grabber: LineEdit = $MainMenuOLD/MainTab/VBoxContainer/IPGrabber
+
+# 
 
 # Animations
 @onready var camera_player: AnimationPlayer = $CameraPlayer
@@ -22,7 +25,16 @@ extends Node
 @onready var gm_line_edit: LineEdit = $MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer/LineEdit
 @onready var map_line_edit: LineEdit = $MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer2/LineEdit
 
-var args : Dictionary = {}
+var args : Dictionary = {
+	"username": "Newbie",
+	"quote": "I didn't change my quote bleh",
+	"color": Color("FF34FF"),
+	"hat": 0,
+	"face": 0,
+	"gm": "Standard",
+	"map": "Matrix",
+	"peer": "client",
+}
 var is_deploy : bool = false
 var is_customize : bool = false
 
@@ -31,6 +43,8 @@ func _ready() -> void:
 	
 	camera_player.play("intro")
 	menu_player.play("intro")
+	
+	load_customization()
 
 
 func _on_deploy_button_pressed() -> void:
@@ -45,6 +59,7 @@ func _on_close_button_pressed() -> void:
 		is_deploy = false
 	elif is_customize:
 		camera_player.play("customization_end")
+		customization.hide()
 		is_customize = false
 	
 	menu.show()
@@ -54,6 +69,7 @@ func _on_customization_button_pressed() -> void:
 	is_customize = true
 	menu.hide()
 	close_button.show()
+	customization.show()
 	camera_player.play("customization_start")
 
 func _on_settings_button_pressed() -> void:
@@ -66,6 +82,10 @@ func _on_about_button_pressed() -> void:
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func load_customization() -> void:
+	pass
 
 
 func creating_args() -> void:
@@ -137,4 +157,9 @@ func _on_join_pressed() -> void:
 	creating_args()
 	
 	Global.change_scene_with_arguments("res://scenes/main_game.tscn", args)
+#endregion
+
+
+#region Customization
+
 #endregion

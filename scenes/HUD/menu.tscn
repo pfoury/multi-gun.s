@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bs4gor42c7sfy"]
+
+[ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="1_4nrq5"]
+[ext_resource type="Script" uid="uid://bxd7d0qdr1f06" path="res://scripts/menu.gd" id="1_ije1t"]
+[ext_resource type="FontFile" uid="uid://du4a53t10ij4d" path="res://common/fonts/Oswald/Oswald-Bold.ttf" id="2_ije1t"]
+
+[node name="Menu" type="PanelContainer" unique_id=2088796923]
+self_modulate = Color(1, 1, 1, 0.39215687)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 67.0
+offset_top = -330.0
+offset_right = 487.0
+offset_bottom = 330.0
+grow_vertical = 2
+script = ExtResource("1_ije1t")
+
+[node name="PC" type="PanelContainer" parent="." unique_id=810665047]
+self_modulate = Color(1, 1, 1, 0)
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_vertical = 4
+offset_transform_enabled = true
+
+[node name="VBC" type="VBoxContainer" parent="PC" unique_id=371697150]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PC/VBC" unique_id=1832848398]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_4nrq5")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[wave amp=30 freq=5 speed=3 ease=-2.0]multi gun.s[/wave]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="PC" type="MarginContainer" parent="PC/VBC" unique_id=155521398]
+self_modulate = Color(1, 1, 1, 0)
+propagate_maximum_size = false
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Buttons" type="VBoxContainer" parent="PC/VBC/PC" unique_id=945960278]
+layout_mode = 2
+
+[node name="DeployButton" type="Button" parent="PC/VBC/PC/Buttons" unique_id=897281127]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ije1t")
+theme_override_font_sizes/font_size = 32
+text = "DEPLOY"
+
+[node name="SettingsButton" type="Button" parent="PC/VBC/PC/Buttons" unique_id=319440099]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ije1t")
+theme_override_font_sizes/font_size = 32
+text = "SETTINGS
+"
+
+[node name="CustomizationButton" type="Button" parent="PC/VBC/PC/Buttons" unique_id=2085505524]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ije1t")
+theme_override_font_sizes/font_size = 32
+text = "CUSTOMIZE"
+
+[node name="AboutButton" type="Button" parent="PC/VBC/PC/Buttons" unique_id=1559235436]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ije1t")
+theme_override_font_sizes/font_size = 32
+text = "ABOUT"
+
+[node name="ExitButton" type="Button" parent="PC/VBC/PC/Buttons" unique_id=967250352]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ije1t")
+theme_override_font_sizes/font_size = 32
+text = "EXIT"
+
+[connection signal="pressed" from="PC/VBC/PC/Buttons/DeployButton" to="." method="_on_deploy_button_pressed"]
+[connection signal="pressed" from="PC/VBC/PC/Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PC/VBC/PC/Buttons/CustomizationButton" to="." method="_on_customization_button_pressed"]
+[connection signal="pressed" from="PC/VBC/PC/Buttons/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="PC/VBC/PC/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]

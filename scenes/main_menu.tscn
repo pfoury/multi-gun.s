@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="2_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://b0wgev7rbirju" path="res://common/textures/Prototype_Grid_Orange_07-256x256.png" id="3_8ln24"]
 [ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="3_wu84c"]
-[ext_resource type="FontFile" uid="uid://du4a53t10ij4d" path="res://common/fonts/Oswald/Oswald-Bold.ttf" id="4_8ln24"]
 [ext_resource type="Texture2D" uid="uid://6mx48iai3vwb" path="res://common/textures/temp texture.png" id="4_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://bs4gor42c7sfy" path="res://scenes/HUD/menu.tscn" id="5_oa1go"]
+[ext_resource type="PackedScene" uid="uid://cwibn2kmhacwl" path="res://scenes/HUD/customization.tscn" id="7_oa1go"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
 albedo_texture = ExtResource("2_ekxnf")
@@ -343,34 +344,10 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_wu84c"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainMenu/Menu:offset_transform_position_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1.5, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_8ln24"]
 resource_name = "intro"
 length = 1.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainMenu/Menu:offset_transform_position_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(0.20306341, 1),
-"update": 0,
-"values": [Vector2(-1.5, 0), Vector2(0, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rtw2f"]
 _data = {
@@ -708,83 +685,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Menu" type="PanelContainer" parent="MainMenu" unique_id=1599001355]
-self_modulate = Color(1, 1, 1, 0.49411765)
-propagate_maximum_size = false
+[node name="Menu" parent="MainMenu" unique_id=2088796923 instance=ExtResource("5_oa1go")]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 67.0
-offset_top = -330.0
-offset_right = 487.0
-offset_bottom = 330.0
-grow_vertical = 2
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-1.5, 0)
 metadata/_edit_lock_ = true
-
-[node name="PC" type="PanelContainer" parent="MainMenu/Menu" unique_id=607300618]
-self_modulate = Color(1, 1, 1, 0)
-propagate_maximum_size = false
-layout_mode = 2
-size_flags_vertical = 4
-offset_transform_enabled = true
-
-[node name="VBC" type="VBoxContainer" parent="MainMenu/Menu/PC" unique_id=664603118]
-layout_mode = 2
-theme_override_constants/separation = 32
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu/Menu/PC/VBC" unique_id=1506096371]
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("3_wu84c")
-theme_override_font_sizes/normal_font_size = 64
-bbcode_enabled = true
-text = "[wave amp=30 freq=5 speed=3 ease=-2.0]multi gun.s[/wave]"
-fit_content = true
-scroll_active = false
-horizontal_alignment = 1
-
-[node name="PC" type="MarginContainer" parent="MainMenu/Menu/PC/VBC" unique_id=1281666427]
-self_modulate = Color(1, 1, 1, 0)
-propagate_maximum_size = false
-layout_mode = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_right = 100
-
-[node name="Buttons" type="VBoxContainer" parent="MainMenu/Menu/PC/VBC/PC" unique_id=290773511]
-layout_mode = 2
-
-[node name="DeployButton" type="Button" parent="MainMenu/Menu/PC/VBC/PC/Buttons" unique_id=994230969]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_8ln24")
-theme_override_font_sizes/font_size = 32
-text = "DEPLOY"
-
-[node name="SettingsButton" type="Button" parent="MainMenu/Menu/PC/VBC/PC/Buttons" unique_id=425471746]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_8ln24")
-theme_override_font_sizes/font_size = 32
-text = "SETTINGS
-"
-
-[node name="CustomizationButton" type="Button" parent="MainMenu/Menu/PC/VBC/PC/Buttons" unique_id=255803948]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_8ln24")
-theme_override_font_sizes/font_size = 32
-text = "CUSTOMIZE"
-
-[node name="AboutButton" type="Button" parent="MainMenu/Menu/PC/VBC/PC/Buttons" unique_id=211819823]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_8ln24")
-theme_override_font_sizes/font_size = 32
-text = "ABOUT"
-
-[node name="ExitButton" type="Button" parent="MainMenu/Menu/PC/VBC/PC/Buttons" unique_id=584580854]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_8ln24")
-theme_override_font_sizes/font_size = 32
-text = "EXIT"
 
 [node name="CloseButton" type="PanelContainer" parent="MainMenu" unique_id=139731255]
 visible = false
@@ -797,6 +700,7 @@ offset_left = -129.0
 offset_bottom = 129.0
 grow_horizontal = 0
 offset_transform_enabled = true
+metadata/_edit_lock_ = true
 
 [node name="CloseButton" type="Button" parent="MainMenu/CloseButton" unique_id=1520485162]
 layout_mode = 2
@@ -804,15 +708,13 @@ theme_override_fonts/font = ExtResource("3_wu84c")
 theme_override_font_sizes/font_size = 96
 text = "X"
 flat = true
-metadata/_edit_lock_ = true
+
+[node name="Customization" parent="MainMenu" unique_id=101745387 instance=ExtResource("7_oa1go")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug" to="." method="_on_host_debug_pressed"]
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/JoinDebug" to="." method="_on_join_debug_pressed"]
-[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/DeployButton" to="." method="_on_deploy_button_pressed"]
-[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/CustomizationButton" to="." method="_on_customization_button_pressed"]
-[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/AboutButton" to="." method="_on_about_button_pressed"]
-[connection signal="pressed" from="MainMenu/Menu/PC/VBC/PC/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="MainMenu/CloseButton/CloseButton" to="." method="_on_close_button_pressed"]

@@ -109,3 +109,29 @@ func load_audio_setting() -> Dictionary:
 	
 	return audio_settings
 #endregion
+
+#region Player
+func save_player_setting(key, value) -> void:
+	config_player.set_value("player", key, value)
+	config_player.save(Global.PLAYER_FILE_PATH)
+
+func load_player_setting() -> Dictionary:
+	var player_settings = {}
+	for key in config_player.get_section_keys("player"):
+		player_settings[key] = config_player.get_value("player", key)
+	
+	return player_settings
+
+
+func save_accessories_setting(key, value) -> void:
+	config_player.set_value("accessories", key, value)
+	config_player.save(Global.PLAYER_FILE_PATH)
+
+func load_accessories_setting() -> Dictionary:
+	var accessories_settings = {}
+	for key in config_player.get_section_keys("accessories"):
+		accessories_settings[key] = config_player.get_value("accessories", key)
+	
+	return accessories_settings
+
+#endregion
