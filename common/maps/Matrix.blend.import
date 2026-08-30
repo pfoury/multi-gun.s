@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c3wkklf1v0glr"
-path="res://.godot/imported/Matrix.blend-826f8bcb2087ab49b0d03b887062d72f.scn"
+valid=false
 
 [deps]
 
 source_file="res://common/maps/Matrix.blend"
-dest_files=["res://.godot/imported/Matrix.blend-826f8bcb2087ab49b0d03b887062d72f.scn"]
 
 [params]
 

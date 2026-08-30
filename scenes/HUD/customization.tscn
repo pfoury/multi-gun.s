@@ -2088,6 +2088,7 @@ max_value = 255.0
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Red" unique_id=854318177]
 layout_mode = 2
 text = "0"
+placeholder_text = "0"
 
 [node name="Green" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders" unique_id=1821033084]
 layout_mode = 2
@@ -2106,6 +2107,7 @@ max_value = 255.0
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Green" unique_id=1719623424]
 layout_mode = 2
 text = "0"
+placeholder_text = "0"
 
 [node name="Blue" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders" unique_id=107120107]
 layout_mode = 2
@@ -2124,6 +2126,7 @@ max_value = 255.0
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue" unique_id=1355332777]
 layout_mode = 2
 text = "0"
+placeholder_text = "0"
 
 [node name="HEXColor" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Color/VBoxContainer" unique_id=49925201]
 layout_mode = 2
@@ -2142,3 +2145,10 @@ theme_override_fonts/font = SubResource("FontFile_iicqf")
 theme_override_font_sizes/font_size = 16
 placeholder_text = "FF34FF"
 alignment = 1
+
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Red/HSlider" to="." method="_on_red_h_slider_value_changed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Red/LineEdit" to="." method="_on_red_line_edit_text_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Green/HSlider" to="." method="_on_green_h_slider_value_changed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Green/LineEdit" to="." method="_on_green_line_edit_text_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/HSlider" to="." method="_on_blue_h_slider_value_changed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/LineEdit" to="." method="_on_blue_line_edit_text_changed"]

@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://e3slls5q0v0o"
-path="res://.godot/imported/cp_orange.blend-bcb729b346e3652360d621914bc299a4.scn"
+valid=false
 
 [deps]
 
 source_file="res://common/maps/cp_orange.blend"
-dest_files=["res://.godot/imported/cp_orange.blend-bcb729b346e3652360d621914bc299a4.scn"]
 
 [params]
 

@@ -20,6 +20,7 @@ extends Node
 # Player Customization
 @onready var display_nickname: LineEdit = $MainMenuOLD/PlayerCustomization/VBoxContainer/DisplayNickname
 @onready var hex_color: LineEdit = $MainMenuOLD/PlayerCustomization/VBoxContainer/HEXColor
+@onready var player_mesh : MeshInstance3D = $Nodes/Player/Player
 
 # Test
 @onready var gm_line_edit: LineEdit = $MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer/LineEdit
