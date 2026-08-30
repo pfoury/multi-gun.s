@@ -85,7 +85,17 @@ func _on_exit_button_pressed() -> void:
 
 
 func load_customization() -> void:
-	pass
+	var player_settings = ConfigFileHandler.load_player_setting()
+	var accessories_settings = ConfigFileHandler.load_accessories_setting()
+	
+	args["username"] = player_settings.username
+	args["quote"] = player_settings.quote
+	args["color"] = player_settings.color
+	
+	args["hat"] = accessories_settings.hat
+	args["face"] = accessories_settings.face
+	
+	customization._load_customization_settings()
 
 
 func creating_args() -> void:

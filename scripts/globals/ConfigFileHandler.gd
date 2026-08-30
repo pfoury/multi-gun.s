@@ -53,8 +53,8 @@ func load_configs() -> void:
 		config_player.set_value("player", "color", Color("00aa00"))
 		
 		# Accessories
-		config_player.set_value("accessories", "hat accessory", 0)
-		config_player.set_value("accessories", "face accessory", 0)
+		config_player.set_value("accessories", "hat", 0)
+		config_player.set_value("accessories", "face", 0)
 		
 		config_player.save(Global.PLAYER_FILE_PATH)
 	else:
