@@ -15,7 +15,7 @@ extends PanelContainer
 @onready var blue_h_slider: HSlider = $MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/HSlider
 @onready var blue_line_edit: LineEdit = $MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/LineEdit
 
-@onready var hex_line_edit: LineEdit = $MarginContainer/VBoxContainer/Color/VBoxContainer/HEXColor/LineEdit
+@onready var hex_line_edit: LineEdit = $MarginContainer/VBoxContainer/Color/VBoxContainer/MarginContainer/HEXColor/LineEdit
 
 
 var main : Node
@@ -57,7 +57,7 @@ func _update_color() -> void:
 
 # Red
 func _on_red_h_slider_value_changed(value: float) -> void:
-	red_line_edit.text = str(value)
+	red_h_slider.value = value
 	
 	var green : float = args["color"][1]
 	var blue : float = args["color"][2]
@@ -71,8 +71,8 @@ func _on_red_h_slider_value_changed(value: float) -> void:
 	ConfigFileHandler.save_player_setting("color", new_color)
 
 func _on_red_line_edit_text_changed(new_text: String) -> void:
-	if !new_text.is_valid_int():
-		red_line_edit.text = red_line_edit.placeholder_text
+	if !new_text.is_valid_int() or len(new_text) > 1 and new_text[0] == "0":
+		red_line_edit.text = str(int(red_line_edit.placeholder_text))
 	else:
 		var value : int = int(new_text)
 		
@@ -81,12 +81,14 @@ func _on_red_line_edit_text_changed(new_text: String) -> void:
 		elif value > 255:
 			value = 255
 		
+		red_line_edit.text = str(value)
+		
 		_on_red_h_slider_value_changed(value)
 
 
 # Green
 func _on_green_h_slider_value_changed(value: float) -> void:
-	green_line_edit.text = str(value)
+	green_h_slider.value = value
 	
 	var red : float = args["color"][0]
 	var blue : float = args["color"][2]
@@ -100,8 +102,8 @@ func _on_green_h_slider_value_changed(value: float) -> void:
 	ConfigFileHandler.save_player_setting("color", new_color)
 
 func _on_green_line_edit_text_changed(new_text: String) -> void:
-	if !new_text.is_valid_int():
-		green_line_edit.text = green_line_edit.placeholder_text
+	if !new_text.is_valid_int() or len(new_text) > 1 and new_text[0] == "0":
+		green_line_edit.text = str(int(green_line_edit.placeholder_text))
 	else:
 		var value : int = int(new_text)
 		
@@ -110,15 +112,17 @@ func _on_green_line_edit_text_changed(new_text: String) -> void:
 		elif value > 255:
 			value = 255
 		
+		green_line_edit.text = str(value)
+		
 		_on_green_h_slider_value_changed(value)
 
 
 # Blue
 func _on_blue_h_slider_value_changed(value: float) -> void:
-	blue_line_edit.text = str(value)
+	blue_h_slider.value = value
 	
-	var red : float = args["color"][0]
 	var green : float = args["color"][1]
+	var red : float = args["color"][0]
 	
 	var new_color : Color = Color(red, green, value / 255)
 	main.player_mesh.mesh.material.albedo_color = new_color
@@ -129,8 +133,8 @@ func _on_blue_h_slider_value_changed(value: float) -> void:
 	ConfigFileHandler.save_player_setting("color", new_color)
 
 func _on_blue_line_edit_text_changed(new_text: String) -> void:
-	if !new_text.is_valid_int():
-		blue_line_edit.text = blue_line_edit.placeholder_text
+	if !new_text.is_valid_int() or len(new_text) > 1 and new_text[0] == "0":
+		blue_line_edit.text = str(int(blue_line_edit.placeholder_text))
 	else:
 		var value : int = int(new_text)
 		
@@ -138,6 +142,8 @@ func _on_blue_line_edit_text_changed(new_text: String) -> void:
 			value = 0
 		elif value > 255:
 			value = 255
+		
+		blue_line_edit.text = str(value)
 		
 		_on_blue_h_slider_value_changed(value)
 
@@ -148,7 +154,7 @@ func _on_hex_line_edit_text_submitted(new_text: String) -> void:
 	if len(hex_line_edit.text) != 6:
 		new_color = Color(randf(), randf(), randf())
 	else:
-		new_color = Color(hex_line_edit.text)
+		new_color = Color(new_text)
 	args["color"] = new_color
 	
 	ConfigFileHandler.save_player_setting("color", new_color)

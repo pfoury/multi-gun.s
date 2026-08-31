@@ -2128,28 +2128,34 @@ layout_mode = 2
 text = "0"
 placeholder_text = "0"
 
-[node name="HEXColor" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Color/VBoxContainer" unique_id=49925201]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Color/VBoxContainer" unique_id=727614459]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_constants/margin_left = 65
+theme_override_constants/margin_right = 65
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/HEXColor" unique_id=2103818612]
+[node name="HEXColor" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/MarginContainer" unique_id=49925201]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/MarginContainer/HEXColor" unique_id=2103818612]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontFile_nntkh")
 text = "HEX:"
 label_settings = SubResource("LabelSettings_brwpt")
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/HEXColor" unique_id=2112608649]
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/Color/VBoxContainer/MarginContainer/HEXColor" unique_id=2112608649]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
+offset_transform_enabled = true
 theme_override_fonts/font = SubResource("FontFile_iicqf")
 theme_override_font_sizes/font_size = 16
 placeholder_text = "FF34FF"
 alignment = 1
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Red/HSlider" to="." method="_on_red_h_slider_value_changed"]
-[connection signal="text_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Red/LineEdit" to="." method="_on_red_line_edit_text_changed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Red/LineEdit" to="." method="_on_red_line_edit_text_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Green/HSlider" to="." method="_on_green_h_slider_value_changed"]
-[connection signal="text_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Green/LineEdit" to="." method="_on_green_line_edit_text_changed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Green/LineEdit" to="." method="_on_green_line_edit_text_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/HSlider" to="." method="_on_blue_h_slider_value_changed"]
-[connection signal="text_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/LineEdit" to="." method="_on_blue_line_edit_text_changed"]
-[connection signal="text_submitted" from="MarginContainer/VBoxContainer/Color/VBoxContainer/HEXColor/LineEdit" to="." method="_on_hex_line_edit_text_submitted"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Blue/LineEdit" to="." method="_on_blue_line_edit_text_changed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/Color/VBoxContainer/MarginContainer/HEXColor/LineEdit" to="." method="_on_hex_line_edit_text_submitted"]
