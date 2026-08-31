@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://6mx48iai3vwb" path="res://common/textures/temp texture.png" id="4_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://bs4gor42c7sfy" path="res://scenes/HUD/menu.tscn" id="5_oa1go"]
 [ext_resource type="PackedScene" uid="uid://cwibn2kmhacwl" path="res://scenes/HUD/customization.tscn" id="7_oa1go"]
+[ext_resource type="PackedScene" uid="uid://ccv7ljlxd2b5c" path="res://scenes/HUD/player_customization.tscn" id="8_tbmy8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
 albedo_texture = ExtResource("2_ekxnf")
@@ -710,6 +711,10 @@ text = "X"
 flat = true
 
 [node name="Customization" parent="MainMenu" unique_id=101745387 instance=ExtResource("7_oa1go")]
+visible = false
+layout_mode = 1
+
+[node name="PlayerCustomization" parent="MainMenu" unique_id=2128194063 instance=ExtResource("8_tbmy8")]
 visible = false
 layout_mode = 1
 

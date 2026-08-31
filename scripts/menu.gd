@@ -16,6 +16,7 @@ func _on_customization_button_pressed() -> void:
 	hide()
 	main.close_button.show()
 	main.customization.show()
+	main.player_customization.show()
 	main.camera_player.play("customization_start")
 
 func _on_settings_button_pressed() -> void:

@@ -4,6 +4,7 @@ extends Node
 @onready var menu: PanelContainer = $MainMenu/Menu
 @onready var close_button: PanelContainer = $MainMenu/CloseButton
 @onready var customization: PanelContainer = $MainMenu/Customization
+@onready var player_customization: PanelContainer = $MainMenu/PlayerCustomization
 
 @onready var host: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host
 @onready var host_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug
@@ -61,28 +62,11 @@ func _on_close_button_pressed() -> void:
 	elif is_customize:
 		camera_player.play("customization_end")
 		customization.hide()
+		player_customization.hide()
 		is_customize = false
 	
 	menu.show()
 	close_button.hide()
-
-func _on_customization_button_pressed() -> void:
-	is_customize = true
-	menu.hide()
-	close_button.show()
-	customization.show()
-	camera_player.play("customization_start")
-
-func _on_settings_button_pressed() -> void:
-	menu.hide()
-	close_button.show()
-
-func _on_about_button_pressed() -> void:
-	menu.hide()
-	close_button.show()
-
-func _on_exit_button_pressed() -> void:
-	get_tree().quit()
 
 
 func load_customization() -> void:
@@ -97,6 +81,7 @@ func load_customization() -> void:
 	args["face"] = accessories_settings.face
 	
 	customization._load_customization_settings()
+	player_customization._load_player_customization_settings()
 
 
 func creating_args() -> void:

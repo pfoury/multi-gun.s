@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://ccv7ljlxd2b5c"]
+
+[ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="1_ve0y8"]
+[ext_resource type="Script" uid="uid://cr776d66fv7rv" path="res://scripts/player_customization.gd" id="1_wycpg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ve0y8"]
+font = ExtResource("1_ve0y8")
+font_size = 24
+
+[node name="PlayerCustomization" type="PanelContainer" unique_id=2128194063]
+self_modulate = Color(1, 1, 1, 0.39215687)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -489.0
+offset_top = -223.0
+offset_right = -74.619995
+offset_bottom = 233.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_wycpg")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=65422809]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1635484754]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=370098052]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_ve0y8")
+theme_override_font_sizes/normal_font_size = 54
+bbcode_enabled = true
+text = "[wave amp=30 freq=5 speed=3 ease=-2.0]Player[/wave]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1409866816]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Username" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=613638816]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Username" unique_id=1321358970]
+layout_mode = 2
+text = "Username:"
+label_settings = SubResource("LabelSettings_ve0y8")
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/Username" unique_id=1691765091]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Newbie"
+placeholder_text = "Newbie"
+
+[node name="Quote" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=2099982082]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Quote" unique_id=695388384]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Quote:"
+label_settings = SubResource("LabelSettings_ve0y8")
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/Quote" unique_id=1258652257]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "I didn't change my quote bleh"
+placeholder_text = "I didn't change my quote bleh"
+backspace_deletes_composite_character_enabled = true
+wrap_mode = 1
+
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/VBoxContainer/Username/LineEdit" to="." method="_on_username_line_edit_text_submitted"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/VBoxContainer/Quote/TextEdit" to="." method="_on_quote_text_edit_text_changed"]
