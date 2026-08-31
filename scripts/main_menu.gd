@@ -12,16 +12,18 @@ extends Node
 @onready var join_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/JoinDebug
 @onready var ip_grabber: LineEdit = $MainMenuOLD/MainTab/VBoxContainer/IPGrabber
 
-# 
+# hashtag haha funny
 
 # Animations
 @onready var camera_player: AnimationPlayer = $CameraPlayer
 @onready var menu_player: AnimationPlayer = $MenuPlayer
 
 # Player Customization
+@onready var player_platform: Node3D = $Platforms/Player
 @onready var display_nickname: LineEdit = $MainMenuOLD/PlayerCustomization/VBoxContainer/DisplayNickname
 @onready var hex_color: LineEdit = $MainMenuOLD/PlayerCustomization/VBoxContainer/HEXColor
-@onready var player_mesh : MeshInstance3D = $Nodes/Player/Player
+@onready var player_mesh : MeshInstance3D = $Platforms/Player/Player
+@onready var accessory_pivot: Node3D = $Platforms/Player/Player/AccessoryPivot
 
 # Test
 @onready var gm_line_edit: LineEdit = $MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer/LineEdit
@@ -47,6 +49,10 @@ func _ready() -> void:
 	menu_player.play("intro")
 	
 	load_customization()
+
+
+func _process(delta: float) -> void:
+	player_platform.rotation.y += 0.2 * delta
 
 
 func _on_deploy_button_pressed() -> void:
@@ -85,20 +91,6 @@ func load_customization() -> void:
 
 
 func creating_args() -> void:
-	# Setting username
-	if len(display_nickname.text) < 3 or len(display_nickname.text) > 20:
-		args["username"] = "OnlyTwentyCharacters"
-	else:
-		args["username"] = display_nickname.text
-	
-	# Setting color
-	if "#" not in hex_color.text or len(hex_color.text) != 7:
-		var random_color = Color(randf(), randf(), randf())
-		
-		args["color"] = random_color
-	else:
-		args["color"] = Color(hex_color.text)
-	
 	# Gamemode
 	match gm_line_edit.text.to_lower():
 		"s":

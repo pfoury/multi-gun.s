@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://7xopy2ru806g"]
 
-[ext_resource type="PackedScene" uid="uid://c3wkklf1v0glr" path="res://common/maps/Matrix.blend" id="1_suoxt"]
+[ext_resource type="PackedScene" uid="uid://c3wkklf1v0glr" path="res://common/models/maps/Matrix.blend" id="1_suoxt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_31kpq"]
 size = Vector3(3, 0, 3)

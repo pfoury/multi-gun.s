@@ -17,23 +17,28 @@ extends PanelContainer
 
 @onready var hex_line_edit: LineEdit = $MarginContainer/VBoxContainer/Color/VBoxContainer/MarginContainer/HEXColor/LineEdit
 
-
+var hats_node : Node3D
+var faces_node : Node3D
 var main : Node
 var args : Dictionary
 
 
 func _load_customization_settings() -> void:
 	main = get_tree().current_scene
-	
 	args = main.args
+	
+	hats_node = main.accessory_pivot.get_node("Hats")
+	faces_node = main.accessory_pivot.get_node("Faces")
+	
+	# Hiding every accessory
+	for child in hats_node.get_children():
+		child.hide()
+	for child in faces_node.get_children():
+		child.hide()
 	
 	_update_color()
 	_update_accessories()
 
-
-func _update_accessories() -> void:
-	hat_option_button.select(args["hat"])
-	face_option_button.select(args["face"])
 
 
 #region Colors
@@ -160,4 +165,44 @@ func _on_hex_line_edit_text_submitted(new_text: String) -> void:
 	ConfigFileHandler.save_player_setting("color", new_color)
 	main.player_mesh.mesh.material.albedo_color = new_color
 	hex_line_edit.text = new_color.to_html(false).to_upper()
+#endregion
+
+
+#region Accessories
+func _update_accessories() -> void:
+	hat_option_button.select(args["hat"])
+	face_option_button.select(args["face"])
+	
+	_on_hat_option_button_item_selected(args["hat"])
+	_on_face_option_button_item_selected(args["face"])
+
+
+func _on_hat_option_button_item_selected(index: int) -> void:
+	var old_item = args["hat"]
+	
+	# Hiding the previous accessory
+	if old_item != 0:
+		hats_node.get_child(old_item - 1).hide()
+	
+	# Showing the new one
+	if index != 0:
+		hats_node.get_child(index - 1).show()
+	
+	args["hat"] = index
+	ConfigFileHandler.save_accessories_setting("hat", index)
+
+func _on_face_option_button_item_selected(index: int) -> void:
+	var old_item = args["face"]
+	
+	# Hiding the previous accessory
+	if old_item != 0:
+		faces_node.get_child(old_item - 1).hide()
+	
+	# Showing the new one
+	if index != 0:
+		faces_node.get_child(index - 1).show()
+	
+	args["face"] = index
+	ConfigFileHandler.save_accessories_setting("face", index)
+
 #endregion

@@ -2152,6 +2152,8 @@ theme_override_font_sizes/font_size = 16
 placeholder_text = "FF34FF"
 alignment = 1
 
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/Accessories/VBoxContainer/HatAccessory/OptionButton" to="." method="_on_hat_option_button_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/Accessories/VBoxContainer/FaceAccessory/OptionButton" to="." method="_on_face_option_button_item_selected"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Red/HSlider" to="." method="_on_red_h_slider_value_changed"]
 [connection signal="text_submitted" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Red/LineEdit" to="." method="_on_red_line_edit_text_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Color/VBoxContainer/Sliders/Green/HSlider" to="." method="_on_green_h_slider_value_changed"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cstnhlys67mcc"]
 
-[ext_resource type="PackedScene" uid="uid://e3slls5q0v0o" path="res://common/maps/cp_orange.blend" id="1_svncq"]
+[ext_resource type="PackedScene" uid="uid://e3slls5q0v0o" path="res://common/models/maps/cp_orange.blend" id="1_svncq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f05kx"]
 size = Vector3(3, 0, 3)

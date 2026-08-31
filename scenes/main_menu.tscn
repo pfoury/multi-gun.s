@@ -5,9 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://b0wgev7rbirju" path="res://common/textures/Prototype_Grid_Orange_07-256x256.png" id="3_8ln24"]
 [ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="3_wu84c"]
 [ext_resource type="Texture2D" uid="uid://6mx48iai3vwb" path="res://common/textures/temp texture.png" id="4_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://cnyw5fj5sbc36" path="res://common/models/accessories/TopHat.blend" id="5_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://bs4gor42c7sfy" path="res://scenes/HUD/menu.tscn" id="5_oa1go"]
+[ext_resource type="PackedScene" uid="uid://2w72y0bwvpgs" path="res://common/models/accessories/turtle.tscn" id="7_flqon"]
+[ext_resource type="PackedScene" uid="uid://bxuysxxamqoc2" path="res://common/models/accessories/Eyes.blend" id="7_lgwnu"]
 [ext_resource type="PackedScene" uid="uid://cwibn2kmhacwl" path="res://scenes/HUD/customization.tscn" id="7_oa1go"]
+[ext_resource type="PackedScene" uid="uid://ceysq34q20dnq" path="res://common/models/accessories/Mustache.blend" id="8_rcqid"]
 [ext_resource type="PackedScene" uid="uid://ccv7ljlxd2b5c" path="res://scenes/HUD/player_customization.tscn" id="8_tbmy8"]
+[ext_resource type="PackedScene" uid="uid://87k6x7ir720f" path="res://common/models/accessories/Sunglasses.blend" id="9_1ajci"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
 albedo_texture = ExtResource("2_ekxnf")
@@ -362,146 +367,197 @@ font_size = 48
 [node name="MainMenu" type="Node" unique_id=2144626417]
 script = ExtResource("1_l6cm7")
 
-[node name="Nodes" type="Node3D" parent="." unique_id=1032336271]
+[node name="Platforms" type="Node3D" parent="." unique_id=1032336271]
 
-[node name="Deploy" type="Node3D" parent="Nodes" unique_id=1499496649]
+[node name="Deploy" type="Node3D" parent="Platforms" unique_id=1499496649]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 
-[node name="Platform" type="MeshInstance3D" parent="Nodes/Deploy" unique_id=465081201]
+[node name="Platform" type="MeshInstance3D" parent="Platforms/Deploy" unique_id=465081201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.776, 0)
 mesh = SubResource("BoxMesh_eg0p3")
 
-[node name="Cube" type="MeshInstance3D" parent="Nodes/Deploy" unique_id=742426850]
+[node name="Cube" type="MeshInstance3D" parent="Platforms/Deploy" unique_id=742426850]
 transform = Transform3D(0.9832549, 0, -0.18223552, 0, 1, 0, 0.18223552, 0, 0.9832549, 0, 0.5991372, 0)
 mesh = SubResource("BoxMesh_ogq8d")
 
-[node name="Me" type="MeshInstance3D" parent="Nodes/Deploy" unique_id=133801808]
+[node name="Me" type="MeshInstance3D" parent="Platforms/Deploy" unique_id=133801808]
 transform = Transform3D(0.023708355, -0.4332878, -0.019172028, -3.0680116e-09, 0.15288895, -0.05771121, 0.09508898, 0.108030826, 0.0047801235, -0.32999992, 1.166, 0.274)
 mesh = SubResource("PlaneMesh_1ajci")
 
-[node name="SniperRifle" type="Node3D" parent="Nodes/Deploy" unique_id=1690615657]
+[node name="SniperRifle" type="Node3D" parent="Platforms/Deploy" unique_id=1690615657]
 transform = Transform3D(0.48163605, 1.3145441, 0, -0.4750068, 0.17403775, -1.3054038, -1.2257224, 0.44909257, 0.5058859, -0.20621708, 0.9012646, 0.6117514)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Nodes/Deploy/SniperRifle" unique_id=1103784136]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platforms/Deploy/SniperRifle" unique_id=1103784136]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, -0.027381532, 0.20683916)
 mesh = SubResource("BoxMesh_rtw2f")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Nodes/Deploy/SniperRifle" unique_id=1858966964]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Platforms/Deploy/SniperRifle" unique_id=1858966964]
 transform = Transform3D(1, 0, 0, 0, -5.9604645e-08, 1, 0, -1, -5.9604645e-08, 0, 0.11403811, 0.008638798)
 mesh = SubResource("BoxMesh_oa1go")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Nodes/Deploy/SniperRifle" unique_id=769166746]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Platforms/Deploy/SniperRifle" unique_id=769166746]
 transform = Transform3D(0.70710677, 4.2146848e-08, -0.70710677, 0.70710677, -4.2146848e-08, 0.70710677, 0, -1, -5.9604645e-08, 1.4590362e-09, 0.2650724, 0.047061734)
 mesh = SubResource("BoxMesh_tbmy8")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Nodes/Deploy/SniperRifle" unique_id=1750590991]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Platforms/Deploy/SniperRifle" unique_id=1750590991]
 transform = Transform3D(1, 0, 0, 0, -5.9604645e-08, 1, 0, -1, -5.9604645e-08, 0, 0.13765928, -0.38656038)
 mesh = SubResource("BoxMesh_jk1qb")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Nodes/Deploy/SniperRifle" unique_id=164965610]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Platforms/Deploy/SniperRifle" unique_id=164965610]
 transform = Transform3D(1, 0, 0, 0, 0.96592593, -0.25881907, 0, 0.25881907, 0.96592593, 0, -0.0013914779, -0.102475315)
 mesh = SubResource("BoxMesh_5dd4i")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Nodes/Deploy/SniperRifle" unique_id=1686194918]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Platforms/Deploy/SniperRifle" unique_id=1686194918]
 transform = Transform3D(1, 0, 0, 0, -5.9604645e-08, 1, 0, -1, -5.9604645e-08, 0, 0.10188424, 0.3770517)
 mesh = SubResource("BoxMesh_lgwnu")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Nodes/Deploy/SniperRifle" unique_id=426033268]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Platforms/Deploy/SniperRifle" unique_id=426033268]
 transform = Transform3D(1, 0, 0, 0, -5.9604645e-08, 1, 0, -1, -5.9604645e-08, 0, 0.078240745, 0.5257996)
 mesh = SubResource("BoxMesh_flqon")
 
-[node name="AK67" type="Node3D" parent="Nodes/Deploy" unique_id=411069044]
+[node name="AK67" type="Node3D" parent="Platforms/Deploy" unique_id=411069044]
 transform = Transform3D(0.9444962, 0.28501758, -0.16337574, -0.31465322, 0.9277984, -0.20045765, 0.094445795, 0.24073823, 0.9659839, -0.5898662, 0.27151993, -0.07853016)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Nodes/Deploy/AK67" unique_id=1577408177]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platforms/Deploy/AK67" unique_id=1577408177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.060913086, 0.06718608)
 mesh = SubResource("BoxMesh_rcqid")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Nodes/Deploy/AK67" unique_id=793503837]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Platforms/Deploy/AK67" unique_id=793503837]
 transform = Transform3D(1, 0, 0, 0, -0.20383167, -0.97900593, 0, 0.97900593, -0.20383167, 0, -0.049827762, -0.049665734)
 mesh = SubResource("BoxMesh_1ajci")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Nodes/Deploy/AK67" unique_id=2057770726]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Platforms/Deploy/AK67" unique_id=2057770726]
 transform = Transform3D(1, 0, 0, 0, -0.69237083, -0.7215418, 0, 0.7215418, -0.69237083, 0, -0.14220774, -0.09849368)
 mesh = SubResource("BoxMesh_1ajci")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Nodes/Deploy/AK67" unique_id=1348413528]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Platforms/Deploy/AK67" unique_id=1348413528]
 transform = Transform3D(1, 0, 0, 0, 0.279199, -0.9602332, 0, 0.9602332, 0.279199, 0, -0.05228091, 0.19826289)
 mesh = SubResource("BoxMesh_7b55j")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Nodes/Deploy/AK67" unique_id=1335407219]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Platforms/Deploy/AK67" unique_id=1335407219]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.057914734, -0.24934867)
 mesh = SubResource("BoxMesh_5pajh")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Nodes/Deploy/AK67" unique_id=846069829]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Platforms/Deploy/AK67" unique_id=846069829]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05006651, -0.4476302)
 mesh = SubResource("BoxMesh_j7ex8")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Nodes/Deploy/AK67" unique_id=1598360379]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Platforms/Deploy/AK67" unique_id=1598360379]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04491967, 0.40472648)
 mesh = SubResource("BoxMesh_a8gd2")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Nodes/Deploy/AK67" unique_id=1480399231]
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Platforms/Deploy/AK67" unique_id=1480399231]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.090787195, -0.54410577)
 mesh = SubResource("BoxMesh_hstxw")
 
-[node name="Deagle" type="Node3D" parent="Nodes/Deploy" unique_id=2088476839]
+[node name="Deagle" type="Node3D" parent="Platforms/Deploy" unique_id=2088476839]
 transform = Transform3D(-4.3711392e-08, -0.63668364, 0.771125, -1, 2.7830328e-08, -3.3706943e-08, 0, -0.771125, -0.63668364, -0.853, 0.171, -0.969)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=1771933905]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=1771933905]
 transform = Transform3D(1, 0, 0, 0, 0.997952, 0.06396771, 0, -0.06396771, 0.997952, 0, -0.01880541, 0.25877774)
 mesh = SubResource("BoxMesh_8egab")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=689812120]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=689812120]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.16239965, 0.03436339)
 mesh = SubResource("BoxMesh_gw5y6")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=858841564]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=858841564]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.057162374, 0.13289347)
 mesh = SubResource("BoxMesh_svtp6")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=1581732531]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=1581732531]
 transform = Transform3D(1, 0, 0, 0, 0.25945383, -0.96575546, 0, 0.96575546, 0.25945383, 0, 0.14260411, 0.34765232)
 mesh = SubResource("BoxMesh_1dfpl")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=1948949185]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=1948949185]
 transform = Transform3D(1, 0, 0, 0, 0.88703144, -0.46170893, 0, 0.46170893, 0.88703144, 0, 0.22639173, -0.23425683)
 mesh = SubResource("BoxMesh_qywvv")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=552746677]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=552746677]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.16239966, 0.03905545)
 mesh = SubResource("BoxMesh_3wgol")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=208830632]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=208830632]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.16239965, 0.034569383)
 mesh = SubResource("BoxMesh_1acrt")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=206728025]
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=206728025]
 transform = Transform3D(1, 0, 0, 0, 0.88703144, -0.46170893, 0, 0.46170893, 0.88703144, 0, 0.2223584, -0.18623506)
 mesh = SubResource("BoxMesh_vr8o3")
 
-[node name="MeshInstance3D9" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=877492395]
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=877492395]
 transform = Transform3D(1, 0, 0, 0, 0.88703144, -0.46170893, 0, 0.46170893, 0.88703144, 0, 0.2223584, -0.08366725)
 mesh = SubResource("BoxMesh_vr8o3")
 
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=802745309]
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=802745309]
 transform = Transform3D(1, 0, 0, 0, 0.88703144, -0.46170893, 0, 0.46170893, 0.88703144, 0, 0.2223584, -0.15261409)
 mesh = SubResource("BoxMesh_vr8o3")
 
-[node name="MeshInstance3D11" type="MeshInstance3D" parent="Nodes/Deploy/Deagle" unique_id=1412531294]
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="Platforms/Deploy/Deagle" unique_id=1412531294]
 transform = Transform3D(1, 0, 0, 0, 0.88703144, -0.46170893, 0, 0.46170893, 0.88703144, 0, 0.2223584, -0.119428426)
 mesh = SubResource("BoxMesh_vr8o3")
 
-[node name="Player" type="Node3D" parent="Nodes" unique_id=1989208265]
+[node name="Player" type="Node3D" parent="Platforms" unique_id=1989208265]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 
-[node name="Platform" type="MeshInstance3D" parent="Nodes/Player" unique_id=830265202]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7756836, 0)
+[node name="Platform" type="MeshInstance3D" parent="Platforms/Player" unique_id=830265202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0005545616, -1.7696347, -0.004867077)
 mesh = SubResource("BoxMesh_eg0p3")
 
-[node name="Player" type="MeshInstance3D" parent="Nodes/Player" unique_id=1412379195]
+[node name="Player" type="MeshInstance3D" parent="Platforms/Player" unique_id=1412379195]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0645719, 0)
 mesh = SubResource("CapsuleMesh_ogq8d")
+
+[node name="AccessoryPivot" type="Node3D" parent="Platforms/Player/Player" unique_id=2069444731]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1, 0)
+
+[node name="Hats" type="Node3D" parent="Platforms/Player/Player/AccessoryPivot" unique_id=1092163685]
+
+[node name="Turtle" parent="Platforms/Player/Player/AccessoryPivot/Hats" unique_id=1227402445 instance=ExtResource("7_flqon")]
+visible = false
+
+[node name="TopHat" parent="Platforms/Player/Player/AccessoryPivot/Hats" unique_id=1163124959 instance=ExtResource("5_jk1qb")]
+
+[node name="Faces" type="Node3D" parent="Platforms/Player/Player/AccessoryPivot" unique_id=1535717847]
+
+[node name="Eyes" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=1927693143 instance=ExtResource("7_lgwnu")]
+visible = false
+
+[node name="Mustache" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=2083140263 instance=ExtResource("8_rcqid")]
+visible = false
+
+[node name="Sunglasses" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=1837833098 instance=ExtResource("9_1ajci")]
+
+[node name="SniperRifle" type="Node3D" parent="Platforms/Player" unique_id=1994735972]
+transform = Transform3D(-1.4000001, 0, -1.2239188e-07, 0, 1.3999999, 0, 1.223919e-07, 0, -1.3999999, -0.6641175, 1.0189538, 0.50013244)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platforms/Player/SniperRifle" unique_id=1337753124]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, -0.027381532, 0.20683916)
+mesh = SubResource("BoxMesh_rtw2f")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Platforms/Player/SniperRifle" unique_id=140771199]
+transform = Transform3D(1, 0, 0, 0, -5.9604645e-08, 1, 0, -1, -5.9604645e-08, 0, 0.11403811, 0.008638798)
+mesh = SubResource("BoxMesh_oa1go")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Platforms/Player/SniperRifle" unique_id=1491822734]
+transform = Transform3D(0.70710677, 4.2146848e-08, -0.70710677, 0.70710677, -4.2146848e-08, 0.70710677, 0, -1, -5.9604645e-08, 1.4590362e-09, 0.2650724, 0.047061734)
+mesh = SubResource("BoxMesh_tbmy8")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Platforms/Player/SniperRifle" unique_id=1049753485]
+transform = Transform3D(1, 0, 0, 0, -5.9604645e-08, 1, 0, -1, -5.9604645e-08, 0, 0.13765928, -0.38656038)
+mesh = SubResource("BoxMesh_jk1qb")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Platforms/Player/SniperRifle" unique_id=122325963]
+transform = Transform3D(1, 0, 0, 0, 0.96592593, -0.25881907, 0, 0.25881907, 0.96592593, 0, -0.0013914779, -0.102475315)
+mesh = SubResource("BoxMesh_5dd4i")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Platforms/Player/SniperRifle" unique_id=346951587]
+transform = Transform3D(1, 0, 0, 0, -5.9604645e-08, 1, 0, -1, -5.9604645e-08, 0, 0.10188424, 0.3770517)
+mesh = SubResource("BoxMesh_lgwnu")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Platforms/Player/SniperRifle" unique_id=2048859628]
+transform = Transform3D(1, 0, 0, 0, -5.9604645e-08, 1, 0, -1, -5.9604645e-08, 0, 0.078240745, 0.5257996)
+mesh = SubResource("BoxMesh_flqon")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=43955985]
 environment = SubResource("Environment_ekxnf")
