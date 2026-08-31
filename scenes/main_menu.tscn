@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ceysq34q20dnq" path="res://common/models/accessories/Mustache.blend" id="8_rcqid"]
 [ext_resource type="PackedScene" uid="uid://ccv7ljlxd2b5c" path="res://scenes/HUD/player_customization.tscn" id="8_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://87k6x7ir720f" path="res://common/models/accessories/Sunglasses.blend" id="9_1ajci"]
+[ext_resource type="PackedScene" uid="uid://bb3ssvhimttvs" path="res://scenes/HUD/settings.tscn" id="14_1ajci"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
 albedo_texture = ExtResource("2_ekxnf")
@@ -746,6 +747,30 @@ grow_vertical = 2
 layout_mode = 1
 metadata/_edit_lock_ = true
 
+[node name="Customization" parent="MainMenu" unique_id=101745387 instance=ExtResource("7_oa1go")]
+visible = false
+layout_mode = 1
+
+[node name="PlayerCustomization" parent="MainMenu" unique_id=2128194063 instance=ExtResource("8_tbmy8")]
+visible = false
+layout_mode = 1
+
+[node name="Settings" type="MarginContainer" parent="MainMenu" unique_id=280960218]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 670
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 670
+theme_override_constants/margin_bottom = 200
+
+[node name="Settings" parent="MainMenu/Settings" unique_id=1720427517 instance=ExtResource("14_1ajci")]
+layout_mode = 2
+
 [node name="CloseButton" type="PanelContainer" parent="MainMenu" unique_id=139731255]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
@@ -765,14 +790,6 @@ theme_override_fonts/font = ExtResource("3_wu84c")
 theme_override_font_sizes/font_size = 96
 text = "X"
 flat = true
-
-[node name="Customization" parent="MainMenu" unique_id=101745387 instance=ExtResource("7_oa1go")]
-visible = false
-layout_mode = 1
-
-[node name="PlayerCustomization" parent="MainMenu" unique_id=2128194063 instance=ExtResource("8_tbmy8")]
-visible = false
-layout_mode = 1
 
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug" to="." method="_on_host_debug_pressed"]

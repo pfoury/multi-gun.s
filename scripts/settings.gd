@@ -103,7 +103,7 @@ var kill_effects_idx = AudioServer.get_bus_index("KillEffectsSound")
 var death_idx = AudioServer.get_bus_index("DeathSound")
 
 
-func _ready() -> void:
+func _load_settings() -> void:
 	setting_up()
 	
 	await get_tree().process_frame
@@ -353,6 +353,9 @@ func _window_types_selected(index: int) -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		
+		var display_settings = ConfigFileHandler.load_display_setting()
+		_resolutions_item_selected(display_settings.resolution)
 	
 	ConfigFileHandler.save_display_setting("window_type", index)
 
@@ -415,8 +418,7 @@ func _brightness_changed(value: float) -> void:
 	
 	Global.brightness = value
 	
-	if Global.is_in_game:
-		Global._update_brightness()
+	Global._update_brightness()
 	
 	ConfigFileHandler.save_video_setting("brightness", value)
 
@@ -438,8 +440,7 @@ func _brightness_submitted(new_text: String) -> void:
 	
 	Global.brightness = new_value
 	
-	if Global.is_in_game:
-		Global._update_brightness()
+	Global._update_brightness()
 	
 	ConfigFileHandler.save_video_setting("brightness", new_value)
 
@@ -451,8 +452,7 @@ func _sky_brightness_changed(value: float) -> void:
 	
 	Global.sky_brightness = value
 	
-	if Global.is_in_game:
-		Global._update_sky_brightness()
+	Global._update_sky_brightness()
 	
 	ConfigFileHandler.save_video_setting("sky_brightness", value)
 
@@ -474,8 +474,7 @@ func _sky_brightness_submitted(new_text: String) -> void:
 	
 	Global.sky_brightness = new_value
 	
-	if Global.is_in_game:
-		Global._update_sky_brightness()
+	Global._update_sky_brightness()
 	
 	ConfigFileHandler.save_video_setting("sky_brightness", new_value)
 
@@ -488,8 +487,7 @@ func _glow_toggled(toggled_on: bool) -> void:
 	
 	Global.is_glow = toggled_on
 	
-	if Global.is_in_game:
-		Global._update_glow()
+	Global._update_glow()
 	
 	ConfigFileHandler.save_video_setting("glow", toggled_on)
 
@@ -499,8 +497,7 @@ func _glow_changed(value: float) -> void:
 	
 	Global.glow = value
 	
-	if Global.is_in_game:
-		Global._update_glow()
+	Global._update_glow()
 	
 	ConfigFileHandler.save_video_setting("glow_strength", value)
 
@@ -522,8 +519,7 @@ func _glow_submitted(new_text: String) -> void:
 	
 	Global.glow = new_value
 	
-	if Global.is_in_game:
-		Global._update_glow()
+	Global._update_glow()
 	
 	ConfigFileHandler.save_video_setting("glow_strength", new_value)
 
@@ -568,16 +564,14 @@ func _ssao_toggled(toggled_on: bool) -> void:
 	
 	Global.is_ssao = toggled_on
 	
-	if Global.is_in_game:
-		Global._update_SSAO()
+	Global._update_SSAO()
 	
 	ConfigFileHandler.save_video_setting("ssao", toggled_on)
 
 func _ssao_selected(index: int) -> void:
 	Global.ssao_index = index
 	
-	if Global.is_in_game:
-		Global._update_SSAO()
+	Global._update_SSAO()
 	
 	ConfigFileHandler.save_video_setting("ssao", index)
 
@@ -588,16 +582,14 @@ func _ssil_toggled(toggled_on: bool) -> void:
 	
 	Global.is_ssil = toggled_on
 	
-	if Global.is_in_game:
-		Global._update_SSIL()
+	Global._update_SSIL()
 	
 	ConfigFileHandler.save_video_setting("ssil", toggled_on)
 
 func _ssil_selected(index: int) -> void:
 	Global.ssil_index = index
 	
-	if Global.is_in_game:
-		Global._update_SSIL()
+	Global._update_SSIL()
 	
 	ConfigFileHandler.save_video_setting("ssil", index)
 
@@ -629,8 +621,7 @@ func _taa_toggled(toggled_on: bool) -> void:
 func _ssr_toggled(toggled_on: bool) -> void:
 	Global.is_ssr = toggled_on
 	
-	if Global.is_in_game:
-		Global._update_SSR()
+	Global._update_SSR()
 	
 	ConfigFileHandler.save_video_setting("ssr", toggled_on)
 #endregion

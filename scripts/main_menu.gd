@@ -5,6 +5,7 @@ extends Node
 @onready var close_button: PanelContainer = $MainMenu/CloseButton
 @onready var customization: PanelContainer = $MainMenu/Customization
 @onready var player_customization: PanelContainer = $MainMenu/PlayerCustomization
+@onready var settings: MarginContainer = $MainMenu/Settings
 
 @onready var host: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host
 @onready var host_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug
@@ -49,17 +50,12 @@ func _ready() -> void:
 	menu_player.play("intro")
 	
 	load_customization()
+	settings.get_node("Settings")._load_settings()
 
 
 func _process(delta: float) -> void:
-	player_platform.rotation.y += 0.2 * delta
+	player_platform.rotation.y += 0.5 * delta
 
-
-func _on_deploy_button_pressed() -> void:
-	is_deploy = true
-	menu.hide()
-	close_button.show()
-	camera_player.play("deploy_start")
 
 func _on_close_button_pressed() -> void:
 	if is_deploy:
@@ -72,6 +68,7 @@ func _on_close_button_pressed() -> void:
 		is_customize = false
 	
 	menu.show()
+	settings.hide()
 	close_button.hide()
 
 
@@ -145,9 +142,4 @@ func _on_join_pressed() -> void:
 	creating_args()
 	
 	Global.change_scene_with_arguments("res://scenes/main_game.tscn", args)
-#endregion
-
-
-#region Customization
-
 #endregion
