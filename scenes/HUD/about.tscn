@@ -114,6 +114,7 @@ text = "Grid textures were made by Screaming Brain Studios"
 fit_content = true
 
 [node name="Fonts" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TextContainer" unique_id=351082957]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 16
 
@@ -342,3 +343,77 @@ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
 "
 autowrap_mode = 2
+
+[node name="Author" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TextContainer" unique_id=665541723]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TopLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/TextContainer/Author" unique_id=1451037167]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_b2s8u")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Game was made by [wave amp=30 freq=5 speed=3 ease=-2.0]pfour[/wave]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Links" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TextContainer/Author" unique_id=126655636]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Boosty" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links" unique_id=1683205854]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links/Boosty" unique_id=201246625]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_j3jks")
+theme_override_font_sizes/font_size = 24
+text = "Boosty:"
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links/Boosty" unique_id=877293925]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_j3jks")
+theme_override_font_sizes/font_size = 24
+text = "https://boosty.to/poccu4"
+underline = 1
+uri = "https://boosty.to/poccu4"
+
+[node name="Youtube" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links" unique_id=13820714]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links/Youtube" unique_id=1423623994]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_j3jks")
+theme_override_font_sizes/font_size = 24
+text = "Youtube:"
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links/Youtube" unique_id=457885494]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_j3jks")
+theme_override_font_sizes/font_size = 24
+text = "https://www.youtube.com/@pfoury"
+underline = 1
+uri = "https://www.youtube.com/@pfoury"
+
+[node name="ItchIO" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links" unique_id=2086853303]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links/ItchIO" unique_id=1753461918]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_j3jks")
+theme_override_font_sizes/font_size = 24
+text = "Itch io:"
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/HBoxContainer/TextContainer/Author/Links/ItchIO" unique_id=980359499]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_j3jks")
+theme_override_font_sizes/font_size = 24
+text = "https://itch.io/profile/pfoury"
+underline = 1
+uri = "https://itch.io/profile/pfoury"
