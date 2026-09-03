@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ccv7ljlxd2b5c" path="res://scenes/HUD/player_customization.tscn" id="8_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://87k6x7ir720f" path="res://common/models/accessories/Sunglasses.blend" id="9_1ajci"]
 [ext_resource type="PackedScene" uid="uid://bb3ssvhimttvs" path="res://scenes/HUD/settings.tscn" id="14_1ajci"]
+[ext_resource type="PackedScene" uid="uid://btq0wx5ge3cw6" path="res://scenes/HUD/about.tscn" id="14_7b55j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
 albedo_texture = ExtResource("2_ekxnf")
@@ -769,6 +770,20 @@ theme_override_constants/margin_right = 670
 theme_override_constants/margin_bottom = 200
 
 [node name="Settings" parent="MainMenu/Settings" unique_id=1720427517 instance=ExtResource("14_1ajci")]
+layout_mode = 2
+
+[node name="About" type="MarginContainer" parent="MainMenu" unique_id=707273344]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 450
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_right = 450
+theme_override_constants/margin_bottom = 250
+
+[node name="About" parent="MainMenu/About" unique_id=1076580502 instance=ExtResource("14_7b55j")]
 layout_mode = 2
 
 [node name="CloseButton" type="PanelContainer" parent="MainMenu" unique_id=139731255]
