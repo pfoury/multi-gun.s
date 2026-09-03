@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://btq0wx5ge3cw6"]
 
 [ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="1_b2s8u"]
+[ext_resource type="Script" uid="uid://cfpgpq17voi27" path="res://scripts/about.gd" id="1_jd7n8"]
 [ext_resource type="FontFile" uid="uid://du4a53t10ij4d" path="res://common/fonts/Oswald/Oswald-Bold.ttf" id="2_j3jks"]
 
 [node name="About" type="PanelContainer" unique_id=1076580502]
 self_modulate = Color(1, 1, 1, 0.39215687)
 offset_right = 826.0
 offset_bottom = 479.0
+script = ExtResource("1_jd7n8")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=52683172]
 layout_mode = 2
@@ -29,19 +31,19 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1843964160]
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1843964160]
 layout_mode = 2
 offset_transform_position_ratio = Vector2(0, -0.255)
 theme_override_constants/separation = 12
 
-[node name="SoundsButton" type="Button" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=247726063]
+[node name="ResourcesButton" type="Button" parent="MarginContainer/HBoxContainer/Buttons" unique_id=247726063]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_j3jks")
 theme_override_font_sizes/font_size = 32
 text = "RESOURCES"
 
-[node name="FontsButton" type="Button" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=1371499304]
+[node name="FontsButton" type="Button" parent="MarginContainer/HBoxContainer/Buttons" unique_id=1371499304]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_j3jks")
@@ -49,7 +51,7 @@ theme_override_font_sizes/font_size = 32
 text = "FONTS
 "
 
-[node name="AuthorButton" type="Button" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=910823326]
+[node name="AuthorButton" type="Button" parent="MarginContainer/HBoxContainer/Buttons" unique_id=910823326]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_j3jks")
@@ -63,7 +65,6 @@ theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
 [node name="Resources" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TextContainer" unique_id=1993998559]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 8
 
@@ -345,6 +346,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 autowrap_mode = 2
 
 [node name="Author" type="VBoxContainer" parent="MarginContainer/HBoxContainer/TextContainer" unique_id=665541723]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 16
 
@@ -417,3 +419,9 @@ theme_override_font_sizes/font_size = 24
 text = "https://itch.io/profile/pfoury"
 underline = 1
 uri = "https://itch.io/profile/pfoury"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Buttons/ResourcesButton" to="." method="_on_resources_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Buttons/FontsButton" to="." method="_on_fonts_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Buttons/AuthorButton" to="." method="_on_author_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/TextContainer/Fonts/Buttons/Geologica" to="." method="_on_geologica_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/TextContainer/Fonts/Buttons/Oswald" to="." method="_on_oswald_pressed"]

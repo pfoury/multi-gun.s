@@ -28,6 +28,7 @@ func _on_settings_button_pressed() -> void:
 func _on_about_button_pressed() -> void:
 	main = get_tree().current_scene
 	hide()
+	main.about.show()
 	main.close_button.show()
 
 func _on_exit_button_pressed() -> void:

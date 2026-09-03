@@ -6,6 +6,7 @@ extends Node
 @onready var customization: PanelContainer = $MainMenu/Customization
 @onready var player_customization: PanelContainer = $MainMenu/PlayerCustomization
 @onready var settings: MarginContainer = $MainMenu/Settings
+@onready var about: MarginContainer = $MainMenu/About
 
 @onready var host: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host
 @onready var host_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug
@@ -69,6 +70,7 @@ func _on_close_button_pressed() -> void:
 	
 	menu.show()
 	settings.hide()
+	about.hide()
 	close_button.hide()
 
 
