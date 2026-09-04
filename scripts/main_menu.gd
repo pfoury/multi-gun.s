@@ -7,6 +7,7 @@ extends Node
 @onready var player_customization: PanelContainer = $MainMenu/PlayerCustomization
 @onready var settings: MarginContainer = $MainMenu/Settings
 @onready var about: MarginContainer = $MainMenu/About
+@onready var deploy: MarginContainer = $MainMenu/Deploy
 
 @onready var host: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host
 @onready var host_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug
@@ -38,8 +39,9 @@ var args : Dictionary = {
 	"hat": 0,
 	"face": 0,
 	"gm": "Standard",
-	"map": "Matrix",
+	"map": "dm_matrix",
 	"peer": "client",
+	"scoregoal": 32,
 }
 var is_deploy : bool = false
 var is_customize : bool = false
@@ -71,6 +73,7 @@ func _on_close_button_pressed() -> void:
 	menu.show()
 	settings.hide()
 	about.hide()
+	deploy.hide()
 	close_button.hide()
 
 
@@ -89,59 +92,20 @@ func load_customization() -> void:
 	player_customization._load_player_customization_settings()
 
 
-func creating_args() -> void:
-	# Gamemode
-	match gm_line_edit.text.to_lower():
-		"s":
-			args["gm"] = "Standard"
-		"r":
-			args["gm"] = "Randomizer"
-		"c":
-			args["gm"] = "Competitive"
-		_:
-			args["gm"] = "Standard"
-	
-	# Map
-	match map_line_edit.text.to_lower()[0]:
-		"g":
-			args["map"] = "Grey"
-		"m":
-			args["map"] = "Matrix"
-		_:
-			args["map"] = "Matrix"
-
-#region For debuggin
-func _on_host_debug_pressed() -> void: # For debuggin
-	# Setting up host
-	args["peer"] = "host"
-	creating_args()
+func change_scene() -> void:
+	_creating_args()
 	
 	Global.change_scene_with_arguments("res://scenes/main_game.tscn", args)
 
 
-func _on_join_debug_pressed() -> void: # For debuggin
-	# Setting up client
-	args["peer"] = "client"
-	creating_args()
+func _creating_args() -> void:
+	var pl_cus : Dictionary = player_customization.args
+	var acc_cus : Dictionary = customization.args
 	
-	Global.change_scene_with_arguments("res://scenes/main_game.tscn", args)
-#endregion
-
-
-#region For multiplayer
-func _on_host_pressed() -> void:
-	# Setting up host
-	args["peer"] = "host"
-	creating_args()
+	# Player Customization
+	for string in ["username", "quote"]:
+		args[string] = pl_cus[string]
 	
-	Global.change_scene_with_arguments("res://scenes/main_game.tscn", args)
-
-
-func _on_join_pressed() -> void:
-	# Setting up client
-	args["peer"] = "client"
-	args["ip"] = ip_grabber.text
-	creating_args()
-	
-	Global.change_scene_with_arguments("res://scenes/main_game.tscn", args)
-#endregion
+	# Accessory Customization
+	for string in ["color", "hat", "face"]:
+		args[string] = acc_cus[string]

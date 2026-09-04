@@ -8,6 +8,7 @@ func _on_deploy_button_pressed() -> void:
 	main.is_deploy = true
 	hide()
 	main.close_button.show()
+	main.deploy.show()
 	main.camera_player.play("deploy_start")
 
 func _on_customization_button_pressed() -> void:

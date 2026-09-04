@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://87k6x7ir720f" path="res://common/models/accessories/Sunglasses.blend" id="9_1ajci"]
 [ext_resource type="PackedScene" uid="uid://bb3ssvhimttvs" path="res://scenes/HUD/settings.tscn" id="14_1ajci"]
 [ext_resource type="PackedScene" uid="uid://btq0wx5ge3cw6" path="res://scenes/HUD/about.tscn" id="14_7b55j"]
+[ext_resource type="PackedScene" uid="uid://cnegdb4y5lxlw" path="res://scenes/HUD/deploy.tscn" id="15_5pajh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyap7"]
 albedo_texture = ExtResource("2_ekxnf")
@@ -568,9 +569,8 @@ environment = SubResource("Environment_ekxnf")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 layers = 524289
 light_color = Color(0.8819366, 0.8819366, 0.88193655, 1)
+light_angular_distance = 0.5
 shadow_enabled = true
-shadow_normal_bias = 10.0
-shadow_opacity = 0.87
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 
@@ -780,11 +780,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 450
-theme_override_constants/margin_top = 250
+theme_override_constants/margin_top = 200
 theme_override_constants/margin_right = 450
-theme_override_constants/margin_bottom = 250
+theme_override_constants/margin_bottom = 200
 
 [node name="About" parent="MainMenu/About" unique_id=1076580502 instance=ExtResource("14_7b55j")]
+layout_mode = 2
+
+[node name="Deploy" type="MarginContainer" parent="MainMenu" unique_id=1124414921]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 500
+theme_override_constants/margin_top = 320
+theme_override_constants/margin_right = 500
+theme_override_constants/margin_bottom = 320
+
+[node name="Deploy" parent="MainMenu/Deploy" unique_id=1087604333 instance=ExtResource("15_5pajh")]
 layout_mode = 2
 
 [node name="CloseButton" type="PanelContainer" parent="MainMenu" unique_id=139731255]

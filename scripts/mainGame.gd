@@ -5,6 +5,8 @@ extends Node
 @export var weapon_pool : Array = []
 @export var player_list : Dictionary = {}
 @export var player_color_list : Dictionary = {}
+@export var player_accessories_hat : Dictionary = {}
+@export var player_accessories_face : Dictionary = {}
 @export var scoreboard : Dictionary = {}
 @export var gm : String = "Standard"
 @export var is_ended : bool = false
@@ -67,13 +69,14 @@ func _ready() -> void:
 				multiplayer.server_disconnected.connect(to_menu)
 				
 				Server.change_gamemode(Global.arguments["gm"])
+				amount_of_weapons = Global.arguments["scoregoal"]
 				Server.create_global_timer()
 				
 				var new_map : Node3D
 				match Global.arguments["map"]:
-					"Grey":
+					"dm_grey":
 						new_map = load(Global.MAPS[0]).instantiate()
-					"Matrix":
+					"dm_matrix":
 						new_map = load(Global.MAPS[1]).instantiate()
 				new_map.name = "Map"
 				map_folder.add_child(new_map)

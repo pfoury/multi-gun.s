@@ -32,6 +32,10 @@ const MAPS = [
 	"res://scenes/maps/dm_grey.tscn", # DM_GREY [0]
 	"res://scenes/maps/dm_matrix.tscn", # DM_MATRIX [1]
 ]
+const MAPS_STRINGS = [
+	"dm_grey",
+	"dm_matrix",
+]
 const GAMEMODES = [
 	"Randomizer",
 	"Competitive",

@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://cnegdb4y5lxlw"]
+
+[ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="1_dynfc"]
+[ext_resource type="Script" uid="uid://wna08k0x624b" path="res://scripts/deploy.gd" id="1_odsju"]
+[ext_resource type="FontFile" uid="uid://du4a53t10ij4d" path="res://common/fonts/Oswald/Oswald-Bold.ttf" id="2_bdlgl"]
+
+[node name="Deploy" type="PanelContainer" unique_id=1087604333]
+self_modulate = Color(1, 1, 1, 0.39215687)
+offset_right = 875.0
+offset_bottom = 415.0
+script = ExtResource("1_odsju")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1679775694]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="VBC" type="VBoxContainer" parent="MarginContainer" unique_id=599225976]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="DeployText" type="RichTextLabel" parent="MarginContainer/VBC" unique_id=285953352]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_dynfc")
+theme_override_font_sizes/normal_font_size = 54
+bbcode_enabled = true
+text = "[wave amp=30 freq=5 speed=3 ease=-2.0]Deploy[/wave]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/VBC" unique_id=1069103347]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="JoinButton" type="Button" parent="MarginContainer/VBC/Buttons" unique_id=1949819230]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_bdlgl")
+theme_override_font_sizes/font_size = 32
+text = "JOIN"
+
+[node name="HostButton" type="Button" parent="MarginContainer/VBC/Buttons" unique_id=711909309]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_bdlgl")
+theme_override_font_sizes/font_size = 32
+text = "HOST"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBC" unique_id=887029403]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="JoinContainer" type="VBoxContainer" parent="MarginContainer/VBC/MarginContainer" unique_id=790463887]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IPLineEdit" type="LineEdit" parent="MarginContainer/VBC/MarginContainer/JoinContainer" unique_id=1006861481]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_dynfc")
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Join by IP"
+alignment = 1
+
+[node name="JoinButton" type="Button" parent="MarginContainer/VBC/MarginContainer/JoinContainer" unique_id=2120697499]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_bdlgl")
+theme_override_font_sizes/font_size = 32
+text = "JOIN"
+
+[node name="HostContainer" type="VBoxContainer" parent="MarginContainer/VBC/MarginContainer" unique_id=1753103156]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+
+[node name="MapAndGamemode" type="HBoxContainer" parent="MarginContainer/VBC/MarginContainer/HostContainer" unique_id=138835990]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Map" type="HBoxContainer" parent="MarginContainer/VBC/MarginContainer/HostContainer/MapAndGamemode" unique_id=75949738]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/VBC/MarginContainer/HostContainer/MapAndGamemode/Map" unique_id=1119806810]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bdlgl")
+theme_override_font_sizes/font_size = 24
+text = "Map:"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBC/MarginContainer/HostContainer/MapAndGamemode/Map" unique_id=1042202364]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_bdlgl")
+selected = 0
+item_count = 3
+popup/item_0/text = "dm_matrix"
+popup/item_0/id = 0
+popup/item_1/text = "dm_grey"
+popup/item_1/id = 1
+popup/item_2/text = "Pick Random"
+popup/item_2/id = 2
+
+[node name="Gamemode" type="HBoxContainer" parent="MarginContainer/VBC/MarginContainer/HostContainer/MapAndGamemode" unique_id=52751161]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/VBC/MarginContainer/HostContainer/MapAndGamemode/Gamemode" unique_id=482958803]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bdlgl")
+theme_override_font_sizes/font_size = 24
+text = "Gamemode:"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBC/MarginContainer/HostContainer/MapAndGamemode/Gamemode" unique_id=555091338]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_bdlgl")
+selected = 0
+item_count = 4
+popup/item_0/text = "Standard"
+popup/item_0/id = 0
+popup/item_1/text = "Randomizer"
+popup/item_1/id = 1
+popup/item_2/text = "Competitive"
+popup/item_2/id = 2
+popup/item_3/text = "Pick Random"
+popup/item_3/id = 3
+
+[node name="Map" type="HBoxContainer" parent="MarginContainer/VBC/MarginContainer/HostContainer" unique_id=264715672]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/VBC/MarginContainer/HostContainer/Map" unique_id=442635344]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bdlgl")
+theme_override_font_sizes/font_size = 24
+text = "Score Goal:"
+
+[node name="OptionButton" type="LineEdit" parent="MarginContainer/VBC/MarginContainer/HostContainer/Map" unique_id=907786740]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_bdlgl")
+text = "32"
+placeholder_text = "32"
+
+[node name="JoinButton" type="Button" parent="MarginContainer/VBC/MarginContainer/HostContainer" unique_id=1818475434]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_bdlgl")
+theme_override_font_sizes/font_size = 32
+text = "HOST"
+
+[connection signal="pressed" from="MarginContainer/VBC/Buttons/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBC/Buttons/HostButton" to="." method="_on_host_button_pressed"]
