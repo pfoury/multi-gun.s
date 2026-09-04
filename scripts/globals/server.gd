@@ -23,6 +23,9 @@ func add_player(data) -> void:
 	# Adding to dictionaries
 	main.player_list[peer_id] = data["username"] # Player's nickname
 	main.player_color_list[peer_id] = data["color"] # Player's color
+	main.player_accessories_face[peer_id] = data["face"] # Player's face accessory
+	main.player_accessories_hat[peer_id] = data["hat"] # Player's hat accessory
+	main.player_quotes[peer_id] = data["quote"] # Player's quote
 	main.scoreboard[peer_id] = 0 # Player's initial score
 	
 	var player = Client.player_scene.instantiate()
@@ -44,6 +47,9 @@ func add_player(data) -> void:
 			"scoreboard": main.scoreboard,
 			"amount_of_weapons": main.amount_of_weapons,
 			"player_color_list": main.player_color_list,
+			"player_accessories_face": main.player_accessories_face,
+			"player_accessories_hat": main.player_accessories_hat,
+			"player_quotes": main.player_quotes,
 			"peer_id": peer_id,
 			"gm": main.gm,
 			"is_ended": main.is_ended
@@ -286,6 +292,9 @@ func restart_game() -> void:
 		"scoreboard": main.scoreboard,
 		"amount_of_weapons": main.amount_of_weapons,
 		"player_color_list": main.player_color_list,
+		"player_accessories_face": main.player_accessories_face,
+		"player_accessories_hat": main.player_accessories_hat,
+		"player_quotes": main.player_quotes,
 		"gm": main.gm,
 		"is_ended": main.is_ended
 	}

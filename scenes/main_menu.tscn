@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://6mx48iai3vwb" path="res://common/textures/temp texture.png" id="4_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://cnyw5fj5sbc36" path="res://common/models/accessories/TopHat.blend" id="5_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://bs4gor42c7sfy" path="res://scenes/HUD/menu.tscn" id="5_oa1go"]
-[ext_resource type="PackedScene" uid="uid://2w72y0bwvpgs" path="res://common/models/accessories/turtle.tscn" id="7_flqon"]
+[ext_resource type="PackedScene" uid="uid://2w72y0bwvpgs" path="res://scenes/accessories/turtle.tscn" id="7_flqon"]
 [ext_resource type="PackedScene" uid="uid://bxuysxxamqoc2" path="res://common/models/accessories/Eyes.blend" id="7_lgwnu"]
 [ext_resource type="PackedScene" uid="uid://cwibn2kmhacwl" path="res://scenes/HUD/customization.tscn" id="7_oa1go"]
 [ext_resource type="PackedScene" uid="uid://ceysq34q20dnq" path="res://common/models/accessories/Mustache.blend" id="8_rcqid"]

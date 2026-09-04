@@ -7,6 +7,7 @@ extends Node
 @export var player_color_list : Dictionary = {}
 @export var player_accessories_hat : Dictionary = {}
 @export var player_accessories_face : Dictionary = {}
+@export var player_quotes : Dictionary = {}
 @export var scoreboard : Dictionary = {}
 @export var gm : String = "Standard"
 @export var is_ended : bool = false
@@ -49,15 +50,8 @@ func _ready() -> void:
 	
 	Global.is_in_game = true
 	
-	var args : Dictionary = {
-		"username": Global.arguments["username"],
-		"color": Global.arguments["color"]
-	}
-	
-	if Global.arguments.has("ip"):
-		args["ip"] = Global.arguments["ip"]
-	else:
-		args["ip"] = "localhost"
+	var args : Dictionary = Global.arguments
+	print(args)
 	
 	if Global.arguments.has("peer"):
 		match Global.arguments["peer"]:
@@ -158,6 +152,9 @@ func remove_player(peer_id) -> void:
 	player_list.erase(peer_id)
 	scoreboard.erase(peer_id)
 	player_color_list.erase(peer_id)
+	player_accessories_face.erase(peer_id)
+	player_accessories_hat.erase(peer_id)
+	player_quotes.erase(peer_id)
 	
 	var player = players_folder.get_node_or_null(str(peer_id))
 	if player:

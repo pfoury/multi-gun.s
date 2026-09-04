@@ -58,6 +58,15 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath(".:is_ended")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath(".:player_accessories_hat")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:player_accessories_face")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath(".:player_quotes")
+properties/9/spawn = true
+properties/9/replication_mode = 1
 
 [node name="MainGame" type="Node" unique_id=742275538]
 script = ExtResource("1_ygxny")

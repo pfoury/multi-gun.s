@@ -147,6 +147,9 @@ func load_client(data) -> void:
 	main.scoreboard = data["scoreboard"]
 	main.amount_of_weapons = data["amount_of_weapons"]
 	main.player_color_list = data["player_color_list"]
+	main.player_accessories_face = data["player_accessories_face"]
+	main.player_accessories_hat = data["player_accessories_hat"]
+	main.player_quotes = data["player_quotes"]
 	main.gm = data["gm"]
 	
 	var gm_label = main.gamemode_container.get_node_or_null("GMLabel")

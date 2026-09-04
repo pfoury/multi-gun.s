@@ -35,9 +35,12 @@ const GROUND_FRICTION := 100.0
 @onready var player_pivot := $Pivot
 @onready var player_collision := $CollisionShape3D
 @onready var player_capsule_mesh : MeshInstance3D = $Pivot/CapsuleMesh
+@onready var player_accessory_pivot: Node3D = $AccessoryPivot
 # Folders
 @onready var guns_folder : Node = $Guns
 @onready var sounds_folder : Node = $Sounds
+@onready var hats_folder: Node3D = $AccessoryPivot/Hats
+@onready var faces_folder: Node3D = $AccessoryPivot/Faces
 
 var player_speed : float = SPEED
 var is_crouching : bool
@@ -79,6 +82,11 @@ func _ready() -> void:
 	
 	if is_invincible:
 		create_respawn_shield()
+	
+	while main_scene.player_accessories_hat == {}:
+		await get_tree().process_frame
+	
+	add_accessories()
 	
 	#test_object = test_object_scene.instantiate()
 	#main_scene.add_child(test_object)
@@ -251,14 +259,36 @@ func play_kill_sound() -> void:
 
 
 #region About updating player
+func add_accessories() -> void:
+	var hat_idx = main_scene.player_accessories_hat[int(name)] - 1
+	var face_idx = main_scene.player_accessories_face[int(name)] - 1
+	
+	var hat = null
+	var face = null
+	if hat_idx != -1:
+		hat = load(Global.HAT_ACCESSORIES[hat_idx]).instantiate()
+		
+		hats_folder.add_child(hat)
+	if face_idx != -1:
+		face = load(Global.FACE_ACCESSORIES[face_idx]).instantiate()
+		
+		faces_folder.add_child(face)
+	
+	if !(!multiplayer.connected_to_server or not is_multiplayer_authority()):
+		hat.hide()
+		face.hide()
+
+
 func update_player_height(delta) -> void:
-	# Maybe make like in source games: in the air, "move player up", otherwise "move player down".
 	if is_crouching:
 		player_pivot.scale.y = lerp(player_pivot.scale.y, 0.5, delta * 20)
+		player_accessory_pivot.position.y = lerp(player_accessory_pivot.position.y, 0.525, delta * 20)
 		player_collision.shape.height = lerp(player_collision.shape.height, 1.0, delta * 20)
 	else:
 		player_pivot.scale.y = lerp(player_pivot.scale.y, 1.0, delta * 20)
+		player_accessory_pivot.position.y = lerp(player_accessory_pivot.position.y, 1.0, delta * 20)
 		player_collision.shape.height = lerp(player_collision.shape.height, 2.0, delta * 20)
+	
 	update_player_camera(delta)
 	player_speed = SPEED * player_pivot.scale.y * weapon_speed_multiplier \
 	* (0.5 ** (is_scoping + 1)) / 0.5

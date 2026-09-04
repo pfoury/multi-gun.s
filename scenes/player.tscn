@@ -72,6 +72,9 @@ properties/16/replication_mode = 1
 properties/17/path = NodePath(".:steps")
 properties/17/spawn = true
 properties/17/replication_mode = 1
+properties/18/path = NodePath("AccessoryPivot:position")
+properties/18/spawn = true
+properties/18/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=698292562 groups=["enemy", "player"]]
 collision_layer = 2
@@ -93,6 +96,21 @@ mesh = SubResource("CapsuleMesh_hyap7")
 [node name="FPCamera" type="Camera3D" parent="CameraPivot" unique_id=517064210]
 cull_mask = 524287
 script = ExtResource("2_g2els")
+
+[node name="AccessoryPivot" type="Node3D" parent="." unique_id=1806352148]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1, 0)
+
+[node name="Hats" type="Node3D" parent="AccessoryPivot" unique_id=2068416013]
+
+[node name="Faces" type="Node3D" parent="AccessoryPivot" unique_id=993949876]
+
+[node name="HatSpawner" type="MultiplayerSpawner" parent="AccessoryPivot" unique_id=77660672]
+_spawnable_scenes = PackedStringArray("uid://dfyj4ox3ekvcf", "res://common/models/accessories/turtle.tscn")
+spawn_path = NodePath("../Hats")
+
+[node name="FaceSpawner" type="MultiplayerSpawner" parent="AccessoryPivot" unique_id=456851150]
+_spawnable_scenes = PackedStringArray("uid://bxuysxxamqoc2", "uid://ceysq34q20dnq", "uid://87k6x7ir720f")
+spawn_path = NodePath("../Faces")
 
 [node name="LookAtKillerPivot" type="Node3D" parent="." unique_id=1298529011]
 
