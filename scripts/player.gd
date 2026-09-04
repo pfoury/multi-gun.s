@@ -494,6 +494,9 @@ func respawn(new_position) -> void:
 	
 	create_respawn_shield()
 	
+	# Setting new position
+	global_position = new_position
+	
 	if gun_node != null: gun_node.reset_ammo()
 	
 	# Creating spawn sound
@@ -510,9 +513,6 @@ func respawn(new_position) -> void:
 	
 	if main_scene.gm == "Randomizer" and !main_scene.is_ended:
 		Client.replace_gun()
-	
-	# Setting new position
-	global_position = new_position
 	
 	white_screen_texture.self_modulate.a = 1.0
 	
