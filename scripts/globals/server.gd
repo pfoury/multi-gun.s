@@ -39,6 +39,7 @@ func add_player(data) -> void:
 	print("меня звать ", peer_id, " и я был создан!")
 	
 	if peer_id == 1:
+		main.amount_of_weapons = Global.arguments["scoregoal"]
 		Client.create_weapon(1)
 	else:
 		var result : Dictionary = {

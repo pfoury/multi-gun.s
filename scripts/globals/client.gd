@@ -223,6 +223,9 @@ func end_game(winner_peer_id) -> void:
 	var winner_username = end_screen_pc.get_node("HBC").get_node("VBC").get_node("VBC").get_node("PlayerUsername")
 	winner_username.text = main.player_list[winner_peer_id]
 	
+	var winner_quote = end_screen_pc.get_node("HBC").get_node("VBC").get_node("Quote")
+	winner_quote.text = main.player_quotes[winner_peer_id]
+	
 	# Sound
 	var sound_scene = load("res://scenes/sounds/interface_sound.tscn").instantiate()
 	sound_scene.bus = "EndScreen"

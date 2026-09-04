@@ -63,7 +63,6 @@ func _ready() -> void:
 				multiplayer.server_disconnected.connect(to_menu)
 				
 				Server.change_gamemode(Global.arguments["gm"])
-				amount_of_weapons = Global.arguments["scoregoal"]
 				Server.create_global_timer()
 				
 				var new_map : Node3D

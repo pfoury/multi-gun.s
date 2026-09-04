@@ -291,7 +291,7 @@ func update_player_height(delta) -> void:
 	
 	update_player_camera(delta)
 	player_speed = SPEED * player_pivot.scale.y * weapon_speed_multiplier \
-	* (0.5 ** (is_scoping + 1)) / 0.5
+		* (0.5 ** (is_scoping + 1)) / 0.5
 
 
 func update_player_camera(delta) -> void:

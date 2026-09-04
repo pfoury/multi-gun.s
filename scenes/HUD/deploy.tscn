@@ -55,7 +55,6 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_right = 40
 
 [node name="JoinContainer" type="VBoxContainer" parent="MarginContainer/VBC/MarginContainer" unique_id=790463887]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -75,6 +74,7 @@ theme_override_font_sizes/font_size = 32
 text = "JOIN"
 
 [node name="HostContainer" type="VBoxContainer" parent="MarginContainer/VBC/MarginContainer" unique_id=1753103156]
+visible = false
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 12
@@ -150,6 +150,12 @@ size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_bdlgl")
 text = "32"
 placeholder_text = "32"
+
+[node name="DontForget" type="Label" parent="MarginContainer/VBC/MarginContainer/HostContainer/ScoreGoal" unique_id=1122687450]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bdlgl")
+theme_override_font_sizes/font_size = 16
+text = "Don't Forget To Press \"Enter\" :3"
 
 [node name="HostButton" type="Button" parent="MarginContainer/VBC/MarginContainer/HostContainer" unique_id=1818475434]
 layout_mode = 2

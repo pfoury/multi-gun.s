@@ -102,6 +102,9 @@ var gun_sfx_idx = AudioServer.get_bus_index("GunSFX")
 var kill_effects_idx = AudioServer.get_bus_index("KillEffectsSound")
 var death_idx = AudioServer.get_bus_index("DeathSound")
 
+func _ready() -> void:
+	_load_settings()
+
 
 func _load_settings() -> void:
 	setting_up()
