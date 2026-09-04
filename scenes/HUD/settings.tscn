@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bb3ssvhimttvs"]
 
 [ext_resource type="Script" uid="uid://dxhgau76wl3lq" path="res://scripts/settings.gd" id="1_uk2q4"]
+[ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="2_whulk"]
+[ext_resource type="FontFile" uid="uid://du4a53t10ij4d" path="res://common/fonts/Oswald/Oswald-Bold.ttf" id="3_1x1ef"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_eg0p3"]
 font_size = 20
@@ -32,7 +34,8 @@ theme_override_constants/separation = 16
 
 [node name="SettingsLabel" type="RichTextLabel" parent="PC/VBC" unique_id=416325670]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 48
+theme_override_fonts/normal_font = ExtResource("2_whulk")
+theme_override_font_sizes/normal_font_size = 54
 bbcode_enabled = true
 text = "[wave amp=30 freq=5 speed=3 ease=-2.0]Settings[/wave]"
 fit_content = true
@@ -46,27 +49,27 @@ size_flags_vertical = 4
 
 [node name="CameraButton" type="Button" parent="PC/VBC/ButtonsContainer" unique_id=118708419]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Camera"
-flat = true
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 32
+text = "CAMERA"
 
 [node name="DisplayButton" type="Button" parent="PC/VBC/ButtonsContainer" unique_id=1915159165]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Display"
-flat = true
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 32
+text = "DISPLAY"
 
 [node name="VideoButton" type="Button" parent="PC/VBC/ButtonsContainer" unique_id=1244608337]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Video"
-flat = true
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 32
+text = "VIDEO"
 
 [node name="AudioButton" type="Button" parent="PC/VBC/ButtonsContainer" unique_id=1562962223]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Audio"
-flat = true
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 32
+text = "AUDIO"
 
 [node name="CameraOptions" type="VBoxContainer" parent="PC/VBC" unique_id=1313778997]
 visible = false
@@ -78,6 +81,8 @@ theme_override_constants/separation = 20
 
 [node name="SensitivityLabel" type="Label" parent="PC/VBC/CameraOptions/Sensitivity" unique_id=1301886412]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Sensitivity:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -100,6 +105,8 @@ theme_override_constants/separation = 20
 
 [node name="FOVLabel" type="Label" parent="PC/VBC/CameraOptions/FOV" unique_id=526998129]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "FOV:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -109,6 +116,7 @@ text = "80"
 placeholder_text = "67"
 
 [node name="DisplayOptions" type="VBoxContainer" parent="PC/VBC" unique_id=65180713]
+visible = false
 layout_mode = 2
 
 [node name="Resolution" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=1409062558]
@@ -117,6 +125,8 @@ theme_override_constants/separation = 20
 
 [node name="ResolutionLabel" type="Label" parent="PC/VBC/DisplayOptions/Resolution" unique_id=1364618359]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Resolution:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -155,6 +165,8 @@ layout_mode = 2
 
 [node name="FPSLabel" type="Label" parent="PC/VBC/DisplayOptions/FPS" unique_id=1711424263]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "FPS:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -166,6 +178,8 @@ placeholder_text = "0"
 [node name="InfoLabel" type="Label" parent="PC/VBC/DisplayOptions/FPS" unique_id=2057631538]
 self_modulate = Color(1, 1, 1, 0.28627452)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 12
 text = "- Set 0 FPS for unlimited FPS"
 
 [node name="VSync" type="HBoxContainer" parent="PC/VBC/DisplayOptions" unique_id=77370381]
@@ -173,6 +187,8 @@ layout_mode = 2
 
 [node name="VSyncLabel" type="Label" parent="PC/VBC/DisplayOptions/VSync" unique_id=1587585861]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "VSync:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -185,6 +201,8 @@ theme_override_constants/separation = 20
 
 [node name="WindowTypeLabel" type="Label" parent="PC/VBC/DisplayOptions/WindowType" unique_id=432104834]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Window Type:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -205,6 +223,8 @@ layout_mode = 2
 
 [node name="BorderlessLabel" type="Label" parent="PC/VBC/DisplayOptions/Borderless" unique_id=1777293710]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Borderless:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -216,6 +236,8 @@ layout_mode = 2
 
 [node name="BorderlessLabel" type="Label" parent="PC/VBC/DisplayOptions/BarbieMode" unique_id=1059342759]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Barbie Mode:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -231,6 +253,8 @@ layout_mode = 2
 
 [node name="BrightnessLabel" type="Label" parent="PC/VBC/VideoOptions/Brightness" unique_id=1964882068]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Brightness:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -252,6 +276,8 @@ layout_mode = 2
 
 [node name="BrightnessLabel" type="Label" parent="PC/VBC/VideoOptions/SkyBrightness" unique_id=85579028]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Sky Brightness:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -273,6 +299,8 @@ layout_mode = 2
 
 [node name="GlowLabel" type="Label" parent="PC/VBC/VideoOptions/Glow" unique_id=731582880]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Glow:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -299,6 +327,8 @@ layout_mode = 2
 
 [node name="OcclusionCullingLabel" type="Label" parent="PC/VBC/VideoOptions/OcclusionCulling" unique_id=1092707617]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Occlusion Culling:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -310,6 +340,8 @@ layout_mode = 2
 
 [node name="AnisotropicLabel" type="Label" parent="PC/VBC/VideoOptions/Anisotropic" unique_id=880170097]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Anisotropic:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -334,6 +366,8 @@ layout_mode = 2
 
 [node name="SoftShadowLabel" type="Label" parent="PC/VBC/VideoOptions/SoftShadow" unique_id=353882863]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Soft Shadow:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -360,6 +394,8 @@ layout_mode = 2
 
 [node name="SSAOLabel" type="Label" parent="PC/VBC/VideoOptions/SSAO" unique_id=266638453]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "SSAO:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -386,6 +422,8 @@ layout_mode = 2
 
 [node name="SSILLabel" type="Label" parent="PC/VBC/VideoOptions/SSIL" unique_id=1928100411]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "SSIL:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -412,6 +450,8 @@ layout_mode = 2
 
 [node name="MSAALabel" type="Label" parent="PC/VBC/VideoOptions/MSAA" unique_id=1650534824]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "MSAA:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -433,6 +473,8 @@ layout_mode = 2
 
 [node name="TAALabel" type="Label" parent="PC/VBC/VideoOptions/TAA" unique_id=160233647]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "TAA:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -444,6 +486,8 @@ layout_mode = 2
 
 [node name="SSRLabel" type="Label" parent="PC/VBC/VideoOptions/SSR" unique_id=127369755]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "SSR:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
@@ -453,91 +497,100 @@ layout_mode = 2
 [node name="Label" type="Label" parent="PC/VBC/VideoOptions" unique_id=293450552]
 modulate = Color(0.446777, 0.44677705, 0.44677705, 1)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 12
 text = "
  * Some of these options may freeze your game. Idk how to fix that lmao"
 label_settings = SubResource("LabelSettings_eg0p3")
-autowrap_mode = 1
+autowrap_mode = 2
 
-[node name="AudioOptions" type="VBoxContainer" parent="PC/VBC" unique_id=1632253977]
-visible = false
+[node name="AudioOptions" type="HBoxContainer" parent="PC/VBC" unique_id=869155957]
 layout_mode = 2
 
-[node name="MasterVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1521605268]
+[node name="Labels" type="VBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1798227175]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="MasterLabel" type="Label" parent="PC/VBC/AudioOptions/MasterVolume" unique_id=1821367457]
+[node name="MasterLabel" type="Label" parent="PC/VBC/AudioOptions/Labels" unique_id=1821367457]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Master Volume:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
-[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/MasterVolume" unique_id=169772954]
+[node name="RespawnLabel" type="Label" parent="PC/VBC/AudioOptions/Labels" unique_id=380216246]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-max_value = 1.0
-step = 0.001
-value = 1.0
-
-[node name="RespawnVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1809078989]
-layout_mode = 2
-
-[node name="RespawnLabel" type="Label" parent="PC/VBC/AudioOptions/RespawnVolume" unique_id=380216246]
-layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Respawn Volume:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
-[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/RespawnVolume" unique_id=1340336024]
+[node name="GunsLabel" type="Label" parent="PC/VBC/AudioOptions/Labels" unique_id=2068949959]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-max_value = 1.0
-step = 0.001
-value = 1.0
-
-[node name="GunsVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1051445205]
-layout_mode = 2
-
-[node name="GunsLabel" type="Label" parent="PC/VBC/AudioOptions/GunsVolume" unique_id=2068949959]
-layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Guns' Volume:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
-[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/GunsVolume" unique_id=1249189270]
+[node name="KillEffectLabel" type="Label" parent="PC/VBC/AudioOptions/Labels" unique_id=1401811912]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-max_value = 1.0
-step = 0.001
-value = 1.0
-
-[node name="KillEffectVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1438341480]
-layout_mode = 2
-
-[node name="KillEffectLabel" type="Label" parent="PC/VBC/AudioOptions/KillEffectVolume" unique_id=1401811912]
-layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
 text = "Kill Effects Volume:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
-[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/KillEffectVolume" unique_id=1621508466]
+[node name="DeathLabel" type="Label" parent="PC/VBC/AudioOptions/Labels" unique_id=120800890]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
+text = "Death Volume:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="Sliders" type="VBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1513444455]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
+
+[node name="Master" type="HSlider" parent="PC/VBC/AudioOptions/Sliders" unique_id=169772954]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 max_value = 1.0
 step = 0.001
 value = 1.0
 
-[node name="DeathVolume" type="HBoxContainer" parent="PC/VBC/AudioOptions" unique_id=468473182]
-layout_mode = 2
-
-[node name="MasterLabel" type="Label" parent="PC/VBC/AudioOptions/DeathVolume" unique_id=120800890]
-layout_mode = 2
-text = "Death Volume:"
-label_settings = SubResource("LabelSettings_eg0p3")
-
-[node name="HSlider" type="HSlider" parent="PC/VBC/AudioOptions/DeathVolume" unique_id=1563082339]
+[node name="Respawn" type="HSlider" parent="PC/VBC/AudioOptions/Sliders" unique_id=1340336024]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="Guns" type="HSlider" parent="PC/VBC/AudioOptions/Sliders" unique_id=1249189270]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="KillEffect" type="HSlider" parent="PC/VBC/AudioOptions/Sliders" unique_id=1621508466]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="Death" type="HSlider" parent="PC/VBC/AudioOptions/Sliders" unique_id=1563082339]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 max_value = 1.0
 step = 0.001
 value = 1.0
@@ -572,8 +625,8 @@ value = 1.0
 [connection signal="item_selected" from="PC/VBC/VideoOptions/MSAA/OptionButton" to="." method="_msaa_selected"]
 [connection signal="toggled" from="PC/VBC/VideoOptions/TAA/CheckBox" to="." method="_taa_toggled"]
 [connection signal="toggled" from="PC/VBC/VideoOptions/SSR/CheckBox" to="." method="_ssr_toggled"]
-[connection signal="value_changed" from="PC/VBC/AudioOptions/MasterVolume/HSlider" to="." method="_master_changed"]
-[connection signal="value_changed" from="PC/VBC/AudioOptions/RespawnVolume/HSlider" to="." method="_respawn_changed"]
-[connection signal="value_changed" from="PC/VBC/AudioOptions/GunsVolume/HSlider" to="." method="_guns_changed"]
-[connection signal="value_changed" from="PC/VBC/AudioOptions/KillEffectVolume/HSlider" to="." method="_kill_effect_changed"]
-[connection signal="value_changed" from="PC/VBC/AudioOptions/DeathVolume/HSlider" to="." method="_death_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/Master" to="." method="_master_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/Respawn" to="." method="_respawn_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/Guns" to="." method="_guns_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/KillEffect" to="." method="_kill_effect_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/Death" to="." method="_death_changed"]

@@ -13,7 +13,7 @@ extends PanelContainer
 @onready var camera_options: VBoxContainer = $PC/VBC/CameraOptions
 @onready var display_options: VBoxContainer = $PC/VBC/DisplayOptions
 @onready var video_options: VBoxContainer = $PC/VBC/VideoOptions
-@onready var audio_options: VBoxContainer = $PC/VBC/AudioOptions
+@onready var audio_options: HBoxContainer = $PC/VBC/AudioOptions
 
 # Sensitivity
 @onready var sens_h_slider: HSlider = $PC/VBC/CameraOptions/Sensitivity/HSlider
@@ -41,19 +41,19 @@ extends PanelContainer
 @onready var barbie_check_box: CheckBox = $PC/VBC/DisplayOptions/BarbieMode/CheckBox
 
 # Master
-@onready var master_h_slider: HSlider = $PC/VBC/AudioOptions/MasterVolume/HSlider
+@onready var master: HSlider = $PC/VBC/AudioOptions/Sliders/Master
 
 # Respawn
-@onready var respawn_h_slider: HSlider = $PC/VBC/AudioOptions/RespawnVolume/HSlider
+@onready var respawn: HSlider = $PC/VBC/AudioOptions/Sliders/Respawn
 
 # Guns
-@onready var guns_h_slider: HSlider = $PC/VBC/AudioOptions/GunsVolume/HSlider
+@onready var guns: HSlider = $PC/VBC/AudioOptions/Sliders/Guns
 
 # Kill effect
-@onready var kill_effect_h_slider: HSlider = $PC/VBC/AudioOptions/KillEffectVolume/HSlider
+@onready var kill_effect: HSlider = $PC/VBC/AudioOptions/Sliders/KillEffect
 
 # Death
-@onready var death_h_slider: HSlider = $PC/VBC/AudioOptions/DeathVolume/HSlider
+@onready var death: HSlider = $PC/VBC/AudioOptions/Sliders/Death
 
 # Brightness
 @onready var b_h_slider: HSlider = $PC/VBC/VideoOptions/Brightness/HSlider
@@ -101,9 +101,6 @@ var respawn_sounds_idx = AudioServer.get_bus_index("RespawnSounds")
 var gun_sfx_idx = AudioServer.get_bus_index("GunSFX")
 var kill_effects_idx = AudioServer.get_bus_index("KillEffectsSound")
 var death_idx = AudioServer.get_bus_index("DeathSound")
-
-func _ready() -> void:
-	_load_settings()
 
 
 func _load_settings() -> void:
@@ -167,19 +164,19 @@ func load_settings() -> void:
 	
 	# Audio
 	_master_changed(audio_settings.master)
-	master_h_slider.value = audio_settings.master
+	master.value = audio_settings.master
 	
 	_respawn_changed(audio_settings.respawn)
-	respawn_h_slider.value = audio_settings.respawn
+	respawn.value = audio_settings.respawn
 	
 	_guns_changed(audio_settings.guns)
-	guns_h_slider.value = audio_settings.guns
+	guns.value = audio_settings.guns
 	
 	_kill_effect_changed(audio_settings.kill_effects)
-	kill_effect_h_slider.value = audio_settings.kill_effects
+	kill_effect.value = audio_settings.kill_effects
 	
 	_death_changed(audio_settings.death)
-	death_h_slider.value = audio_settings.death
+	death.value = audio_settings.death
 	
 	# Video
 	_brightness_changed(video_settings.brightness)
@@ -206,20 +203,20 @@ func load_settings() -> void:
 	_soft_shadow_selected(video_settings.soft_shadow)
 	ss_option_button.select(video_settings.soft_shadow)
 	
-	_ssao_toggled(video_settings.ssao)
-	ssao_check_box.button_pressed = video_settings.ssao
-	
 	_ssao_selected(video_settings.ssao_option)
 	ssao_option_button.select(video_settings.ssao_option)
 	
-	_ssil_toggled(video_settings.ssil)
-	ssil_check_box.button_pressed = video_settings.ssil
+	_ssao_toggled(video_settings.ssao)
+	ssao_check_box.button_pressed = video_settings.ssao
 	
 	_ssil_selected(video_settings.ssil_option)
 	ssil_option_button.select(video_settings.ssil_option)
 	
-	_msaa_selected(video_settings.msaa)
+	_ssil_toggled(video_settings.ssil)
+	ssil_check_box.button_pressed = video_settings.ssil
+	
 	msaa_option_button.select(video_settings.msaa)
+	_msaa_selected(video_settings.msaa)
 	
 	_taa_toggled(video_settings.taa)
 	taa_check_box.button_pressed = video_settings.taa
@@ -372,7 +369,15 @@ func _borderless_toggled(toggled_on: bool) -> void:
 
 # Barbie Mode
 func _barbie_mode_toggled(toggled_on: bool) -> void:
-	pass # Replace with function body.
+	var main = get_tree().current_scene
+	
+	if main.get_node_or_null("HUD") != null:
+		if toggled_on:
+			main.barbie_texture.show()
+		else:
+			main.barbie_texture.hide()
+			
+	ConfigFileHandler.save_display_setting("barbie_mode", toggled_on)
 #endregion
 
 
@@ -610,7 +615,7 @@ func _msaa_selected(index: int) -> void:
 	else:
 		get_viewport().msaa_3d = Viewport.MSAA_8X
 	
-	ConfigFileHandler.save_video_setting("mssa", index)
+	ConfigFileHandler.save_video_setting("msaa", index)
 
 
 # TAA (like that emoji from twitch xdd)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bdfegsh256irq"]
 
 [ext_resource type="Script" uid="uid://diek5vbp3i1xy" path="res://scripts/mainGame.gd" id="1_ygxny"]
+[ext_resource type="Texture2D" uid="uid://duwrm8w3i8mvb" path="res://common/textures/BarbieModeTexture.png" id="2_2l77h"]
 [ext_resource type="Texture2D" uid="uid://c50pgbqpe5muc" path="res://common/textures/LowHPShadow.png" id="3_70vka"]
 [ext_resource type="Texture2D" uid="uid://dq4n4nx6pr252" path="res://common/textures/ScopeShadow.png" id="4_2l77h"]
 [ext_resource type="Texture2D" uid="uid://nlpkeeytdoi0" path="res://common/textures/TEMP_crosshair_texture.png" id="5_nqdth"]
@@ -101,6 +102,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BarbieTexture" type="TextureRect" parent="HUD/PlayerHUD" unique_id=707511883]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_2l77h")
+metadata/_edit_lock_ = true
 
 [node name="WhiteScreen" type="ColorRect" parent="HUD/PlayerHUD" unique_id=149004946]
 self_modulate = Color(0.827451, 0.827451, 0.827451, 0)

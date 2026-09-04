@@ -28,6 +28,7 @@ extends Node
 @onready var gamemode_container: PanelContainer = $HUD/PlayerHUD/TopHUD/GamemodeContainer
 @onready var end_screen: Control = $HUD/PlayerHUD/EndScreen
 @onready var leaderboard: Control = $HUD/PlayerHUD/Leaderboard
+@onready var barbie_texture: TextureRect = $HUD/PlayerHUD/BarbieTexture
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
@@ -38,6 +39,7 @@ var kill_log_scene : PackedScene = preload("res://scenes/HUD/kill_log.tscn")
 var player_icon_scene : PackedScene = preload("res://scenes/HUD/player_icon.tscn")
 var player_lb_scene : PackedScene = preload("res://scenes/HUD/player_lb.tscn")
 var lb_player_list : VBoxContainer
+var settings : PanelContainer
 
 
 func _ready() -> void:
@@ -51,7 +53,6 @@ func _ready() -> void:
 	Global.is_in_game = true
 	
 	var args : Dictionary = Global.arguments
-	print(args)
 	
 	if Global.arguments.has("peer"):
 		match Global.arguments["peer"]:
@@ -96,13 +97,15 @@ func _ready() -> void:
 						return
 				
 				Server.rpc_id(1, "receive_new_player", args)
-		#Global.arguments.clear()
 		
 		var gm_label = gamemode_container.get_node_or_null("GMLabel")
 		
 		if gm_label != null: gm_label.text = gm
 	else:
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	
+	settings = escape_menu.get_node("Settings")
+	settings._load_settings()
 
 
 func _process(_delta: float) -> void:
