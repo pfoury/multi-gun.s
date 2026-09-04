@@ -14,7 +14,7 @@ func generate_new_weapon_stats(peer_id) -> void:
 	var weapon_stats = await gun.get_stats()
 	
 	var list_of_stats = [
-		"damage", "fire_speed", "fire_type", "reload_speed", "player_speed_multiplier", "push_corpse_force", "recoil_strength", "max_ammo"
+		"damage", "fire_type", "reload_speed", "player_speed_multiplier", "push_corpse_force", "recoil_strength", "max_ammo"
 	]
 	
 	# Generating new stats
@@ -27,14 +27,21 @@ func generate_new_weapon_stats(peer_id) -> void:
 		
 		var randomness = randf_range(rand_min, rand_max)
 		
+		if stat_string == "damage":
+			weapon_stats["fire_speed"] = roundf(weapon_stats["fire_speed"] / randomness * 100) / 100
+		
 		if stat is float:
 			stat = roundf(stat * randomness * 100) / 100
 		elif stat is int:
 			stat = round(stat * randomness)
 		elif stat is Array:
 			stat = stat.pick_random()
-		elif stat == "burst":
-			weapon_stats["damage"] /= 3.0
+		
+		if stat_string == "fire_type":
+			if stat == "burst":
+				weapon_stats["damage"] /= 3.0
+			elif stat == "auto":
+				weapon_stats["damage"] /= 1.5
 		
 		weapon_stats[stat_string] = stat
 	
