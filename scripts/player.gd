@@ -19,7 +19,7 @@ const GROUND_FRICTION := 100.0
 @export var player_color : Color = Color.DEEP_PINK
 @export var player_health : float
 @export var is_regen_timer_ready : bool = true
-@export var is_player_dead : bool = false
+@export var is_player_dead : bool = true
 @export var color_difference : float = 1.0
 @export var is_invincible : bool = false
 @export var steps : float = 0.0
@@ -165,7 +165,6 @@ func _process(delta: float) -> void:
 			look_at_killer(delta)
 		elif dead_timer.time_left == 0:
 			request_to_respawn()
-			is_player_dead = false
 		else:
 			look_at_killer_closely()
 		return
@@ -483,6 +482,8 @@ func remove_respawn_shield() -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func respawn(new_position) -> void:
+	if !is_player_dead: return
+	
 	# Setting up for player's color
 	player_health = MAX_HEALTH
 	
@@ -494,8 +495,7 @@ func respawn(new_position) -> void:
 	
 	create_respawn_shield()
 	
-	# Setting new position
-	global_position = new_position
+	is_player_dead = false
 	
 	if gun_node != null: gun_node.reset_ammo()
 	
@@ -510,6 +510,9 @@ func respawn(new_position) -> void:
 	if not is_multiplayer_authority(): return
 	
 	# --==--
+	
+	# Setting new position
+	global_position = new_position
 	
 	if main_scene.gm == "Randomizer" and !main_scene.is_ended:
 		Client.replace_gun()

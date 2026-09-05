@@ -218,6 +218,11 @@ func kill(data) -> void:
 	
 	Client.rpc("create_kill_log", int(killer_id), int(victim_id))
 	
+	if killer_id == 1:
+		Client.create_eliminated_label(int(victim_id))
+	else:
+		Client.rpc_id(int(killer_id), "create_eliminated_label", int(victim_id))
+	
 	dead_players.append(victim_id)
 	
 	data["corpse_name"] = corpse.name

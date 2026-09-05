@@ -182,6 +182,19 @@ func create_kill_log(killer_id, victim_id) -> void:
 
 
 @rpc("call_local", "any_peer", "reliable")
+func create_eliminated_label(victim_id) -> void:
+	var container : VBoxContainer = main.eliminated_container.get_node_or_null("VBC")
+	
+	if container == null: return
+	
+	var new_eliminated_label : HBoxContainer = main.eliminated_scene.instantiate()
+	
+	new_eliminated_label.victim_username = main.player_list[victim_id]
+	
+	container.add_child(new_eliminated_label)
+
+
+@rpc("call_local", "any_peer", "reliable")
 func add_point(data) -> void:
 	main.scoreboard[data] += 1
 	

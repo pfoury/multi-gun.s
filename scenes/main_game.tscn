@@ -203,6 +203,24 @@ offset_bottom = 191.0
 grow_horizontal = 0
 alignment = 2
 
+[node name="EliminatedContainer" type="MarginContainer" parent="HUD/PlayerHUD" unique_id=2122166182]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 650
+theme_override_constants/margin_top = 800
+theme_override_constants/margin_right = 650
+theme_override_constants/margin_bottom = 0
+
+[node name="VBC" type="VBoxContainer" parent="HUD/PlayerHUD/EliminatedContainer" unique_id=1290027158]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
+
 [node name="TopHUD" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=174400602]
 layout_mode = 1
 anchors_preset = 5

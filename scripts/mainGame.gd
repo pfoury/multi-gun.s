@@ -29,6 +29,7 @@ extends Node
 @onready var end_screen: Control = $HUD/PlayerHUD/EndScreen
 @onready var leaderboard: Control = $HUD/PlayerHUD/Leaderboard
 @onready var barbie_texture: TextureRect = $HUD/PlayerHUD/BarbieTexture
+@onready var eliminated_container: MarginContainer = $HUD/PlayerHUD/EliminatedContainer
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
@@ -38,6 +39,7 @@ var testobject_scene : PackedScene = preload("res://scenes/temp/temp_enemy.tscn"
 var kill_log_scene : PackedScene = preload("res://scenes/HUD/kill_log.tscn")
 var player_icon_scene : PackedScene = preload("res://scenes/HUD/player_icon.tscn")
 var player_lb_scene : PackedScene = preload("res://scenes/HUD/player_lb.tscn")
+var eliminated_scene : PackedScene = preload("res://scenes/HUD/eliminated_vc.tscn")
 var lb_player_list : VBoxContainer
 var settings : PanelContainer
 

@@ -364,9 +364,6 @@ _data = {
 &"intro": SubResource("Animation_8ln24")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
-font_size = 48
-
 [node name="MainMenu" type="Node" unique_id=2144626417]
 script = ExtResource("1_l6cm7")
 
@@ -588,154 +585,6 @@ playback_auto_capture = false
 [node name="MenuPlayer" type="AnimationPlayer" parent="." unique_id=507960813]
 libraries/ = SubResource("AnimationLibrary_rtw2f")
 
-[node name="MainMenuOLD" type="Control" parent="." unique_id=1377419891]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MainTab" type="PanelContainer" parent="MainMenuOLD" unique_id=1907257788]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -219.0
-offset_top = -119.0
-offset_right = 219.0
-offset_bottom = 119.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuOLD/MainTab" unique_id=285778468]
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_scale = Vector2(0.87, 0.87)
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Label" type="Label" parent="MainMenuOLD/MainTab/VBoxContainer" unique_id=466943559]
-layout_mode = 2
-text = "multi gun.s"
-label_settings = SubResource("LabelSettings_ekxnf")
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMenuOLD/MainTab/VBoxContainer" unique_id=765722605]
-layout_mode = 2
-alignment = 1
-
-[node name="Host" type="Button" parent="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer" unique_id=1877749027]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Host"
-
-[node name="HostDebug" type="Button" parent="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer" unique_id=217266598]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Host Debug"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainMenuOLD/MainTab/VBoxContainer" unique_id=1640634744]
-layout_mode = 2
-alignment = 1
-
-[node name="Join" type="Button" parent="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2" unique_id=1274485343]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Join"
-
-[node name="JoinDebug" type="Button" parent="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2" unique_id=1637167310]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Join Debug
-"
-
-[node name="IPGrabber" type="LineEdit" parent="MainMenuOLD/MainTab/VBoxContainer" unique_id=999309774]
-layout_mode = 2
-placeholder_text = "Pls enter IP address to join"
-
-[node name="PlayerCustomization" type="PanelContainer" parent="MainMenuOLD" unique_id=1790346192]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -287.0
-offset_top = -124.0
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 8
-size_flags_vertical = 8
-offset_transform_enabled = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuOLD/PlayerCustomization" unique_id=1598405207]
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_scale = Vector2(0.9, 0.9)
-alignment = 1
-
-[node name="PlayerCustomizationLabel" type="Label" parent="MainMenuOLD/PlayerCustomization/VBoxContainer" unique_id=416051206]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Player Customization"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="DisplayNickname" type="LineEdit" parent="MainMenuOLD/PlayerCustomization/VBoxContainer" unique_id=661714685]
-layout_mode = 2
-placeholder_text = "Display Nickname"
-
-[node name="HEXColor" type="LineEdit" parent="MainMenuOLD/PlayerCustomization/VBoxContainer" unique_id=1484810520]
-layout_mode = 2
-placeholder_text = "HEX Color (like #123456)"
-
-[node name="HBoxContainer" type="Control" parent="MainMenuOLD" unique_id=1240080276]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -720.0
-offset_top = -20.0
-offset_right = -651.0
-offset_bottom = 20.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuOLD/HBoxContainer" unique_id=1686306524]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMenuOLD/HBoxContainer/VBoxContainer" unique_id=1765678665]
-layout_mode = 2
-
-[node name="LineEdit" type="LineEdit" parent="MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=358990744]
-layout_mode = 2
-text = "S"
-placeholder_text = "S"
-
-[node name="Label" type="Label" parent="MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=446577913]
-layout_mode = 2
-text = "[S]tandard ; [R]andomizer ; [C]ompetitive"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainMenuOLD/HBoxContainer/VBoxContainer" unique_id=1877119850]
-layout_mode = 2
-
-[node name="LineEdit" type="LineEdit" parent="MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1170685549]
-layout_mode = 2
-text = "M"
-placeholder_text = "M"
-
-[node name="Label" type="Label" parent="MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2110654959]
-layout_mode = 2
-text = "[G]rey ; [M]atrix"
-
 [node name="MainMenu" type="Control" parent="." unique_id=708530423]
 layout_mode = 3
 anchors_preset = 15
@@ -823,8 +672,4 @@ theme_override_font_sizes/font_size = 96
 text = "X"
 flat = true
 
-[connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug" to="." method="_on_host_debug_pressed"]
-[connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/Join" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/JoinDebug" to="." method="_on_join_debug_pressed"]
 [connection signal="pressed" from="MainMenu/CloseButton/CloseButton" to="." method="_on_close_button_pressed"]

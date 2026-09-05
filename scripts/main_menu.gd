@@ -9,12 +9,6 @@ extends Node
 @onready var about: MarginContainer = $MainMenu/About
 @onready var deploy: MarginContainer = $MainMenu/Deploy
 
-@onready var host: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/Host
-@onready var host_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer/HostDebug
-@onready var join: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/Join
-@onready var join_debug: Button = $MainMenuOLD/MainTab/VBoxContainer/HBoxContainer2/JoinDebug
-@onready var ip_grabber: LineEdit = $MainMenuOLD/MainTab/VBoxContainer/IPGrabber
-
 # hashtag haha funny
 
 # Animations
@@ -23,14 +17,9 @@ extends Node
 
 # Player Customization
 @onready var player_platform: Node3D = $Platforms/Player
-@onready var display_nickname: LineEdit = $MainMenuOLD/PlayerCustomization/VBoxContainer/DisplayNickname
-@onready var hex_color: LineEdit = $MainMenuOLD/PlayerCustomization/VBoxContainer/HEXColor
 @onready var player_mesh : MeshInstance3D = $Platforms/Player/Player
 @onready var accessory_pivot: Node3D = $Platforms/Player/Player/AccessoryPivot
 
-# Test
-@onready var gm_line_edit: LineEdit = $MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer/LineEdit
-@onready var map_line_edit: LineEdit = $MainMenuOLD/HBoxContainer/VBoxContainer/HBoxContainer2/LineEdit
 
 var args : Dictionary = {
 	"username": "Newbie",
