@@ -221,6 +221,35 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 alignment = 1
 
+[node name="Chat" type="MarginContainer" parent="HUD/PlayerHUD" unique_id=209856072]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 400
+theme_override_constants/margin_right = 1400
+theme_override_constants/margin_bottom = 200
+
+[node name="VBC" type="VBoxContainer" parent="HUD/PlayerHUD/Chat" unique_id=7019869]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HUD/PlayerHUD/Chat/VBC" unique_id=1712617301]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBC" type="VBoxContainer" parent="HUD/PlayerHUD/Chat/VBC/ScrollContainer" unique_id=20018080]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+
+[node name="Chat" type="LineEdit" parent="HUD/PlayerHUD/Chat/VBC" unique_id=355487292]
+visible = false
+layout_mode = 2
+placeholder_text = "Enter Text Here.."
+
 [node name="TopHUD" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=174400602]
 layout_mode = 1
 anchors_preset = 5

@@ -105,7 +105,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1
 [node name="Faces" type="Node3D" parent="AccessoryPivot" unique_id=993949876]
 
 [node name="HatSpawner" type="MultiplayerSpawner" parent="AccessoryPivot" unique_id=77660672]
-_spawnable_scenes = PackedStringArray("uid://dfyj4ox3ekvcf", "res://common/models/accessories/turtle.tscn")
+_spawnable_scenes = PackedStringArray("uid://dfyj4ox3ekvcf", "uid://cnyw5fj5sbc36")
 spawn_path = NodePath("../Hats")
 
 [node name="FaceSpawner" type="MultiplayerSpawner" parent="AccessoryPivot" unique_id=456851150]

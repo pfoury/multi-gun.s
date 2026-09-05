@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not is_multiplayer_authority() or player.is_player_dead: return
+	if player.is_player_dead or not is_multiplayer_authority(): return
 	
 	if !rotation_velocity.is_zero_approx():
 		var rotation_amount = rotation_velocity * minf(delta * 100, 1)

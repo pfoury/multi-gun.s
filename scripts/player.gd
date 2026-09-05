@@ -83,10 +83,7 @@ func _ready() -> void:
 	if is_invincible:
 		create_respawn_shield()
 	
-	while main_scene.player_accessories_hat == {}:
-		await get_tree().process_frame
-	
-	add_accessories()
+	if is_multiplayer_authority(): add_accessories()
 	
 	#test_object = test_object_scene.instantiate()
 	#main_scene.add_child(test_object)
@@ -259,8 +256,8 @@ func play_kill_sound() -> void:
 
 #region About updating player
 func add_accessories() -> void:
-	var hat_idx = main_scene.player_accessories_hat[int(name)] - 1
-	var face_idx = main_scene.player_accessories_face[int(name)] - 1
+	var hat_idx = Global.arguments["hat"] - 1
+	var face_idx = Global.arguments["face"] - 1
 	
 	var hat = null
 	var face = null
@@ -273,9 +270,8 @@ func add_accessories() -> void:
 		
 		faces_folder.add_child(face)
 	
-	if !(!multiplayer.connected_to_server or not is_multiplayer_authority()):
-		hat.hide()
-		face.hide()
+	hat.hide()
+	face.hide()
 
 
 func update_player_height(delta) -> void:

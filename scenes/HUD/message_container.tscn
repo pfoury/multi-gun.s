@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dx5e6rg4c4hwh"]
+
+[node name="MessageContainer" type="HBoxContainer" unique_id=1855114013]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+theme_override_constants/separation = 9
+
+[node name="UsernameLabel" type="Label" parent="." unique_id=210223101]
+layout_mode = 2
+text = "OnlyTwentyCharacter:"
+
+[node name="MessageLabel" type="Label" parent="." unique_id=745558030]
+layout_mode = 2
+text = "Hello world!"
