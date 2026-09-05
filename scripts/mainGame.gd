@@ -130,7 +130,7 @@ func _input(event: InputEvent) -> void:
 		_clean_tab()
 	
 	# Chat
-	if event.is_action_pressed("chat") and !Global.is_chatting:
+	if event.is_action_pressed("chat") and !Global.is_chatting and !Global.is_in_menu:
 		Global.is_chatting = true
 		
 		chat_text_edit.modulate.a = 1

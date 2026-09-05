@@ -13,6 +13,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape"):
 		is_in_menu = !is_in_menu
 		
+		Global.is_in_menu = is_in_menu
+		
 		if is_in_menu:
 			open.emit()
 		else:

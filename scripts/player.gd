@@ -117,6 +117,8 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
+	if is_in_menu or Global.is_chatting: direction = Vector3.ZERO
+	
 	if is_on_floor():
 		direction = direction.slide(get_floor_normal()).normalized()
 		
@@ -133,11 +135,11 @@ func _physics_process(delta: float) -> void:
 	velocity.y -= GRAVITY * delta
 	
 	# Jump
-	if Input.is_action_pressed("jump") and is_on_floor():
+	if Input.is_action_pressed("jump") and is_on_floor() and !is_in_menu and !Global.is_chatting:
 		velocity.y += JUMP_VELOCITY
 	
 	# Crouch
-	is_crouching = Input.is_action_pressed("crouch")
+	is_crouching = Input.is_action_pressed("crouch") and !is_in_menu and !Global.is_chatting
 	
 	move_and_slide()
 	

@@ -52,6 +52,7 @@ const FACE_ACCESSORIES = [
 ]
 
 var is_in_game : bool = false
+var is_in_menu : bool = false
 var is_chatting : bool = false
 var arguments : Dictionary = {}
 var sensitivity : Vector2 = Vector2(2.0, 2.0)
