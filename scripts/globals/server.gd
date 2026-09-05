@@ -265,6 +265,11 @@ func kick_everyone() -> void:
 
 
 @rpc("call_remote", "any_peer", "reliable")
+func request_message(message, sender_id) -> void:
+	Client.create_message.rpc(message, sender_id)
+
+
+@rpc("call_remote", "any_peer", "reliable")
 func restart_game() -> void:
 	main.is_ended = false
 	

@@ -121,6 +121,18 @@ func receive_reload_animation(data) -> void:
 	player.guns_folder.get_node("Gun").play_reload_animation()
 
 
+@rpc("call_local", "authority", "reliable")
+func create_message(message_text, sender_id) -> void:
+	var messages_container = main.chat.get_node("VBC").get_node("Messages").get_node("VBC")
+	
+	var message = main.message_scene.instantiate()
+	
+	message.username = main.player_list[sender_id] + ":"
+	message.message_text = message_text
+	
+	messages_container.add_child(message)
+
+
 @rpc("authority", "call_remote", "reliable")
 func receive_new_weapon_stats(data) -> void:
 	var peer_id = multiplayer.get_unique_id()

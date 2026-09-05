@@ -38,6 +38,8 @@ var is_customize : bool = false
 func _ready() -> void:
 	Global.is_in_game = false
 	
+	if multiplayer.has_multiplayer_peer(): multiplayer.multiplayer_peer.close()
+	
 	camera_player.play("intro")
 	menu_player.play("intro")
 	

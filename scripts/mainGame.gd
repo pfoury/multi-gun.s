@@ -30,6 +30,8 @@ extends Node
 @onready var leaderboard: Control = $HUD/PlayerHUD/Leaderboard
 @onready var barbie_texture: TextureRect = $HUD/PlayerHUD/BarbieTexture
 @onready var eliminated_container: MarginContainer = $HUD/PlayerHUD/EliminatedContainer
+@onready var chat: MarginContainer = $HUD/PlayerHUD/Chat
+@onready var chat_text_edit: TextEdit = $HUD/PlayerHUD/Chat/VBC/TextEdit
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0
@@ -40,6 +42,7 @@ var kill_log_scene : PackedScene = preload("res://scenes/HUD/kill_log.tscn")
 var player_icon_scene : PackedScene = preload("res://scenes/HUD/player_icon.tscn")
 var player_lb_scene : PackedScene = preload("res://scenes/HUD/player_lb.tscn")
 var eliminated_scene : PackedScene = preload("res://scenes/HUD/eliminated_vc.tscn")
+var message_scene : PackedScene = preload("res://scenes/HUD/message_container.tscn")
 var lb_player_list : VBoxContainer
 var settings : PanelContainer
 
@@ -59,8 +62,6 @@ func _ready() -> void:
 	if Global.arguments.has("peer"):
 		match Global.arguments["peer"]:
 			"host":
-				get_tree().root.close_requested.connect(_on_close_requested)
-				
 				enet_peer.create_server(Global.PORT)
 				multiplayer.multiplayer_peer = enet_peer
 				
@@ -82,6 +83,8 @@ func _ready() -> void:
 				
 				args["peer_id"] = multiplayer.get_unique_id()
 				Server.add_player(args)
+				
+				get_tree().root.close_requested.connect(_on_close_requested)
 			"client":
 				enet_peer.create_client(args["ip"], Global.PORT)
 				multiplayer.multiplayer_peer = enet_peer
@@ -120,10 +123,37 @@ func _process(_delta: float) -> void:
 	fps_label.text = "FPS: " + str(Engine.get_frames_per_second())
 
 func _input(event: InputEvent) -> void:
+	# LeaderBoard
 	if event.is_action_pressed("tab"):
 		_show_tab()
 	elif event.is_action_released("tab"):
 		_clean_tab()
+	
+	# Chat
+	if event.is_action_pressed("chat") and !Global.is_chatting:
+		Global.is_chatting = true
+		
+		chat_text_edit.modulate.a = 1
+		chat_text_edit.editable = true
+		chat_text_edit.grab_focus(true)
+		
+		await get_tree().process_frame
+		
+		chat_text_edit.text = ""
+	
+	if event.is_action_pressed("enter") and Global.is_chatting:
+		Global.is_chatting = false
+		
+		chat_text_edit.modulate.a = 0
+		chat_text_edit.grab_focus(false)
+		chat_text_edit.editable = false
+		
+		if chat_text_edit.text == "": return
+		
+		if multiplayer.get_unique_id() == 1:
+			Server.request_message(chat_text_edit.text, 1)
+		else:
+			Server.request_message.rpc_id(1, chat_text_edit.text, multiplayer.get_unique_id())
 
 
 func _show_tab() -> void:

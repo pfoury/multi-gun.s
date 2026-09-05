@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://0q1onkyh5wbx" path="res://scenes/HUD/leaderboard.tscn" id="6_2l77h"]
 [ext_resource type="PackedScene" uid="uid://c2l0lpnfjfs2u" path="res://scenes/HUD/escape_menu.tscn" id="6_5cypo"]
 [ext_resource type="PackedScene" uid="uid://bfyyyausnectr" path="res://scenes/HUD/end_screen.tscn" id="6_70vka"]
-[ext_resource type="PackedScene" uid="uid://dx5e6rg4c4hwh" path="res://scenes/HUD/message_container.tscn" id="6_nqdth"]
 [ext_resource type="PackedScene" uid="uid://bicky7j3wwj6t" path="res://scenes/HUD/gamemode_container.tscn" id="6_wi4c7"]
+[ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="7_5cypo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_top_color = Color(0.433533, 0.5089928, 0.7246074, 1)
@@ -230,9 +230,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 500
+theme_override_constants/margin_top = 400
 theme_override_constants/margin_right = 1400
-theme_override_constants/margin_bottom = 200
+theme_override_constants/margin_bottom = 300
 
 [node name="VBC" type="VBoxContainer" parent="HUD/PlayerHUD/Chat" unique_id=7019869]
 layout_mode = 2
@@ -248,14 +248,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 10
 theme_override_constants/separation = 16
 
-[node name="MessageContainer" parent="HUD/PlayerHUD/Chat/VBC/Messages/VBC" unique_id=1855114013 instance=ExtResource("6_nqdth")]
+[node name="TextEdit" type="TextEdit" parent="HUD/PlayerHUD/Chat/VBC" unique_id=2067040175]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-size_flags_horizontal = 1
-
-[node name="Chat" type="LineEdit" parent="HUD/PlayerHUD/Chat/VBC" unique_id=355487292]
-visible = false
-layout_mode = 2
+theme_override_fonts/font = ExtResource("7_5cypo")
+theme_override_font_sizes/font_size = 16
 placeholder_text = "Enter Text Here.."
+backspace_deletes_composite_character_enabled = true
+wrap_mode = 1
+tab_input_mode = false
+virtual_keyboard_enabled = false
+scroll_fit_content_height = true
 
 [node name="TopHUD" type="VBoxContainer" parent="HUD/PlayerHUD" unique_id=174400602]
 layout_mode = 1
