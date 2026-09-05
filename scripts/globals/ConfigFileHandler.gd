@@ -41,6 +41,8 @@ func load_configs() -> void:
 		config_settings.set_value("audio", "guns", 1.0)
 		config_settings.set_value("audio", "kill_effects", 1.0)
 		config_settings.set_value("audio", "death", 1.0)
+		config_settings.set_value("audio", "end", 1.0)
+		config_settings.set_value("audio", "footsteps", 1.0)
 		
 		config_settings.save(Global.SETTINGS_FILE_PATH)
 	else:

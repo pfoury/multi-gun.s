@@ -1,6 +1,6 @@
 extends Node
 
-const SETTINGS_FILE_PATH = "user://settings.ini"
+const SETTINGS_FILE_PATH = "user://settings_loader.ini"
 const PLAYER_FILE_PATH = "user://player_data.ini"
 const PORT = 9999
 const WEAPON_SCENES = [

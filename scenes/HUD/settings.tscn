@@ -551,6 +551,22 @@ theme_override_font_sizes/font_size = 24
 text = "Death Volume:"
 label_settings = SubResource("LabelSettings_eg0p3")
 
+[node name="EndLabel" type="Label" parent="PC/VBC/AudioOptions/Labels" unique_id=1663279712]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
+text = "End Screen Volume:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
+[node name="FootLabel" type="Label" parent="PC/VBC/AudioOptions/Labels" unique_id=1932407723]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
+text = "Footsteps Volume:"
+label_settings = SubResource("LabelSettings_eg0p3")
+
 [node name="Sliders" type="VBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1513444455]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -559,7 +575,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_value = 1.0
+max_value = 2.0
 step = 0.001
 value = 1.0
 
@@ -567,7 +583,7 @@ value = 1.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_value = 1.0
+max_value = 2.0
 step = 0.001
 value = 1.0
 
@@ -575,7 +591,7 @@ value = 1.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_value = 1.0
+max_value = 2.0
 step = 0.001
 value = 1.0
 
@@ -583,7 +599,7 @@ value = 1.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_value = 1.0
+max_value = 2.0
 step = 0.001
 value = 1.0
 
@@ -591,7 +607,23 @@ value = 1.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_value = 1.0
+max_value = 2.0
+step = 0.001
+value = 1.0
+
+[node name="End" type="HSlider" parent="PC/VBC/AudioOptions/Sliders" unique_id=2094569969]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 2.0
+step = 0.001
+value = 1.0
+
+[node name="Foot" type="HSlider" parent="PC/VBC/AudioOptions/Sliders" unique_id=677474306]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 2.0
 step = 0.001
 value = 1.0
 
@@ -630,3 +662,5 @@ value = 1.0
 [connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/Guns" to="." method="_guns_changed"]
 [connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/KillEffect" to="." method="_kill_effect_changed"]
 [connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/Death" to="." method="_death_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/End" to="." method="_end_changed"]
+[connection signal="value_changed" from="PC/VBC/AudioOptions/Sliders/Foot" to="." method="_footsteps_changed"]

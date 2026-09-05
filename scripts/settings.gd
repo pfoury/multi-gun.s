@@ -55,6 +55,12 @@ extends PanelContainer
 # Death
 @onready var death: HSlider = $PC/VBC/AudioOptions/Sliders/Death
 
+# End
+@onready var end: HSlider = $PC/VBC/AudioOptions/Sliders/End
+
+# Footsteps
+@onready var foot: HSlider = $PC/VBC/AudioOptions/Sliders/Foot
+
 # Brightness
 @onready var b_h_slider: HSlider = $PC/VBC/VideoOptions/Brightness/HSlider
 @onready var b_line_edit: LineEdit = $PC/VBC/VideoOptions/Brightness/LineEdit
@@ -101,6 +107,8 @@ var respawn_sounds_idx = AudioServer.get_bus_index("RespawnSounds")
 var gun_sfx_idx = AudioServer.get_bus_index("GunSFX")
 var kill_effects_idx = AudioServer.get_bus_index("KillEffectsSound")
 var death_idx = AudioServer.get_bus_index("DeathSound")
+var end_screen_idx = AudioServer.get_bus_index("EndScreen")
+var footsteps_idx = AudioServer.get_bus_index("Footsteps")
 
 
 func _load_settings() -> void:
@@ -177,6 +185,12 @@ func load_settings() -> void:
 	
 	_death_changed(audio_settings.death)
 	death.value = audio_settings.death
+	
+	_end_changed(audio_settings.end)
+	end.value = audio_settings.end
+	
+	_death_changed(audio_settings.footsteps)
+	foot.value = audio_settings.footsteps
 	
 	# Video
 	_brightness_changed(video_settings.brightness)
@@ -415,6 +429,21 @@ func _death_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(death_idx, linear_to_db(value))
 	
 	ConfigFileHandler.save_audio_setting("death", value)
+
+
+# End Screen
+func _end_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(end_screen_idx, linear_to_db(value))
+	
+	ConfigFileHandler.save_audio_setting("end", value)
+
+
+# Footsteps
+func _footsteps_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(footsteps_idx, linear_to_db(value))
+	
+	ConfigFileHandler.save_audio_setting("footsteps", value)
+
 #endregion
 
 
