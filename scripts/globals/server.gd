@@ -260,6 +260,11 @@ func respawn_player(victim_id) -> void:
 
 
 @rpc("call_remote", "any_peer", "reliable")
+func kick_everyone() -> void:
+	Client.leave.rpc()
+
+
+@rpc("call_remote", "any_peer", "reliable")
 func restart_game() -> void:
 	main.is_ended = false
 	

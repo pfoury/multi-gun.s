@@ -158,6 +158,14 @@ func load_client(data) -> void:
 	if main.gm != "Randomizer" and !data["is_ended"]: create_weapon(data["peer_id"])
 
 
+@rpc("authority", "call_remote", "reliable")
+func leave() -> void:
+	if multiplayer.get_unique_id() == 1: return
+	
+	multiplayer.multiplayer_peer.close()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
 @rpc("call_local", "any_peer", "reliable")
 func create_kill_log(killer_id, victim_id) -> void:
 	# Does player have player list?

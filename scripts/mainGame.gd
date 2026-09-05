@@ -63,7 +63,6 @@ func _ready() -> void:
 				multiplayer.multiplayer_peer = enet_peer
 				
 				multiplayer.peer_disconnected.connect(remove_player)
-				multiplayer.server_disconnected.connect(to_menu)
 				
 				Server.change_gamemode(Global.arguments["gm"])
 				Server.create_global_timer()
@@ -95,6 +94,7 @@ func _ready() -> void:
 					count += 1
 					if count >= 1000:
 						print("Huh.. Seems weird.. Maybe game is not hosted?")
+						Global.is_in_game = false
 						get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 						return
 				
@@ -104,6 +104,7 @@ func _ready() -> void:
 		
 		if gm_label != null: gm_label.text = gm
 	else:
+		Global.is_in_game = false
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	
 	settings = escape_menu.get_node("Settings")
@@ -167,8 +168,9 @@ func remove_player(peer_id) -> void:
 	Client.rpc("receive_global_update")
 
 
-func to_menu() -> void:
-	if !multiplayer.connected_to_server: return
+#func to_menu() -> void:
+	#Global.is_in_game = false
+	#get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 
 func play_shoot_animation() -> void: ## REWORKED

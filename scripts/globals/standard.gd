@@ -40,8 +40,6 @@ func generate_new_weapon_stats(peer_id) -> void:
 		if stat_string == "fire_type":
 			if stat == "burst":
 				weapon_stats["damage"] /= 3.0
-			elif stat == "auto":
-				weapon_stats["damage"] /= 1.5
 		
 		weapon_stats[stat_string] = stat
 	

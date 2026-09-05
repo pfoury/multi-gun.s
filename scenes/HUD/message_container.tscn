@@ -1,15 +1,27 @@
 [gd_scene format=3 uid="uid://dx5e6rg4c4hwh"]
 
-[node name="MessageContainer" type="HBoxContainer" unique_id=1855114013]
-offset_right = 40.0
-offset_bottom = 40.0
-size_flags_horizontal = 0
-theme_override_constants/separation = 9
+[ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="1_t46gl"]
 
-[node name="UsernameLabel" type="Label" parent="." unique_id=210223101]
+[node name="MessageContainer" type="MarginContainer" unique_id=416768044]
+offset_right = 487.0
+offset_bottom = 65.0
+size_flags_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1409512480]
 layout_mode = 2
+
+[node name="UsernameLabel" type="Label" parent="HBoxContainer" unique_id=210223101]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_t46gl")
+theme_override_font_sizes/font_size = 20
 text = "OnlyTwentyCharacter:"
 
-[node name="MessageLabel" type="Label" parent="." unique_id=745558030]
+[node name="MessageLabel" type="Label" parent="HBoxContainer" unique_id=745558030]
 layout_mode = 2
-text = "Hello world!"
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_t46gl")
+theme_override_font_sizes/font_size = 20
+text = "Today is a good day to be dead."
+autowrap_mode = 2

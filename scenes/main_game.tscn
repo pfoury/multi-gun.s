@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://0q1onkyh5wbx" path="res://scenes/HUD/leaderboard.tscn" id="6_2l77h"]
 [ext_resource type="PackedScene" uid="uid://c2l0lpnfjfs2u" path="res://scenes/HUD/escape_menu.tscn" id="6_5cypo"]
 [ext_resource type="PackedScene" uid="uid://bfyyyausnectr" path="res://scenes/HUD/end_screen.tscn" id="6_70vka"]
+[ext_resource type="PackedScene" uid="uid://dx5e6rg4c4hwh" path="res://scenes/HUD/message_container.tscn" id="6_nqdth"]
 [ext_resource type="PackedScene" uid="uid://bicky7j3wwj6t" path="res://scenes/HUD/gamemode_container.tscn" id="6_wi4c7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
@@ -229,21 +230,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 400
+theme_override_constants/margin_top = 500
 theme_override_constants/margin_right = 1400
 theme_override_constants/margin_bottom = 200
 
 [node name="VBC" type="VBoxContainer" parent="HUD/PlayerHUD/Chat" unique_id=7019869]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HUD/PlayerHUD/Chat/VBC" unique_id=1712617301]
+[node name="Messages" type="ScrollContainer" parent="HUD/PlayerHUD/Chat/VBC" unique_id=1712617301]
 layout_mode = 2
 size_flags_vertical = 3
+vertical_scroll_mode = 3
 
-[node name="VBC" type="VBoxContainer" parent="HUD/PlayerHUD/Chat/VBC/ScrollContainer" unique_id=20018080]
+[node name="VBC" type="VBoxContainer" parent="HUD/PlayerHUD/Chat/VBC/Messages" unique_id=20018080]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 size_flags_vertical = 10
+theme_override_constants/separation = 16
+
+[node name="MessageContainer" parent="HUD/PlayerHUD/Chat/VBC/Messages/VBC" unique_id=1855114013 instance=ExtResource("6_nqdth")]
+layout_mode = 2
+size_flags_horizontal = 1
 
 [node name="Chat" type="LineEdit" parent="HUD/PlayerHUD/Chat/VBC" unique_id=355487292]
 visible = false
