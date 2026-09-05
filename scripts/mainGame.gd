@@ -59,6 +59,8 @@ func _ready() -> void:
 	if Global.arguments.has("peer"):
 		match Global.arguments["peer"]:
 			"host":
+				get_tree().root.close_requested.connect(_on_close_requested)
+				
 				enet_peer.create_server(Global.PORT)
 				multiplayer.multiplayer_peer = enet_peer
 				
@@ -171,6 +173,17 @@ func remove_player(peer_id) -> void:
 #func to_menu() -> void:
 	#Global.is_in_game = false
 	#get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _on_close_requested() -> void:
+	Server.kick_everyone()
+	
+	# Waiting for everyone to leave
+	var main = get_tree().current_scene
+	while len(main.player_list) != 1:
+		await get_tree().process_frame
+	
+	multiplayer.multiplayer_peer.close()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 
 func play_shoot_animation() -> void: ## REWORKED
