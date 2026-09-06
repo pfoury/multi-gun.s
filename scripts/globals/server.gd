@@ -232,7 +232,7 @@ func kill(data) -> void:
 
 
 @rpc("call_remote", "any_peer", "reliable")
-func respawn_player(victim_id) -> void:
+func respawn_player(victim_id, forceable : bool = false) -> void:
 	if !is_server(): return
 	
 	var victim = main.players_folder.get_node(str(victim_id))
@@ -256,7 +256,7 @@ func respawn_player(victim_id) -> void:
 		# Setting to default one
 		new_position = Vector3(0, 2, 0)
 	
-	victim.respawn.rpc(new_position)
+	victim.respawn.rpc(new_position, forceable)
 
 
 @rpc("call_remote", "any_peer", "reliable")
@@ -326,6 +326,6 @@ func restart_game() -> void:
 			else:
 				Client.load_client.rpc_id(peer_id, result)
 		
-		respawn_player(peer_id)
+		respawn_player(peer_id, true)
 
 #endregion

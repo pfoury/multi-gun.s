@@ -479,8 +479,8 @@ func remove_respawn_shield() -> void:
 
 
 @rpc("reliable", "any_peer", "call_local")
-func respawn(new_position) -> void:
-	if !is_player_dead: return
+func respawn(new_position, forceable : bool = false) -> void:
+	if !is_player_dead and !forceable: return
 	
 	# Setting up for player's color
 	player_health = MAX_HEALTH
