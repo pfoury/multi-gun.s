@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://c3y6krtj5djwu"]
+
+[ext_resource type="PackedScene" uid="uid://87k6x7ir720f" path="res://common/models/accessories/Sunglasses.blend" id="1_emi3i"]
+
+[node name="Sunglasses" unique_id=1837833098 instance=ExtResource("1_emi3i")]

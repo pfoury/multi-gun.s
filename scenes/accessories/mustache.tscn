@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bv28yj6rgxlhg"]
+
+[ext_resource type="PackedScene" uid="uid://ceysq34q20dnq" path="res://common/models/accessories/Mustache.blend" id="1_o03l4"]
+
+[node name="Mustache" unique_id=321699875 instance=ExtResource("1_o03l4")]

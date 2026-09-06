@@ -43,12 +43,12 @@ const GAMEMODES = [
 ]
 const HAT_ACCESSORIES = [
 	"res://scenes/accessories/turtle.tscn", # TURTLE HAT [0]
-	"res://common/models/accessories/TopHat.blend", # TOP HAT [1]
+	"res://scenes/accessories/top_hat.tscn", # TOP HAT [1]
 ]
 const FACE_ACCESSORIES = [
-	"res://common/models/accessories/Eyes.blend", # EYES FACE [0]
-	"res://common/models/accessories/Mustache.blend", # MUSTACHE FACE [1]
-	"res://common/models/accessories/Sunglasses.blend", # SUNGLASSES FACE [2]
+	"res://scenes/accessories/eyes.tscn", # EYES FACE [0]
+	"res://scenes/accessories/mustache.tscn", # MUSTACHE FACE [1]
+	"res://scenes/accessories/sunglasses.tscn", # SUNGLASSES FACE [2]
 ]
 
 var is_in_game : bool = false

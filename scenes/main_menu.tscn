@@ -5,14 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://b0wgev7rbirju" path="res://common/textures/Prototype_Grid_Orange_07-256x256.png" id="3_8ln24"]
 [ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="3_wu84c"]
 [ext_resource type="Texture2D" uid="uid://6mx48iai3vwb" path="res://common/textures/temp texture.png" id="4_rtw2f"]
-[ext_resource type="PackedScene" uid="uid://cnyw5fj5sbc36" path="res://common/models/accessories/TopHat.blend" id="5_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://bs4gor42c7sfy" path="res://scenes/HUD/menu.tscn" id="5_oa1go"]
+[ext_resource type="PackedScene" uid="uid://bn6t15i265u6w" path="res://scenes/accessories/top_hat.tscn" id="6_5pajh"]
 [ext_resource type="PackedScene" uid="uid://2w72y0bwvpgs" path="res://scenes/accessories/turtle.tscn" id="7_flqon"]
-[ext_resource type="PackedScene" uid="uid://bxuysxxamqoc2" path="res://common/models/accessories/Eyes.blend" id="7_lgwnu"]
+[ext_resource type="PackedScene" uid="uid://bv8yxe6aiyojt" path="res://scenes/accessories/eyes.tscn" id="7_j7ex8"]
 [ext_resource type="PackedScene" uid="uid://cwibn2kmhacwl" path="res://scenes/HUD/customization.tscn" id="7_oa1go"]
-[ext_resource type="PackedScene" uid="uid://ceysq34q20dnq" path="res://common/models/accessories/Mustache.blend" id="8_rcqid"]
+[ext_resource type="PackedScene" uid="uid://bv28yj6rgxlhg" path="res://scenes/accessories/mustache.tscn" id="8_a8gd2"]
 [ext_resource type="PackedScene" uid="uid://ccv7ljlxd2b5c" path="res://scenes/HUD/player_customization.tscn" id="8_tbmy8"]
-[ext_resource type="PackedScene" uid="uid://87k6x7ir720f" path="res://common/models/accessories/Sunglasses.blend" id="9_1ajci"]
+[ext_resource type="PackedScene" uid="uid://c3y6krtj5djwu" path="res://scenes/accessories/sunglasses.tscn" id="9_hstxw"]
 [ext_resource type="PackedScene" uid="uid://bb3ssvhimttvs" path="res://scenes/HUD/settings.tscn" id="14_1ajci"]
 [ext_resource type="PackedScene" uid="uid://btq0wx5ge3cw6" path="res://scenes/HUD/about.tscn" id="14_7b55j"]
 [ext_resource type="PackedScene" uid="uid://cnegdb4y5lxlw" path="res://scenes/HUD/deploy.tscn" id="15_5pajh"]
@@ -516,17 +516,17 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1
 [node name="Turtle" parent="Platforms/Player/Player/AccessoryPivot/Hats" unique_id=1227402445 instance=ExtResource("7_flqon")]
 visible = false
 
-[node name="TopHat" parent="Platforms/Player/Player/AccessoryPivot/Hats" unique_id=1163124959 instance=ExtResource("5_jk1qb")]
+[node name="TopHat" parent="Platforms/Player/Player/AccessoryPivot/Hats" unique_id=571004663 instance=ExtResource("6_5pajh")]
 
 [node name="Faces" type="Node3D" parent="Platforms/Player/Player/AccessoryPivot" unique_id=1535717847]
 
-[node name="Eyes" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=1927693143 instance=ExtResource("7_lgwnu")]
+[node name="Eyes" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=1936335454 instance=ExtResource("7_j7ex8")]
 visible = false
 
-[node name="Mustache" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=2083140263 instance=ExtResource("8_rcqid")]
+[node name="Mustache" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=321699875 instance=ExtResource("8_a8gd2")]
 visible = false
 
-[node name="Sunglasses" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=1837833098 instance=ExtResource("9_1ajci")]
+[node name="Sunglasses" parent="Platforms/Player/Player/AccessoryPivot/Faces" unique_id=1837833098 instance=ExtResource("9_hstxw")]
 
 [node name="SniperRifle" type="Node3D" parent="Platforms/Player" unique_id=1994735972]
 transform = Transform3D(-1.4000001, 0, -1.2239188e-07, 0, 1.3999999, 0, 1.223919e-07, 0, -1.3999999, -0.6641175, 1.0189538, 0.50013244)
