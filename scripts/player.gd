@@ -61,6 +61,7 @@ var weapon_speed_multiplier : float = 1.0
 var stars_particles_scene : PackedScene = load("res://scenes/particles/start_particles.tscn")
 var test_object_scene : PackedScene = load("res://scenes/temp/testobject.tscn")
 var test_object : MeshInstance3D
+var wind_blow_player : AudioStreamPlayer
 
 
 func _enter_tree() -> void:
@@ -83,7 +84,16 @@ func _ready() -> void:
 	if is_invincible:
 		create_respawn_shield()
 	
-	if is_multiplayer_authority(): add_accessories()
+	if is_multiplayer_authority(): 
+		add_accessories()
+		
+		wind_blow_player = AudioStreamPlayer.new()
+		
+		wind_blow_player.stream = AudioStreamOggVorbis.load_from_file("res://common/sounds/wind_blow/vozduhan.ogg")
+		wind_blow_player.stream.loop = true
+		wind_blow_player.autoplay = true
+		
+		sounds_folder.add_child(wind_blow_player)
 	
 	#test_object = test_object_scene.instantiate()
 	#main_scene.add_child(test_object)
@@ -157,6 +167,7 @@ func _physics_process(delta: float) -> void:
 	update_guns_transform(delta)
 	update_player_fov(delta)
 	update_player_hud(delta)
+	update_wind_blow_volume()
 
 
 func _process(delta: float) -> void:
@@ -355,6 +366,13 @@ func update_player_hud(delta) -> void:
 	var velocity_label = main_scene.statistics.get_node_or_null("VelocityLabel")
 	
 	velocity_label.text = "Velocity: " + str(int(round(velocity_length * 100)))
+
+
+func update_wind_blow_volume() -> void:
+	var clamp_speed = clamp(velocity_length, 0, 50) / 50
+	
+	wind_blow_player.volume_db = linear_to_db(clamp_speed)
+
 #endregion
 
 
