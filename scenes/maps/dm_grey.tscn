@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cstnhlys67mcc"]
 
-[ext_resource type="PackedScene" uid="uid://e3slls5q0v0o" path="res://common/models/maps/cp_orange.blend" id="1_svncq"]
+[ext_resource type="PackedScene" uid="uid://drukpsrolmvey" path="res://scenes/maps/layouts/dm_grey_layout.tscn" id="1_svncq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f05kx"]
 size = Vector3(3, 0, 3)
@@ -9,8 +9,7 @@ size = Vector3(3, 0, 3)
 
 [node name="Layout" type="Node3D" parent="." unique_id=553828185]
 
-[node name="cp_orange" parent="Layout" unique_id=91923866 instance=ExtResource("1_svncq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2364254, 0.1735611, 0.40246964)
+[node name="cp_orange" parent="Layout" unique_id=857917461 instance=ExtResource("1_svncq")]
 
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=519848428]
 

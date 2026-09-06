@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://7xopy2ru806g"]
 
-[ext_resource type="PackedScene" uid="uid://c3wkklf1v0glr" path="res://common/models/maps/Matrix.blend" id="1_suoxt"]
+[ext_resource type="PackedScene" uid="uid://d0gi2eulp8c2x" path="res://scenes/maps/layouts/dm_matrix_layout.tscn" id="1_suoxt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_31kpq"]
 size = Vector3(3, 0, 3)
@@ -9,7 +9,7 @@ size = Vector3(3, 0, 3)
 
 [node name="Layout" type="Node3D" parent="." unique_id=1572840315]
 
-[node name="Matrix" parent="Layout" unique_id=28857089 instance=ExtResource("1_suoxt")]
+[node name="Matrix" parent="Layout" unique_id=1614156534 instance=ExtResource("1_suoxt")]
 
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=300755963]
 
