@@ -146,6 +146,7 @@ size = Vector3(0.083740234, 0.11328125, 0.060424805)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_u7wkp")
+weapon_name = "Assault Rifle"
 damage = 27.0
 fire_speed = 0.08
 fire_type = ["auto", "burst"]

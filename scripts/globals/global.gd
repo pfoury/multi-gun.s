@@ -59,6 +59,7 @@ var sensitivity : Vector2 = Vector2(2.0, 2.0)
 var fov : int = 80
 
 # For settings
+var fov_multiplier : float = 1.0
 var brightness : float = 1.0
 var sky_brightness : float = 1.0
 var glow : float = 1.3

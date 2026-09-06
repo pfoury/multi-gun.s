@@ -1,0 +1,409 @@
+[gd_scene format=3 uid="uid://b0dmajxddhlhs"]
+
+[ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="1_nc3ei"]
+
+[sub_resource type="Animation" id="Animation_nc3ei"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container/PC/MC/VBC/WeaponName/WeaponName:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Container/PC/MC/VBC/WeaponName/WeaponName:offset_transform_position_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1.3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Container:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Container/PC/MC/VBC/Stats/Labels/DamageLabel:offset_transform_position_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Container/PC/MC/VBC/Stats/Values/Damage:offset_transform_position_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Container/PC/MC/VBC/Stats/Values/Damage:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Container/PC/MC/VBC/Stats/Labels/DamageLabel:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Container/PC/MC/VBC/Stats/Labels/FireSpeedLabel:offset_transform_position_ratio")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Container/PC/MC/VBC/Stats/Labels/FireSpeedLabel:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Container/PC/MC/VBC/Stats/Values/FireSpeed:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Container/PC/MC/VBC/Stats/Values/FireSpeed:offset_transform_position_ratio")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_677ew"]
+resource_name = "start"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container:offset_transform_position_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 3.5, 4),
+"transitions": PackedFloat32Array(0.18946458, 0.5176326, 2.9281719, 1),
+"update": 0,
+"values": [Vector2(-1, 0), Vector2(0, 0), Vector2(0.01, 0), Vector2(-1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container/PC/MC/VBC/WeaponName/WeaponName:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(0.3186403, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Container/PC/MC/VBC/WeaponName/WeaponName:offset_transform_position_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(0.26794344, 1),
+"update": 0,
+"values": [Vector2(0, -1.3), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Container:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 3.5, 4),
+"transitions": PackedFloat32Array(0.25881633, 2.0705304, 2.0705304, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Container/PC/MC/VBC/Stats/Labels/DamageLabel:offset_transform_position_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.64, 2.1399999),
+"transitions": PackedFloat32Array(0.21022414, 1),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Container/PC/MC/VBC/Stats/Values/Damage:offset_transform_position_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.64, 2.1399999),
+"transitions": PackedFloat32Array(0.2102241, 1),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Container/PC/MC/VBC/Stats/Values/Damage:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.64, 2.1399999),
+"transitions": PackedFloat32Array(0.21022417, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Container/PC/MC/VBC/Stats/Labels/DamageLabel:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.64, 2.1399999),
+"transitions": PackedFloat32Array(0.21022414, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Container/PC/MC/VBC/Stats/Labels/FireSpeedLabel:offset_transform_position_ratio")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(2.3, 2.7999997),
+"transitions": PackedFloat32Array(0.21022424, 1),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Container/PC/MC/VBC/Stats/Labels/FireSpeedLabel:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(2.3, 2.7999997),
+"transitions": PackedFloat32Array(0.21022417, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Container/PC/MC/VBC/Stats/Values/FireSpeed:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(2.3, 2.7999997),
+"transitions": PackedFloat32Array(0.21022417, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Container/PC/MC/VBC/Stats/Values/FireSpeed:offset_transform_position_ratio")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(2.3, 2.7999997),
+"transitions": PackedFloat32Array(0.2102241, 1),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_67qkt"]
+_data = {
+&"RESET": SubResource("Animation_nc3ei"),
+&"start": SubResource("Animation_677ew")
+}
+
+[node name="NewWeaponMessage" type="MarginContainer" unique_id=1561146109]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 1500
+theme_override_constants/margin_bottom = 565
+
+[node name="Container" type="MarginContainer" parent="." unique_id=1518810276]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-1, 0)
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PC" type="PanelContainer" parent="Container" unique_id=678026535]
+self_modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 2
+
+[node name="MC" type="MarginContainer" parent="Container/PC" unique_id=776580635]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBC" type="VBoxContainer" parent="Container/PC/MC" unique_id=611670948]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="WeaponName" type="VBoxContainer" parent="Container/PC/MC/VBC" unique_id=2101157634]
+layout_mode = 2
+
+[node name="NewWeaponLabel" type="Label" parent="Container/PC/MC/VBC/WeaponName" unique_id=1093244765]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nc3ei")
+theme_override_font_sizes/font_size = 36
+text = "NEW WEAPON"
+
+[node name="WeaponName" type="Label" parent="Container/PC/MC/VBC/WeaponName" unique_id=1848693357]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, -1.3)
+theme_override_fonts/font = ExtResource("1_nc3ei")
+theme_override_font_sizes/font_size = 24
+text = "weapon nama"
+
+[node name="Stats" type="HBoxContainer" parent="Container/PC/MC/VBC" unique_id=1492634786]
+layout_mode = 2
+offset_transform_enabled = true
+theme_override_constants/separation = 8
+
+[node name="Labels" type="VBoxContainer" parent="Container/PC/MC/VBC/Stats" unique_id=1377277846]
+layout_mode = 2
+
+[node name="DamageLabel" type="Label" parent="Container/PC/MC/VBC/Stats/Labels" unique_id=2116617427]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, -1)
+theme_override_fonts/font = ExtResource("1_nc3ei")
+theme_override_font_sizes/font_size = 24
+text = "Damage:"
+
+[node name="FireSpeedLabel" type="Label" parent="Container/PC/MC/VBC/Stats/Labels" unique_id=1090524275]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, -1)
+theme_override_fonts/font = ExtResource("1_nc3ei")
+theme_override_font_sizes/font_size = 24
+text = "Fire Speed:"
+
+[node name="Values" type="VBoxContainer" parent="Container/PC/MC/VBC/Stats" unique_id=543498534]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Damage" type="Label" parent="Container/PC/MC/VBC/Stats/Values" unique_id=1975908551]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, -1)
+theme_override_fonts/font = ExtResource("1_nc3ei")
+theme_override_font_sizes/font_size = 24
+text = "67"
+
+[node name="FireSpeed" type="Label" parent="Container/PC/MC/VBC/Stats/Values" unique_id=1278801352]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, -1)
+theme_override_fonts/font = ExtResource("1_nc3ei")
+theme_override_font_sizes/font_size = 24
+text = "0.67"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=61191034]
+libraries/ = SubResource("AnimationLibrary_67qkt")

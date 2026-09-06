@@ -287,6 +287,12 @@ func add_accessories() -> void:
 	face.hide()
 
 
+func delta_speed_fov() -> float:
+	var delta_fov : float = velocity_length / 20 * Global.fov_multiplier
+	
+	return delta_fov
+
+
 func update_player_height(delta) -> void:
 	if is_crouching:
 		player_pivot.scale.y = lerp(player_pivot.scale.y, 0.5, delta * 20)
@@ -327,6 +333,8 @@ func update_player_fov(delta) -> void:
 			scope_shadow_texture.offset_transform_scale = lerp(scope_shadow_texture.offset_transform_scale, Vector2(2, 2), delta * 10)
 			
 			mouse_sensitivity = lerp(mouse_sensitivity, Global.sensitivity, delta * 20)
+	
+	camera_fov += delta_speed_fov()
 	
 	first_person_camera.fov = camera_fov
 	

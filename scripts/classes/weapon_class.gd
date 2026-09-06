@@ -5,6 +5,7 @@ class_name Weapon extends StaticBody3D
 # DO NOT FORGET TO PUT WEAPON INTO PLAYER'S MULTIPLAYER SPAWNER
 
 # Standard values for weapon
+@export var weapon_name : String = "Pistol"
 @export var damage : float = 10.0
 @export var fire_speed : float = 0.1
 @export var fire_type = ["semi", "burst", "auto"]
@@ -71,6 +72,29 @@ func set_stats(new_stats) -> void:
 	player.update_gun_fire_type()
 	player.update_weapon_speed_multiplier()
 	player_hud.show()
+	
+	_create_weapon_message()
+
+
+func _create_weapon_message() -> void:
+	var main = player.main_scene
+	var new_weapon_message = main.new_weapon_message
+	
+	if new_weapon_message == null: return
+	
+	# Getting every node needed
+	var box_container = new_weapon_message.get_node("Container").get_node("PC").get_node("MC").get_node("VBC")
+	var weapon_name_label = box_container.get_node("WeaponName").get_node("WeaponName")
+	var damage_label = box_container.get_node("Stats").get_node("Values").get_node("Damage")
+	var fire_speed_label = box_container.get_node("Stats").get_node("Values").get_node("FireSpeed")
+	
+	weapon_name_label.text = weapon_name
+	damage_label.text = str(damage)
+	fire_speed_label.text = str(fire_speed)
+	
+	# Starting animation
+	new_weapon_message.get_node("AnimationPlayer").stop()
+	new_weapon_message.get_node("AnimationPlayer").play("start")
 
 
 func get_stats() -> Dictionary:

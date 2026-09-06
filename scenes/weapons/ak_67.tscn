@@ -171,6 +171,7 @@ _data = {
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_divfv")
+weapon_name = "AK67"
 damage = 25.0
 fire_speed = 0.075
 fire_type = ["auto"]

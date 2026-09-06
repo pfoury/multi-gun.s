@@ -22,6 +22,9 @@ extends PanelContainer
 # FOV
 @onready var fov_line_edit: LineEdit = $PC/VBC/CameraOptions/FOV/LineEdit
 
+# FOV Speed Multiplier
+@onready var fov_speed_h_slider: HSlider = $PC/VBC/CameraOptions/FovSpeed/HSlider
+
 # Resolution
 @onready var resolutions: OptionButton = $PC/VBC/DisplayOptions/Resolution/Resolutions
 
@@ -150,6 +153,9 @@ func load_settings() -> void:
 	
 	_fov_changed(str(camera_settings.fov))
 	fov_line_edit.text = str(camera_settings.fov)
+	
+	_on_fov_speed_slider_value_changed(camera_settings.fov_multiplier)
+	fov_speed_h_slider.value = camera_settings.fov_multiplier
 	
 	# Display
 	_resolutions_item_selected(display_settings.resolution)
@@ -314,6 +320,14 @@ func _fov_changed(new_text: String) -> void:
 		Global._update_fov()
 	
 	ConfigFileHandler.save_camera_setting("fov", new_value)
+
+
+# FOV Speed Multiplier
+func _on_fov_speed_slider_value_changed(value: float) -> void:
+	Global.fov_multiplier = value
+	
+	ConfigFileHandler.save_camera_setting("fov_multiplier", value)
+
 #endregion
 
 

@@ -72,7 +72,6 @@ theme_override_font_sizes/font_size = 32
 text = "AUDIO"
 
 [node name="CameraOptions" type="VBoxContainer" parent="PC/VBC" unique_id=1313778997]
-visible = false
 layout_mode = 2
 
 [node name="Sensitivity" type="HBoxContainer" parent="PC/VBC/CameraOptions" unique_id=862186372]
@@ -84,7 +83,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_1x1ef")
 theme_override_font_sizes/font_size = 24
 text = "Sensitivity:"
-label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="HSlider" type="HSlider" parent="PC/VBC/CameraOptions/Sensitivity" unique_id=634739862]
 layout_mode = 2
@@ -108,12 +106,29 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_1x1ef")
 theme_override_font_sizes/font_size = 24
 text = "FOV:"
-label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="LineEdit" type="LineEdit" parent="PC/VBC/CameraOptions/FOV" unique_id=662793731]
 layout_mode = 2
 text = "80"
 placeholder_text = "67"
+
+[node name="FovSpeed" type="HBoxContainer" parent="PC/VBC/CameraOptions" unique_id=404323025]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PC/VBC/CameraOptions/FovSpeed" unique_id=1757908215]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1x1ef")
+theme_override_font_sizes/font_size = 24
+text = "FOV Speed Multiplier:"
+
+[node name="HSlider" type="HSlider" parent="PC/VBC/CameraOptions/FovSpeed" unique_id=302237289]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 10.0
+step = 0.01
+value = 1.0
 
 [node name="DisplayOptions" type="VBoxContainer" parent="PC/VBC" unique_id=65180713]
 visible = false
@@ -128,7 +143,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_1x1ef")
 theme_override_font_sizes/font_size = 24
 text = "Resolution:"
-label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="Resolutions" type="OptionButton" parent="PC/VBC/DisplayOptions/Resolution" unique_id=1958095691]
 layout_mode = 2
@@ -168,7 +182,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_1x1ef")
 theme_override_font_sizes/font_size = 24
 text = "FPS:"
-label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="LineEdit" type="LineEdit" parent="PC/VBC/DisplayOptions/FPS" unique_id=142373611]
 layout_mode = 2
@@ -190,7 +203,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_1x1ef")
 theme_override_font_sizes/font_size = 24
 text = "VSync:"
-label_settings = SubResource("LabelSettings_eg0p3")
 
 [node name="CheckBox" type="CheckBox" parent="PC/VBC/DisplayOptions/VSync" unique_id=1386062983]
 layout_mode = 2
@@ -505,6 +517,7 @@ label_settings = SubResource("LabelSettings_eg0p3")
 autowrap_mode = 2
 
 [node name="AudioOptions" type="HBoxContainer" parent="PC/VBC" unique_id=869155957]
+visible = false
 layout_mode = 2
 
 [node name="Labels" type="VBoxContainer" parent="PC/VBC/AudioOptions" unique_id=1798227175]
@@ -634,6 +647,7 @@ value = 1.0
 [connection signal="value_changed" from="PC/VBC/CameraOptions/Sensitivity/HSlider" to="." method="_sensitivity_slider_changed"]
 [connection signal="text_submitted" from="PC/VBC/CameraOptions/Sensitivity/LineEdit" to="." method="_sensitivity_line_submitted"]
 [connection signal="text_submitted" from="PC/VBC/CameraOptions/FOV/LineEdit" to="." method="_fov_changed"]
+[connection signal="value_changed" from="PC/VBC/CameraOptions/FovSpeed/HSlider" to="." method="_on_fov_speed_slider_value_changed"]
 [connection signal="item_selected" from="PC/VBC/DisplayOptions/Resolution/Resolutions" to="." method="_resolutions_item_selected"]
 [connection signal="text_submitted" from="PC/VBC/DisplayOptions/FPS/LineEdit" to="." method="_new_fps_submitted"]
 [connection signal="toggled" from="PC/VBC/DisplayOptions/VSync/CheckBox" to="." method="_vsync_toggled"]

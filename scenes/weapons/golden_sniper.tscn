@@ -191,6 +191,7 @@ _data = {
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_mrvqy")
+weapon_name = "Golden Sniper"
 damage = 35.0
 fire_type = ["auto"]
 reload_speed = 0.4

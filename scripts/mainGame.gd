@@ -32,6 +32,7 @@ extends Node
 @onready var eliminated_container: MarginContainer = $HUD/PlayerHUD/EliminatedContainer
 @onready var chat: MarginContainer = $HUD/PlayerHUD/Chat
 @onready var chat_text_edit: TextEdit = $HUD/PlayerHUD/Chat/VBC/TextEdit
+@onready var new_weapon_message: MarginContainer = $HUD/PlayerHUD/NewWeaponMessage
 
 var enet_peer = ENetMultiplayerPeer.new()
 var weapon_craziness : float = 20.0

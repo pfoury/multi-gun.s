@@ -10,6 +10,7 @@ func load_configs() -> void:
 		# Camera
 		config_settings.set_value("camera", "sensitivity", 2.0)
 		config_settings.set_value("camera", "fov", 80)
+		config_settings.set_value("camera", "fov_multiplier", 1.0)
 		
 		# Display
 		config_settings.set_value("display", "resolution", 7)
