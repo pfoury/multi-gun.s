@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://cd6b6k3qt5wnt"]
+
+[ext_resource type="Script" uid="uid://b6avt3hut0duk" path="res://scripts/donations_board.gd" id="1_go54b"]
+[ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="1_gowub"]
+[ext_resource type="FontFile" uid="uid://du4a53t10ij4d" path="res://common/fonts/Oswald/Oswald-Bold.ttf" id="2_4ax72"]
+
+[node name="DonationsBoard" type="MarginContainer" unique_id=1611634873]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 1350
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 850
+script = ExtResource("1_go54b")
+
+[node name="PC" type="PanelContainer" parent="." unique_id=844056365]
+self_modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 2
+
+[node name="MC" type="MarginContainer" parent="PC" unique_id=2089497738]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBC" type="VBoxContainer" parent="PC/MC" unique_id=174485921]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PC/MC/VBC" unique_id=966595423]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_gowub")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[wave amp=30 freq=5 speed=3 ease=-2.0]Donators[/wave]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PC/MC/VBC" unique_id=546684329]
+layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="PC/MC/VBC/ScrollContainer" unique_id=117485328]
+self_modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DonatorsLabel" type="RichTextLabel" parent="PC/MC/VBC/ScrollContainer/PanelContainer" unique_id=1490108400]
+clip_children = 2
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_4ax72")
+theme_override_font_sizes/normal_font_size = 20
+text = "Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+Eror, no donator(s((
+
+"
+scroll_active = false
+scroll_following = true
