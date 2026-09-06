@@ -91,6 +91,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Creating dust particles
+	if is_player_on_floor: steps += velocity_length * delta * 3
+	
 	if steps > 6 and is_player_on_floor:
 		steps = 0
 		var dust_walk_particles = dust_walk_particles_scene.instantiate()
@@ -218,8 +220,6 @@ func _process(delta: float) -> void:
 		#test_object.look_at(velocity_vector, Vector3(0, 1, 0.1))
 		#
 		#test_object.position = global_position
-	
-	if is_player_on_floor: steps += velocity_length * delta * 3
 
 
 func _on_guns_child_entered_tree(node: Node) -> void: # Getting gun's data when created
