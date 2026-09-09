@@ -13,7 +13,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 1350
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 850
+theme_override_constants/margin_bottom = 750
 script = ExtResource("1_go54b")
 
 [node name="PC" type="PanelContainer" parent="." unique_id=844056365]
@@ -41,34 +41,25 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="PanelContainer" parent="PC/MC/VBC" unique_id=69478341]
+[node name="DonatorsContainer" type="PanelContainer" parent="PC/MC/VBC" unique_id=69478341]
+self_modulate = Color(1, 1, 1, 0.39215687)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DonatorsLabel" type="RichTextLabel" parent="PC/MC/VBC/ScrollContainer" unique_id=1490108400]
+[node name="MC" type="MarginContainer" parent="PC/MC/VBC/DonatorsContainer" unique_id=1253438150]
+layout_mode = 2
+
+[node name="HBC" type="HBoxContainer" parent="PC/MC/VBC/DonatorsContainer/MC" unique_id=129728425]
+layout_mode = 2
+
+[node name="DonatorsUsername" type="RichTextLabel" parent="PC/MC/VBC/DonatorsContainer/MC/HBC" unique_id=1490108400]
 clip_children = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_fonts/normal_font = ExtResource("2_4ax72")
 theme_override_font_sizes/normal_font_size = 20
-text = "Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
+text = "WWWWWWWWWWWWWWW...
 Eror, no donator(s((
 Eror, no donator(s((
 Eror, no donator(s((
@@ -76,3 +67,15 @@ Eror, no donator(s((
 Eror, no donator(s((
 
 "
+
+[node name="DonatorsTiers" type="RichTextLabel" parent="PC/MC/VBC/DonatorsContainer/MC/HBC" unique_id=1755903495]
+clip_children = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_4ax72")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Мини-поддержка
+[wave amp=30 freq=5 speed=3 ease=-2.0]Поддержка[/wave]
+[rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]МЕГАподдержка[/rainbow]"
