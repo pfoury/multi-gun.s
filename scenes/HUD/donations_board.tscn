@@ -4,6 +4,60 @@
 [ext_resource type="FontFile" uid="uid://574w3pgjujo1" path="res://common/fonts/Geologica/Geologica_Cursive-ExtraBold.ttf" id="1_gowub"]
 [ext_resource type="FontFile" uid="uid://du4a53t10ij4d" path="res://common/fonts/Oswald/Oswald-Bold.ttf" id="2_4ax72"]
 
+[sub_resource type="Animation" id="Animation_go54b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PC/MC/VBC/DonatorsContainer/MC/HBC:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tk4ir"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PC/MC/VBC/DonatorsContainer/MC/HBC:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t0yy1"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PC/MC/VBC/DonatorsContainer/MC/HBC:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xreit"]
+_data = {
+&"RESET": SubResource("Animation_go54b"),
+&"fade_in": SubResource("Animation_tk4ir"),
+&"fade_out": SubResource("Animation_t0yy1")
+}
+
 [node name="DonationsBoard" type="MarginContainer" unique_id=1611634873]
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,3 +133,9 @@ bbcode_enabled = true
 text = "Мини-поддержка
 [wave amp=30 freq=5 speed=3 ease=-2.0]Поддержка[/wave]
 [rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]МЕГАподдержка[/rainbow]"
+
+[node name="SwipePageTimer" type="Timer" parent="." unique_id=1722313200]
+wait_time = 5.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1859516980]
+libraries/ = SubResource("AnimationLibrary_xreit")
