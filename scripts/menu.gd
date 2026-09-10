@@ -7,6 +7,7 @@ func _on_deploy_button_pressed() -> void:
 	main = get_tree().current_scene
 	main.is_deploy = true
 	hide()
+	main.donations_board.hide()
 	main.close_button.show()
 	main.deploy.show()
 	main.camera_player.play("deploy_start")
@@ -15,6 +16,7 @@ func _on_customization_button_pressed() -> void:
 	main = get_tree().current_scene
 	main.is_customize = true
 	hide()
+	main.donations_board.hide()
 	main.close_button.show()
 	main.customization.show()
 	main.player_customization.show()
@@ -23,12 +25,14 @@ func _on_customization_button_pressed() -> void:
 func _on_settings_button_pressed() -> void:
 	main = get_tree().current_scene
 	hide()
+	main.donations_board.hide()
 	main.settings.show()
 	main.close_button.show()
 
 func _on_about_button_pressed() -> void:
 	main = get_tree().current_scene
 	hide()
+	main.donations_board.hide()
 	main.about.show()
 	main.close_button.show()
 

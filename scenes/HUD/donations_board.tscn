@@ -9,7 +9,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PC/MC/VBC/DonatorsContainer/MC/HBC:modulate")
+tracks/0/path = NodePath("PC/MC/VBC/VBC/DonatorsContainer/MC/HBC:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -18,35 +18,69 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PC/MC/VBC/VBC/PageLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_tk4ir"]
 resource_name = "fade_in"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PC/MC/VBC/DonatorsContainer/MC/HBC:modulate")
+tracks/0/path = NodePath("PC/MC/VBC/VBC/DonatorsContainer/MC/HBC:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2.0000005, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PC/MC/VBC/VBC/PageLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_t0yy1"]
 resource_name = "fade_out"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PC/MC/VBC/DonatorsContainer/MC/HBC:modulate")
+tracks/0/path = NodePath("PC/MC/VBC/VBC/DonatorsContainer/MC/HBC:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.01, 1),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PC/MC/VBC/VBC/PageLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
@@ -64,10 +98,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 1350
+theme_override_constants/margin_left = 1400
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 750
+theme_override_constants/margin_bottom = 710
 script = ExtResource("1_go54b")
 
 [node name="PC" type="PanelContainer" parent="." unique_id=844056365]
@@ -95,34 +129,41 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="DonatorsContainer" type="PanelContainer" parent="PC/MC/VBC" unique_id=69478341]
+[node name="VBC" type="VBoxContainer" parent="PC/MC/VBC" unique_id=2053595446]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DonatorsContainer" type="PanelContainer" parent="PC/MC/VBC/VBC" unique_id=69478341]
 self_modulate = Color(1, 1, 1, 0.39215687)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MC" type="MarginContainer" parent="PC/MC/VBC/DonatorsContainer" unique_id=1253438150]
+[node name="MC" type="MarginContainer" parent="PC/MC/VBC/VBC/DonatorsContainer" unique_id=1253438150]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBC" type="HBoxContainer" parent="PC/MC/VBC/VBC/DonatorsContainer/MC" unique_id=129728425]
 layout_mode = 2
 
-[node name="HBC" type="HBoxContainer" parent="PC/MC/VBC/DonatorsContainer/MC" unique_id=129728425]
-layout_mode = 2
-
-[node name="DonatorsUsername" type="RichTextLabel" parent="PC/MC/VBC/DonatorsContainer/MC/HBC" unique_id=1490108400]
+[node name="DonatorsUsername" type="RichTextLabel" parent="PC/MC/VBC/VBC/DonatorsContainer/MC/HBC" unique_id=1490108400]
 clip_children = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_fonts/normal_font = ExtResource("2_4ax72")
 theme_override_font_sizes/normal_font_size = 20
-text = "WWWWWWWWWWWWWWW...
+text = "WWWWWWWWWWWWWW...
 Eror, no donator(s((
 Eror, no donator(s((
 Eror, no donator(s((
 Eror, no donator(s((
 Eror, no donator(s((
+
 
 "
 
-[node name="DonatorsTiers" type="RichTextLabel" parent="PC/MC/VBC/DonatorsContainer/MC/HBC" unique_id=1755903495]
+[node name="DonatorsTiers" type="RichTextLabel" parent="PC/MC/VBC/VBC/DonatorsContainer/MC/HBC" unique_id=1755903495]
 clip_children = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -134,8 +175,19 @@ text = "Мини-поддержка
 [wave amp=30 freq=5 speed=3 ease=-2.0]Поддержка[/wave]
 [rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]МЕГАподдержка[/rainbow]"
 
+[node name="PageLabel" type="RichTextLabel" parent="PC/MC/VBC/VBC" unique_id=1507099710]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_gowub")
+theme_override_font_sizes/normal_font_size = 20
+text = "1/1"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
 [node name="SwipePageTimer" type="Timer" parent="." unique_id=1722313200]
 wait_time = 5.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1859516980]
 libraries/ = SubResource("AnimationLibrary_xreit")
+
+[connection signal="timeout" from="SwipePageTimer" to="." method="_on_swipe_page_timer_timeout"]

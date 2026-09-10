@@ -8,6 +8,7 @@ extends Node
 @onready var settings: MarginContainer = $MainMenu/Settings
 @onready var about: MarginContainer = $MainMenu/About
 @onready var deploy: MarginContainer = $MainMenu/Deploy
+@onready var donations_board: MarginContainer = $MainMenu/DonationsBoard
 
 # hashtag haha funny
 
@@ -65,6 +66,7 @@ func _on_close_button_pressed() -> void:
 	settings.hide()
 	about.hide()
 	deploy.hide()
+	donations_board.show()
 	close_button.hide()
 
 
