@@ -19,7 +19,7 @@ const GROUND_FRICTION := 100.0
 @export var player_color : Color = Color.DEEP_PINK
 @export var player_health : float
 @export var is_regen_timer_ready : bool = true
-@export var is_player_dead : bool = true
+@export var is_player_dead : bool = false
 @export var color_difference : float = 1.0
 @export var is_invincible : bool = false
 @export var steps : float = 0.0
@@ -187,7 +187,7 @@ func _process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
 	if global_position.y < -100:
-		request_to_respawn()
+		request_to_respawn(true)
 	
 	global_rotation.y = first_person_camera.global_rotation.y
 	guns_folder.rotation.y -= first_person_camera.rotation.y
@@ -278,13 +278,13 @@ func add_accessories() -> void:
 		hat = load(Global.HAT_ACCESSORIES[hat_idx]).instantiate()
 		
 		hats_folder.add_child(hat)
+		hat.hide()
 	if face_idx != -1:
 		face = load(Global.FACE_ACCESSORIES[face_idx]).instantiate()
 		
 		faces_folder.add_child(face)
+		face.hide()
 	
-	hat.hide()
-	face.hide()
 
 
 func delta_speed_fov() -> float:
@@ -377,7 +377,7 @@ func update_player_hud(delta) -> void:
 
 
 func update_wind_blow_volume() -> void:
-	var clamp_speed = clamp(velocity_length, 0, 50) / 50
+	var clamp_speed = clamp(velocity_length, 0, 50) / 25
 	
 	wind_blow_player.volume_db = linear_to_db(clamp_speed)
 
@@ -420,6 +420,9 @@ func die(data) -> void:
 		
 		player.play_kill_sound()
 	elif is_multiplayer_authority():
+		main_scene.ammo_counter.hide()
+		main_scene.fire_type.hide()
+		
 		player_health = MAX_HEALTH
 		
 		killer_id = peer_id
@@ -471,11 +474,11 @@ func die(data) -> void:
 	change_color()
 
 
-func request_to_respawn() -> void:
-	if name == "1":
-		Server.respawn_player(1)
+func request_to_respawn(forceable : bool = false) -> void:
+	if name == "1" and is_multiplayer_authority():
+		Server.respawn_player(1, true)
 	elif is_multiplayer_authority():
-		Server.respawn_player.rpc_id(1, int(name))
+		Server.respawn_player.rpc_id(1, int(name), true)
 
 
 func create_respawn_shield() -> void:
@@ -506,7 +509,10 @@ func remove_respawn_shield() -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func respawn(new_position, forceable : bool = false) -> void:
-	if !is_player_dead and !forceable: return
+	if (is_player_dead and global_position.y > -100) or !forceable: return
+	
+	# Ebani kolhoz blyat (I TO ON NE RABOTAET BILYAAAAT)
+	if sounds_folder.get_node_or_null("Respawn") != null: return
 	
 	# Setting up for player's color
 	player_health = MAX_HEALTH
@@ -528,8 +534,10 @@ func respawn(new_position, forceable : bool = false) -> void:
 	
 	sound.folder_path = "res://common/sounds/spawn/"
 	sound.bus = "RespawnSounds"
+	sound.name = "Respawn"
 	
 	sounds_folder.add_child(sound)
+	
 	
 	if not is_multiplayer_authority(): return
 	
@@ -537,6 +545,9 @@ func respawn(new_position, forceable : bool = false) -> void:
 	
 	# Setting new position
 	global_position = new_position
+	
+	main_scene.ammo_counter.show()
+	main_scene.fire_type.show()
 	
 	if main_scene.gm == "Randomizer" and !main_scene.is_ended:
 		Client.replace_gun()

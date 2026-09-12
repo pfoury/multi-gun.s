@@ -63,6 +63,7 @@ func _update_color() -> void:
 # Red
 func _on_red_h_slider_value_changed(value: float) -> void:
 	red_h_slider.value = value
+	red_line_edit.text = str(int(value))
 	
 	var green : float = args["color"][1]
 	var blue : float = args["color"][2]
@@ -94,6 +95,7 @@ func _on_red_line_edit_text_changed(new_text: String) -> void:
 # Green
 func _on_green_h_slider_value_changed(value: float) -> void:
 	green_h_slider.value = value
+	green_line_edit.text = str(int(value))
 	
 	var red : float = args["color"][0]
 	var blue : float = args["color"][2]
@@ -125,6 +127,7 @@ func _on_green_line_edit_text_changed(new_text: String) -> void:
 # Blue
 func _on_blue_h_slider_value_changed(value: float) -> void:
 	blue_h_slider.value = value
+	blue_line_edit.text = str(int(value))
 	
 	var green : float = args["color"][1]
 	var red : float = args["color"][0]

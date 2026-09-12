@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://rasrpp01ci0c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spsck"]
+albedo_color = Color(0.44291076, 0.44291076, 0.44291073, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ogq8d"]
+material = SubResource("StandardMaterial3D_spsck")
+top_radius = 0.10888672
+bottom_radius = 0.10888672
+height = 0.64990234
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eg0p3"]
+albedo_color = Color(0.44291076, 0.44291076, 0.44291073, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dulua"]
+material = SubResource("StandardMaterial3D_eg0p3")
+top_radius = 0.24658203
+bottom_radius = 0.24658203
+height = 0.059936523
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ogq8d"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bm4iw"]
+material = SubResource("StandardMaterial3D_ogq8d")
+top_radius = 0.20361328
+bottom_radius = 0.20361328
+height = 0.059936523
+
+[node name="LightSourceModel" type="Node3D" unique_id=1766923316]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=63116728]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.889547e-09, 0.20336914)
+mesh = SubResource("CylinderMesh_ogq8d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1744419081]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.004565e-09, -0.13201234)
+mesh = SubResource("CylinderMesh_dulua")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=648653377]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.004565e-09, -0.1749306)
+mesh = SubResource("CylinderMesh_bm4iw")

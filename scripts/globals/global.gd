@@ -50,6 +50,16 @@ const FACE_ACCESSORIES = [
 	"res://scenes/accessories/mustache.tscn", # MUSTACHE FACE [1]
 	"res://scenes/accessories/sunglasses.tscn", # SUNGLASSES FACE [2]
 ]
+const SCENES_TO_WARMUP = [
+	"res://scenes/particles/blood_flesh_particles.tscn",
+	"res://scenes/particles/dust_hit_particles.tscn",
+	"res://scenes/particles/dust_walk_particles.tscn",
+	"res://scenes/particles/golden_particles.tscn",
+	"res://scenes/particles/health_regeneration_particles.tscn",
+	"res://scenes/particles/hit_indicator_particles.tscn",
+	"res://scenes/particles/muzzle_flash_particles.tscn",
+	"res://scenes/particles/start_particles.tscn",
+]
 
 var is_in_game : bool = false
 var is_in_menu : bool = false

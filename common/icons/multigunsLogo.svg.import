@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mec2owcxlciv"
-path="res://.godot/imported/icon.svg-fd60e121d06780de71e17a755a4c29fb.ctex"
+uid="uid://boe2a237wupdx"
+path="res://.godot/imported/multigunsLogo.svg-63ff69ee7e9157ead47adad7e90da751.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://common/icons/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-fd60e121d06780de71e17a755a4c29fb.ctex"]
+source_file="res://common/icons/multigunsLogo.svg"
+dest_files=["res://.godot/imported/multigunsLogo.svg-63ff69ee7e9157ead47adad7e90da751.ctex"]
 
 [params]
 

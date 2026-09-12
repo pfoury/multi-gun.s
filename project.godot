@@ -14,7 +14,7 @@ config/name="multi-gun.s"
 run/main_scene="uid://c3ygviyqhll3n"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://common/icons/icon.svg"
+config/icon="uid://boe2a237wupdx"
 
 [audio]
 
@@ -128,7 +128,7 @@ enter={
 
 [physics]
 
-3d/physics_engine="Jolt Physics"
+3d/physics_engine="GodotPhysics3D"
 common/physics_interpolation=true
 
 [rendering]

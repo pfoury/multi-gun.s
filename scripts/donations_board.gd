@@ -3,9 +3,9 @@ extends MarginContainer
 const MAX_NAME_LENGHT : int = 14
 const DONATORS_PER_PAGE : int = 6
 const TIERS_EFFECTS : Dictionary = {
-	"Мини-Поддержка": "Мини-поддержка",
-	"Поддержка": "[wave amp=30 freq=5 speed=3 ease=-2.0]Поддержка[/wave]",
-	"МЕГАПоддержка": "[rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]МЕГАподдержка[/rainbow]",
+	"Мини-Поддержка": "Mini support",
+	"Поддержка": "[wave amp=30 freq=5 speed=3 ease=-2.0]Support[/wave]",
+	"МЕГАПоддержка": "[rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]MEGASupport[/rainbow]",
 }
 
 @onready var donators_names_label: RichTextLabel = $PC/MC/VBC/VBC/DonatorsContainer/MC/HBC/DonatorsUsername

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://7xopy2ru806g"]
 
 [ext_resource type="PackedScene" uid="uid://d0gi2eulp8c2x" path="res://scenes/maps/layouts/dm_matrix_layout.tscn" id="1_suoxt"]
+[ext_resource type="PackedScene" uid="uid://rasrpp01ci0c" path="res://scenes/models/light_source_model.tscn" id="2_31kpq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_31kpq"]
 size = Vector3(3, 0, 3)
@@ -10,6 +11,18 @@ size = Vector3(3, 0, 3)
 [node name="Layout" type="Node3D" parent="." unique_id=1572840315]
 
 [node name="Matrix" parent="Layout" unique_id=1614156534 instance=ExtResource("1_suoxt")]
+
+[node name="Lights" type="Node3D" parent="Layout" unique_id=703657694]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Layout/Lights" unique_id=908015753]
+transform = Transform3D(-0.5366625, 0.65550095, -0.53133035, 0, 0.6296898, 0.7768467, 0.843797, 0.4169045, -0.3379309, -2.6845484, 4.369945, -27.325048)
+shadow_enabled = true
+spot_range = 8.987838
+spot_attenuation = 0.54
+spot_angle = 42.055847
+
+[node name="LightSourceModel" parent="Layout/Lights" unique_id=1766923316 instance=ExtResource("2_31kpq")]
+transform = Transform3D(-0.64650714, 0.4438248, -0.62052244, 0.047440365, 0.8351785, 0.54792935, 0.76143146, 0.3248024, -0.5610041, -2.8510697, 4.4741917, -27.509953)
 
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=300755963]
 

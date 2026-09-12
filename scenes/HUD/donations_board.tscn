@@ -124,7 +124,7 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_gowub")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[wave amp=30 freq=5 speed=3 ease=-2.0]Donators[/wave]"
+text = "[wave amp=30 freq=5 speed=3 ease=-2.0]Sponsors[/wave]"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
@@ -153,15 +153,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_fonts/normal_font = ExtResource("2_4ax72")
 theme_override_font_sizes/normal_font_size = 20
-text = "WWWWWWWWWWWWWW...
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-Eror, no donator(s((
-
-
-"
+text = "..."
 
 [node name="DonatorsTiers" type="RichTextLabel" parent="PC/MC/VBC/VBC/DonatorsContainer/MC/HBC" unique_id=1755903495]
 clip_children = 2
@@ -171,9 +163,7 @@ size_flags_vertical = 3
 theme_override_fonts/normal_font = ExtResource("2_4ax72")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "Мини-поддержка
-[wave amp=30 freq=5 speed=3 ease=-2.0]Поддержка[/wave]
-[rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]МЕГАподдержка[/rainbow]"
+text = "..."
 
 [node name="PageLabel" type="RichTextLabel" parent="PC/MC/VBC/VBC" unique_id=1507099710]
 layout_mode = 2

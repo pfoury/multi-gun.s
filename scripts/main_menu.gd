@@ -9,6 +9,7 @@ extends Node
 @onready var about: MarginContainer = $MainMenu/About
 @onready var deploy: MarginContainer = $MainMenu/Deploy
 @onready var donations_board: MarginContainer = $MainMenu/DonationsBoard
+@onready var loading_screen: ColorRect = $LoadingScreen
 
 # hashtag haha funny
 
@@ -37,7 +38,13 @@ var is_deploy : bool = false
 var is_customize : bool = false
 
 func _ready() -> void:
-	Global.is_in_game = false
+	@warning_ignore("int_as_enum_without_cast", "int_as_enum_without_match")
+	Input.set_mouse_mode(0)
+	
+	if Global.is_in_game == false:
+		warmup()
+	else:
+		Global.is_in_game = false
 	
 	if multiplayer.has_multiplayer_peer(): multiplayer.multiplayer_peer.close()
 	
@@ -102,3 +109,12 @@ func _creating_args() -> void:
 	# Accessory Customization
 	for string in ["color", "hat", "face"]:
 		args[string] = acc_cus[string]
+
+
+func warmup() -> void:
+	loading_screen.show()
+	
+	for path in Global.SCENES_TO_WARMUP:
+		load(path)
+	
+	loading_screen.hide()

@@ -569,6 +569,7 @@ layers = 524289
 light_color = Color(0.8819366, 0.8819366, 0.88193655, 1)
 light_angular_distance = 0.5
 shadow_enabled = true
+shadow_normal_bias = 3.545
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 
@@ -675,5 +676,15 @@ theme_override_fonts/font = ExtResource("3_wu84c")
 theme_override_font_sizes/font_size = 96
 text = "X"
 flat = true
+
+[node name="LoadingScreen" type="ColorRect" parent="." unique_id=341249365]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14117648, 0.14117648, 0.14117648, 1)
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="MainMenu/CloseButton/CloseButton" to="." method="_on_close_button_pressed"]
