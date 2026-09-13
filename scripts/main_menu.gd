@@ -38,6 +38,15 @@ var is_deploy : bool = false
 var is_customize : bool = false
 
 func _ready() -> void:
+	# Note: Feature tags are case-sensitive.
+	if OS.has_feature("dedicated_server"):
+		args["peer"] = "host"
+		args["map"] = "dm_matrix"
+		args["gm"] = "Standard"
+		args["scoregoal"] = 32
+		Global.change_scene_with_arguments("res://scenes/main_game.tscn", args)
+		return
+	
 	@warning_ignore("int_as_enum_without_cast", "int_as_enum_without_match")
 	Input.set_mouse_mode(0)
 	

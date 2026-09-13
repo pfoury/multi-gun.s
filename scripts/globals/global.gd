@@ -98,7 +98,7 @@ func _ready() -> void: ## !!! Important shit !!!
 func change_scene_with_arguments(scene_path, args = {}) -> void:
 	arguments = args
 	
-	get_tree().change_scene_to_file(scene_path)
+	get_tree().change_scene_to_file.call_deferred(scene_path)
 	
 	if get_tree().current_scene == null:
 		await get_tree().node_added
