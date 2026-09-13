@@ -89,7 +89,7 @@ func _ready() -> void:
 		
 		wind_blow_player = AudioStreamPlayer.new()
 		
-		wind_blow_player.stream = AudioStreamOggVorbis.load_from_file("res://common/sounds/wind_blow/vozduhan.ogg")
+		wind_blow_player.stream = load("res://common/sounds/wind_blow/vozduhan.ogg")
 		wind_blow_player.stream.loop = true
 		wind_blow_player.autoplay = true
 		
@@ -377,7 +377,7 @@ func update_player_hud(delta) -> void:
 
 
 func update_wind_blow_volume() -> void:
-	var clamp_speed = clamp(velocity_length, 0, 50) / 25
+	var clamp_speed = clamp(velocity_length, 0, 50) / 40
 	
 	wind_blow_player.volume_db = linear_to_db(clamp_speed)
 
