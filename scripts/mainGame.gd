@@ -84,6 +84,8 @@ func _ready() -> void:
 				
 				spawn_points_folder = map_folder.get_child(0).get_node("SpawnPoints")
 				
+				Global.warmup()
+				
 				args["peer_id"] = multiplayer.get_unique_id()
 				if !OS.has_feature("dedicated_server"):
 					Server.add_player(args)
@@ -106,6 +108,8 @@ func _ready() -> void:
 						Global.is_in_game = false
 						get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 						return
+				
+				Global.warmup()
 				
 				Server.rpc_id(1, "receive_new_player", args)
 		

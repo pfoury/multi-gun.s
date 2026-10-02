@@ -107,6 +107,16 @@ func change_scene_with_arguments(scene_path, args = {}) -> void:
 	update_everything() # Updating everything if all needed nodes exist
 
 
+func warmup() -> void:
+	for path in Global.SCENES_TO_WARMUP:
+		var temp_scene = load(path).instantiate()
+		add_child(temp_scene)
+		
+		await get_tree().process_frame
+		
+		temp_scene.queue_free()
+
+
 #region Loading settings
 func load_settings():
 	_load_camera_settings()

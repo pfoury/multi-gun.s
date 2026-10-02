@@ -51,7 +51,9 @@ func _ready() -> void:
 	Input.set_mouse_mode(0)
 	
 	if Global.is_in_game == false:
-		warmup()
+		loading_screen.show()
+		Global.warmup()
+		loading_screen.hide()
 	else:
 		Global.is_in_game = false
 	
@@ -118,17 +120,3 @@ func _creating_args() -> void:
 	# Accessory Customization
 	for string in ["color", "hat", "face"]:
 		args[string] = acc_cus[string]
-
-
-func warmup() -> void:
-	loading_screen.show()
-	
-	for path in Global.SCENES_TO_WARMUP:
-		var temp_scene = load(path).instantiate()
-		add_child(temp_scene)
-		
-		await get_tree().process_frame
-		
-		temp_scene.queue_free()
-	
-	loading_screen.hide()

@@ -404,6 +404,8 @@ func damage(data) -> void:
 			Server.kill(result)
 		else:
 			Server.kill.rpc_id(1, result)
+		
+		hide()
 	else:
 		change_color()
 
@@ -516,6 +518,8 @@ func respawn(new_position, forceable : bool = false) -> void:
 	
 	# Setting up for player's color
 	player_health = MAX_HEALTH
+	
+	show()
 	
 	await get_tree().process_frame
 	

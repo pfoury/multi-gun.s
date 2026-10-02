@@ -22,6 +22,11 @@ func update_players() -> void:
 	for player in players:
 		if player.name == str(multiplayer.get_unique_id()) and player.gun_node == null and !main.is_ended: create_weapon(multiplayer.get_unique_id())
 		
+		if player.is_player_dead:
+			player.hide()
+		else:
+			player.show()
+		
 		player.change_color()
 
 
