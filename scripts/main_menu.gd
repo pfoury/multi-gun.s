@@ -124,6 +124,11 @@ func warmup() -> void:
 	loading_screen.show()
 	
 	for path in Global.SCENES_TO_WARMUP:
-		load(path)
+		var temp_scene = load(path).instantiate()
+		add_child(temp_scene)
+		
+		await get_tree().process_frame
+		
+		temp_scene.queue_free()
 	
 	loading_screen.hide()

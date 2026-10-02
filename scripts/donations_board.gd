@@ -7,6 +7,7 @@ const TIERS_EFFECTS : Dictionary = {
 	"Поддержка": "[wave amp=30 freq=5 speed=3 ease=-2.0]Support[/wave]",
 	"МЕГАПоддержка": "[rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]MEGASupport[/rainbow]",
 }
+const URL = "https://tools.pfou.ru/sponsors"
 
 @onready var donators_names_label: RichTextLabel = $PC/MC/VBC/VBC/DonatorsContainer/MC/HBC/DonatorsUsername
 @onready var donators_tiers_label: RichTextLabel = $PC/MC/VBC/VBC/DonatorsContainer/MC/HBC/DonatorsTiers
@@ -27,13 +28,12 @@ func _ready() -> void:
 
 
 func get_data_from_url() -> void:
-	var url = "http://162.248.165.236:6769/supporters.json"
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
 	
 	http_request.request_completed.connect(_on_request_completed)
 	
-	var error = http_request.request(url)
+	var error = http_request.request(URL)
 	if error != OK:
 		_on_received_error()
 
@@ -52,9 +52,8 @@ func _on_request_completed(_result, response_code, _headers, body) -> void:
 	
 	animation_player.play("fade_in")
 	
-	# Getting and sorting donators
+	# Getting donators
 	var donators : Array = JSON.parse_string(body.get_string_from_utf8())
-	donators.sort_custom(func(a, b): return a["paid"] > b["paid"])
 	
 	# Working with each donator's dictionary
 	for donator in donators:
@@ -62,10 +61,14 @@ func _on_request_completed(_result, response_code, _headers, body) -> void:
 		if len(donator_name) > MAX_NAME_LENGHT:
 			donator_name = donator_name.substr(0, MAX_NAME_LENGHT) + "..."
 		
-		var donator_tier : String = donator["level"]
+		var donator_tier : String
+		if "level" not in donator:
+			donator_tier = "Donator"
+		else:
+			donator_tier = TIERS_EFFECTS[donator["level"]]
 		
 		donators_names.append(donator_name)
-		donators_tiers.append(TIERS_EFFECTS[donator_tier])
+		donators_tiers.append(donator_tier)
 	
 	# Test variables
 	#donators_names = [

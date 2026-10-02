@@ -1,5 +1,7 @@
 extends PanelContainer
 
+const OFFICIAL_SERVER_IP : String = "https://server.pfou.ru"
+
 # Containers
 @onready var join_container: VBoxContainer = $MarginContainer/VBC/MarginContainer/JoinContainer
 @onready var host_container: VBoxContainer = $MarginContainer/VBC/MarginContainer/HostContainer
@@ -71,3 +73,12 @@ func _on_score_goalline_edit_text_submitted(new_text: String) -> void:
 	score_line_edit.text = new_text
 	
 	main.args["scoregoal"] = int(new_text)
+
+
+func _on_join_official_server_button_pressed() -> void:
+	var main = get_tree().current_scene
+	
+	# Setting up client
+	main.args["peer"] = "client"
+	main.args["ip"] = OFFICIAL_SERVER_IP
+	main.change_scene()
