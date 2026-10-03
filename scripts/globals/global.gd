@@ -100,6 +100,8 @@ func change_scene_with_arguments(scene_path, args = {}) -> void:
 	
 	get_tree().change_scene_to_file.call_deferred(scene_path)
 	
+	await get_tree().process_frame
+	
 	if get_tree().current_scene == null:
 		await get_tree().node_added
 	await get_tree().current_scene.ready
@@ -108,6 +110,9 @@ func change_scene_with_arguments(scene_path, args = {}) -> void:
 
 
 func warmup() -> void:
+	if OS.has_feature("dedicated_server"):
+		return
+	
 	for path in Global.SCENES_TO_WARMUP:
 		var temp_scene = load(path).instantiate()
 		add_child(temp_scene)

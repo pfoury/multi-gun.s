@@ -1,6 +1,6 @@
 extends PanelContainer
 
-const OFFICIAL_SERVER_IP : String = "https://server.pfou.ru"
+const OFFICIAL_SERVER_IP : String = "server.pfou.ru"
 
 # Containers
 @onready var join_container: VBoxContainer = $MarginContainer/VBC/MarginContainer/JoinContainer

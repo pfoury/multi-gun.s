@@ -84,11 +84,12 @@ func _ready() -> void:
 				
 				spawn_points_folder = map_folder.get_child(0).get_node("SpawnPoints")
 				
-				Global.warmup()
-				
 				args["peer_id"] = multiplayer.get_unique_id()
 				if !OS.has_feature("dedicated_server"):
 					Server.add_player(args)
+					Global.warmup()
+				
+				print("im hostin rn")
 				
 				get_tree().root.close_requested.connect(_on_close_requested)
 			"client":
