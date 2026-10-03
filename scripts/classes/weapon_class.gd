@@ -131,6 +131,8 @@ func is_gun_reloading() -> bool:
 
 
 func change_ammo_counter() -> void:
+	if player_hud == null: return
+	
 	var ammo_counter_label = player_hud.get_node_or_null("AmmoCounter")
 	
 	while ammo_counter_label == null:

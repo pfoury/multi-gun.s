@@ -400,12 +400,11 @@ func damage(data) -> void:
 			"normal": data["normal"],
 			"push_corpse_force": data["push_corpse_force"]
 		}
+		
 		if name == "1":
 			Server.kill(result)
 		else:
 			Server.kill.rpc_id(1, result)
-		
-		hide()
 	else:
 		change_color()
 

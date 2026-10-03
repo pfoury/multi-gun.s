@@ -17,20 +17,19 @@ func list_of_updates() -> void: # Call this function to update everything player
 
 
 func update_players() -> void:
+	if OS.has_feature("dedicated_server"): return
+	
 	var players = main.players_folder.get_children()
 	
 	for player in players:
 		if player.name == str(multiplayer.get_unique_id()) and player.gun_node == null and !main.is_ended: create_weapon(multiplayer.get_unique_id())
 		
-		if player.is_player_dead:
-			player.hide()
-		else:
-			player.show()
-		
 		player.change_color()
 
 
 func update_top() -> void:
+	if OS.has_feature("dedicated_server"): return
+	
 	main.gamemode_container.get_node("GMLabel").text = main.gm
 	
 	if main.player_list == {}: return
@@ -108,16 +107,22 @@ func add_test_object(result) -> void:
 #region Rpcs
 @rpc("call_local", "authority", "reliable") # Creates object ON ALL clients, but package may be lost
 func receive_shoot_animation(data) -> void:
+	if OS.has_feature("dedicated_server"): return
+	
 	if data == multiplayer.get_unique_id():
 		return
 	
 	var player = main.players_folder.get_node(str(data))
+	
+	if player.guns_folder.get_node("Gun") == null: return
 	
 	player.guns_folder.get_node("Gun").play_shoot_animation()
 
 
 @rpc("call_local", "authority", "unreliable") # Creates object ON ALL clients, but package may be lost
 func receive_reload_animation(data) -> void:
+	if OS.has_feature("dedicated_server"): return
+	
 	if data == multiplayer.get_unique_id():
 		return
 	
@@ -128,6 +133,8 @@ func receive_reload_animation(data) -> void:
 
 @rpc("call_local", "authority", "reliable")
 func create_message(message_text, sender_id) -> void:
+	if OS.has_feature("dedicated_server"): return
+	
 	var messages_container = main.chat.get_node("VBC").get_node("Messages").get_node("VBC")
 	
 	var message = main.message_scene.instantiate()
@@ -185,6 +192,8 @@ func leave() -> void:
 
 @rpc("call_local", "any_peer", "reliable")
 func create_kill_log(killer_id, victim_id) -> void:
+	if OS.has_feature("dedicated_server"): return
+	
 	# Does player have player list?
 	if main.player_list == {}: return
 	# Are IDs in the players' list?
@@ -234,55 +243,63 @@ func add_point(data) -> void:
 
 @rpc("call_local", "any_peer", "reliable")
 func end_game(winner_peer_id) -> void:
-	delete_gun.rpc()
-	main.is_ended = true
-	
-	# End screen
-	var end_screen_animations = main.end_screen.get_node("AnimationPlayer")
-	end_screen_animations.play("play")
-	
-	var end_screen_pc = main.end_screen.get_node("PC")
-	
-	var player_icon = end_screen_pc.get_node("HBC").get_node("PlayerIcon")
-	var player_icon_color = player_icon.get_node("PlayerColor")
-	
-	var player_color = main.player_color_list[winner_peer_id]
-	
-	player_icon_color.self_modulate.r = player_color.r
-	player_icon_color.self_modulate.g = player_color.g
-	player_icon_color.self_modulate.b = player_color.b
-	
-	player_icon.get_node("Score").hide()
-	
-	end_screen_pc.self_modulate.r = player_color.r
-	end_screen_pc.self_modulate.g = player_color.g
-	end_screen_pc.self_modulate.b = player_color.b
-	
-	var winner_username = end_screen_pc.get_node("HBC").get_node("VBC").get_node("VBC").get_node("PlayerUsername")
-	winner_username.text = main.player_list[winner_peer_id]
-	
-	var winner_quote = end_screen_pc.get_node("HBC").get_node("VBC").get_node("Quote")
-	winner_quote.text = main.player_quotes[winner_peer_id]
-	
-	# Sound
-	var sound_scene = load("res://scenes/sounds/interface_sound.tscn").instantiate()
-	sound_scene.bus = "EndScreen"
-	
-	if winner_peer_id == multiplayer.get_unique_id():
-		sound_scene.folder_path = "res://common/sounds/end_sounds/victory/"
+	if OS.has_feature("dedicated_server"):
+		await get_tree().create_timer(10.0).timeout
+		
+		if multiplayer.get_unique_id() == 1:
+			Server.restart_game()
 	else:
-		sound_scene.folder_path = "res://common/sounds/end_sounds/defeat/"
-	
-	add_child(sound_scene)
-	
-	await get_tree().create_timer(10.0).timeout
-	
-	if multiplayer.get_unique_id() == 1:
-		Server.restart_game()
+		delete_gun.rpc()
+		main.is_ended = true
+		
+		# End screen
+		var end_screen_animations = main.end_screen.get_node("AnimationPlayer")
+		end_screen_animations.play("play")
+		
+		var end_screen_pc = main.end_screen.get_node("PC")
+		
+		var player_icon = end_screen_pc.get_node("HBC").get_node("PlayerIcon")
+		var player_icon_color = player_icon.get_node("PlayerColor")
+		
+		var player_color = main.player_color_list[winner_peer_id]
+		
+		player_icon_color.self_modulate.r = player_color.r
+		player_icon_color.self_modulate.g = player_color.g
+		player_icon_color.self_modulate.b = player_color.b
+		
+		player_icon.get_node("Score").hide()
+		
+		end_screen_pc.self_modulate.r = player_color.r
+		end_screen_pc.self_modulate.g = player_color.g
+		end_screen_pc.self_modulate.b = player_color.b
+		
+		var winner_username = end_screen_pc.get_node("HBC").get_node("VBC").get_node("VBC").get_node("PlayerUsername")
+		winner_username.text = main.player_list[winner_peer_id]
+		
+		var winner_quote = end_screen_pc.get_node("HBC").get_node("VBC").get_node("Quote")
+		winner_quote.text = main.player_quotes[winner_peer_id]
+		
+		# Sound
+		var sound_scene = load("res://scenes/sounds/interface_sound.tscn").instantiate()
+		sound_scene.bus = "EndScreen"
+		
+		if winner_peer_id == multiplayer.get_unique_id():
+			sound_scene.folder_path = "res://common/sounds/end_sounds/victory/"
+		else:
+			sound_scene.folder_path = "res://common/sounds/end_sounds/defeat/"
+		
+		add_child(sound_scene)
+		
+		await get_tree().create_timer(10.0).timeout
+		
+		if multiplayer.get_unique_id() == 1:
+			Server.restart_game()
 
 
 @rpc("call_local", "any_peer", "reliable")
 func delete_gun() -> void:
+	if OS.has_feature("dedicated_server"): return
+	
 	var peer_id = multiplayer.get_unique_id()
 	
 	var player = main.players_folder.get_node(str(peer_id))
@@ -299,6 +316,8 @@ func delete_gun() -> void:
 
 @rpc("call_local", "any_peer", "reliable")
 func replace_gun(peer_id : int = multiplayer.get_unique_id()) -> void:
+	if OS.has_feature("dedicated_server"): return
+	
 	if multiplayer.get_unique_id() == peer_id:
 		delete_gun()
 	create_weapon(peer_id)
