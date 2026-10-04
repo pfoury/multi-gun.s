@@ -3,8 +3,8 @@ extends Node
 var main : Node
 var player_scene : PackedScene = preload("res://scenes/player.tscn")
 var testobject_scene : PackedScene = preload("res://scenes/temp/temp_enemy.tscn")
-var kill_log_scene : PackedScene = preload("res://scenes/HUD/kill_log.tscn")
-var player_icon_scene : PackedScene = preload("res://scenes/HUD/player_icon.tscn")
+var kill_log_scene : PackedScene = preload("res://scenes/hud/kill_log.tscn")
+var player_icon_scene : PackedScene = preload("res://scenes/hud/player_icon.tscn")
 
 
 func change_main_scene():

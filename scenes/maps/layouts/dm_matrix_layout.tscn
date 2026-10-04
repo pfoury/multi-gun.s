@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://d0gi2eulp8c2x"]
 
-[ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/Prototype_Grid_Gray_07-256x256.png" id="1_kckxr"]
+[ext_resource type="Texture2D" uid="uid://djjm1b6hgu074" path="res://common/textures/grid_gray.png" id="1_kckxr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7in5c"]
 resource_name = "Orange"

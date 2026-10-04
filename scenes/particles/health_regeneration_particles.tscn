@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2m23lwv4745k"]
 
 [ext_resource type="Script" uid="uid://sw7k8d3uk5uo" path="res://scripts/classes/medium_particles_class.gd" id="1_5bvg5"]
-[ext_resource type="Texture2D" uid="uid://b6hrxrugut6u5" path="res://common/textures/HealthSymbol.png" id="2_o7i1l"]
+[ext_resource type="Texture2D" uid="uid://b6hrxrugut6u5" path="res://common/textures/health.png" id="2_o7i1l"]
 
 [sub_resource type="Curve" id="Curve_hdnrm"]
 _data = [Vector2(0.011904776, 0), 0.0, 16.516857, 0, 0, Vector2(0.20238096, 1), 0.0, 0.0, 0, 0, Vector2(0.44047615, 0.77528083), 0.0, 0.0, 0, 0, Vector2(0.672619, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -8.599245, 0.0, 0, 0]
