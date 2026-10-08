@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://2w72y0bwvpgs"]
 
-[ext_resource type="Texture2D" uid="uid://5r0ljosdkflc" path="res://common/textures/turtletexture.png" id="2_jje0k"]
+[ext_resource type="Texture2D" uid="uid://5r0ljosdkflc" path="res://common/textures/turtle.png" id="2_jje0k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n52oa"]
 resource_name = "Handle1Mtl.001"

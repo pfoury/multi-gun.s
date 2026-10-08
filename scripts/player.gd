@@ -89,7 +89,7 @@ func _ready() -> void:
 		
 		wind_blow_player = AudioStreamPlayer.new()
 		
-		wind_blow_player.stream = load("res://common/sounds/wind_blow/vozduhan.ogg")
+		wind_blow_player.stream = load("res://common/sounds/wind_blow/wind_blow.ogg")
 		wind_blow_player.stream.loop = true
 		wind_blow_player.autoplay = true
 		

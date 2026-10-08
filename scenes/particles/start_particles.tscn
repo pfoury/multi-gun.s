@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cuel2t0engypd"]
 
 [ext_resource type="Script" uid="uid://sw7k8d3uk5uo" path="res://scripts/classes/medium_particles_class.gd" id="1_rxghi"]
-[ext_resource type="Texture2D" uid="uid://cemj8gv444jbp" path="res://common/textures/starparticle.png" id="2_5v56r"]
+[ext_resource type="Texture2D" uid="uid://cemj8gv444jbp" path="res://common/textures/star_particle.png" id="2_5v56r"]
 
 [sub_resource type="Curve" id="Curve_nr3fk"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.056179762), -4.4984393, 0.0, 0, 0]
